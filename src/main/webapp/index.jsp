@@ -8,9 +8,6 @@
 	<title>Home</title>
 </head>
 <body>
-	<h1>Hello World!</h1>
-	<c:if test="${not empty param.name}">
-		<p>Name: ${param.name}</p>
-	</c:if>
+	<h1>${nickname}</h1>
 </body>
 </html>
