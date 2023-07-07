@@ -1,0 +1,20 @@
+/* button list */
+
+.post-button, .exit-button {
+    border-radius: 20px;
+    width: 10vw;
+    min-width: 100px;
+    font-size: 1 rem;
+    background-color: #FFCA76;
+    cursor: pointer;
+    border: none !important;
+}
+
+/* image upload button */
+#post-upload-button {
+    font-size: 2.5rem;
+}
+
+.post-button-list1{
+    display: inline-flex;
+}

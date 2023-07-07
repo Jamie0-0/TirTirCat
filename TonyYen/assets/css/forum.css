@@ -1,0 +1,19 @@
+/* 發文按鈕 */
+.forum-post{
+    margin: 0 auto;
+  }
+.post-button, .forum-toggle{
+  border-radius: 20px;
+  width: 10vw;
+  min-width: 100px;
+  font-size: 1 rem;
+  background-color: #FFCA76;
+  cursor: pointer;
+  border: none !important;
+}
+
+/* toggle 熱門/最新 */
+.-off{
+  display: none;
+}
+

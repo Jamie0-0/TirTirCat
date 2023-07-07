@@ -1,0 +1,139 @@
+*{
+    box-sizing: border-box;
+    background-color: #F6F0ED;
+}
+
+.forum_wrapper{
+  background-color: #F6F0ED;
+
+}
+
+
+div.parent_block{
+    display: inline-flex;
+    width: 100%;
+    margin: 20px auto 0 auto;
+    /* border-top: 2px dashed #FFAC55; */
+}
+
+
+/* search function*/
+
+div.function{
+  display: inline-flex;
+  vertical-align: auto;
+}
+
+.custom-function{
+  background-color: #F6F0ED !important;
+  border: RGB(0,0,0,0.65) !important; 
+}
+
+@media screen and (min-width: 810px){
+  .custom-function-default{
+    display: block !important;
+  }
+  .custom-card-body{
+    padding: 0 !important;
+    max-height: 50px;
+  }
+}
+
+.custom-funtion-icon{
+  display: none;
+}
+
+
+@media (max-width: 810px) {
+  .custom-funtion-icon{
+    display: block;
+  }
+  .all_function_area{
+    width: 100% !important;
+  }
+}
+
+.all_function_area{
+  background-color: #F6F0ED;
+  width: 60%;
+  margin: auto;
+  display: flex;
+  padding: 2vh;
+}
+
+.forum_searchbox{
+  border-radius: 20px;
+  border: 2px solid #ccc;
+  background-color: #F6F0ED;
+  color: #555;
+  vertical-align: auto;
+  min-width: 90px;
+}
+
+.forum_search-btn{
+  background-color: transparent;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+} 
+
+ 
+  /* 文章區 */
+
+  img.article{
+    width: 20vw;
+    /* max-width: 540px !important;
+    max-height: 540px !important; */
+    max-width: 100%;
+    max-height: 70vh;
+  }
+
+  
+  .article img.article1 {
+    float: left;
+  }
+
+  p.article{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .avatar {
+    vertical-align: middle;
+    max-width: 2rem;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+  }
+  /* div.profile{
+    font-size: 1.4vw;
+    width: 18vw;
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+  } */
+  div.profile img.avatar{
+    cursor: pointer;
+  }
+  div.profile p.author{
+    width: 10vw;
+    flex-wrap :nowrap;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+  }
+
+  div.profile time.post-time{
+    width: 5vw;
+    text-align: center;
+    flex-wrap :nowrap;
+    white-space:nowrap;
+  }
+
+  /* .blog-button{
+    background-color: #FFCA76;
+  } */
+  /* 文章區 end*/
+
+

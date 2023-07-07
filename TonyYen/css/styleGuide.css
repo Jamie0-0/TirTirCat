@@ -1,0 +1,7 @@
+header .navbar.navbar-expand-xl .trip::before {
+    position: absolute;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    right: -12px;
+    top: 8px;
+}

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <title>On-demand last-mile delivery</title>
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- Summernote css -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.css" rel="stylesheet">
+
+    <!-- my own css -->
+    
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/article.css">
+    <link rel="stylesheet" href="./css/aside.css">
+    <link rel="stylesheet" href="./css/footer.css">
+</head>
+
+<body class="bg-effect">
+
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="../assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="../assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登入</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html">註冊</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html">忘記密碼</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- article wrapper -->
+    <div class="article_wrapper row-cols-12 justify-content-center">
+        <!-- <div class="custom-function-default justify-content-center">
+            <div class="card card-body custom-card-body" style="background-color: #F6F0ED; border: none;">
+            <div class="all_function_area">
+                <div class="forum-post">
+                    <form id="post" action="./post.html">
+                        <div class="d-grid gap-2 d-md-block">
+                            <button class="btn btn-primary post-button" type="submit">發文</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="all_search_area">
+                    <div class="container-fluid">
+                        <form class="d-flex">
+                            <input class="form-control me-2 forum_searchbox" type="search" placeholder="搜尋文章" aria-label="Search">
+                            <div class="search-btn-wrap">
+                                <button class="forum_search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    <div class="parent_block">
+    <!-- <aside class="forum-aside">
+            <div class="container-fluid">
+                <ul class="aside_list">
+                    <li>
+                        <a href="#" class="aside_bar">討論區</a><br>
+                    </li>
+                    <div class="separate"></div>
+                    <li>
+                        <a href="#" class="aside_bar">活動區</a><br>
+                        <img src ="./images/bg2.png" class="w-50">
+                    </li>
+                </ul>
+            </div>
+        </aside> -->
+        <main class="main d-flex justify-content-center align-items-center">
+            <div class="card d-block w-75">
+                <div class="card-body">
+                    <div id="article-carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="./images/article4.jpg" class="img-thumbnail card-img-top article d-block w-100" alt="找不到該圖片喵">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./images/article2.jpg" class="img-thumbnail card-img-top article d-block w-100" alt="找不到該圖片汪">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./images/article3.jpg" class="img-thumbnail card-img-top article d-block w-100" alt="找不到該圖片喵汪">
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#article-carousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#article-carousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
+                    <p class="card-text">住在四號普里懷特街的杜斯利先生及夫人，非常驕傲地宣稱自己是十分正常的人。但是他們最不希望見到的就是任何奇怪或神秘故事中的人物，因為他們對此總是嗤之以鼻。
+
+                        杜斯利先生是一家叫作格朗寧斯的鑽機工廠的老闆。他非常肥壯、結實，幾乎肥到沒有頸根，但卻有一把大鬍子。杜斯利夫人則非常苗條，一頭金髮。她的頸根有常人的兩倍那麼長，這使得她整天伸長脖子透過花園圍欄去偷窺鄰居家的動靜變得非常容易。杜斯利夫婦有個兒子叫做達德里。在他們眼中，這世界上再沒有比達德里更棒的男孩了。
+                        
+                        
+                        杜斯利一家幾乎有他們想要的一切東西。但是他們也有一個秘密，而且他們最大的擔心就是有一天別人會發現這個秘密。如果有人知道關於波特一家的事，他們就會認為自己無法保守這個秘密了。波特夫人是杜斯利夫人的妹妹，但是她們已經有很多年沒有見面了、事實上，杜斯利夫人假裝她從來沒有什麼妹妹，因為她的妹妹和那不中用的妹夫沒有一絲一毫杜斯利家族的風範。一想到波特一家的到來會招致鄰居的議論，杜斯利一家就會渾身發抖。杜斯利一家知道波特夫婦也有一個兒子，只是未曾謀面。這個小男孩也成了杜斯利一家避開波特一家的藉口，因為他們不希望聽話的達德里與這種小孩混在一起。
+                        
+                        當杜斯利先生和夫人在灰暗陰沉的星期二早晨醒來時，我們的故事便開始了。
+                        
+                        雖然外面陰雲密佈的天空並不能預示著今天一定會有什麼離奇古怪的事情發生。
+                        
+                        杜斯利先生一邊哼著小曲一邊拿出他最差的領帶準備去上班，杜斯利夫人則一邊口中叨唸著一邊把依依呀呀的達德里放到高椅子上去。
+                        
+                        沒有一個人注意到這時有一隻巨大的褐色的貓頭鷹從窗外掠過。八點半時，杜斯利先生拿起他的公文包去上班。臨行前，在杜斯刊夫人的面頰上吻了一下算是告別。他本來要在達德里臉上也親一口的，但是因為達德里正在發脾氣並且把麥片往牆上扔，便只好作罷。“小淘氣！”杜斯利先生呵呵大笑地走出門口鑽進他的車，倒著車駛出了四號車道。
+                        
+                        當他駛到街的拐角處時，他發現了第一件不尋常的事情——一隻貓在看地圖。
+                        
+                        開始時杜斯利先生並沒有感到有什麼不妥。到他意識到並猛地轉過頭去看時，只見那隻肥嘟嘟的貓還蹲在那裡，可是地圖卻沒有了。天哪，杜斯利先生想，我怎麼可能有這種想法呢？
+                        
+                        剛才我一定是眼花了。杜斯利先生眨了眨眼，又看了那隻貓一眼。
+                        
+                        那隻貓回了他一眼。正在杜斯利先生駛進拐角準備上另一條路時，他又在後視鏡裡看了一眼那隻貓，現在那隻貓正在讀著“普里懷特街”的路牌——不，它只是朝路牌看而已，貓是不可能會認識任何地圖或路牌的。杜斯利先生渾身一抖，想極力擺脫關於那隻貓的任何想法。在接下來的路程裡，杜斯利想的全都是關於他如何希望得到一大筆鑽機的訂單之類的事情。
+                        
+                        就快要到鎮上的時候，關於鑽機的想法又被其他事情代替了。
+                        
+                        像往常一樣，杜斯利先生的車被卡在塞車長龍中動彈不得，他不曾注意到好像有很多穿著奇怪的人走來走去。他們都穿著披風。杜斯列先生最看不慣穿得稀奇古怪的人——都是年輕人投酷的玩意！他想這也許是某種新的款式吧。他的手指不耐煩地敲擊著方向盤，並目又看了看近處一群衣著古怪的人。他們在興奮地小聲談論著什麼，什斯利突然變得很生氣，因為他發現他們並不都是年輕小夥子，其中一個穿著祖母綠披風的人居然比他年紀都大，搞什麼鬼！
+                        
+                        但接著杜斯利先生又不生氣了，可能這是一出表演吧——這群人很明顯在收集某樣東西。是的，肯定是這樣。車龍開始移動起來，不久，杜斯利先生就到了格朗寧斯工廠停車場。他的注意力又回到鑽機上來了。
+                        
+                        
+                        杜斯利先生喜歡在他九樓的辦公室裡背靠著牆坐著。如果不這樣做的話，他會覺得整個上午都無法集中精神做事。他從來沒在大白天見過貓頭鷹飛過，但是有人在街上看到了。他們回頭指著，目瞪口呆地看著一隻接一隻的貓頭鷹從頭頂飛過。</p>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <i type="button" class="fa-solid fa-heart me-1" id="article-like">99個讚</i>
+                        <i type="button" class="fa-solid fa-bookmark me-1" id="article-bookmark"></i>
+                        <i type="button" id="share-tooltip" class="fa-solid fa-share me-1" data-bs-toggle="myTooltip" data-bs-placement="bottom" data-bs-title="點我複製連結網址!" data-url="http://127.0.0.1:5500/TeamProject/article.html"></i>
+                        <i type="button" class="fa-solid fa-flag visible" id="article-report" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>  
+                    </div>
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <ul class="list-group list-group-horizontal" style="vertical-align: center;">
+                                    <a href="目標連結" clasS="avatar">
+                                        <img src="./images/Avatar.png" alt="照片" class="img-thumbnail avatar">
+                                    </a>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">TonyYen</li>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">2023-06-17</li>
+                                </ul>
+                            </h5>
+                            <div class="article-comment-text">
+                                <p class="card-text w-100">哈利波特好好看!泡麵好好吃!</p>
+                            </div>
+                            <div class="comment-report position-absolute top-0 end-0 me-1">
+                                <i type="button" class="fa-solid fa-flag comment-report"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <ul class="list-group list-group-horizontal" style="vertical-align: center;">
+                                    <a href="目標連結" clasS="avatar">
+                                        <img src="./images/Avatar.png" alt="照片" class="img-thumbnail avatar">
+                                    </a>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">TonyYen</li>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">2023-06-17</li>
+                                </ul>
+                            </h5>
+                            <div class="article-comment-pic">
+                                <img src="./images/article6.jpg" class="card-text w-25">
+                            </div>
+                            <div class="article-comment-text">
+                                <p class="card-text w-100">泡麵好好吃刷起來!</p>
+                            </div>
+                            <div class="comment-report position-absolute top-0 end-0 me-1">
+                                <i type="button" class="fa-solid fa-flag comment-report"></i>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <ul class="list-group list-group-horizontal" style="vertical-align: center;">
+                                    <a href="目標連結" clasS="avatar">
+                                        <img src="./images/Avatar.png" alt="照片" class="img-thumbnail avatar">
+                                    </a>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">TonyYen</li>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">2023-06-17</li>
+                                </ul>
+                            </h5>
+                            <div class="article-comment-pic">
+                                <img src="./images/article6.jpg" class="card-text w-25">
+                            </div>
+                            <div class="article-comment-text">
+                                <p class="card-text w-100">泡麵好好吃刷起來!</p>
+                            </div>
+                            <div class="comment-report position-absolute top-0 end-0 me-1">
+                                <i type="button" class="fa-solid fa-flag comment-report" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <ul class="list-group list-group-horizontal" style="vertical-align: center;">
+                                    <a href="目標連結" clasS="avatar">
+                                        <img src="./images/Avatar.png" alt="照片" class="img-thumbnail avatar">
+                                    </a>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">TonyYen</li>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">2023-06-17</li>
+                                </ul>
+                            </h5>
+                            <div class="article-comment-pic">
+                                <img src="./images/article6.jpg" class="card-text w-25">
+                            </div>
+                            <div class="article-comment-text">
+                                <p class="card-text w-100">泡麵好好吃刷起來!</p>
+                            </div>
+                            <div class="comment-report position-absolute top-0 end-0 me-1">
+                                <i type="button" class="fa-solid fa-flag comment-report" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <ul class="list-group list-group-horizontal" style="vertical-align: center;">
+                                    <a href="目標連結" clasS="avatar">
+                                        <img src="./images/Avatar.png" alt="照片" class="img-thumbnail avatar">
+                                    </a>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">TonyYen</li>
+                                    <li class="list-group-item" style="border: none; background-color: #F6F0ED;">2023-06-17</li>
+                                </ul>
+                            </h5>
+                            <div class="article-comment-pic position-relative ms-1">
+                                <img src="./images/article6.jpg" class="card-text w-25">
+                            </div>
+                            <div class="article-comment-text">
+                                <p class="card-text w-100">泡麵好好吃刷起來!</p>
+                            </div> 
+                            <div class="comment-report position-absolute top-0 end-0 me-1">
+                                <i type="button" class="fa-solid fa-flag comment-report" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="card w-100 border border-black">
+                        <div class="card-body">
+                            <h5 class="card-title row">
+                                <p>TonyYen</p>
+                            </h5>
+                            <form action="#" method="post">
+                                <textarea class="card-text w-100" placeholder="留言" id="summernote"></textarea>
+                                <div class="post-button-list2">
+                                    <button class="card-link btn btn-primary post-button" type="submit">送出</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </main>
+        <!-- report modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">請選擇檢舉原因</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" style="background-color: #F6F0ED !important">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+                                <label class="form-check-label" for="firstRadio">不喜歡這篇文章/留言</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
+                                <label class="form-check-label" for="secondRadio">重傷、挑釁、歧視或謾罵他人</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+                                <label class="form-check-label" for="thirdRadio">包含18禁內容</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="fourthRadio">
+                                <label class="form-check-label" for="fourthRadio">文章內容無意義或內容空泛</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="fifthRadio">
+                                <label class="form-check-label" for="fifthRadio">虐待寵物</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="sixthRadio">
+                                <label class="form-check-label" for="sixthRadio">違反隱私</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="seventhRadio">
+                                <label class="form-check-label" for="seventhRadio">內容有釣魚連結</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">送出</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- report modal -->
+    </div> <!-- article wrapper -->
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="../assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- latest jquery-->
+    <script src="./vendors/jquery/jquery-3.7.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="./vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="assets/js/feather/feather.min.js"></script>
+    <script src="assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="assets/js/slick/slick.js"></script>
+    <script src="assets/js/slick/slick-animation.min.js"></script>
+    <script src="assets/js/slick/custom_slick.js"></script>
+
+    <!-- Auto Height Js -->
+    <script src="assets/js/auto-height.js"></script>
+
+    <!-- Timer Js -->
+    <script src="assets/js/timer1.js"></script>
+
+    <!-- Fly Cart Js -->
+    <script src="assets/js/fly-cart.js"></script>
+
+    <!-- Quantity js -->
+    <script src="assets/js/quantity-2.js"></script>
+
+    <!-- WOW js -->
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="assets/js/script.js"></script>
+
+    <!-- Summernote js -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+            height: 150, // 設定編輯器的高度
+            placeholder: '在此輸入內容', // 設定預設提示文字
+            toolbar: [
+                ['insert', ['picture']],
+            ] // 設定工具列的按鈕選項
+            });
+        });
+    </script>
+    <!-- my own js -->
+    <script src="https://kit.fontawesome.com/bee31715f0.js" crossorigin="anonymous"></script>
+    <script src="./js/all.js"></script>
+    <script src="./js/article.js"></script>
+</body>
+
+</html>
