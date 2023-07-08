@@ -9,7 +9,7 @@
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
-    <title>On-demand last-mile delivery</title>
+    <title>發文規則</title>
 
     <!-- bootstrap css -->
     <link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.css">
@@ -35,9 +35,10 @@
     <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <!-- 自己的css -->
-    
     <link rel="stylesheet" href="./css/all.css">
-    <link rel="stylesheet" href="./css/forum.css">
+    <link rel="stylesheet" href="./css/aside.css">
+    <link rel="stylesheet" href="./css/post.css">
+    <link rel="stylesheet" href="./css/styleGuide.css">
 </head>
 
 <body class="bg-effect">
@@ -228,216 +229,65 @@
     </header>
     <!-- Header End -->
 
-    <div class="forum_wrapper">
-        <div class="custom-function-default">
-            <div class="card card-body custom-card-body" style="background-color: #F6F0ED; border: none;">
-                <div class="all_function_area">
-                    <div>
-                        <button type="button" class="btn btn-primary rounded-pill forum-toggle ">熱門</button>
-                        <button type="button" class="btn btn-primary rounded-pill forum-toggle -off">最新</button>
+        <!-- post wrapper -->
+        <div class="wrapper">
+            <div class="parent_block">
+                <!-- <aside class="forum-aside">
+                    <div class="container-fluid">
+                        <ul class="aside_list">
+                            <li>
+                                <a href="#" class="aside_bar">討論區</a><br>
+                            </li>
+                            <div class="separate"></div>
+                            <li>
+                                <a href="#" class="aside_bar">活動區</a><br>
+                                <img src ="./images/bg2.png" class="w-50">
+                            </li>
+                        </ul>
                     </div>
-                    <div class="forum-post">
-                        <form id="post" action="./rule.html">
-                            <div class="d-grid gap-2 d-md-block">
-                                <button class="btn btn-primary rounded-pill" type="submit">發文</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="all_search_area">
-                        <div class="container-fluid">
-                            <form class="d-flex">
-                                <input class="btn-outline-primary form-control me-2 forum_searchbox" type="search" placeholder="搜尋" aria-label="Search">
-                                <div class="search-btn-wrap">
-                                    <button class="forum_search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </aside> -->
+                <main class="main w-100">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">發文規定</h5>
+                                <p class="card-text">
+                                    1. 因巴哈姆特電玩資訊站為華人社群網站，為閱讀便利，因此請使用繁體中文書面語進行文章發表，避免使用注音、亂碼、火星、簡體文、港文、台灣國語等特定族群，才看得懂或明白的文字發表文章。<br>
+                                    (遊戲資訊新聞原文不在此限)
+                                    2. 文章或留言內容，至少要有基本排版，避免內容雜亂影響閱讀。<br>
+                                    3. 發文首篇文章至少15字以上，回覆文章至少10字以上 。
+                                    (如圖片與影片含有充分情報，版務人員可視情況定奪是否刪除)
+                                    　(圖片、影片、補字、表情、符號一律不算在字數之內)<br>
+                                    4. 轉載任何有著作權相關的內文時：
+                                    　文字攻略或圖片分享，必須附上作者以及出處來源連結。
+                                    　影片攻略或影片分享，必須有簡易的影片說明或者影片心得。
+                                    　(以上若有原作者抗議或經過多人檢舉，版務將會無條件刪除文章)<br>
+                                    5. 轉貼文章連結來源網址，不得暗示還有其他未轉貼資訊，造成強迫點擊現象。<br>
+                                    6. 針對有標示創用CC的文章，轉載時也請依據創用CC規範進行標示。<br>
+                                    7. 請勿發表錯誤資訊，或誤導他人之相關文章。<br>
+                                    8. 為避免個資法問題，請勿發表內容涉及他人隱私的文章。<br>
+                                    9. 嚴禁18禁等相關討論文章。<br>
+                                    10. 嚴禁謾罵、人身攻擊等文章。<br>
+                                    11. 嚴禁發表或張貼內容含有不明連結或者含有病毒連結之文章。<br>
+                                    12. 嚴禁內容討論板規或板務執行等文章，將會設立專區給予提供建議或私信給板務。<br>
+                                    13. 嚴禁發表不實內容情報、造假等相關文章。<br>
+                                    14. 嚴禁主動要求GP或BP等文章。<br>
+                                    15. 發表文章時，內容描述應與標題相符與搭配。<br>
+                                </p>
+                                <input type="checkbox" id="rule-checked">我已詳閱並瞭解所有相關規定
+                                <div class="d-flex justify-content-end">
+                                    <a href="./post.html" class="card-link btn btn-primary rounded-pill disabled" id="rule-submit" style="background-color: #FFCA76 !important;">提交</a>
+                                    <a href="./forum.html" class="card-link btn btn-primary rounded-pill">返回</a>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <p>
+    
+                    </p>
+                </main>
             </div>
-        </div>
-        <div class="parent_block w-100 justify-content-center">
-            <!-- <aside class="forum-aside">
-                <div class="container-fluid">
-                    <ul class="aside_list">
-                        <li>
-                            <a href="#" class="aside_bar">討論區</a><br>
-                        </li>
-                        <div class="separate"></div>
-                        <li>
-                            <a href="#" class="aside_bar">活動區</a><br>
-                            <img src ="./images/bg2.png" class="w-50">
-                        </li>
-                    </ul>
-                </div>
-            </aside> -->
-            <main class="main w-75">
-                <article class="article">
-                    <div class="container d-flex justify-content-center align-items-center w-100">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="./images/article1.jpg" class="img-fluid rounded-start article1 w-100" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile">
-                                                    <img src="./images/Avatar.png" alt="Avatar" class="avatar">
-                                                    <p class="author">作者Tony</p>
-                                                    <time class="post-time">2023-06-17</time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
-                                                <p class="card-text article"> 大家都知道，打針吃藥可以緩解症狀，但別忘記，如果沒有斷絕致病的源頭，我們跟毛孩都將陷入不斷反覆發作的深淵，也因為過敏問題是由多重因子作用的結果，所以治療模式也需要多管齊下，最重要的第一步就是找出過敏原並加以排除，可以利用過敏原檢測釐清方向、或是直接就懷疑的食物或環境因子下手來做好管理，並配合醫師的叮囑、正確的使用藥物及其他輔助治療產品，如不飽和脂肪酸的補充、藥浴洗劑或是能夠改善體質的機能性益生菌等，才能讓狗狗對藥物的依賴性降到最低、維持最佳生活品質。</p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1">100</i>
-                                                    <i class="fa-solid fa-comment me-1">5</i>
-                                                    <button onclick="location.href = 'article.html';" class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="./images/article2.jpg" class="img-fluid rounded-start article1 w-100" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile">
-                                                    <img src="./images/Avatar.png" alt="Avatar" class="avatar">
-                                                    <p class="author">作者Tony</p>
-                                                    <time class="post-time">2023-06-17</time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
-                                                <p class="card-text article"> 大家都知道，打針吃藥可以緩解症狀，但別忘記，如果沒有斷絕致病的源頭，我們跟毛孩都將陷入不斷反覆發作的深淵，也因為過敏問題是由多重因子作用的結果，所以治療模式也需要多管齊下，最重要的第一步就是找出過敏原並加以排除，可以利用過敏原檢測釐清方向、或是直接就懷疑的食物或環境因子下手來做好管理，並配合醫師的叮囑、正確的使用藥物及其他輔助治療產品，如不飽和脂肪酸的補充、藥浴洗劑或是能夠改善體質的機能性益生菌等，才能讓狗狗對藥物的依賴性降到最低、維持最佳生活品質。</p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart">100</i>
-                                                    <i class="fa-solid fa-comment">5</i>
-                                                    <button onclick="location.href = 'article.html';" class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="./images/article3.jpg" class="img-fluid rounded-start article1 w-100" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile">
-                                                    <img src="./images/Avatar.png" alt="Avatar" class="avatar">
-                                                    <p class="author">作者Tony</p>
-                                                    <time class="post-time">2023-06-17</time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
-                                                <p class="card-text article"> 大家都知道，打針吃藥可以緩解症狀，但別忘記，如果沒有斷絕致病的源頭，我們跟毛孩都將陷入不斷反覆發作的深淵，也因為過敏問題是由多重因子作用的結果，所以治療模式也需要多管齊下，最重要的第一步就是找出過敏原並加以排除，可以利用過敏原檢測釐清方向、或是直接就懷疑的食物或環境因子下手來做好管理，並配合醫師的叮囑、正確的使用藥物及其他輔助治療產品，如不飽和脂肪酸的補充、藥浴洗劑或是能夠改善體質的機能性益生菌等，才能讓狗狗對藥物的依賴性降到最低、維持最佳生活品質。</p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1">100</i>
-                                                    <i class="fa-solid fa-comment me-1">5</i>
-                                                    <button onclick="location.href = 'article.html';" class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="./images/article4.jpg" class="img-fluid rounded-start article1 w-100" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile">
-                                                    <img src="./images/Avatar.png" alt="Avatar" class="avatar">
-                                                    <p class="author">作者Tony</p>
-                                                    <time class="post-time">2023-06-17</time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
-                                                <p class="card-text article"> 大家都知道，打針吃藥可以緩解症狀，但別忘記，如果沒有斷絕致病的源頭，我們跟毛孩都將陷入不斷反覆發作的深淵，也因為過敏問題是由多重因子作用的結果，所以治療模式也需要多管齊下，最重要的第一步就是找出過敏原並加以排除，可以利用過敏原檢測釐清方向、或是直接就懷疑的食物或環境因子下手來做好管理，並配合醫師的叮囑、正確的使用藥物及其他輔助治療產品，如不飽和脂肪酸的補充、藥浴洗劑或是能夠改善體質的機能性益生菌等，才能讓狗狗對藥物的依賴性降到最低、維持最佳生活品質。</p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1">100</i>
-                                                    <i class="fa-solid fa-comment me-1">5</i>
-                                                    <button onclick="location.href = 'article.html';" class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="./images/article5.jpg" class="img-fluid rounded-start article1 w-100" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile">
-                                                    <img src="./images/Avatar.png" alt="Avatar" class="avatar">
-                                                    <p class="author">作者Tony</p>
-                                                    <time class="post-time">2023-06-17</time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
-                                                <p class="card-text article"> 大家都知道，打針吃藥可以緩解症狀，但別忘記，如果沒有斷絕致病的源頭，我們跟毛孩都將陷入不斷反覆發作的深淵，也因為過敏問題是由多重因子作用的結果，所以治療模式也需要多管齊下，最重要的第一步就是找出過敏原並加以排除，可以利用過敏原檢測釐清方向、或是直接就懷疑的食物或環境因子下手來做好管理，並配合醫師的叮囑、正確的使用藥物及其他輔助治療產品，如不飽和脂肪酸的補充、藥浴洗劑或是能夠改善體質的機能性益生菌等，才能讓狗狗對藥物的依賴性降到最低、維持最佳生活品質。</p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1">100</i>
-                                                    <i class="fa-solid fa-comment me-1">5</i>
-                                                    <button onclick="location.href = 'article.html';" class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="./images/article6.jpg" class="img-fluid rounded-start article1 w-100" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile">
-                                                    <img src="./images/Avatar.png" alt="Avatar" class="avatar">
-                                                    <p class="author">作者Tony</p>
-                                                    <time class="post-time">2023-06-17</time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;">專業獸醫師教您如何讓狗狗遠離過敏</h5>
-                                                <p class="card-text article"> 大家都知道，打針吃藥可以緩解症狀，但別忘記，如果沒有斷絕致病的源頭，我們跟毛孩都將陷入不斷反覆發作的深淵，也因為過敏問題是由多重因子作用的結果，所以治療模式也需要多管齊下，最重要的第一步就是找出過敏原並加以排除，可以利用過敏原檢測釐清方向、或是直接就懷疑的食物或環境因子下手來做好管理，並配合醫師的叮囑、正確的使用藥物及其他輔助治療產品，如不飽和脂肪酸的補充、藥浴洗劑或是能夠改善體質的機能性益生菌等，才能讓狗狗對藥物的依賴性降到最低、維持最佳生活品質。</p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1">100</i>
-                                                    <i class="fa-solid fa-comment me-1">5</i>
-                                                    <button onclick="location.href = 'article.html';" class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <div class="btn-toolbar pages justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group me-2" role="group" aria-label="Second group">
-                      <button type="button" class="btn btn-secondary">1</button>
-                      <button type="button" class="btn btn-secondary">2</button>
-                      <button type="button" class="btn btn-secondary">3</button>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div> <!-- forum_wrapper -->
+        </div> <!-- post wrapper -->
 
     <!-- Footer Section Start -->
     <footer class="section-t-space">
@@ -558,11 +408,12 @@
     <script src="assets/js/script.js"></script>
 
     <!-- my own js -->
+
     <script src="https://kit.fontawesome.com/bee31715f0.js" crossorigin="anonymous"></script>
     <script src="./vendors/jquery/jquery-3.7.0.min.js"></script>
     <script src="./vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./js/all.js"></script>
-    <script src="./js/forum.js"></script>
+    <script src="./js/rule.js"></script>
 </body>
 
 </html>

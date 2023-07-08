@@ -6,6 +6,7 @@ public class Article {
 	
 	private Integer art_id;
 	private Integer art_user_id;
+	private String u_name;
 	private  String art_title;
 	private String art_content;
 	private Timestamp art_po_time;
@@ -25,6 +26,12 @@ public class Article {
 	}
 	public void setArt_user_id(Integer art_user_id) {
 		this.art_user_id = art_user_id;
+	}
+	public String getU_name() {
+		return u_name;
+	}
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
 	}
 	public String getArt_title() {
 		return art_title;
@@ -62,4 +69,5 @@ public class Article {
 	public void setArt_status(String art_status) {
 		this.art_status = art_status;
 	}
+
 }

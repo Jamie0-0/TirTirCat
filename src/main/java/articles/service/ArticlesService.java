@@ -8,4 +8,6 @@ public interface ArticlesService {
 
 	List<Article> selectHot();
 
+	List<Article> selectNew();
+
 }

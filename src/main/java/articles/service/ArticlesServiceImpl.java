@@ -17,4 +17,8 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> selectHot() {
 		return dao.selectHot();
 	}
+	@Override
+	public List<Article> selectNew() {
+		return dao.selectNew();
+	}
 }
