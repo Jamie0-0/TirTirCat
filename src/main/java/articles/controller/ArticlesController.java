@@ -17,7 +17,7 @@ import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 import articles.vo.Article;
 
-@WebServlet("/article")
+@WebServlet("/articles/controller/ArticlesController")
 public class ArticlesController extends HttpServlet {
 	
 	private ArticlesService service;
