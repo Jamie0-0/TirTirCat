@@ -41,7 +41,7 @@ public class ArticlesController extends HttpServlet {
 		}else {
 			ArtList = service.selectNew();
 		}
-		
+		System.out.println(ArtList.size());
 		// 用 gson物件的toJson方法把ArtList轉成json物件
 		Gson gson = new Gson();
 	    String json = gson.toJson(ArtList);
