@@ -21,4 +21,9 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> selectNew() {
 		return dao.selectNew();
 	}
+
+	@Override
+	public List<Article> search() {
+		return dao.search();
+	}
 }

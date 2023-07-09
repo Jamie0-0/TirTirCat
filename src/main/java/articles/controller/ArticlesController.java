@@ -38,7 +38,7 @@ public class ArticlesController extends HttpServlet {
 		
 		if(order.equals("hot")) {
 			ArtList = service.selectHot();
-		}else {
+		}else{
 			ArtList = service.selectNew();
 		}
 		System.out.println(ArtList.size());

@@ -9,4 +9,6 @@ public interface ArticlesDao {
 	List<Article> selectHot();
 	
 	List<Article> selectNew();
+	
+	List<Article> search();
 }

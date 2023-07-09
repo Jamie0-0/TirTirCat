@@ -1,10 +1,10 @@
 function addArt(data) {
   for (var i = 0; i < data.length; i++) {
-    $("p.author").eq(i).text(data.u_name);
-    $("time.post-time").eq(i).text(data.art_po_time);
-    $("h5.card-title").eq(i).text(data.art_title);
-    $("p.card-text").eq(i).text(data.art_content);
-    $("i.fa-heart").eq(i).text(data.art_like);
+    $("p.author").eq(i).text(data[i].u_name);
+    $("time.post-time").eq(i).text(data[i].art_po_time);
+    $("h5.card-title").eq(i).text(data[i].art_title);
+    $("p.card-text").eq(i).text(data[i].art_content);
+    $("i.fa-heart").eq(i).text(data[i].art_like);
   }
 }
 
