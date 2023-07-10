@@ -23,7 +23,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
-	public List<Article> search() {
-		return dao.search();
+	public List<Article> search(String order) {
+		return dao.search(order);
 	}
 }

@@ -30,21 +30,26 @@ public class ArticlesController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-		
+		request.setCharacterEncoding("UTF-8");
 		String order = request.getParameter("order");
-		System.out.println(order);
+		String art_id = request.getParameter("art_id");
 		
-		List<Article> ArtList; 	
-		
-		if(order.equals("hot")) {
-			ArtList = service.selectHot();
-		}else{
-			ArtList = service.selectNew();
+		List<Article> artList; 	
+		if(art_id != null){
+			response.sendRedirect("/TirTirCat/article.html");
 		}
-		System.out.println(ArtList.size());
+		if (order!=null&&order.equals("hot")) {
+			artList = service.selectHot();
+		}else if (order!=null&&order.equals("new")){
+			artList = service.selectNew();
+		}else {
+			order = order.trim();
+			System.out.println(order);
+			artList = service.search(order);
+		}
 		// 用 gson物件的toJson方法把ArtList轉成json物件
 		Gson gson = new Gson();
-	    String json = gson.toJson(ArtList);
+	    String json = gson.toJson(artList);
         
         // 告訴前端response為json格式
         response.setContentType("application/json");

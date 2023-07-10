@@ -10,5 +10,5 @@ public interface ArticlesService {
 
 	List<Article> selectNew();
 
-	List<Article> search();
+	List<Article> search(String order);
 }
