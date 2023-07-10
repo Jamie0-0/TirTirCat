@@ -3,7 +3,7 @@
 <Context>
 
     <Resource name="jdbc/javaFramework" type="javax.sql.DataSource"
-        url="jdbc:mysql://localhost:3306/db01"
+        url="jdbc:mysql://localhost:3306/FurrEver"
         username="root"
         password="password"
         driverClassName="com.mysql.cj.jdbc.Driver"

@@ -16,9 +16,9 @@ import articles.vo.Article;
 public class ArticlesDaoImpl implements ArticlesDao {
 	private DataSource ds;
 	
-	private String SelectHot ="select u.u_name, art_title, art_content, art_po_time, art_like from db01.articles a join db01.USER u on a.art_user_id = u.uid where art_status = '1' order by art_like desc";
-	private String SelectNew ="select u.u_name, art_title, art_content, art_po_time, art_like from db01.articles a join db01.USER u on a.art_user_id = u.uid where art_status = '1' order by art_po_time desc";
-	private String Search ="select u.u_name, art_title, art_content, art_po_time, art_like from db01.articles a join db01.USER u on a.art_user_id = u.uid where art_status = '1' and art_title like '%?%' order by art_like desc";
+	private String SelectHot ="select u.u_name, art_title, art_content, art_po_time, art_like from FurrEver.articles a join FurrEver.USER u on a.art_user_id = u.uid where art_status = '1' order by art_like desc";
+	private String SelectNew ="select u.u_name, art_title, art_content, art_po_time, art_like from FurrEver.articles a join FurrEver.USER u on a.art_user_id = u.uid where art_status = '1' order by art_po_time desc";
+	private String Search ="select u.u_name, art_title, art_content, art_po_time, art_like from FurrEver.articles a join FurrEver.USER u on a.art_user_id = u.uid where art_status = '1' and art_title like '%?%' order by art_like desc";
 			
 	public ArticlesDaoImpl() {
 		
