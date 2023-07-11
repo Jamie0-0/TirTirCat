@@ -1,9 +1,11 @@
 package member.dao;
 
-import javax.sql.DataSource;
+import java.util.List;
 
-public class MemberDao {
-	private DataSource ds;
-	
-	
+import member.vo.Member;
+
+public interface MemberDao {
+
+	List<Member> login();
+
 }
