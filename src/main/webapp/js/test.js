@@ -6,10 +6,11 @@ function createCard() {
   var img = $('<img>').addClass('img-fluid rounded-start article1 w-100 pic-content').attr('alt', '載入失敗');
   var colMd8 = $('<div>').addClass('col-md-8');
   var cardBody = $('<div>').addClass('card-body');
-  var profile = $('<div>').addClass('profile row');
+  var profile = $('<div>').addClass('profile row m-0 d-flex align-items-center');
   var avatar = $('<img>').attr('src', './images/Avatar.png').attr('alt', 'Avatar').addClass('avatar rounded-circle img-fluid col');
-  var author = $('<p>').addClass('author col');
-  var postTime = $('<time>').addClass('post-time col text-end');
+  var author = $('<p>').addClass('author col mb-0');
+  var div = $('<div>').addClass('row w-100');
+  var postTime = $('<time>').addClass('post-time col');
   var cardTitle = $('<h5>').addClass('card-title').css('font-weight', 'bold');
   var cardText = $('<p>').addClass('card-text article');
   var blogContain = $('<div>').addClass('blog-contain blog-contain-2');
@@ -18,9 +19,10 @@ function createCard() {
   var button = $('<button>').addClass('blog-button').text('繼續閱讀');
 
   // 將元素進行組合
-  profile.append(avatar, author, postTime);
+  div.append(postTime);
+  profile.append(avatar, author);
   blogContain.append(heartIcon, commentIcon, button);
-  cardBody.append(profile, cardTitle, cardText, blogContain);
+  cardBody.append(profile, div, cardTitle, cardText, blogContain);
   colMd8.append(cardBody);
   colMd4.append(img);
   row.append(colMd4, colMd8);
