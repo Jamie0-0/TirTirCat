@@ -14,4 +14,6 @@ public interface ArticlesService {
 	List<Article> search(String order);
 
 	ArticlePic selectPic(String art_id);
+
+	ArticlePic selectAvatar(String uid);
 }

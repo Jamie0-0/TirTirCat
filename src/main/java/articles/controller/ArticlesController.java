@@ -29,51 +29,52 @@ public class ArticlesController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String order = request.getParameter("order");
 			String art_id = request.getParameter("art_id");
 			String searchText = request.getParameter("searchText");
+			String uid = request.getParameter("uid");
+			List<Article> artList = null;
 			String json ="";
-			List<Article> artList;
+			
 //			if (art_id != null) {
 //				System.out.println(art_id);
 //				request.getRequestDispatcher("/article.html").forward(request, response);
 //				return;
 //			}
-			System.out.println("====================");
-
+			
+			// 判斷傳來的指令 熱門文章hot  最新文章new 搜尋文章search 讀取圖片getPic
 			switch (order) {
 			case "hot":
 				artList = service.selectHot();
-				json = TurnIntoJson(artList);
 				break;
 			case "new":
 				artList = service.selectNew();
-				json = TurnIntoJson(artList);
 				break;
 			case "search":
 				artList = service.search(searchText.trim());
-				json = TurnIntoJson(artList);
 				break;
 			case "getPic":
-				System.out.println("getPic");
-				System.out.println(art_id);
 				ArticlePic articlePic = service.selectPic(art_id);
 				sendPicToClient(articlePic.getPic_content(),response);
-				return;
-//				json = TurnIntoJson(articlePic);
+				return;   // 由於圖片讀取不用往下跑 return結束
+//				json = TurnIntoJson(articlePic);   // 也可以用JSON傳法 前端要修改拿照片的方式
+			case "getAvatar":
+				ArticlePic avatarPic = service.selectAvatar(uid);
+				sendPicToClient(avatarPic.getPic_content(),response);
+				return;  
 			}
-
+			
+			//將select方法拿到的List轉成json
+			json = TurnIntoJson(artList);
 	        // 告訴前端response為json格式
 	        response.setContentType("application/json");
 	        // 設定編碼
 	        response.setCharacterEncoding("UTF-8");
-	        
 	        // 寫出
 	        response.getWriter().write(json);
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,7 +94,7 @@ public class ArticlesController extends HttpServlet {
 	    try {
 	       ServletOutputStream outputStream = response.getOutputStream();
 	        response.setContentType("image/jpeg, image/jpg, image/png, image/gif"); 
-	        outputStream.write(pic_content);
+	        outputStream.write(pic_content);  // 走IO直接輸出照片的byte[]到前端
 	        outputStream.flush();
 	        outputStream.close();
 	    } catch (IOException e) {

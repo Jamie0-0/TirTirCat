@@ -6,10 +6,10 @@ function createCard() {
   var img = $('<img>').addClass('img-fluid rounded-start article1 w-100 pic-content').attr('alt', '載入失敗');
   var colMd8 = $('<div>').addClass('col-md-8');
   var cardBody = $('<div>').addClass('card-body');
-  var profile = $('<div>').addClass('profile');
-  var avatar = $('<img>').attr('src', './images/Avatar.png').attr('alt', 'Avatar').addClass('avatar');
-  var author = $('<p>').addClass('author');
-  var postTime = $('<time>').addClass('post-time');
+  var profile = $('<div>').addClass('profile row');
+  var avatar = $('<img>').attr('src', './images/Avatar.png').attr('alt', 'Avatar').addClass('avatar rounded-circle img-fluid col');
+  var author = $('<p>').addClass('author col');
+  var postTime = $('<time>').addClass('post-time col text-end');
   var cardTitle = $('<h5>').addClass('card-title').css('font-weight', 'bold');
   var cardText = $('<p>').addClass('card-text article');
   var blogContain = $('<div>').addClass('blog-contain blog-contain-2');
@@ -38,6 +38,7 @@ function addArt(data) {
     var generatedHTML = createCard();
     $("#article-area").append(generatedHTML);  // 將生成的 HTML 插入到目標元素中
     $("p.author").eq(i).text(data[i].u_name);
+    $("p.author").eq(i).attr("uid",data[i].uid);
     $("time.post-time").eq(i).text(data[i].art_po_time);
     $("button.blog-button").eq(i).attr("art_id",data[i].art_id);
     $("h5.card-title").eq(i).text(data[i].art_title);
@@ -46,6 +47,8 @@ function addArt(data) {
     // $("img.pic-content").eq(i).attr("src", 'data:image/jpeg;base64,'+data[i].pic_content);  //圖文一起載
     $("img.pic-content").eq(i).attr("art_id",data[i].art_id);
 	}
+	
+	// Article Picture
   for(let i = 0; i < data.length; i++){
     let artId = $("img.pic-content").eq(i).attr("art_id");
 	let that = $("img.pic-content").eq(i);
@@ -65,8 +68,23 @@ function addArt(data) {
       $(that).closest("div").find("div.temp_loading").remove();
       }
     });
-	$("img.pic-content").eq(i).attr("src","/TirTirCat/articles/controller/ArticlesController"+"?order=getPic&	art_id="+artId);
-	console.log("這是新大陸1111!!!!")
+	$("img.pic-content").eq(i).attr("src","/TirTirCat/articles/controller/ArticlesController"+"?order=getPic&art_id="+artId);
+  }
+  
+  // Avatar Picture
+    for(let i = 0; i < data.length; i++){
+    let uid = $("p.author").eq(i).attr("uid");
+    console.log(uid);
+    $.ajax({
+      url: "/TirTirCat/articles/controller/ArticlesController",           // 資料請求的網址
+      type: "GET",                  // GET | POST | PUT | DELETE | PATCH
+      data: {order:"getAvatar",
+		  "uid":uid},             // 將物件資料(不用雙引號) 傳送到指定的 url
+      dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+      success: function(data){      // request 成功取得回應後執行
+      },
+    });
+	$("img.avatar").eq(i).attr("src","/TirTirCat/articles/controller/ArticlesController"+"?order=getAvatar&uid="+uid);
   }
   
 	    // 繼續閱讀

@@ -18,17 +18,18 @@ import articles.vo.ArticlePic;
 public class ArticlesDaoImpl implements ArticlesDao {
 	private DataSource ds;
 
-	private String selectHot = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
+	private String selectHot = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
 			+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
 			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_like desc\r\n" + "LIMIT 3;";
-	private String selectNew = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
+	private String selectNew = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n"
 			+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
 			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_po_time DESC\r\n" + "LIMIT 3;";
-	private String search = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like\r\n" + "FROM\r\n"
+	private String search = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n" + "FROM\r\n"
 			+ "	FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
 			+ "WHERE art_status = '1' and art_title LIKE ?\r\n" + "ORDER BY art_like DESC\r\n" + "LIMIT 3;";
 	private String selectPic = "SELECT ap.pic_art_id, MIN(ap.pic_content) AS pic_content\r\n"
 			+ "FROM FurrEver.articles_pics ap\r\n" + "where ap.pic_art_id = ?";
+	private String selectAvatar = "SELECT u_pic from USER where uid = ?";
 
 	public ArticlesDaoImpl() {
 
@@ -49,6 +50,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			while (rs.next()) {
 				Article article = new Article();
 				article.setArt_id(rs.getInt("art_id"));
+				article.setUid(rs.getInt("uid"));
 				article.setU_name(rs.getString("u_name"));
 				article.setArt_title(rs.getString("art_title"));
 				article.setArt_content(rs.getString("art_content"));
@@ -73,6 +75,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 				Article article = new Article();
 				article.setArt_id(rs.getInt("art_id"));
+				article.setUid(rs.getInt("uid"));
 				article.setU_name(rs.getString("u_name"));
 				article.setArt_title(rs.getString("art_title"));
 				article.setArt_content(rs.getString("art_content"));
@@ -97,6 +100,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 				Article article = new Article();
 				article.setArt_id(rs.getInt("art_id"));
+				article.setUid(rs.getInt("uid"));
 				article.setU_name(rs.getString("u_name"));
 				article.setArt_title(rs.getString("art_title"));
 				article.setArt_content(rs.getString("art_content"));
@@ -122,6 +126,24 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				articlePic = new ArticlePic();
 //				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
 				articlePic.setPic_content(rs.getBytes("pic_content"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articlePic;
+	}
+	
+	@Override
+	public ArticlePic selectAvatar(String uid) {
+		ArticlePic articlePic = null;
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectAvatar);) {
+			pstmt.setString(1, uid);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articlePic = new ArticlePic();
+				articlePic.setPic_content(rs.getBytes("u_pic"));
 			}
 			rs.close();
 		} catch (SQLException e) {

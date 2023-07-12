@@ -32,4 +32,9 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public ArticlePic selectPic(String art_id) {
 		return dao.selectPic(art_id);
 	}
+
+	@Override
+	public ArticlePic selectAvatar(String uid) {
+		return dao.selectAvatar(uid);
+	}
 }
