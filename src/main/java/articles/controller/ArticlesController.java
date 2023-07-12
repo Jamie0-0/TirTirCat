@@ -33,42 +33,38 @@ public class ArticlesController extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String order = request.getParameter("order");
-			String art_id = request.getParameter("art_id");
-			String searchText = request.getParameter("searchText");
-			String uid = request.getParameter("uid");
+			String page = request.getParameter("page");
 			List<Article> artList = null;
-			String json ="";
 			
-//			if (art_id != null) {
-//				System.out.println(art_id);
-//				request.getRequestDispatcher("/article.html").forward(request, response);
-//				return;
-//			}
-			
-			// 判斷傳來的指令 熱門文章hot  最新文章new 搜尋文章search 讀取圖片getPic
+			// 判斷傳來的指令 熱門文章hot  最新文章new
+			// 搜尋文章search 讀取圖片getPic 跳轉forward
 			switch (order) {
 			case "hot":
-				artList = service.selectHot();
+				artList = service.selectHot(page);
 				break;
 			case "new":
-				artList = service.selectNew();
+				artList = service.selectNew(page);
 				break;
 			case "search":
+				String searchText = request.getParameter("searchText");
 				artList = service.search(searchText.trim());
 				break;
 			case "getPic":
+				String art_id = request.getParameter("art_id");
 				ArticlePic articlePic = service.selectPic(art_id);
 				sendPicToClient(articlePic.getPic_content(),response);
-				return;   // 由於圖片讀取不用往下跑 return結束
-//				json = TurnIntoJson(articlePic);   // 也可以用JSON傳法 前端要修改拿照片的方式
+				return;
 			case "getAvatar":
+				String uid = request.getParameter("uid");
 				ArticlePic avatarPic = service.selectAvatar(uid);
 				sendPicToClient(avatarPic.getPic_content(),response);
-				return;  
+				return;
+			case "forward":
+				request.getRequestDispatcher("/article.html").forward(request, response);
 			}
 			
 			//將select方法拿到的List轉成json
-			json = TurnIntoJson(artList);
+			String json = TurnIntoJson(artList);
 	        // 告訴前端response為json格式
 	        response.setContentType("application/json");
 	        // 設定編碼

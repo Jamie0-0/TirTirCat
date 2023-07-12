@@ -7,9 +7,9 @@ import articles.vo.ArticlePic;
 
 public interface ArticlesService {
 
-	List<Article> selectHot();
+	List<Article> selectHot(String page);
 
-	List<Article> selectNew();
+	List<Article> selectNew(String page);
 
 	List<Article> search(String order);
 

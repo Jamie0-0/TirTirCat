@@ -15,12 +15,12 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
-	public List<Article> selectHot() {
-		return dao.selectHot();
+	public List<Article> selectHot(String page) {
+		return dao.selectHot(page);
 	}
 	@Override
-	public List<Article> selectNew() {
-		return dao.selectNew();
+	public List<Article> selectNew(String page) {
+		return dao.selectNew(page);
 	}
 
 	@Override

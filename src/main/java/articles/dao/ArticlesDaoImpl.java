@@ -20,13 +20,13 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	private String selectHot = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
 			+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_like desc\r\n" + "LIMIT 3;";
+			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_like desc\r\n" + "LIMIT ?";
 	private String selectNew = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n"
 			+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_po_time DESC\r\n" + "LIMIT 3;";
-	private String search = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n" + "FROM\r\n"
-			+ "	FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-			+ "WHERE art_status = '1' and art_title LIKE ?\r\n" + "ORDER BY art_like DESC\r\n" + "LIMIT 3;";
+			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_po_time DESC\r\n" + "LIMIT ?";
+	private String search = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n"
+			+ "FROM\r\n" + "	FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
+			+ "WHERE art_status = '1' and art_title LIKE ?\r\n" + "ORDER BY art_like DESC\r\n" + "LIMIT ?";
 	private String selectPic = "SELECT ap.pic_art_id, MIN(ap.pic_content) AS pic_content\r\n"
 			+ "FROM FurrEver.articles_pics ap\r\n" + "where ap.pic_art_id = ?";
 	private String selectAvatar = "SELECT u_pic from USER where uid = ?";
@@ -41,72 +41,61 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	}
 
 	@Override
-	public List<Article> selectHot() {
+	public List<Article> selectHot(String page) {
 		var list = new ArrayList<Article>();
+		int pageNum = Integer.parseInt(page);
+		int limit = ((pageNum-1)*3);  // 跳過幾筆文章  第二頁跳過3筆
+		if(pageNum>1) {
+			selectHot = selectHot+",3";  // 3 為頁面上顯示的文章數量
+		}
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectHot);
-				ResultSet rs = pstmt.executeQuery();) {
-
-			while (rs.next()) {
-				Article article = new Article();
-				article.setArt_id(rs.getInt("art_id"));
-				article.setUid(rs.getInt("uid"));
-				article.setU_name(rs.getString("u_name"));
-				article.setArt_title(rs.getString("art_title"));
-				article.setArt_content(rs.getString("art_content"));
-				article.setArt_po_time(rs.getTimestamp("art_po_time"));
-				article.setArt_like(rs.getInt("art_like"));
-				list.add(article);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	@Override
-	public List<Article> selectNew() {
-		var list = new ArrayList<Article>();
-		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(selectNew);
-				ResultSet rs = pstmt.executeQuery();) {
-
-			while (rs.next()) {
-
-				Article article = new Article();
-				article.setArt_id(rs.getInt("art_id"));
-				article.setUid(rs.getInt("uid"));
-				article.setU_name(rs.getString("u_name"));
-				article.setArt_title(rs.getString("art_title"));
-				article.setArt_content(rs.getString("art_content"));
-				article.setArt_po_time(rs.getTimestamp("art_po_time"));
-				article.setArt_like(rs.getInt("art_like"));
-				list.add(article);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	@Override
-	public List<Article> search(String order) {
-		var list = new ArrayList<Article>();
-		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(search);) {
-			pstmt.setString(1, "%" + order + "%");
+				) {
+			pstmt.setInt(1,limit);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				list.add(setArticle(rs));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
-				Article article = new Article();
-				article.setArt_id(rs.getInt("art_id"));
-				article.setUid(rs.getInt("uid"));
-				article.setU_name(rs.getString("u_name"));
-				article.setArt_title(rs.getString("art_title"));
-				article.setArt_content(rs.getString("art_content"));
-				article.setArt_po_time(rs.getTimestamp("art_po_time"));
-				article.setArt_like(rs.getInt("art_like"));
-				list.add(article);
+	@Override
+	public List<Article> selectNew(String page) {
+		var list = new ArrayList<Article>();
+		int pageNum = Integer.parseInt(page);
+		int limit = ((pageNum-1)*3);  // 跳過幾筆文章  第二頁跳過3筆
+		if(pageNum>1) {
+			selectNew+=",3";  // 3 為頁面上顯示的文章數量
+		}
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectNew);
+				) {
+			pstmt.setInt(1,limit);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				list.add(setArticle(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Article> search(String searchText) {
+		var list = new ArrayList<Article>();
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(search);) {
+			pstmt.setString(1, "%" + searchText + "%");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(setArticle(rs));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -133,7 +122,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return articlePic;
 	}
-	
+
 	@Override
 	public ArticlePic selectAvatar(String uid) {
 		ArticlePic articlePic = null;
@@ -152,4 +141,19 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		return articlePic;
 	}
 
+	public Article setArticle(ResultSet rs) {
+		Article article = new Article();
+		try {
+			article.setArt_id(rs.getInt("art_id"));
+			article.setUid(rs.getInt("uid"));
+			article.setU_name(rs.getString("u_name"));
+			article.setArt_title(rs.getString("art_title"));
+			article.setArt_content(rs.getString("art_content"));
+			article.setArt_po_time(rs.getTimestamp("art_po_time"));
+			article.setArt_like(rs.getInt("art_like"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return article;
+	}
 }

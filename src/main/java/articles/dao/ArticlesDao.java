@@ -7,11 +7,11 @@ import articles.vo.ArticlePic;
 
 public interface ArticlesDao {
 
-	List<Article> selectHot();
+	List<Article> selectHot(String page);
 	
-	List<Article> selectNew();
+	List<Article> selectNew(String page);
 	
-	List<Article> search(String order);
+	List<Article> search(String searchText);
 
 	ArticlePic selectPic(String art_id);
 
