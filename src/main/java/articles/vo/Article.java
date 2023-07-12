@@ -13,7 +13,7 @@ public class Article {
 	private Integer art_like;
 	private Integer art_rep_count;
 	private String art_status;
-	private String pic_content;
+	
 	
 	
 
@@ -70,11 +70,5 @@ public class Article {
 	}
 	public void setArt_status(String art_status) {
 		this.art_status = art_status;
-	}
-	public String getPic_content() {
-		return pic_content;
-	}
-	public void setPic_content(String pic_content) {
-		this.pic_content = pic_content;
 	}
 }

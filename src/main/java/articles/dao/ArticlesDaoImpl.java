@@ -13,38 +13,22 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import articles.vo.Article;
+import articles.vo.ArticlePic;
 
 public class ArticlesDaoImpl implements ArticlesDao {
 	private DataSource ds;
 
-	private String SelectHot = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like,\r\n"
-			+ "    (SELECT pic_content FROM FurrEver.articles_pics ap WHERE a.art_id = ap.pic_art_id ORDER BY pic_id LIMIT 1) AS pic_content\r\n"
-			+ "FROM\r\n"
-			+ "    FurrEver.articles a\r\n"
-			+ "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-			+ "WHERE\r\n"
-			+ "    art_status = '1'\r\n"
-			+ "ORDER BY\r\n"
-			+ "    art_like desc\r\n"
-			+ "LIMIT 3;";
-	private String SelectNew = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like,\r\n"
-			+ "    (SELECT pic_content FROM FurrEver.articles_pics ap WHERE a.art_id = ap.pic_art_id ORDER BY pic_id LIMIT 1) AS pic_content\r\n"
-			+ "FROM\r\n"
-			+ "    FurrEver.articles a\r\n"
-			+ "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-			+ "WHERE\r\n"
-			+ "    art_status = '1'\r\n"
-			+ "ORDER BY\r\n"
-			+ "    art_po_time DESC\r\n"
-			+ "LIMIT 3;";
-	private String Search = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like,\r\n"
-			+ "	(SELECT pic_content FROM FurrEver.articles_pics ap WHERE a.art_id = ap.pic_art_id ORDER BY pic_id LIMIT 1) AS pic_content\r\n"
-			+ "FROM\r\n"
-			+ "	FurrEver.articles a\r\n"
-			+ "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-			+ "WHERE art_status = '1' and art_title LIKE ?\r\n"
-			+ "ORDER BY art_like DESC\r\n"
-			+ "LIMIT 3;";
+	private String selectHot = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
+			+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
+			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_like desc\r\n" + "LIMIT 3;";
+	private String selectNew = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
+			+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
+			+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_po_time DESC\r\n" + "LIMIT 3;";
+	private String search = "SELECT a.art_id, u.u_name, art_title, art_content, art_po_time, art_like\r\n" + "FROM\r\n"
+			+ "	FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
+			+ "WHERE art_status = '1' and art_title LIKE ?\r\n" + "ORDER BY art_like DESC\r\n" + "LIMIT 3;";
+	private String selectPic = "SELECT ap.pic_art_id, MIN(ap.pic_content) AS pic_content\r\n"
+			+ "FROM FurrEver.articles_pics ap\r\n" + "where ap.pic_art_id = ?";
 
 	public ArticlesDaoImpl() {
 
@@ -59,7 +43,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public List<Article> selectHot() {
 		var list = new ArrayList<Article>();
 		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(SelectHot);
+				PreparedStatement pstmt = conn.prepareStatement(selectHot);
 				ResultSet rs = pstmt.executeQuery();) {
 
 			while (rs.next()) {
@@ -70,22 +54,19 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				article.setArt_content(rs.getString("art_content"));
 				article.setArt_po_time(rs.getTimestamp("art_po_time"));
 				article.setArt_like(rs.getInt("art_like"));
-				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
-				article.setPic_content(pic_content);
 				list.add(article);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
-
 	}
 
 	@Override
 	public List<Article> selectNew() {
 		var list = new ArrayList<Article>();
 		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(SelectNew);
+				PreparedStatement pstmt = conn.prepareStatement(selectNew);
 				ResultSet rs = pstmt.executeQuery();) {
 
 			while (rs.next()) {
@@ -97,8 +78,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				article.setArt_content(rs.getString("art_content"));
 				article.setArt_po_time(rs.getTimestamp("art_po_time"));
 				article.setArt_like(rs.getInt("art_like"));
-				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
-				article.setPic_content(pic_content);
 				list.add(article);
 			}
 		} catch (SQLException e) {
@@ -110,8 +89,8 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	@Override
 	public List<Article> search(String order) {
 		var list = new ArrayList<Article>();
-		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(Search);) {
-			pstmt.setString(1, "%"+order+"%");
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(search);) {
+			pstmt.setString(1, "%" + order + "%");
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -123,8 +102,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				article.setArt_content(rs.getString("art_content"));
 				article.setArt_po_time(rs.getTimestamp("art_po_time"));
 				article.setArt_like(rs.getInt("art_like"));
-				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
-				article.setPic_content(pic_content);
 				list.add(article);
 			}
 			rs.close();
@@ -133,4 +110,24 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return list;
 	}
+
+	@Override
+	public ArticlePic selectPic(String art_id) {
+		ArticlePic articlePic = null;
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectPic);) {
+			pstmt.setString(1, art_id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articlePic = new ArticlePic();
+				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
+				articlePic.setPic_content(pic_content);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articlePic;
+	}
+
 }

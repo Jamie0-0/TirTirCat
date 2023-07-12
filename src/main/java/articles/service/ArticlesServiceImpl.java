@@ -5,6 +5,7 @@ import java.util.List;
 import articles.dao.ArticlesDao;
 import articles.dao.ArticlesDaoImpl;
 import articles.vo.Article;
+import articles.vo.ArticlePic;
 
 public class ArticlesServiceImpl implements ArticlesService {
 	private ArticlesDao dao;
@@ -25,5 +26,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 	@Override
 	public List<Article> search(String order) {
 		return dao.search(order);
+	}
+	
+	@Override
+	public ArticlePic selectPic(String art_id) {
+		return dao.selectPic(art_id);
 	}
 }
