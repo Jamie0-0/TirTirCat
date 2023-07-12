@@ -1,9 +1,6 @@
 package articles.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -64,21 +61,10 @@ public class ArticlesController extends HttpServlet {
 				System.out.println("getPic");
 				System.out.println(art_id);
 				ArticlePic articlePic = service.selectPic(art_id);
-				json = TurnIntoJson(articlePic);
+				sendPicToClient(articlePic.getPic_content(),response);
+				return;
+//				json = TurnIntoJson(articlePic);
 			}
-			
-//			if (order != null && order.equals("hot")) {
-//				artList = service.selectHot();
-//				TurnIntoJson(artList);
-//			} else if (order != null && order.equals("new")) {
-//				artList = service.selectNew();
-//				TurnIntoJson(artList);
-//			} else {
-//				order = order.trim();
-//				System.out.println(order);
-//				artList = service.search(order);
-//				TurnIntoJson(artList);
-//			}
 
 	        // 告訴前端response為json格式
 	        response.setContentType("application/json");
@@ -105,8 +91,6 @@ public class ArticlesController extends HttpServlet {
 	}
 	public void sendPicToClient(byte[] pic_content, HttpServletResponse response) {
 	    try {
-	    	
-	    	
 	       ServletOutputStream outputStream = response.getOutputStream();
 	        response.setContentType("image/jpeg, image/jpg, image/png, image/gif"); 
 	        outputStream.write(pic_content);

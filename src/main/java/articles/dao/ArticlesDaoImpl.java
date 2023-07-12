@@ -120,8 +120,8 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 			if (rs.next()) {
 				articlePic = new ArticlePic();
-				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
-				articlePic.setPic_content(pic_content);
+//				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
+				articlePic.setPic_content(rs.getBytes("pic_content"));
 			}
 			rs.close();
 		} catch (SQLException e) {

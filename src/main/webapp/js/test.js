@@ -43,7 +43,7 @@ function addArt(data) {
     $("h5.card-title").eq(i).text(data[i].art_title);
     $("p.card-text").eq(i).text(data[i].art_content);
     $("i.fa-heart").eq(i).text(data[i].art_like);
-    // $("img.pic-content").eq(i).attr("src", 'data:image/jpeg;base64,'+data[i].pic_content);
+    // $("img.pic-content").eq(i).attr("src", 'data:image/jpeg;base64,'+data[i].pic_content);  //圖文一起載
     $("img.pic-content").eq(i).attr("art_id",data[i].art_id);
 	}
   for(let i = 0; i < data.length; i++){
@@ -59,13 +59,14 @@ function addArt(data) {
       $(that).closest("div").append('<div class="temp_loading"><span><i class="fas fa-spinner fa-spin"></i></span></div>');
       },
       success: function(data){      // request 成功取得回應後執行
-      $("img.pic-content").eq(i).attr("src", "data:image/jpeg;base64,"+data.pic_content);
+      // $("img.pic-content").eq(i).attr("src", "data:image/jpeg;base64,"+data.pic_content);
       },
       complete: function(){      // request 完成之後執行(在 success / error 事件之後執行)
       $(that).closest("div").find("div.temp_loading").remove();
       }
     });
-
+	$("img.pic-content").eq(i).attr("src","/TirTirCat/articles/controller/ArticlesController"+"?order=getPic&	art_id="+artId);
+	console.log("這是新大陸1111!!!!")
   }
   
 	    // 繼續閱讀
