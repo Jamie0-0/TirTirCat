@@ -110,7 +110,7 @@ $(function() {
   $.ajax({
     url: "/TirTirCat/articles/controller/ArticlesController",           // 資料請求的網址
     type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-    data: {order:"hot"},             // 將物件資料(不用雙引號) 傳送到指定的 url
+    data: {order:"hot",page:"1"},             // 將物件資料(不用雙引號) 傳送到指定的 url
     dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
     success: function(data){      // request 成功取得回應後執行
       addArt(data);
@@ -125,7 +125,7 @@ $("#forum-hot").on("click", function(){
   $.ajax({
       url: "/TirTirCat/articles/controller/ArticlesController",           // 資料請求的網址
       type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-      data: {order:"new"},             // 將物件資料(不用雙引號) 傳送到指定的 url
+      data: {order:"new",page:"1"},             // 將物件資料(不用雙引號) 傳送到指定的 url
       dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
       success: function(data){      // request 成功取得回應後執行
         $("#forum-new").toggleClass("-off");
@@ -142,7 +142,7 @@ $("#forum-new").on("click", function(){
   $.ajax({
       url: "/TirTirCat/articles/controller/ArticlesController",           // 資料請求的網址
       type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-      data: {order:"hot"},             // 將物件資料(不用雙引號) 傳送到指定的 url
+      data: {order:"hot",page:"1"},             // 將物件資料(不用雙引號) 傳送到指定的 url
       dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
       success: function(data){      // request 成功取得回應後執行
         $("#forum-hot").toggleClass("-off");

@@ -44,9 +44,10 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public List<Article> selectHot(String page) {
 		var list = new ArrayList<Article>();
 		int pageNum = Integer.parseInt(page);
-		int limit = ((pageNum-1)*3);  // 跳過幾筆文章  第二頁跳過3筆
+		int limit = 3;  // 跳過幾筆文章  
 		if(pageNum>1) {
 			selectHot = selectHot+",3";  // 3 為頁面上顯示的文章數量
+			limit = ((pageNum-1)*3); //第二頁跳過3筆
 		}
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectHot);
@@ -68,9 +69,10 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public List<Article> selectNew(String page) {
 		var list = new ArrayList<Article>();
 		int pageNum = Integer.parseInt(page);
-		int limit = ((pageNum-1)*3);  // 跳過幾筆文章  第二頁跳過3筆
+		int limit = 3;  // 跳過幾筆文章
 		if(pageNum>1) {
 			selectNew+=",3";  // 3 為頁面上顯示的文章數量
+			limit = ((pageNum-1)*3); //第二頁跳過3筆
 		}
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectNew);
