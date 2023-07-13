@@ -34,6 +34,7 @@ public class ArticlesController extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			String order = request.getParameter("order");
 			String page = request.getParameter("page");
+			String art_id = request.getParameter("art_id");
 			List<Article> artList = null;
 			
 			// 判斷傳來的指令 熱門文章hot  最新文章new
@@ -50,7 +51,6 @@ public class ArticlesController extends HttpServlet {
 				artList = service.search(searchText.trim());
 				break;
 			case "getPic":
-				String art_id = request.getParameter("art_id");
 				ArticlePic articlePic = service.selectPic(art_id);
 				sendPicToClient(articlePic.getPic_content(),response);
 				return;

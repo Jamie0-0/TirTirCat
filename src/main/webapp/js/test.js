@@ -16,7 +16,7 @@ function createCard() {
   var blogContain = $('<div>').addClass('blog-contain blog-contain-2');
   var heartIcon = $('<i>').addClass('fa-solid fa-heart me-1');
   var commentIcon = $('<i>').addClass('fa-solid fa-comment me-1');
-  var button = $('<button>').addClass('blog-button').text('繼續閱讀');
+  var button = $('<button>').addClass('blog-button').attr('type','submit').text('繼續閱讀');
 
   // 將元素進行組合
   div.append(postTime);
@@ -88,22 +88,24 @@ function addArt(data) {
     });
 	$("img.avatar").eq(i).attr("src","/TirTirCat/articles/controller/ArticlesController"+"?order=getAvatar&uid="+uid);
   }
-  
-	    // 繼續閱讀
-  $("button.blog-button").on("click", function(e){
+};
+
+// 繼續閱讀
+$("button.blog-button").on("click", function(){
   var artId = $(this).attr("art_id");
   console.log("artId="+artId);
   $.ajax({
     url: "/TirTirCat/articles/controller/ArticlesController",           // 資料請求的網址
     type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-    data: {art_id:artId},             // 將物件資料(不用雙引號) 傳送到指定的 url
-    dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+    async: false,
+    data: {order:"forward",
+      art_id:artId},             // 將物件資料(不用雙引號) 傳送到指定的 url
+    dataType: "html",             // 預期會接收到回傳資料的格式： json | xml | html
     success: function(data){      // request 成功取得回應後執行
-    	console.log("得到art_id回應")
+      console.log("得到art_id回應")
     }
   });
 });
-};
 
 // load
 $(function() {

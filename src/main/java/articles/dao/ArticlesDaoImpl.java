@@ -94,6 +94,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		var list = new ArrayList<Article>();
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(search);) {
 			pstmt.setString(1, "%" + searchText + "%");
+			pstmt.setInt(2, 3);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
