@@ -16,4 +16,6 @@ public interface ArticlesDao {
 	ArticlePic selectPic(String art_id);
 
 	ArticlePic selectAvatar(String uid);
+
+	List<Article> selectByArt_id(String art_id);
 }

@@ -18,6 +18,8 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> selectHot(String page) {
 		return dao.selectHot(page);
 	}
+	
+
 	@Override
 	public List<Article> selectNew(String page) {
 		return dao.selectNew(page);
@@ -37,4 +39,9 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public ArticlePic selectAvatar(String uid) {
 		return dao.selectAvatar(uid);
 	}
-}
+
+	@Override
+	public List<Article> selectByArt_id(String art_id) {
+		return dao.selectByArt_id(art_id);
+	}
+	}

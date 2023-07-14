@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -38,7 +39,7 @@ public class ArticlesController extends HttpServlet {
 			List<Article> artList = null;
 			
 			// 判斷傳來的指令 熱門文章hot  最新文章new
-			// 搜尋文章search 讀取圖片getPic 跳轉forward
+			// 搜尋文章search 讀取圖片getPic
 			switch (order) {
 			case "hot":
 				artList = service.selectHot(page);
@@ -59,8 +60,10 @@ public class ArticlesController extends HttpServlet {
 				ArticlePic avatarPic = service.selectAvatar(uid);
 				sendPicToClient(avatarPic.getPic_content(),response);
 				return;
-			case "forward":
-				request.getRequestDispatcher("/article.html").forward(request, response);
+			case "article":
+				 HttpSession session = request.getSession();
+				 session.setAttribute("art_id",art_id);
+				 break;
 			}
 			
 			//將select方法拿到的List轉成json
@@ -82,7 +85,7 @@ public class ArticlesController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public String TurnIntoJson(Object object) {
+	public static String TurnIntoJson(Object object) {
 		Gson gson = new Gson();
 		return  gson.toJson(object);
 	}
