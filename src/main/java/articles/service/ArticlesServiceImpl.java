@@ -44,4 +44,15 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> selectByArt_id(String art_id) {
 		return dao.selectByArt_id(art_id);
 	}
+
+	@Override
+	public ArticlePic selectCarouselPic(String art_id, String picOrder) {
+		return dao.selectCarouselPic(art_id, picOrder);
+	}
+
+	@Override
+	public String selectCountById(String order, String art_id) {
+		
+		return dao.selectCountById(order,art_id);
+	}
 	}

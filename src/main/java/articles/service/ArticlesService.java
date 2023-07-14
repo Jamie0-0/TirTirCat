@@ -18,4 +18,8 @@ public interface ArticlesService {
 	ArticlePic selectAvatar(String uid);
 
 	List<Article> selectByArt_id(String art_id);
+
+	ArticlePic selectCarouselPic(String art_id, String picOrder);
+
+	String selectCountById(String order, String art_id);
 }
