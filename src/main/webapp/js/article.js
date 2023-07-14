@@ -1,3 +1,28 @@
+// init
+$(function() {
+  $.ajax({
+    url: "/TirTirCat/articles/controller/TheArticleController",           // 資料請求的網址
+    type: "GET",                  // GET | POST | PUT | DELETE | PATCH
+    data: {},             // 將物件資料(不用雙引號) 傳送到指定的 url
+    dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+    success: function(data){      // request 成功取得回應後執行
+    	    if(data === null){
+				$(window).attr('location','/TirTirCat/forum.html');
+			}else {
+    	    $("p.author").text(data[0].u_name);  
+		    $("p.author").attr("uid",data[0].uid);
+		    $("time.post-time").text(data[0].art_po_time);
+		    $("button.blog-button").attr("art_id",data[0].art_id);
+		    $("#article-title").text(data[0].art_title);
+		    $("#article-content").text(data[0].art_content);
+		    $("i.fa-heart").text(data[0].art_like);
+		    }
+    }
+  });
+});
+
+
+
 // Share button with tooltip
 const myTooltipTriggerList = document.querySelectorAll('[data-bs-toggle="myTooltip"]')
 const myTooltipList = [...myTooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

@@ -6,6 +6,7 @@ public class Article {
 	
 	private Integer art_id;
 	private Integer art_user_id;
+	private Integer uid;
 	private String u_name;
 	private  String art_title;
 	private String art_content;
@@ -13,7 +14,7 @@ public class Article {
 	private Integer art_like;
 	private Integer art_rep_count;
 	private String art_status;
-	private String pic_content;
+	
 	
 	
 
@@ -28,6 +29,12 @@ public class Article {
 	}
 	public void setArt_user_id(Integer art_user_id) {
 		this.art_user_id = art_user_id;
+	}
+	public Integer getUid() {
+		return uid;
+	}
+	public void setUid(Integer uid) {
+		this.uid = uid;
 	}
 	public String getU_name() {
 		return u_name;
@@ -70,11 +77,5 @@ public class Article {
 	}
 	public void setArt_status(String art_status) {
 		this.art_status = art_status;
-	}
-	public String getPic_content() {
-		return pic_content;
-	}
-	public void setPic_content(String pic_content) {
-		this.pic_content = pic_content;
 	}
 }

@@ -104,10 +104,18 @@ div.function{
   .avatar {
     vertical-align: middle;
     max-width: 2rem;
-    border-radius: 50%;
+   /*  max-height: 2rem;*/
     margin: 0;
     padding: 0;
+    object-fit: cover;
+    aspect-ratio: 1/1;
   }
+  
+  @media ( min-width : 2000px) {
+		.avatar {
+		    max-width: 6rem;
+		}
+	}
   /* div.profile{
     font-size: 1.4vw;
     width: 18vw;
