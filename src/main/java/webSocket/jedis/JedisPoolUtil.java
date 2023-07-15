@@ -1,6 +1,5 @@
 package webSocket.jedis;
 
-import idv.david.websocketchat.jedis.JedisPoolUtil;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
