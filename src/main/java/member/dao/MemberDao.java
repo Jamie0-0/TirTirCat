@@ -1,11 +1,7 @@
 package member.dao;
 
-import java.util.List;
-
-import member.vo.Member;
-
 public interface MemberDao {
+	
 
-	List<Member> login();
-
+	boolean authenticate(String email, String password);
 }

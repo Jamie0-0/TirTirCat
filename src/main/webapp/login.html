@@ -245,7 +245,7 @@
 						</div>
 
 						<div class="input-box">
-							<form class="row g-4" method="post">
+							<form class="row g-4" method="post" >
 								<div class="col-12">
 									<div class="form-floating theme-form-floating log-in-form">
 										<input type="email" class="form-control" id="email" placeholder="Email Address">
@@ -400,25 +400,25 @@
 						password: pwd_el
 					}, // 將物件資料(不用雙引號) 傳送到指定的 url
 					dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-					success: function (data) { // request 成功取得回應後執行
+					// success: function (data) { // request 成功取得回應後執行
 
-					},
-					complete: function (xhr) {
-						window.location.href = "http://localhost:8081/TirTirCat/member_center.html";
-						$.ajax({
-							url: "/TirTirCat/member/controller/member_centerController", // 資料請求的網址
-							type: "POST",
-							data: {
-								email: email_el,
-								password: pwd_el
-							}, // GET | POST | PUT | DELETE | PATCH
-							dataType: "json",
-							success: function (xhr) {
-								console.log("歡迎登入");
-							}
-						})
+// 					},
+// 					complete: function (xhr) {
+// // 						window.location.href = "http://localhost:8081/TirTirCat/member_center.html";
+// 						$.ajax({
+// 							url: "/TirTirCat/member/controller/member_centerController", // 資料請求的網址
+// 							type: "POST",
+// 							data: {
+// 								email: email_el,
+// 								password: pwd_el
+// 							}, // GET | POST | PUT | DELETE | PATCH
+// 							dataType: "json",
+// 							success: function (xhr) {
+// 								console.log("歡迎登入");
+// 							}
+// 						})
 
-					}
+// 					}
 				});
 			})
 	</script>

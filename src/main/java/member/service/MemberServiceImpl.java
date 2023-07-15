@@ -13,8 +13,13 @@ public class MemberServiceImpl implements MemberService {
 		dao = new MemberDaoImpl();
 	}
 	@Override
-	public List<Member> login() {
-		return dao.login();
+//	public List<Member> login() {
+//		
+//		return dao.login();
+//	}
+	
+	public boolean login(String email, String password) {
+		return dao.authenticate(email, password);
 	}
 	
 }

@@ -6,6 +6,6 @@ import member.vo.Member;
 
 public interface MemberService {
 	
-	public List<Member> login();
-
+//	public List<Member> login();
+	public boolean login(String email, String password);
 }

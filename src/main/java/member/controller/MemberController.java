@@ -26,47 +26,42 @@ public class MemberController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			req.setCharacterEncoding("UTF-8");
-			String email = req.getParameter("email");
-			String password = req.getParameter("password");
-			
-			if(email != null && password != null) {
-				resp.sendRedirect("/TirTirCat/member_center.html");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			HttpSession session = req.getSession(true);
-	        // 获取 session 创建时间
-	        Date createTime = new Date(session.getCreationTime());
-	        // 获取该网页的最后一次访问时间
-	        Date lastAccessTime = new Date(session.getLastAccessedTime());
-	         
-	        //设置日期输出的格式  
-	        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	        // 获取 session 创建时间
+//	        Date createTime = new Date(session.getCreationTime());
+//	        // 获取该网页的最后一次访问时间
+//	        Date lastAccessTime = new Date(session.getLastAccessedTime());
+//	         
+//	        //设置日期输出的格式  
+//	        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			req.setCharacterEncoding("UTF-8");
+			
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
-			
-			if(email != null && password != null) {
-				
+			boolean isAuthenticated = service.login(email, password);
+//			System.out.println(email);
+//			System.out.println(password);
+			if(isAuthenticated) {				
 				session.setAttribute("email", email);
 				session.setAttribute("password", password);
-//				resp.sendRedirect("/member_center.html");
+//				System.out.println(email);
+//				System.out.println(password);
+				System.out.println("登入成功");
+				resp.sendRedirect(resp.encodeURL("/TirTirCat/member_center.html"));
+			}
+			else {
+				System.out.println("登入失敗");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private boolean isMember(String email, String password) {	
-		
-		return email != null && !email.isEmpty() && email.equals("member123");
-	}
+	
 }
