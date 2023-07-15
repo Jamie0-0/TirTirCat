@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 import articles.vo.Article;
-import articles.vo.ArticlePic;
+import articles.ariclesUtils.*;
 
-@WebServlet("/articles/controller/TheArticleController")
+@WebServlet("/article")
 public class TheArticleController extends HttpServlet {
 
 	private ArticlesService service;

@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
 
-@WebServlet("/articles/controller/ArticlesController")
+import articles.ariclesUtils.*;
+
+@WebServlet("/forum")
 public class ArticlesController extends HttpServlet {
 
 	private ArticlesService service;

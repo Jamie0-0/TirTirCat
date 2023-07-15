@@ -12,9 +12,9 @@ import javax.servlet.http.HttpSession;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 import articles.vo.ArticlePic;
+import articles.ariclesUtils.*;
 
-
-@WebServlet("/articles/controller/TheArticlePicController")
+@WebServlet("/carousel")
 public class TheArticlePicController extends HttpServlet {
 
 	private ArticlesService service;

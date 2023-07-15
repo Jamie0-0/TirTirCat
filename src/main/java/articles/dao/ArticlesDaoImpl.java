@@ -21,7 +21,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public ArticlesDaoImpl() {
 
 		try {
-			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/javaFramework");
+			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/FurrEver");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

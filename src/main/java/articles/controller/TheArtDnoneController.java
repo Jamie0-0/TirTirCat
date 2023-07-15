@@ -12,7 +12,7 @@ import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 
 
-@WebServlet("/articles/controller/TheArtDnoneController")
+@WebServlet("/artDnone")
 public class TheArtDnoneController extends HttpServlet {
 	
 	private ArticlesService service;
