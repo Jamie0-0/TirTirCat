@@ -17,9 +17,9 @@ import javax.websocket.server.PathParam;
 
 import com.google.gson.Gson;
 
-import idv.david.websocketchat.jedis.JedisHandleMessage;
-import idv.david.websocketchat.model.ChatMessage;
-import idv.david.websocketchat.model.State;
+import webSocket.model.State;
+import webSocket.jedis.JedisHandleMessage;
+import webSocket.model.ChatMessage;
 
 public class FriendWS {
 	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
