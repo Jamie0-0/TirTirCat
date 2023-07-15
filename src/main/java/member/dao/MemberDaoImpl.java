@@ -15,7 +15,7 @@ import member.vo.Member;
 public class MemberDaoImpl implements MemberDao {
 	private DataSource ds;
 
-	private String login = "select u_email FROM USER";
+	private String login = "select u_pwd FROM USER WHERE u_email=?";
 
 	public MemberDaoImpl() {
 		try {
@@ -36,7 +36,8 @@ public class MemberDaoImpl implements MemberDao {
 			while (rs.next()) {
 				Member member = new Member();
 				member.setuEmail(rs.getString("u_email"));
-				
+				member.setuPwd(rs.getString("u_pwd"));
+				list.add(member);
 			}
 			return list;
 		} catch (Exception e) {
