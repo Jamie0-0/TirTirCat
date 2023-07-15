@@ -114,10 +114,32 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			pstmt.setString(1, art_id);
 			ResultSet rs = pstmt.executeQuery();
 
-			if (rs.next()) {
+			while(rs.next()) {
 				articlePic = new ArticlePic();
 //				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
 				articlePic.setPic_content(rs.getBytes("pic_content"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articlePic;
+	}
+	
+	@Override
+	public ArticlePic selectCarouselPic(String art_id, String picOrder) {
+		String selectCarouselPic = "SELECT pic_content FROM FurrEver.articles_pics where pic_art_id = ? LIMIT 1 OFFSET ?";
+		ArticlePic articlePic = null;
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectCarouselPic);) {
+			pstmt.setString(1, art_id);
+			pstmt.setInt(2, Integer.parseInt(picOrder));  // OFFSET 需要的是整數值...否則會報錯
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				articlePic = new ArticlePic();
+//				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
+				articlePic.setPic_content(rs.getBytes("pic_content"));
+				
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -184,6 +206,30 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			e.printStackTrace();
 		}
 		return article;
+	}
+
+	@Override
+	public String selectCountById(String order, String art_id) {
+		String selectCountById = "";
+		String count = "";
+		if(order.equals("dnone")) {
+			selectCountById ="SELECT count(*) FROM FurrEver.articles_pics GROUP BY pic_art_id HAVING pic_art_id = ?";
+		}
+		
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectCountById);
+				) {
+			pstmt.setString(1, art_id);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				count = rs.getString("count(*)");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 

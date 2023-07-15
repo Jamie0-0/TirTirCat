@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 import articles.vo.Article;
+import articles.vo.ArticlePic;
 
 @WebServlet("/articles/controller/TheArticleController")
 public class TheArticleController extends HttpServlet {
@@ -30,14 +31,16 @@ public class TheArticleController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String art_id = (String) session.getAttribute("art_id");
 		List<Article> artList = null;
+		
 		if (art_id != null) {
 			System.out.println(art_id);
 			artList = service.selectByArt_id(art_id);
+			
 		} else {
 			// artList為null傳給前端，前端收到null跳轉回forum.html
 		}
 		// 將select方法拿到的List轉成json
-		String json = ArticlesController.TurnIntoJson(artList);
+		String json = ArticlesUtils.TurnIntoJson(artList);
 		// 告訴前端response為json格式
 		response.setContentType("application/json");
 		// 設定編碼

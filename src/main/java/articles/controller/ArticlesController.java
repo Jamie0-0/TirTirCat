@@ -67,7 +67,7 @@ public class ArticlesController extends HttpServlet {
 			}
 			
 			//將select方法拿到的List轉成json
-			String json = TurnIntoJson(artList);
+			String json = ArticlesUtils.TurnIntoJson(artList);
 	        // 告訴前端response為json格式
 	        response.setContentType("application/json");
 	        // 設定編碼
@@ -85,11 +85,7 @@ public class ArticlesController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public static String TurnIntoJson(Object object) {
-		Gson gson = new Gson();
-		return  gson.toJson(object);
-	}
-	public void sendPicToClient(byte[] pic_content, HttpServletResponse response) {
+	public static void sendPicToClient(byte[] pic_content, HttpServletResponse response) {
 	    try {
 	       ServletOutputStream outputStream = response.getOutputStream();
 	        response.setContentType("image/jpeg, image/jpg, image/png, image/gif"); 
