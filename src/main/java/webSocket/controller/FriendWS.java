@@ -14,6 +14,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 
@@ -21,6 +22,7 @@ import webSocket.model.State;
 import webSocket.jedis.JedisHandleMessage;
 import webSocket.model.ChatMessage;
 
+@ServerEndpoint("/FriendWS/{userName}")
 public class FriendWS {
 	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
 	Gson gson = new Gson();
