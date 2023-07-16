@@ -51,7 +51,7 @@
 								<span class="navbar-toggler-icon"> <i class="fa-solid fa-bars"></i>
 								</span>
 							</button>
-							<a href="index.html" class="web-logo nav-logo"> <img src="../assets/images/logo/1.png"
+							<a href="index.html" class="web-logo nav-logo"> <img src="assets/images/logo/1.png"
 									class="img-fluid blur-up lazyload" alt="">
 							</a>
 							<div class="rightside-box">
@@ -245,7 +245,7 @@
 						</div>
 
 						<div class="input-box">
-							<form class="row g-4" method="post" >
+							<form class="row g-4" method="post">
 								<div class="col-12">
 									<div class="form-floating theme-form-floating log-in-form">
 										<input type="email" class="form-control" id="email" placeholder="Email Address">
@@ -306,7 +306,7 @@
 					<div class="col-xl-4 col-lg-3 col-sm-6">
 						<div class="footer-logo">
 							<div class="theme-logo">
-								<a href="index.html"> <img src="../assets/images/logo/2.png" class="blur-up lazyload"
+								<a href="index.html"> <img src="assets/images/logo/2.png" class="blur-up lazyload"
 										alt="">
 								</a>
 							</div>
@@ -383,44 +383,46 @@
 	<!-- script js -->
 	<script src="assets/js/script.js"></script>
 	<script>
-		document.querySelector('#loginBtn').addEventListener("click",
+		document.querySelector('#loginBtn').addEventListener("click", function () {
+			let email_el = $("#email").val();
+			let pwd_el = $("#password").val();
 
+			$.ajax({
+				url: "/TirTirCat/member/controller/MemberController", // 登入請求的網址
+				type: "POST",
+				data: {
+					email: email_el,
+					password: pwd_el
+				},
+				dataType: "json",
+				success: function (data) {
+					// 登入請求成功後的處理
+					if (data === true) {
+						window.location.href = "http://localhost:8081/TirTirCat/member_center.html";
+						$.ajax({
+							url: "/TirTirCat/member/controller/member_centerController", 
+							type: "POST",
+							data: {
+								email: email_el,
+								password: pwd_el
+							}, 
+							dataType: "json",
+							success: function (data) {
+								console.log("歡迎登入");
+							}
+						})
+					} else {
+						// 登入失敗的處理
+						console.log("登入失敗");
+					}
+				},
+				error: function (xhr) {
+					// 請求發生錯誤的處理
+					console.log("請求錯誤");
+				}
+			});
+		});
 
-
-			function () {
-				let email_el = $("#email").val();
-				let pwd_el = $("#password").val();
-
-
-				$.ajax({
-					url: "/TirTirCat/member/controller/MemberController", // 資料請求的網址
-					type: "POST", // GET | POST | PUT | DELETE | PATCH
-					data: {
-						email: email_el,
-						password: pwd_el
-					}, // 將物件資料(不用雙引號) 傳送到指定的 url
-					dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-					// success: function (data) { // request 成功取得回應後執行
-
-// 					},
-// 					complete: function (xhr) {
-// // 						window.location.href = "http://localhost:8081/TirTirCat/member_center.html";
-// 						$.ajax({
-// 							url: "/TirTirCat/member/controller/member_centerController", // 資料請求的網址
-// 							type: "POST",
-// 							data: {
-// 								email: email_el,
-// 								password: pwd_el
-// 							}, // GET | POST | PUT | DELETE | PATCH
-// 							dataType: "json",
-// 							success: function (xhr) {
-// 								console.log("歡迎登入");
-// 							}
-// 						})
-
-// 					}
-				});
-			})
 	</script>
 
 </body>

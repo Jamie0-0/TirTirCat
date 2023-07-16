@@ -17,7 +17,7 @@ public class member_centerController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-//		System.out.println(session.getAttribute("email"));
+		System.out.println(session.getAttribute("email"));
 		
 	}
 
