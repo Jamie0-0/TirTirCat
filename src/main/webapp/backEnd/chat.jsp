@@ -41,244 +41,188 @@
 <link rel="stylesheet" href="backEnd/assets/css/vendors/slick.css">
 <link rel="stylesheet" type="text/css"
 	href="backEnd/assets/css/style.css">
-<!-- <link rel="stylesheet" type="text/css" href="assets/css/vector-map.css"> -->
-<!-- <link rel="stylesheet" type="text/css" href="assets/css/vendors/date-picker.css"> -->
-<!-- <link rel="stylesheet" href="css/friendchat.css" type="text/css" /> -->
+
 <style>
-.panel {
-  float: right;
-  border: 2px solid #0078ae;
-  border-radius: 5px;
-  width: 50%;
-}
+		.spacer {
+			width: 20px; /* 設定間隔的高度 */
+		}
+		.panel {
+			float: right;
+			border: 2px solid #0078ae;
+			border-radius: 5px;
+			width: 50%;
+		}
+		/* #message-area {
+				  height: 70%;
+				  resize: none;
+				  box-sizing: border-box;
+				  overflow: auto;
+				  background-color: #ffffff;
+				} */
+		
+		#messagesArea {
+			width: 800px; /* 設定寬度，例如 200px */
+			height: 450px; /* 設定高度，例如 300px */
+			border: 1px solid #ccc; /* 加上邊框，可選 */
+			overflow: auto; /* 超出範圍時顯示捲軸，可選 */
+		}
+		
+		.input-area {
+			width: 650px; /* 設定寬度，例如 200px */
+			background: #0078ae;
+			box-shadow: inset 0 0 10px #00568c;
+		}
+		
+		.input-area input {
+			margin: 0.5em 0em 0.5em 0.5em;
+		}
+		
+		.text-field {
+			border: 1px solid grey;
+			padding: 0.2em;
+			box-shadow: 0 0 5px #000000;
+		}
+		
+		h1 {
+			font-size: 1.5em;
+			padding: 5px;
+			margin: 5px;
+		}
+		
+		#message {
+			min-width: 80%;
+			max-width: 80%;
+		}
+		
+		.statusOutput {
+			background: #0078ae;
+			text-align: center;
+			color: #ffffff;
+			border: 1px solid grey;
+			padding: 0.2em;
+			box-shadow: 0 0 5px #000000;
+			width: 30%;
+			margin-top: 10%;
+			margin-left: 60%;
+		}
+		
+		#row {
+			/*width: 200px;
+				  height: 300px;
+				  border: 1px solid #ccc;
+				  overflow: auto;*/
+			
+		}
+		
+		.column {
+			float: left;
+			width: 50%;
+			padding: 5%;
+			margin-bottom: 5px;
+			background-color: #ffffff;
+		}
+		
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		
+		ul li {
+			display: inline-block;
+			clear: both;
+			padding: 20px;
+			border-radius: 30px;
+			margin-bottom: 2px;
+			font-family: Helvetica, Arial, sans-serif;
+		}
+		
+		.friend {
+			background: #eee;
+			float: left;
+		}
+		
+		.me {
+			float: right;
+			background: #0084ff;
+			color: #fff;
+		}
+		
+		.friend+.me {
+			border-bottom-right-radius: 5px;
+		}
+		
+		.me+.me {
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+		
+		.me:last-of-type {
+			border-bottom-right-radius: 30px;
+		}
+		
+		.chat-container {
+			margin: auto;
+			padding: 0px;
+		}
+		
+		.html, body {
+			font: 15px verdana, Times New Roman, arial, helvetica, sans-serif,
+				Microsoft JhengHei;
+			width: 90%;
+			height: 90%;
+			background: #eeeeda;
+		}
+		
+		body {
+			font-family: 'Public Sans', sans-serif;
+		}
+		
+		.container {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			width: 100%;
+		}
+		
+		#row {
+			width: 200px;
+			height: 450px;
+			border: 1px solid #ccc;
+			overflow: auto;
+		}
+		
+		
+		
+		.statusOutput {
+			display: none;
+		}
+		
+		#connect{
+			display: none;
+		}
+		
+		#disconnect{
+			display: none;
+		}
+		
+		.friend {
+		  display: flex;
+		  align-items: center;
+		}
+		
+		.friend-image {
+		  margin-right: 10px;
+		  width: 40px;  /* 設置圖像寬度 */
+		  height: 40px; /* 設置圖像高度 */
+		}
+		
+		.friend-name {
+		  font-size: 1.2em;  /* 調整好友名稱的字體大小 */
+		}
+		
 
-.message-area {
-  height: 70%;
-  resize: none;
-  box-sizing: border-box;
-  overflow: auto;
-  background-color: #ffffff;
-}
-
-.input-area {
-  background: #0078ae;
-  box-shadow: inset 0 0 10px #00568c;
-}
-
-.input-area input {
-  margin: 0.5em 0em 0.5em 0.5em;
-}
-
-.text-field {
-  border: 1px solid grey;
-  padding: 0.2em;
-  box-shadow: 0 0 5px #000000;
-}
-
-h1 {
-  font-size: 1.5em;
-  padding: 5px;
-  margin: 5px;
-}
-
-#message {
-  min-width: 50%;
-  max-width: 60%;
-}
-
-.statusOutput {
-  background: #0078ae;
-  text-align: center;
-  color: #ffffff;
-  border: 1px solid grey;
-  padding: 0.2em;
-  box-shadow: 0 0 5px #000000;
-  width: 30%;
-  margin-top: 10%;
-  margin-left: 60%;
-}
-
-#row {
-  float: left;
-  width: 50%;
-}
-
-.column {
-  float: left;
-  width: 50%;
-  padding: 5%;
-  margin-bottom: 5px;
-  background-color: #ffffff;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul li {
-  display: inline-block;
-  clear: both;
-  padding: 20px;
-  border-radius: 30px;
-  margin-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.friend {
-  background: #eee;
-  float: left;
-}
-
-.me {
-  float: right;
-  background: #0084ff;
-  color: #fff;
-}
-
-.friend + .me {
-  border-bottom-right-radius: 5px;
-}
-
-.me + .me {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.me:last-of-type {
-  border-bottom-right-radius: 30px;
-}
-/* styles.css */
-
-/* Friend Chat Styles */
-.chat-container {
-  margin: auto;
-  padding: 0px;
-}
-
-.html,
-body {
-  font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;
-  width: 90%;
-  height: 90%;
-  background: #eeeeda;
-}
-
-.panel {
-  float: right;
-  border: 2px solid #0078ae;
-  border-radius: 5px;
-  width: 50%;
-}
-
-.message-area {
-  height: 70%;
-  resize: none;
-  box-sizing: border-box;
-  overflow: auto;
-  background-color: #ffffff;
-}
-
-.input-area {
-  background: #0078ae;
-  box-shadow: inset 0 0 10px #00568c;
-}
-
-.input-area input {
-  margin: 0.5em 0em 0.5em 0.5em;
-}
-
-.text-field {
-  border: 1px solid grey;
-  padding: 0.2em;
-  box-shadow: 0 0 5px #000000;
-}
-
-h1 {
-  font-size: 1.5em;
-  padding: 5px;
-  margin: 5px;
-}
-
-#message {
-  min-width: 50%;
-  max-width: 60%;
-}
-
-.statusOutput {
-  background: #0078ae;
-  text-align: center;
-  color: #ffffff;
-  border: 1px solid grey;
-  padding: 0.2em;
-  box-shadow: 0 0 5px #000000;
-  width: 30%;
-  margin-top: 10%;
-  margin-left: 60%;
-}
-
-#row {
-  float: left;
-  width: 50%;
-}
-
-.column {
-  float: left;
-  width: 50%;
-  padding: 5%;
-  margin-bottom: 5px;
-  background-color: #ffffff;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul li {
-  display: inline-block;
-  clear: both;
-  padding: 20px;
-  border-radius: 30px;
-  margin-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.friend {
-  background: #eee;
-  float: left;
-}
-
-.me {
-  float: right;
-  background: #0084ff;
-  color: #fff;
-}
-
-.friend + .me {
-  border-bottom-right-radius: 5px;
-}
-
-.me + .me {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.me:last-of-type {
-  border-bottom-right-radius: 30px;
-}
-
-/* Furrever Admin Template Styles (Please Remove or Modify as Needed) */
-body {
-  font-family: 'Public Sans', sans-serif;
-}
-
-/* Rest of the styles... */
-
-
-</style>
+		</style>
 </head>
 <body onload="connect();" onunload="disconnect();">
 
@@ -460,20 +404,23 @@ body {
 
 
 			<div class="page-body">
-
+				<div class="container">
+					<div id="row"></div>
+					<div class="spacer"></div>
+					<div id="messagesArea" class="panel message-area"></div>
+				</div>
 
 				<h3 id="statusOutput" class="statusOutput"></h3>
-				<div id="row"></div>
-				<div id="messagesArea" class="panel message-area"></div>
 				<div class="panel input-area">
 					<input id="message" class="text-field" type="text"
 						placeholder="Message"
-						onkeydown="if (event.keyCode == 13) sendMessage();" /> <input
+						onkeydown="if (event.keyCode == 13) sendMessage();" /> 
+					<input
 						type="submit" id="sendMessage" class="button" value="Send"
-						onclick="sendMessage();" /> <input type="button" id="connect"
-						class="button" value="Connect" onclick="connect();" /> <input
-						type="button" id="disconnect" class="button" value="Disconnect"
-						onclick="disconnect();" />
+						onclick="sendMessage();" /> 
+					<input type="button" id="connect" class="button" value="Connect" onclick="connect();" /> 
+					<input
+						type="button" id="disconnect" class="button" value="Disconnect" onclick="disconnect();" />
 				</div>
 			</div>
 		</div>
@@ -485,8 +432,8 @@ body {
 		<div class="modal-dialog  modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-body">
-					<h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
-					<p>Are you sure you want to log out?</p>
+					<h5 class="modal-title" id="staticBackdropLabel">登出</h5>
+					<p>是否登出?</p>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 					<div class="button-box">
@@ -602,18 +549,40 @@ body {
 	}
 
 	// 有好友上線或離線就更新列表
+
 	function refreshFriendList(jsonObj) {
 		var friends = jsonObj.users;
 		var row = document.getElementById("row");
-		row.innerHTML = '';
+		row.innerHTML = ''; // 清空先前的內容
 		for (var i = 0; i < friends.length; i++) {
 			if (friends[i] === self) {
 				continue;
 			}
-			row.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h2>'
-					+ friends[i] + '</h2></div>';
+			var friendName = friends[i];
+			var friendDiv = document.createElement('div');
+			friendDiv.className = 'friend';
+			var friendImage = document.createElement('img');
+			friendImage.src = 'C:/THA102_WebApp/eclipse_WTP_workspace1/TirTirCat/src/main/webapp/backEnd/images/images/sunchunju_qBkZ0s214235.png'; // 替換為好友圖像的路徑
+			friendImage.className = 'friend-image';
+			friendDiv.appendChild(friendImage);
+			var friendNameDiv = document.createElement('div');
+			friendNameDiv.className = 'friend-name';
+			friendNameDiv.innerHTML = friendName;
+			friendDiv.appendChild(friendNameDiv);
+			row.appendChild(friendDiv);
 		}
 		addListener();
+		// var friends = jsonObj.users;
+		// var row = document.getElementById("row");
+		// row.innerHTML = '';
+		// for (var i = 0; i < friends.length; i++) {
+		// 	if (friends[i] === self) {
+		// 		continue;
+		// 	}
+		// 	row.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h2>'
+		// 			+ friends[i] + '</h2></div>';
+		// }
+		// addListener();
 	}
 	// 註冊列表點擊事件並抓取好友名字以取得歷史訊息
 	function addListener() {
