@@ -9,7 +9,7 @@ import articles.vo.ArticlePic;
 
 public class ArticlesServiceImpl implements ArticlesService {
 	private ArticlesDao dao;
-	
+
 	public ArticlesServiceImpl() {
 		dao = new ArticlesDaoImpl();
 	}
@@ -18,7 +18,6 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> selectHot(String page) {
 		return dao.selectHot(page);
 	}
-	
 
 	@Override
 	public List<Article> selectNew(String page) {
@@ -29,7 +28,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> search(String order) {
 		return dao.search(order);
 	}
-	
+
 	@Override
 	public ArticlePic selectPic(String art_id) {
 		return dao.selectPic(art_id);
@@ -52,7 +51,32 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public String selectCountById(String order, String art_id) {
+
+		return dao.selectCountById(order, art_id);
+	}
+
+	@Override
+	public List<Article> selectAllArticles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getArticlesByTag(String tag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int selectPageCount(String searchText) {
+		int count = 0;
 		
-		return dao.selectCountById(order,art_id);
+		if (searchText != null && searchText.trim() != "") {
+			count =  dao.selectPageSearchCount(searchText);
+			System.out.println(count);
+		}else {
+			count =  dao.selectPageCount();
+		}
+		return count;
 	}
-	}
+}

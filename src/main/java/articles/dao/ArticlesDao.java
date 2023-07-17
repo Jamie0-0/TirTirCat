@@ -22,4 +22,8 @@ public interface ArticlesDao {
 	ArticlePic selectCarouselPic(String art_id, String picOrder);
 
 	String selectCountById(String order, String art_id);
+
+	int selectPageCount();
+
+	int selectPageSearchCount(String searchText);
 }

@@ -31,19 +31,17 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public List<Article> selectHot(String page) {
 		String selectHot = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
 				+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-				+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_like desc\r\n" + "LIMIT ?";
-		
+				+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "  art_like desc\r\n" + "LIMIT ?";
+
 		var list = new ArrayList<Article>();
 		int pageNum = Integer.parseInt(page);
-		int limit = 3;  // 跳過幾筆文章  
-		if(pageNum>1) {
-			selectHot = selectHot+",3";  // 3 為頁面上顯示的文章數量
-			limit = ((pageNum-1)*3); //第二頁跳過3筆
+		int limit = 3; // 跳過幾筆文章
+		if (pageNum > 1) {
+			selectHot = selectHot + ",3"; // 3 為頁面上顯示的文章數量
+			limit = ((pageNum - 1) * 3); // 第二頁跳過3筆
 		}
-		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(selectHot);
-				) {
-			pstmt.setInt(1,limit);
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectHot);) {
+			pstmt.setInt(1, limit);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -63,17 +61,15 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				+ "WHERE\r\n" + "    art_status = '1'\r\n" + "ORDER BY\r\n" + "    art_po_time DESC\r\n" + "LIMIT ?";
 		var list = new ArrayList<Article>();
 		int pageNum = Integer.parseInt(page);
-		int limit = 3;  // 跳過幾筆文章
-		if(pageNum>1) {
-			selectNew+=",3";  // 3 為頁面上顯示的文章數量
-			limit = ((pageNum-1)*3); //第二頁跳過3筆
+		int limit = 3; // 跳過幾筆文章
+		if (pageNum > 1) {
+			selectNew += ",3"; // 3 為頁面上顯示的文章數量
+			limit = ((pageNum - 1) * 3); // 第二頁跳過3筆
 		}
-		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(selectNew);
-				) {
-			pstmt.setInt(1,limit);
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectNew);) {
+			pstmt.setInt(1, limit);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				list.add(setArticle(rs));
 			}
@@ -108,13 +104,13 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public ArticlePic selectPic(String art_id) {
 		String selectPic = "SELECT ap.pic_art_id, MIN(ap.pic_content) AS pic_content\r\n"
 				+ "FROM FurrEver.articles_pics ap\r\n" + "where ap.pic_art_id = ?";
-		
+
 		ArticlePic articlePic = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectPic);) {
 			pstmt.setString(1, art_id);
 			ResultSet rs = pstmt.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 				articlePic = new ArticlePic();
 //				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
 				articlePic.setPic_content(rs.getBytes("pic_content"));
@@ -125,21 +121,22 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return articlePic;
 	}
-	
+
 	@Override
 	public ArticlePic selectCarouselPic(String art_id, String picOrder) {
 		String selectCarouselPic = "SELECT pic_content FROM FurrEver.articles_pics where pic_art_id = ? LIMIT 1 OFFSET ?";
 		ArticlePic articlePic = null;
-		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectCarouselPic);) {
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectCarouselPic);) {
 			pstmt.setString(1, art_id);
-			pstmt.setInt(2, Integer.parseInt(picOrder));  // OFFSET 需要的是整數值...否則會報錯
+			pstmt.setInt(2, Integer.parseInt(picOrder)); // OFFSET 需要的是整數值...否則會報錯
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				articlePic = new ArticlePic();
 //				String pic_content = new String(Base64.getEncoder().encode(rs.getBytes("pic_content")));
 				articlePic.setPic_content(rs.getBytes("pic_content"));
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -167,17 +164,15 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return articlePic;
 	}
-	
+
 	@Override
 	public List<Article> selectByArt_id(String art_id) {
 		String selectByArt_id = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
-				+ "FROM\r\n" + "FurrEver.articles a\r\n" +"JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
+				+ "FROM\r\n" + "FurrEver.articles a\r\n" + "JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
 				+ "WHERE\r\n" + "art_status = '1' and art_id=?";
-		
+
 		var list = new ArrayList<Article>();
-		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(selectByArt_id);
-				) {
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectByArt_id);) {
 			pstmt.setString(1, art_id);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -192,7 +187,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	}
 
 	public Article setArticle(ResultSet rs) {
-		
+
 		Article article = new Article();
 		try {
 			article.setArt_id(rs.getInt("art_id"));
@@ -212,13 +207,11 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public String selectCountById(String order, String art_id) {
 		String selectCountById = "";
 		String count = "";
-		if(order.equals("dnone")) {
-			selectCountById ="SELECT count(*) FROM FurrEver.articles_pics GROUP BY pic_art_id HAVING pic_art_id = ?";
+		if (order.equals("dnone")) {
+			selectCountById = "SELECT count(*) FROM FurrEver.articles_pics GROUP BY pic_art_id HAVING pic_art_id = ?";
 		}
-		
-		try (Connection conn = ds.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(selectCountById);
-				) {
+
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(selectCountById);) {
 			pstmt.setString(1, art_id);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -232,5 +225,45 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		return count;
 	}
 
+	@Override
+	public int selectPageCount() {
+		String selectPageCount = "SELECT count(*) FROM FurrEver.articles WHERE art_status = '1'";
+		int count = 0;
 
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectPageCount);
+				ResultSet rs = pstmt.executeQuery();) {
+			while(rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+				
+				System.out.println(count);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return count;
+	}
+
+	@Override
+	public int selectPageSearchCount(String searchText) {
+		String selectPageSearchCount = "SELECT count(*) FROM FurrEver.articles WHERE art_status = '1' AND art_title LIKE ?";
+		int count = 0;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(selectPageSearchCount);
+				) {
+			pstmt.setString(1,"%"+searchText+"%");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+			
+			System.out.println(count);
+			rs.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

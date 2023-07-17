@@ -7,7 +7,7 @@ $(function() {
     dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
     success: function(data){      // request 成功取得回應後執行
     	    if(data === null){
-				    $(window).attr('location','/TirTirCat/forum.html');
+					$(window).attr('location','/TirTirCat/forum.html');
 			    }else {
             $("p.author").text(data[0].u_name);  
             $("p.author").attr("uid",data[0].uid);

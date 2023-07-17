@@ -1,37 +1,37 @@
 package articles.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
-import articles.vo.ArticlePic;
-import articles.ariclesUtils.*;
+import articles.vo.Article;
 
-@WebServlet("/carousel")
-public class TheArticlePicController extends HttpServlet {
-
+@WebServlet("/ArticlesJedis")
+public class ArticlesJedisController extends HttpServlet {
 	private ArticlesService service;
-
-	@Override
+	
 	public void init() throws ServletException {
 		service = new ArticlesServiceImpl();
 	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String art_id = (String) session.getAttribute("art_id");
-		String picOrder = request.getParameter("picOrder");
 		
-		ArticlePic articlePic = service.selectCarouselPic(art_id, picOrder);
-		if(articlePic !=null) {
-			ArticlesUtils.sendPicToClient(articlePic.getPic_content(), response);
+		String tag = "";
+		
+		if(service.getArticlesByTag(tag) == null){
+			List<Article> artList = service.selectAllArticles();
+			
+			service.setArticlesTag(articles);
 		}
+		
+		service.getArticlesByTag(String tag);
 		
 	}
 

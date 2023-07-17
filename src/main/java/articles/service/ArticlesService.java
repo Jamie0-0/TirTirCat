@@ -22,4 +22,10 @@ public interface ArticlesService {
 	ArticlePic selectCarouselPic(String art_id, String picOrder);
 
 	String selectCountById(String order, String art_id);
+
+	List<Article> selectAllArticles();
+	
+	List<String> getArticlesByTag(String tag);
+
+	int selectPageCount(String type);
 }

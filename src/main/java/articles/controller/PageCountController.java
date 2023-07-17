@@ -1,38 +1,40 @@
 package articles.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import articles.ariclesUtils.ArticlesUtils;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
-import articles.vo.ArticlePic;
-import articles.ariclesUtils.*;
 
-@WebServlet("/carousel")
-public class TheArticlePicController extends HttpServlet {
-
+@WebServlet("/forumPage")
+public class PageCountController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+     
 	private ArticlesService service;
 
 	@Override
 	public void init() throws ServletException {
 		service = new ArticlesServiceImpl();
 	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String art_id = (String) session.getAttribute("art_id");
-		String picOrder = request.getParameter("picOrder");
+		request.setCharacterEncoding("UTF-8");
+		String searchText = request.getParameter("searchText");
+		int page = service.selectPageCount(searchText);
 		
-		ArticlePic articlePic = service.selectCarouselPic(art_id, picOrder);
-		if(articlePic !=null) {
-			ArticlesUtils.sendPicToClient(articlePic.getPic_content(), response);
-		}
-		
+		// 轉成json
+		String json = ArticlesUtils.TurnIntoJson(page);
+        // 告訴前端response為json格式
+        response.setContentType("application/json");
+        // 設定編碼
+        response.setCharacterEncoding("UTF-8");
+        // 寫出
+        response.getWriter().write(json);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -33,7 +33,6 @@ public class TheArticleController extends HttpServlet {
 		List<Article> artList = null;
 		
 		if (art_id != null) {
-			System.out.println(art_id);
 			artList = service.selectByArt_id(art_id);
 			
 		} else {
