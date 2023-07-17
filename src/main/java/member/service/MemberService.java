@@ -7,5 +7,5 @@ import member.vo.Member;
 public interface MemberService {
 	
 //	public List<Member> login();
-	public boolean login(String email, String password);
+	public String login(String email, String password);
 }

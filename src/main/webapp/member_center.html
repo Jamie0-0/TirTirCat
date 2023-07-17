@@ -143,9 +143,9 @@
                                             </div>
                                             <div class="delivery-detail">
                                                 <h6>Hello,</h6>
-                                                <h5>My Account</h5>
+                                                <h5 class="user_account">My Account</h5>
                                             </div>
-                                        </div>                                    
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -354,6 +354,26 @@
 
     <!-- script js -->
     <script src="assets/js/script.js"></script>
+
+    <script>
+        $(function () {
+            let user_account_el = $("h5.user_account");
+            $.ajax({
+                url: "/TirTirCat/member/controller/member_centerController",
+                type: "POST",
+                data: {
+                    
+                },
+                dataType: "json",
+                success: function (data) {        
+                    // consoe.log(data);        
+                    var username = data.username;
+                    user_account_el.text(data);
+                }
+            })
+
+        });
+    </script>
 </body>
 
 </html>

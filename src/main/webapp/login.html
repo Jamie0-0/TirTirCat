@@ -411,9 +411,9 @@
 								console.log("歡迎登入");
 							}
 						})
-					} else {
+					} else if(data === false){
 						// 登入失敗的處理
-						console.log("登入失敗");
+						window.location.href = "index.html";
 					}
 				},
 				error: function (xhr) {

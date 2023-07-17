@@ -44,15 +44,16 @@ public class MemberController extends HttpServlet {
 			
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
-			boolean isAuthenticated = service.login(email, password);
-			if(isAuthenticated) {				
+			String username = req.getParameter("username");
+			String isAuthenticated = service.login(email, password);
+			if(isAuthenticated != null) {				
 				session.setAttribute("email", email);
 				session.setAttribute("password", password);
-				System.out.println("登入成功");
+				session.setAttribute("username", isAuthenticated);
 				resp.getWriter().write("true");
 			}
 			else {
-				System.out.println("登入失敗");
+				resp.getWriter().write("false");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

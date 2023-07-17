@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 //		return dao.login();
 //	}
 	
-	public boolean login(String email, String password) {
+	public String login(String email, String password) {
 		return dao.authenticate(email, password);
 	}
 	

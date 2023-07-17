@@ -44,23 +44,24 @@ public class MemberDaoImpl implements MemberDao {
 //		return null;
 //	}
 
-	public boolean authenticate(String email, String password) {
+	public String authenticate(String email, String password) {
+		String username = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstm = connection.prepareStatement(login);
 				) {
+			
 			pstm.setString(1, email);
 			pstm.setString(2, password);
 			ResultSet rs = pstm.executeQuery();
 			if(rs.next()) {
-//				Member member = new Member();
-//				member.setuEmail(rs.getString("u_email"));
-//				member.setuPwd(rs.getString("u_pwd"));
-				return true;
+				username = rs.getString("u_name");
+//				System.out.println(username);
+//				return username;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return username;
 	}
 
 }
