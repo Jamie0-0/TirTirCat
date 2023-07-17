@@ -25,13 +25,11 @@ public class ArticlesJedisController extends HttpServlet {
 		
 		String tag = "";
 		
-		if(service.getArticlesByTag(tag) == null){
-			List<Article> artList = service.selectAllArticles();
-			
-			service.setArticlesTag(articles);
-		}
-		
-		service.getArticlesByTag(String tag);
+		List<Article> artList = service.selectAllArticles();
+		service.setArticlesTag(articles);
+
+		// 標籤搜尋
+		service.getArticlesByTag(tag);
 		
 	}
 

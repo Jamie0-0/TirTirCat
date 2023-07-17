@@ -57,13 +57,11 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public List<Article> selectAllArticles() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<String> getArticlesByTag(String tag) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -73,7 +71,6 @@ public class ArticlesServiceImpl implements ArticlesService {
 		
 		if (searchText != null && searchText.trim() != "") {
 			count =  dao.selectPageSearchCount(searchText);
-			System.out.println(count);
 		}else {
 			count =  dao.selectPageCount();
 		}
