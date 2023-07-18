@@ -1,5 +1,16 @@
+<%@page import="product.model.*"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+
+<%
+	ProductJDBCDAO dao = new ProductJDBCDAO();
+    List<ProductVO> list = dao.getAll();       // 此行的list變數(物件)將提供page1.file的第11行取得查詢到的總筆數，再由page1.file進行分頁的需要
+    pageContext.setAttribute("list",list); // 將上一行的list變數(物件)存入當前頁面pageContext，再由底下的第83行由JSTL的forEach列印出結果
+%>
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,7 +23,7 @@
     <meta name="author" content="Tha102G3">
     <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-    <title>Furrever - 訂單明細</title>
+    <title>Furrever - 產品</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -27,6 +38,92 @@
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <style>
+        .table-container {
+            width: 100%;
+            height: 350px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 1000px;
+            background-color: #f5f5f5;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-select {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: 14px;
+        }
+
+        .header-search {
+            border: 5px solid black;
+        }
+
+        .product-search {
+            width: 100px;
+        }
+
+        .search-button {
+            border: none;
+            background-color: lightgreen;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+        }
+
+        .search-button:active {
+            background-color: lightyellow;
+        }
+
+
+        .product-search {
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .product-search:focus {
+            background-color: lightyellow;
+        }
+
+        .input-width {
+            width: 80px;
+            text-align: center;
+            border: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,7 +132,7 @@
     </div>
 
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
-     <div class="page-header">
+        <div class="page-header">
             <div class="header-wrapper m-0">
                 <div class="header-logo-wrapper p-0">
                     <div class="logo-wrapper">
@@ -71,30 +168,30 @@
                                 </li>
                                 <li>
                                     <p>
-                                        <i class="fa fa-circle me-2 font-primary"></i>交貨加工 <span
-                                            class="pull-right">10 min.</span>
+                                        <i class="fa fa-circle me-2 font-primary"></i>交貨加工 <span class="pull-right">10
+                                            min.</span>
                                     </p>
                                 </li>
                                 <li>
                                     <p>
-                                        <i class="fa fa-circle me-2 font-success"></i>訂單完成<span
-                                            class="pull-right">1 hr</span>
+                                        <i class="fa fa-circle me-2 font-success"></i>訂單完成<span class="pull-right">1
+                                            hr</span>
                                     </p>
                                 </li>
                                 <li>
                                     <p>
-                                        <i class="fa fa-circle me-2 font-info"></i>訂單生成<span
-                                            class="pull-right">3 hr</span>
+                                        <i class="fa fa-circle me-2 font-info"></i>訂單生成<span class="pull-right">3
+                                            hr</span>
                                     </p>
                                 </li>
                                 <li>
                                     <p>
-                                        <i class="fa fa-circle me-2 font-danger"></i>交付完成<span
-                                            class="pull-right">6 hr</span>
+                                        <i class="fa fa-circle me-2 font-danger"></i>交付完成<span class="pull-right">6
+                                            hr</span>
                                     </p>
                                 </li>
                                 <li>
-                                    
+
                                 </li>
                             </ul>
                         </li>
@@ -170,7 +267,7 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="products.jsp">所有產品</a>
+                                            <a href="products.html">所有產品</a>
                                         </li>
 
                                         <li>
@@ -197,9 +294,6 @@
                                         </li>
                                         <li>
                                             <a href="order-list2.html">團購訂單</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-list3.html">團購訂單明細</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -236,164 +330,83 @@
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xl-6 col-md-12">
-                            <div class="card o-hidden card-hover">
-                                <div class="card-header card-header-top card-header--2 px-0 pt-0">
-                                    <div class="card-header-title">
-                                        <h4>訂單明細</h4>
-                                    </div>
+                        <div class="col-sm-12">
+                            <div class="card card-table">
+                                <div class="card-body">
+                                    <div class="title-header option-title d-sm-flex d-block">
+                                        <div>
+                                            <h5>產品列表</h5>
+                                            <input class="product-search" type="text" placeholder="產品編號:">
+                                            <select class="product-search"">
+                                                <option value=" option1">商品類別</option>
+                                                <option value="option2">點心</option>
+                                                <option value="option3">玩具</option>
+                                            </select>
+                                            <select class="product-search">
+                                                <option value="option1">貓狗商品</option>
+                                                <option value="option2">貓</option>
+                                                <option value="option3">狗</option>
+                                            </select>
+                                            <select class="product-search">
+                                                <option value="option2">團購</option>
+                                                <option value="option3">單品</option>
+                                            </select>
+                                            <select class="product-search">
+                                                <option value="option1">商品狀態</option>
+                                                <option value="option2">上架</option>
+                                                <option value="option3">下架</option>
+                                            </select>
+                                            <button class="search-button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                        <div class="right-options">
+                                            <ul>
+                                                <li>
+                                                    <a class="btn btn-solid" href="add-new-product.html">新增產品</a>
+                                                </li>
 
-                                    <div class="best-selling-box d-sm-flex d-none">
-                                        <div class="dropdown">
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="#">行動</a></li>
-                                                <li><a class="dropdown-item" href="#">額外行動</a></li>
-                                                <li><a class="dropdown-item" href="#">其他</a></li>
+                                                <li>
+                                                    <button type="button" class="btn  btn--yes btn-primary" onclick="modifyData()">修改</button>
+                                                </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="card-body p-0">
+                                    </div>
                                     <div>
-                                        <div class="table-responsive">
-                                            <table class="best-selling-table w-image
-                                            w-image
-                                            w-image table border-0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>商品編號</h5>
-                                                                    <h6>A001</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品名稱</h6>
-                                                                <h5>貓貓爪</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品金額</h6>
-                                                                <h5>100</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>數量</h6>
-                                                                <h5>1</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>商品編號</h5>
-                                                                    <h6>A001</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品名稱</h6>
-                                                                <h5>貓貓爪</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品金額</h6>
-                                                                <h5>100</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>數量</h6>
-                                                                <h5>1</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>商品編號</h5>
-                                                                    <h6>A001</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品名稱</h6>
-                                                                <h5>貓貓爪</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品金額</h6>
-                                                                <h5>100</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>數量</h6>
-                                                                <h5>1</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="table-container">
+											<table>
+												<tr>
+													<th>商品編號</th>
+													<th>商品類別</th>
+													<th>商品名稱</th>
+													<th>商品價格</th>
+													<th>商品數量</th>
+													<th>收藏數量</th>
+													<th>貓狗商品</th>
+													<th>商品型態</th>
+													<th>商品狀態</th>
+													<th>上架時間</th>
 
 
-                        <div class="col-xl-6">
-                            <div class="card o-hidden card-hover">
-                                <div class="card-header card-header-top card-header--2 px-0 pt-0">
-                                    <div class="card-header-title">
-                                        <h4>買家資訊</h4>
-                                    </div>
-                                </div>
-
-                                <div class="card-body p-0">
-                                    <div>
-                                        <div class="table-responsive">
-                                            <h4>會員名稱:阿貓阿狗</h4>
-                                            <h4>地址:台北市 阿貓區 阿狗街 14巷 1弄 10號</h4>
-                                            <h4>訂購日期:2023-07-07</h4>
-                                            <h4>付款狀態:已結清</h4>
-                                            <h4>總金額:3000</h4>
-                                        </div>
+												</tr>
+												<%@ include file="page1.file"%>
+												<c:forEach var="productVO" items="${list}"
+													begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+													<tr>
+														<td>${productVO.p_id}</td>
+														<td>${productVO.p_type}</td>
+														<td>${productVO.p_name}</td>
+														<td>${productVO.p_price}</td>
+														<td>${productVO.p_stock}</td>
+														<td>${productVO.p_count}</td>
+														<td>${productVO.p_class}</td>
+														<td>${productVO.p_status}</td>
+														<td>${productVO.p_status}</td>
+														<td>${productVO.p_upload_time}</td>
+													</tr>
+												</c:forEach>
+											</table>
+											<%@ include file="page2.file"%>
+										</div>
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +424,7 @@
                     </footer>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -447,7 +460,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">å¦</button>
                     <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
                         data-bs-toggle="modal" data-bs-dismiss="modal">是</button>
                 </div>
@@ -488,13 +501,82 @@
     <script src="assets/js/config.js"></script>
     <script src="assets/js/sidebar-menu.js"></script>
     <script src="assets/js/notify/bootstrap-notify.min.js"></script>
-     <script src="assets/js/jquery.dataTables.js"></script>
+    <script src="assets/js/jquery.dataTables.js"></script>
     <script src="assets/js/custom-data-table.js"></script>
     <script src="assets/js/sidebareffect.js"></script>
     <script src="assets/js/script.js"></script>
+    <script>
+        var errmsg = '';
+
+        function validateNumberInput(input) {
+            // åªæ¥åæ¸å­è¼¸å¥
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+
+        function validateInputValue(input) {
+            var value = input.value.trim();
+            var regex = /^[a-zA-Z0-9\u4E00-\u9FFF]+$/; // åªåè¨±è±æå­æ¯ãæ¸å­åä¸­æå­
+
+            if (value === '') {
+                input.classList.add('error');
+                alert('請填寫該欄位！');
+                errmsg = '請填寫該欄位！';
+            } else if (!regex.test(value)) {
+                input.classList.add('error');
+                alert('商品名稱禁止輸入特殊符號和全形字元！');
+                errmsg = '商品名稱禁止輸入特殊符號和全形字元！';
+            } else {
+                input.classList.remove('error');
+                errmsg = '';
+                console.log("clean1");
+            }
+        }
+
+
+        var times = 0;
+        function modifyData() {
+            var inputs = document.querySelectorAll('input.input-width');
+            var regex = /^[a-zA-Z0-9\u4E00-\u9FFF]+$/; // è±æå­æ¯ãæ¸å­åä¸­æå­çæ­£åè¡¨éå¼
+            var hasError = false;
+            var errmsg = '';
+
+            inputs.forEach(function(input) {
+                var value = input.value.trim();
+                
+                if (value === '') {
+                input.classList.add('error');
+                errmsg += '請填寫該欄位！\n';
+                hasError = true;
+                } else if (!regex.test(value)) {
+                input.classList.add('error');
+                errmsg += '商品名稱禁止輸入特殊符號和全形字元！\n';
+                hasError = true;
+                } else {
+                input.classList.remove('error');
+                }
+            });
+
+            if (hasError) {
+            	alert('請確認輸入資料是否完整');
+            } else {
+                // è¼¸å¥è³ææ­£ç¢ºï¼å·è¡ç¸æçæä½
+                // ...
+            }
+            }
+
+
+
+    </script>
     <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="assets/js/icons/feather-icon/feather.min.js"></script>
     <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+
+
+    <!-- <script src="assets/js/icons/feather-icon/feather-icon.js"></script> -->
+    <!-- <script src="assets/js/customizer.js"></script> -->
+    <!-- <script src="assets/js/notify/index.js"></script> -->
+    <!-- <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="assets/js/icons/feather-icon/feather.min.js"></script> -->
 </body>
 
 </html>

@@ -13,34 +13,34 @@
 <meta name="keywords"
 	content="admin template, Furrever admin template, dashboard template, flat admin template, responsive admin template, web app">
 <meta name="author" content="Tha102G3">
-<link rel="icon" href="backEnd/assets/images/favicon.png"
+<link rel="icon" href="assets/images/favicon.png"
 	type="image/x-icon">
-<link rel="shortcut icon" href="backEnd/assets/images/favicon.png"
+<link rel="shortcut icon" href="assets/images/favicon.png"
 	type="image/x-icon">
 <title>Furrever - Talks</title>
 <link
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="backEnd/assets/css/linearicon.css">
+<link rel="stylesheet" href="assets/css/linearicon.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/remixicon.css">
+	href="assets/css/remixicon.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/vendors/font-awesome.css">
+	href="assets/css/vendors/font-awesome.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/vendors/themify.css">
+	href="assets/css/vendors/themify.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/ratio.css">
+	href="assets/css/ratio.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/vendors/feather-icon.css">
+	href="assets/css/vendors/feather-icon.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/vendors/scrollbar.css">
+	href="assets/css/vendors/scrollbar.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/vendors/animate.css">
+	href="assets/css/vendors/animate.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/vendors/bootstrap.css">
-<link rel="stylesheet" href="backEnd/assets/css/vendors/slick.css">
+	href="assets/css/vendors/bootstrap.css">
+<link rel="stylesheet" href="assets/css/vendors/slick.css">
 <link rel="stylesheet" type="text/css"
-	href="backEnd/assets/css/style.css">
+	href="assets/css/style.css">
 
 <style>
 		.spacer {
@@ -236,15 +236,15 @@
 				<div class="header-logo-wrapper p-0">
 					<div class="logo-wrapper">
 						<a href="back_index.html"> <img class="img-fluid main-logo"
-							src="backEnd/assets/images/logo/1.png" alt="logo"> <img
+							src="assets/images/logo/1.png" alt="logo"> <img
 							class="img-fluid white-logo"
-							src="backEnd/assets/images/logo/1-white.png" alt="logo">
+							src="assets/images/logo/1-white.png" alt="logo">
 						</a>
 					</div>
 					<div class="toggle-sidebar">
 						<i class="status_toggle middle sidebar-toggle"
 							data-feather="align-center"></i> <a href="back_index.html"> <img
-							src="backEnd/assets/images/logo/1.png" class="img-fluid" alt="">
+							src="assets/images/logo/1.png" class="img-fluid" alt="">
 						</a>
 					</div>
 				</div>
@@ -293,7 +293,7 @@
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
 							<div class="media profile-media">
 								<img class="user-profile rounded-circle"
-									src="backEnd/assets/images/users/4.jpg" alt="">
+									src="assets/images/users/4.jpg" alt="">
 								<div class="user-name-hide media-body">
 									<span>埃梅·沃爾特</span>
 									<p class="mb-0 font-roboto">
@@ -326,7 +326,7 @@
 					<div class="logo-wrapper logo-wrapper-center">
 						<a href="back_index.html" data-bs-original-title="" title="">
 							<img class="img-fluid for-white"
-							src="backEnd/assets/images/logo/full-white.png" alt="logo">
+							src="assets/images/logo/full-white.png" alt="logo">
 						</a>
 						<div class="back-btn">
 							<i class="fa fa-angle-left"></i>
@@ -335,9 +335,9 @@
 					<div class="logo-icon-wrapper">
 						<a href="back_index.html"> <img
 							class="img-fluid main-logo main-white"
-							src="backEnd/assets/images/logo/1-white.png" alt="logo"> <img
+							src="assets/images/logo/1-white.png" alt="logo"> <img
 							class="img-fluid main-logo main-dark"
-							src="backEnd/assets/images/logo/logo-white.png" alt="logo">
+							src="assets/images/logo/logo-white.png" alt="logo">
 						</a>
 					</div>
 					<nav class="sidebar-main">
@@ -388,7 +388,7 @@
 									</ul></li>
 
 								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav" href="talk.html">
+									class="sidebar-link sidebar-title link-nav" href="chat.jsp">
 										<i class="fas fa-comments"></i> <span>聊天室</span>
 								</a></li>
 
@@ -445,22 +445,22 @@
 		</div>
 	</div>
 </body>
-<script src="backEnd/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="backEnd/assets/js/icons/feather-icon/feather.min.js"></script>
-<script src="backEnd/assets/js/icons/feather-icon/feather-icon.js"></script>
-<script src="backEnd/assets/js/jquery-3.6.0.min.js"></script>
-<script src="backEnd/assets/js/scrollbar/simplebar.js"></script>
-<script src="backEnd/assets/js/scrollbar/custom.js"></script>
-<script src="backEnd/assets/js/config.js"></script>
-<script src="backEnd/assets/js/sidebar-menu.js"></script>
-<script src="backEnd/assets/js/notify/bootstrap-notify.min.js"></script>
-<script src="backEnd/assets/js/chart/apex-chart/apex-chart1.js"></script>
-<script src="backEnd/assets/js/chart/apex-chart/moment.min.js"></script>
-<script src="backEnd/assets/js/chart/apex-chart/apex-chart.js"></script>
-<script src="backEnd/assets/js/chart/apex-chart/stock-prices.js"></script>
-<script src="backEnd/assets/js/ratio.js"></script>
-<script src="backEnd/assets/js/sidebareffect.js"></script>
-<script src="backEnd/assets/js/script.js"></script>
+<script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="assets/js/icons/feather-icon/feather.min.js"></script>
+<script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/scrollbar/simplebar.js"></script>
+<script src="assets/js/scrollbar/custom.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/sidebar-menu.js"></script>
+<script src="assets/js/notify/bootstrap-notify.min.js"></script>
+<script src="assets/js/chart/apex-chart/apex-chart1.js"></script>
+<script src="assets/js/chart/apex-chart/moment.min.js"></script>
+<script src="assets/js/chart/apex-chart/apex-chart.js"></script>
+<script src="assets/js/chart/apex-chart/stock-prices.js"></script>
+<script src="assets/js/ratio.js"></script>
+<script src="assets/js/sidebareffect.js"></script>
+<script src="assets/js/script.js"></script>
 <script>
 	var MyPoint = "/FriendWS/${userName}";
 	var host = window.location.host;
@@ -562,7 +562,7 @@
 			var friendDiv = document.createElement('div');
 			friendDiv.className = 'friend';
 			var friendImage = document.createElement('img');
-			friendImage.src = 'C:/THA102_WebApp/eclipse_WTP_workspace1/TirTirCat/src/main/webapp/backEnd/images/images/sunchunju_qBkZ0s214235.png'; // 替換為好友圖像的路徑
+			friendImage.src = 'http://localhost:8081/TirTirCat/backEnd/images/sunchunju_qBkZ0s214235.jpg'; // 替換為好友圖像的路徑
 			friendImage.className = 'friend-image';
 			friendDiv.appendChild(friendImage);
 			var friendNameDiv = document.createElement('div');
