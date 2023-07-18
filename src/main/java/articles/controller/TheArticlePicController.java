@@ -28,6 +28,7 @@ public class TheArticlePicController extends HttpServlet {
 		String art_id = (String) session.getAttribute("art_id");
 		String picOrder = request.getParameter("picOrder");
 		
+		
 		ArticlePic articlePic = service.selectCarouselPic(art_id, picOrder);
 		if(articlePic !=null) {
 			ArticlesUtils.sendPicToClient(articlePic.getPic_content(), response);

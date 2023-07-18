@@ -16,7 +16,15 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public List<Article> selectHot(String page) {
-		return dao.selectHot(page);
+		List<Article> list;
+		if (dao.selectHotRedis(page).isEmpty()) {
+			list = dao.selectAllHot();
+			dao.saveHotArticlesToRedis(list); // 把熱門全部存進去
+			list = dao.selectHot(page);
+		} else {
+			list = dao.selectHotRedis(page); // 調用部分熱門
+		}
+		return list;
 	}
 
 	@Override
@@ -31,12 +39,30 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public ArticlePic selectPic(String art_id) {
-		return dao.selectPic(art_id);
+
+		ArticlePic articlePic = null;
+		if (dao.selectRedisPic(art_id).getPic_content() == null) {  // 注意不是dao.selectRedisPic(art_id) == null
+			articlePic = dao.selectPic(art_id);
+			dao.savePicToRedis(art_id, articlePic);
+			return dao.selectPic(art_id);
+		} else {
+			articlePic = dao.selectRedisPic(art_id);
+		}
+
+		return articlePic;
 	}
 
 	@Override
 	public ArticlePic selectAvatar(String uid) {
-		return dao.selectAvatar(uid);
+		ArticlePic avatarPic = null;
+		if (dao.selectRedisAvatar(uid).getPic_content() == null) {   // 注意不是dao.selectRedisAvatar(uid) == null
+			avatarPic = dao.selectAvatar(uid);
+			dao.saveAvatarToRedis(uid, avatarPic);
+			return dao.selectAvatar(uid);
+		} else {
+			avatarPic = dao.selectRedisAvatar(uid);
+		}
+		return avatarPic;
 	}
 
 	@Override
@@ -46,6 +72,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public ArticlePic selectCarouselPic(String art_id, String picOrder) {
+
 		return dao.selectCarouselPic(art_id, picOrder);
 	}
 
@@ -68,11 +95,11 @@ public class ArticlesServiceImpl implements ArticlesService {
 	@Override
 	public int selectPageCount(String searchText) {
 		int count = 0;
-		
+
 		if (searchText != null && searchText.trim() != "") {
-			count =  dao.selectPageSearchCount(searchText);
-		}else {
-			count =  dao.selectPageCount();
+			count = dao.selectPageSearchCount(searchText);
+		} else {
+			count = dao.selectPageCount();
 		}
 		return count;
 	}

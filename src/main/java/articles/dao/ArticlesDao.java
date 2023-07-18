@@ -26,4 +26,18 @@ public interface ArticlesDao {
 	int selectPageCount();
 
 	int selectPageSearchCount(String searchText);
+
+	List<Article> selectHotRedis(String page);
+
+	void saveHotArticlesToRedis(List<Article> hotArticles);
+
+	List<Article> selectAllHot();
+
+	ArticlePic selectRedisPic(String art_id);
+
+	void savePicToRedis(String art_id, ArticlePic articlePic);
+
+	ArticlePic selectRedisAvatar(String uid);
+
+	void saveAvatarToRedis(String uid, ArticlePic AvatarPic);
 }

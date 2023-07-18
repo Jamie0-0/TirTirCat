@@ -57,14 +57,17 @@ function addArt(data) {
 } // addArt()結束
 
 function disControl(length) {
-	$(".paragraph2,.paragraph3").removeClass("d-none");
+	$(".paragraph1, .paragraph2, .paragraph3").removeClass("d-none");
+	$("#notFound").addClass("d-none");
 	switch (length) {
+		case 0:
+			$(".paragraph1, .paragraph2, .paragraph3").addClass("d-none");
+			$("#notFound").removeClass("d-none");
+			break;
 		case 1:
-			console.log("執行1")
 			$(".paragraph2, .paragraph3").addClass("d-none"); // 隱藏段落二和段落三
 			break;
 		case 2:
-			console.log("執行2")
 			$(".paragraph3").addClass("d-none"); // 隱藏段落三
 			break;
 		default:
@@ -129,10 +132,10 @@ function pageTagCreator(order, searchText, page) {
 function fctSearch(data) {
 	let length = data.length;
 	if (length == 0) {
+		disControl(length);
 		alert("沒有相關搜尋結果")
 	} else {
 		addArt(data);
-		//	disControl(length);
 	}
 };
 // init
@@ -144,7 +147,6 @@ function init() {
 		dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
 		success: function(data) {      // request 成功取得回應後執行
 			addArt(data);
-			console.log("1")
 		}
 	});
 
@@ -171,13 +173,14 @@ $(function() {
 // 繼續閱讀
 $("button.blog-button").on("click", function() {
 	let artId = $(this).attr("art_id");
+	$(window).attr('location', '/TirTirCat/article.html');
 	$.ajax({
 		url: "/TirTirCat/forum",
 		type: "GET",
 		data: { order: "article", art_id: artId },
 		dataType: "json",
-		success: function() {
-			$(window).attr('location', '/TirTirCat/article.html');
+		success: function(data) {
+			
 		}
 	});
 });
@@ -195,7 +198,7 @@ $("#forum-hot").on("click", function() {
 			that.toggleClass("-off");
 			addArt(data);
 			currentPage = 1;
-			console.log("2")
+			$("#forum-search-input").val("");
 		}
 	});
 	$.ajax({
@@ -218,7 +221,6 @@ $("#forum-new").on("click", function() {
 	that.toggleClass("-off");
 	init();
 	currentPage = 1;
-	console.log("3");
 });
 
 // 搜尋

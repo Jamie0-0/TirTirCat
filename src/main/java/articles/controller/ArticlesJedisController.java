@@ -26,7 +26,7 @@ public class ArticlesJedisController extends HttpServlet {
 		String tag = "";
 		
 		List<Article> artList = service.selectAllArticles();
-		service.setArticlesTag(articles);
+		service.setArticlesTag(tag);
 
 		// 標籤搜尋
 		service.getArticlesByTag(tag);
