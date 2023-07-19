@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
 
-@WebServlet("/articles/controller/ArticlesController")
+import articles.ariclesUtils.*;
+
+@WebServlet("/forum")
 public class ArticlesController extends HttpServlet {
 
 	private ArticlesService service;
@@ -53,17 +53,21 @@ public class ArticlesController extends HttpServlet {
 				break;
 			case "getPic":
 				ArticlePic articlePic = service.selectPic(art_id);
-				sendPicToClient(articlePic.getPic_content(),response);
+				ArticlesUtils.sendPicToClient(articlePic.getPic_content(),response);
 				return;
 			case "getAvatar":
 				String uid = request.getParameter("uid");
 				ArticlePic avatarPic = service.selectAvatar(uid);
-				sendPicToClient(avatarPic.getPic_content(),response);
+				ArticlesUtils.sendPicToClient(avatarPic.getPic_content(),response);
 				return;
 			case "article":
 				 HttpSession session = request.getSession();
 				 session.setAttribute("art_id",art_id);
-				 break;
+				 System.out.println("收到art_id並forward:"+art_id);
+				 request.getRequestDispatcher("/comment").forward(request, response);
+				 return;
+				 default:
+					 System.out.println("不明錯誤");
 			}
 			
 			//將select方法拿到的List轉成json
@@ -84,17 +88,4 @@ public class ArticlesController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
-	public static void sendPicToClient(byte[] pic_content, HttpServletResponse response) {
-	    try {
-	       ServletOutputStream outputStream = response.getOutputStream();
-	        response.setContentType("image/jpeg, image/jpg, image/png, image/gif"); 
-	        outputStream.write(pic_content);  // 走IO直接輸出照片的byte[]到前端
-	        outputStream.flush();
-	        outputStream.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	}
-
 }

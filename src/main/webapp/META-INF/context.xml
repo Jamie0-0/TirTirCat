@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <Context>
 
-    <Resource name="jdbc/javaFramework" type="javax.sql.DataSource"
+    <Resource name="jdbc/FurrEver" type="javax.sql.DataSource"
         url="jdbc:mysql://localhost:3306/FurrEver"
         username="root"
         password="password"
