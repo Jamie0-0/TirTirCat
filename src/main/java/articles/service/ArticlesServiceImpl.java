@@ -1,6 +1,12 @@
 package articles.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import articles.dao.ArticlesDao;
 import articles.dao.ArticlesDaoImpl;
@@ -13,6 +19,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public ArticlesServiceImpl() {
 		dao = new ArticlesDaoImpl();
 	}
+// 查詢功能
 
 	@Override
 	public List<Article> selectHot(String page) {
@@ -41,7 +48,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public ArticlePic selectPic(String art_id) {
 
 		ArticlePic articlePic = null;
-		if (dao.selectRedisPic(art_id).getPic_content() == null) {  // 注意不是dao.selectRedisPic(art_id) == null
+		if (dao.selectRedisPic(art_id).getPic_content() == null) { // 注意不是dao.selectRedisPic(art_id) == null
 			articlePic = dao.selectPic(art_id);
 			dao.savePicToRedis(art_id, articlePic);
 			return dao.selectPic(art_id);
@@ -55,7 +62,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	@Override
 	public ArticlePic selectAvatar(String uid) {
 		ArticlePic avatarPic = null;
-		if (dao.selectRedisAvatar(uid).getPic_content() == null) {   // 注意不是dao.selectRedisAvatar(uid) == null
+		if (dao.selectRedisAvatar(uid).getPic_content() == null) { // 注意不是dao.selectRedisAvatar(uid) == null
 			avatarPic = dao.selectAvatar(uid);
 			dao.saveAvatarToRedis(uid, avatarPic);
 			return dao.selectAvatar(uid);
@@ -103,4 +110,59 @@ public class ArticlesServiceImpl implements ArticlesService {
 		}
 		return count;
 	}
+
+	// 查詢功能 end
+	// 新增功能
+
+	@Override
+	public String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
+	    
+		DataSource ds = null;
+		Connection conn = null;
+	    String status = "新增失敗";
+		try {
+			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/FurrEver");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	    try {
+	    	conn = ds.getConnection();
+	        conn.setAutoCommit(false);
+
+	        String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content, conn);  // 把conn傳到dao層
+	        if(!pic_art_id.equals("")) {
+	        	 status = dao.insertArticlePic(pic_art_id, imageList, conn);
+	        }
+	        
+	       
+
+	        conn.commit();
+	        status = "新增成功";
+
+	    } catch (SQLException e) {
+	    	System.out.println("錯了");
+	        e.printStackTrace();
+	        if (conn != null) {
+	            try {
+	                conn.rollback(); 
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	    } finally {
+	        if (conn != null) {
+	            try {
+	                conn.setAutoCommit(true);
+	                conn.close();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	    }
+
+	    return status;
+	}
+
+
+	// 新增功能 end
 }

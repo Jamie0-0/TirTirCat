@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +36,8 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// select
 	@Override
 	public List<Article> selectHot(String page) {
 		String selectHot = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
@@ -402,5 +404,70 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		jedis.close();
 	
 	}
+	// select end
+	
+	// insert
+	@Override
+	public String insertArticle(String art_user_id, String art_title, String art_content, Connection conn) {
+		
 
+		String insertArticle = "INSERT INTO FurrEver.articles (art_user_id, art_title, art_content, art_po_time, art_like, art_rep_count, art_status)\r\n"
+				+ "VALUES (?, ?, ?, NOW(), 0, 0, '1');";
+		String gKey = "";
+		try ( PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
+			pstmt.setString(1, art_user_id);
+			pstmt.setString(2, art_title);
+			pstmt.setString(3, art_content);
+			
+			int generatedKey = 0;
+			int rowCount = pstmt.executeUpdate();
+			
+			System.out.println(rowCount + "筆新增成功");
+			
+	        try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	               generatedKey = generatedKeys.getInt(1); 
+	                System.out.println("Generated primary key: " + generatedKey);
+	                gKey = Integer.toString(generatedKey);
+	            } else {
+	            }
+	        }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return gKey;
+
+	}
+
+	@Override
+	public String insertArticlePic(String pic_art_id, List<byte[]> imageList, Connection conn) {
+		String status = "新增失敗";
+		String insertArticlePic = "INSERT INTO FurrEver.articles_pics (pic_content, pic_art_id) VALUES (?, ?);";
+		int picArt_id = Integer.parseInt(pic_art_id);
+		try (PreparedStatement pstmt = conn.prepareStatement(insertArticlePic);) {
+
+			for (int i = 0; i < imageList.size(); i++) {
+			    pstmt.setBytes(1, imageList.get(i));
+			    pstmt.setInt(2, picArt_id);
+			    pstmt.addBatch(); 
+			}
+			int[] rowCount = pstmt.executeBatch();
+			status = "新增圖片成功";
+			System.out.println(status);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	
+	// delete
+	
+	
+	// delete end
+	
 }
+
+
+
