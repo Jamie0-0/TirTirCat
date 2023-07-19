@@ -32,4 +32,8 @@ public interface ArticlesService {
 
 	// insert
 	String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList);
+	
+	
+	// delete
+	String deleteArtclePics(String pic_art_id);
 }

@@ -198,7 +198,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				list.add(setArticle(rs));
 			}
 			rs.close();
-			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -463,7 +462,23 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	
 	
 	// delete
-	
+	@Override
+	public String deleteArticlePics(String pic_art_id) {
+		String status = "刪除失敗";
+		String sql = "DELETE FROM FurrEver.articles_pics WHERE pic_art_id = ? ";
+		int picArt_id = Integer.parseInt(pic_art_id);
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			 pstmt.setInt(1, picArt_id);
+			 
+			int rowCount = pstmt.executeUpdate();
+			status = "刪除圖片成功";
+			System.out.println(status);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
 	
 	// delete end
 	

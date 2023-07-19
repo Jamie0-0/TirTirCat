@@ -162,7 +162,20 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	    return status;
 	}
-
-
+	
+	
+	
+	@Override
+	public String deleteArtclePics(String pic_art_id) {
+		
+		String status = dao.deleteArticlePics(pic_art_id);
+		
+		return status;
+	}
 	// 新增功能 end
+	// delete
+	
+	
+	// delete end
+	
 }

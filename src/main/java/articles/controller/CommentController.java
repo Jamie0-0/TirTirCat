@@ -1,6 +1,8 @@
 package articles.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,13 +27,13 @@ public class CommentController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Comment comment = null;
+		List<Comment> commentList = null;
 
 		HttpSession session = request.getSession();
 		String com_art_id = (String) session.getAttribute("art_id");
-		comment = service.selectComment(com_art_id);
+		commentList = service.selectComment(com_art_id);
 
-		String json = ArticlesUtils.TurnIntoJson(comment);
+		String json = ArticlesUtils.TurnIntoJson(commentList);
 
 		// 告訴前端response為json格式
 		response.setContentType("application/json");

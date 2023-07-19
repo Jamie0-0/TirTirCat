@@ -45,4 +45,6 @@ public interface ArticlesDao {
 	String insertArticle(String art_user_id, String art_title, String art_content, Connection conn);
 
 	String insertArticlePic(String pic_art_id, List<byte[]> imageList, Connection conn);
+
+	String deleteArticlePics(String pic_art_id);
 }

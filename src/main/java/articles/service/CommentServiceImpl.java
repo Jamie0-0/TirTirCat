@@ -19,7 +19,7 @@ public class CommentServiceImpl implements CommentService{
 	public List<Comment> selectComment(String com_art_id) {
 		
 		List<Comment> list;
-		if (dao.selectComRedis(com_art_id).isEmpty()) {
+		if (dao.selectComRedis(com_art_id) ==null || dao.selectComRedis(com_art_id).isEmpty()) {
 			list = dao.selectComById(com_art_id);
 			dao.saveComToRedis(list); // 把熱門全部存進去
 		} else {

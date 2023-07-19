@@ -66,6 +66,8 @@ public class ArticlesController extends HttpServlet {
 				 System.out.println("收到art_id並forward:"+art_id);
 				 request.getRequestDispatcher("/comment").forward(request, response);
 				 return;
+				 default:
+					 System.out.println("不明錯誤");
 			}
 			
 			//將select方法拿到的List轉成json
