@@ -24,7 +24,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	@Override
 	public List<Article> selectHot(String page) {
 		List<Article> list;
-		if (dao.selectHotRedis(page).isEmpty()) {
+		if (dao.selectHotRedis(page)  == null || dao.selectHotRedis(page).isEmpty()) {
 			list = dao.selectAllHot();
 			dao.saveHotArticlesToRedis(list); // 把熱門全部存進去
 			list = dao.selectHot(page);

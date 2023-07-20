@@ -5,6 +5,8 @@ import java.util.List;
 import articles.vo.Comment;
 
 public interface CommentDao {
+	
+	
 
 	List<Comment> selectComRedis(String com_art_id);
 
