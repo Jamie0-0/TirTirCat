@@ -18,5 +18,7 @@
 
 
 		<mapping class="articles.vo.Comment" />
+		<mapping class="articles.vo.Reply" />
+		<mapping class="articles.vo.User" />
 	</session-factory>
 </hibernate-configuration>

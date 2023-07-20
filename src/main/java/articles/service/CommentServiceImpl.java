@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import articles.dao.CommentDao;
 import articles.dao.CommentDaoImpl;
 import articles.vo.Comment;
+import articles.vo.Reply;
 import core.util.HibernateUtil;
 
 public class CommentServiceImpl implements CommentService {
@@ -33,6 +34,14 @@ public class CommentServiceImpl implements CommentService {
 
 		return list;
 
+	}
+
+	@Override
+	public List<Reply> selectReply(String reply_com_id) {
+		List<Reply> list;
+			list = dao.selectReply(reply_com_id);
+
+		return list;
 	}
 
 }
