@@ -299,7 +299,6 @@
 						</div>
 						<h5 class="card-title" id="article-title"
 							style="font-weight: bold;"></h5>
-						<img alt="Avatar" class="avatar rounded-circle img-fluid col">
 						<p class="card-text" id="article-content"></p>
 						<div class="btn-group" role="group" aria-label="Basic example">
 							<i class="fa-solid fa-heart me-1" id="article-like"></i> <i
@@ -311,28 +310,53 @@
 								class="fa-solid fa-flag visible" id="article-report"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
 						</div>
-						<div class="card w-100">
-							<div class="card-body">
-								<h5 class="card-title">
-									<ul class="list-group list-group-horizontal"
-										style="vertical-align: center;">
-										<img alt="Avatar" class="avatar rounded-circle img-fluid col">
-										<li class="list-group-item"
-											style="border: none; background-color: #F6F0ED;">TonyYen</li>
-										<li class="list-group-item"
-											style="border: none; background-color: #F6F0ED;">2023-06-17</li>
-									</ul>
-								</h5>
-								<div class="article-comment-pic position-relative ms-1">
-									<img src="./images/article6.jpg" class="card-text w-25">
-								</div>
-								<div class="article-comment-text">
-									<p class="card-text w-100">泡麵好好吃刷起來!</p>
-								</div>
-								<div class="comment-report position-absolute top-0 end-0 me-1">
-									<i type="button" class="fa-solid fa-flag comment-report"
-										data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
-								</div>
+						<div id="com_wrapper">
+							<!-- <div class="card w-100">
+								<div class="card-body">
+									<h5 class="card-title">
+										<div class="d-flex">
+											<div>
+												<img alt="Avatar" class="avatar rounded-circle img-fluid col">
+											</div>
+											<div class="list-group-item" style="border: none; background-color: #F6F0ED;">
+												<p class="com_username"></p>
+											</div>
+											<div class="list-group-item" style="border: none; background-color: #F6F0ED;">
+												<time class="com_time"></time>
+											</div>
+										</div>
+									</h5>
+									<div class="article-comment-pic position-relative ms-1">
+										<img src="./images/article6.jpg" class="card-text w-25">
+									</div>
+									<div class="article-comment-text position-relative ms-5 end-0 center">
+										<p class="card-text w-100 com-content">來點文字內容來點文字內容來點文字內容來點文字內容</p>
+									</div>
+									<div class="comment-report position-absolute top-0 end-0 me-1">
+										<i type="button" class="fa-solid fa-flag com-report"
+											data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+									</div>
+									<div>
+										<i type="button" class="fa-solid fa-reply com-reply-btn fa-rotate-180 ms-1"></i>
+									</div>
+									<div class="com-reply-wrapper d-none">
+										<ul class="list-group list-group-horizontal"
+												style="vertical-align: center;">
+											<img alt="Avatar" class="avatar rounded-circle img-fluid col">
+											<li class="list-group-item reply_username"
+												style="border: none; background-color: #F6F0ED;"></li>
+											<li class="list-group-item reply_time d-none"
+												style="border: none; background-color: #F6F0ED;"></li>
+										</ul>
+										<div class="article-comment-text">
+											<p class="card-text w-100 reply"></p>
+										</div>
+										<div class="comment-report position-absolute top-0 end-0 me-1">
+											<i type="button" class="fa-solid fa-flag reply-report d-none"
+												data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+										</div>
+									</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="card w-100 border border-black">
@@ -340,7 +364,7 @@
 								<h5 class="card-title">
 									<ul class="list-group list-group-horizontal"
 										style="vertical-align: center;">
-										<img alt="Avatar" class="avatar rounded-circle img-fluid col">
+										<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
 										<li class="list-group-item"
 											style="border: none; background-color: #F6F0ED;">TonyYen</li>
 										<li class="list-group-item"
