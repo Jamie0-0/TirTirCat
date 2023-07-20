@@ -11,7 +11,7 @@ public class TestApp {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Comment comment = session.get(Comment.class, 1);
-		System.out.println(comment.getCom_content());
+//		System.out.println(comment.getCom_content());
 		HibernateUtil.shutdown();
 
 	}
