@@ -1,8 +1,6 @@
 package product.model;
 
-import java.util.List;
-
-import product.model.ProductVO;
+import java.util.*;
 
 public interface ProductDAO_interface {
     public void insert(ProductVO productVO);

@@ -15,4 +15,20 @@
 		<servlet-name>NameServlet</servlet-name>
 		<url-pattern>/chat.do</url-pattern>
 	</servlet-mapping>
+	
+	  <servlet>
+	    <servlet-name>ProductServlet</servlet-name>
+	    <servlet-class>product.controller.ProductServlet</servlet-class>
+   	    <multipart-config>
+	        <location>/tmp</location>
+	        <max-file-size>5242880</max-file-size> <!-- 5MB -->
+	        <max-request-size>10485760</max-request-size> <!-- 10MB -->
+	        <file-size-threshold>1048576</file-size-threshold> <!-- 1MB -->
+	    </multipart-config>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>ProductServlet</servlet-name>
+	    <url-pattern>/pro.do</url-pattern>
+	  </servlet-mapping>
+
 </web-app>

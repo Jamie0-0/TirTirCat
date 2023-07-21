@@ -15,16 +15,16 @@ public class ProductDAO implements ProductDAO_interface  {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/tha102");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static final String INSERT_STMT = "INSERT INTO product (p_m_id,p_name,p_price,p_stock,p_count,p_type,p_class,p_upload_time,p_des,p_status,p_pic_one,p_pic_two,p_pic_three,p_pic_four,p_1,p_2,p_3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ONE_STMT = "SELECT * FROM product where p_id = ?";
 	private static final String DELETE = "DELETE FROM product where p_id = ?";
-	private static final String UPDATE = "UPDATE product set p_m_id=?,p_name=?,p_price=?,p_stock=?,p_count=?,p_type=?,p_class=?,p_upload_time=?,p_des=?,p_status=?,p_pic_one=?,p_pic_two=?,p_pic_three=?,p_pic_four=?,p_1=?,p_2=?,p_3=? where p_id = ?";
+	private static final String UPDATE = "UPDATE product set p_name=?,p_price=?,p_stock=?,p_type=?,p_class=?,p_des=?,p_status=?,p_pic_one=?,p_pic_two=?,p_pic_three=?,p_pic_four=? where p_id = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM product order by p_id";
 
 	@Override
@@ -83,6 +83,7 @@ public class ProductDAO implements ProductDAO_interface  {
 	
 	@Override
 	public void update(ProductVO productVO) {
+		System.out.println("into1111111111111111111111");
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -92,25 +93,20 @@ public class ProductDAO implements ProductDAO_interface  {
 			pstmt = con.prepareStatement(UPDATE);
 
 			// 這裡是寫每個欄位的輸入
-			pstmt.setInt(1, productVO.getP_m_id());
-			pstmt.setString(2, productVO.getP_name());
-			pstmt.setInt(3, productVO.getP_price());
-			pstmt.setInt(4, productVO.getP_stock());
-			pstmt.setInt(5, productVO.getP_count());
-			pstmt.setInt(6, productVO.getP_type());
-			pstmt.setInt(7, productVO.getP_class());
-			pstmt.setObject(8, productVO.getP_upload_time());
-			pstmt.setString(9, productVO.getP_des());
-			pstmt.setInt(10, productVO.getP_status());
-			pstmt.setBytes(11, productVO.getP_pic_one());
-			pstmt.setBytes(12, productVO.getP_pic_two());
-			pstmt.setBytes(13, productVO.getP_pic_three());
-			pstmt.setBytes(14, productVO.getP_pic_four());
-			pstmt.setString(15, productVO.getP_1());
-			pstmt.setString(16, productVO.getP_2());
-			pstmt.setString(17, productVO.getP_3());
-			pstmt.setInt(18, productVO.getP_id());
+			pstmt.setString(1, productVO.getP_name());
+			pstmt.setInt(2, productVO.getP_price());
+			pstmt.setInt(3, productVO.getP_stock());
+			pstmt.setInt(4, productVO.getP_type());
+			pstmt.setInt(5, productVO.getP_class());
+			pstmt.setString(6, productVO.getP_des());
+			pstmt.setInt(7, productVO.getP_status());
+			pstmt.setBytes(8, productVO.getP_pic_one());
+			pstmt.setBytes(9, productVO.getP_pic_two());
+			pstmt.setBytes(10, productVO.getP_pic_three());
+			pstmt.setBytes(11, productVO.getP_pic_four());
+			pstmt.setInt(12, productVO.getP_id());
 			pstmt.executeUpdate();
+			System.out.println("into2222222222222222222");
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
