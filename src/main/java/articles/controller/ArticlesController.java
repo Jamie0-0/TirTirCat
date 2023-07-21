@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,7 @@ import articles.ariclesUtils.*;
 @WebServlet("/forum")
 public class ArticlesController extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 
 	@Override

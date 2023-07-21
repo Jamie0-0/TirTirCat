@@ -18,6 +18,7 @@ import articles.ariclesUtils.*;
 @WebServlet("/article")
 public class TheArticleController extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 
 	@Override

@@ -194,6 +194,15 @@ public class ArticlesServiceImpl implements ArticlesService {
 	// 新增功能 end
 	// delete
 
+
+
 	// delete end
+	
+	// jedis refresh
+	@Override
+	public void jedisRefresh(List<String> list) {
+		dao.jedisRefresh(list);
+		
+	}
 
 }
