@@ -1,0 +1,13 @@
+.article_wrapper{
+    background-color: #F6F0ED;
+}
+
+div.parent_block main.main p.article{
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+
+    word-break:normal;
+    white-space:pre-warp;
+    word-wrap:break-word;
+}

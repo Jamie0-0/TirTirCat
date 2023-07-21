@@ -7,14 +7,12 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
 	<servlet>
-		<servlet-name>XxxServlet</servlet-name>
-		<servlet-class>aaa.bbb.XxxServlet</servlet-class>
+		<servlet-name>NameServlet</servlet-name>
+		<servlet-class>webSocket.controller.NameServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>XxxServlet</servlet-name>
-		<url-pattern>xxx</url-pattern>
+		<servlet-name>NameServlet</servlet-name>
+		<url-pattern>/chat.do</url-pattern>
 	</servlet-mapping>
-	
 </web-app>

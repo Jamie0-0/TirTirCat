@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+            content="Furrever admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+        <meta name="keywords"
+            content="admin template, Furrever admin template, dashboard template, flat admin template, responsive admin template, web app">
+        <meta name="author" content="Tha102G3">
+        <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+        <title>Furrever - Talks</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/linearicon.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/remixicon.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/vendors/themify.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/ratio.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/vendors/scrollbar.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+        <link rel="stylesheet" href="assets/css/vendors/slick.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <!-- <link rel="stylesheet" type="text/css" href="assets/css/vector-map.css"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="assets/css/vendors/date-picker.css"> -->
+    
+    
+        <style>
+            .talking {
+                display: flex;
+            }
+    
+            .friend-list {
+                width: 200px;
+                padding: 10px;
+                background-color: #f5f5f5;
+            }
+    
+            .chat-room {
+                flex-grow: 1;
+                width: 400px;
+                height: 400px;
+                border: 1px solid #ccc;
+                overflow-y: scroll;
+                padding: 10px;
+            }
+    
+            .message {
+                background-color: #f2f2f2;
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+    
+            .user {
+                font-weight: bold;
+            }
+    
+            .time {
+                font-size: 12px;
+                color: #888;
+            }
+    
+            .input-container {
+                margin-top: 10px;
+            }
+    
+            .input-container input[type="text"] {
+                width: 300px;
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+    
+            .input-container input[type="submit"] {
+                padding: 5px 10px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+    
+            .page-body {
+                width: auto;
+                height: auto;
+                display: flex;
+            }
+    
+            .friend-box {
+                width: 200px;
+                /* 調整寬度 */
+                padding: 10px;
+                background-color: #f5f5f5;
+            }
+    
+            .friend-list {
+                height: 300px;
+                /* 設定高度為 300 像素 */
+                overflow: auto;
+                /* 根據需求調整樣式 */
+            }
+    
+            .talking {
+                flex-grow: 1;
+                padding: 10px;
+            }
+    
+            .content {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+    
+            .chat-room {
+                word-wrap: break-word;
+            }
+    
+            .input-container input[type="text"] {
+                width: 300px;
+                padding: 5px;
+                border: 1px solid #ccc;
+                overflow-wrap: break-word;
+                /* 自動換行 */
+                word-wrap: break-word;
+                /* 兼容舊版瀏覽器 */
+            }
+    
+    
+            .centered {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                height: 100%;
+            }
+    
+            .friend.selected {
+                background-color: lightblue;
+            }
+    
+    
+    
+            .friend {
+                display: flex;
+                align-items: center;
+            }
+    
+            .friend img {
+                /* max-width: 50%;
+                max-height: 50%;
+                object-fit: cover; */
+    
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+
+            #chatRoom{
+                width: 700px;
+            }
+
+            .friend-list{
+                height: 470px;
+            }
+            #messageInput{
+                width: 600px;
+            }
+        </style>
+    
+    </head>
+    
+    <body>
+    
+        <div class="tap-top">
+            <span class="lnr lnr-chevron-up"></span>
+        </div>
+    
+        <div class="page-wrapper compact-wrapper" id="pageWrapper">
+            <div class="page-header">
+                <div class="header-wrapper m-0">
+                    <div class="header-logo-wrapper p-0">
+                        <div class="logo-wrapper">
+                            <a href="back_index.html">
+                                <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
+                                <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
+                            </a>
+                        </div>
+                        <div class="toggle-sidebar">
+                            <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
+                            <a href="back_index.html">
+                                <img src="assets/images/logo/1.png" class="img-fluid" alt="">
+                            </a>
+                        </div>
+                    </div>
+    
+                    <div class="nav-right col-6 pull-right right-header p-0">
+                        <ul class="nav-menus">
+                            <li>
+                                <span class="header-search">
+                                    <i class="ri-search-line"></i>
+                                </span>
+                            </li>
+                            <li class="onhover-dropdown">
+                                <div class="notification-box">
+                                    <i class="ri-notification-line"></i>
+                                    <span class="badge rounded-pill badge-theme">4</span>
+                                </div>
+                                <ul class="notification-dropdown onhover-show-div">
+                                    <li>
+                                        <i class="ri-notification-line"></i>
+                                        <h6 class="f-18 mb-0">通知</h6>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <i class="fa fa-circle me-2 font-primary"></i>交貨加工 <span
+                                                class="pull-right">10 min.</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <i class="fa fa-circle me-2 font-success"></i>訂單完成<span
+                                                class="pull-right">1 hr</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <i class="fa fa-circle me-2 font-info"></i>訂單生成<span
+                                                class="pull-right">3 hr</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <i class="fa fa-circle me-2 font-danger"></i>交付完成<span
+                                                class="pull-right">6 hr</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        
+                                    </li>
+                                </ul>
+                            </li>
+    
+                            <li class="profile-nav onhover-dropdown pe-0 me-0">
+                                <div class="media profile-media">
+                                    <img class="user-profile rounded-circle" src="assets/images/users/4.jpg" alt="">
+                                    <div class="user-name-hide media-body">
+                                        <span>埃梅·沃爾特</span>
+                                        <p class="mb-0 font-roboto">行政<i class="middle ri-arrow-down-s-line"></i></p>
+                                    </div>
+                                </div>
+                                <ul class="profile-dropdown onhover-show-div">
+                                    <li>
+                                        <a href="order-list.html">
+                                            <i data-feather="archive"></i>
+                                            <span>訂單</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="profile-setting.html">
+                                            <i data-feather="settings"></i>
+                                            <span>設置</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                            href="javascript:void(0)">
+                                            <i data-feather="log-out"></i>
+                                            <span>登出</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="page-body-wrapper">
+                <div class="sidebar-wrapper">
+                    <div id="sidebarEffect"></div>
+                    <div>
+                        <div class="logo-wrapper logo-wrapper-center">
+                            <a href="back_index.html" data-bs-original-title="" title="">
+                                <img class="img-fluid for-white" src="assets/images/logo/full-white.png" alt="logo">
+                            </a>
+                            <div class="back-btn">
+                                <i class="fa fa-angle-left"></i>
+                            </div>
+                        </div>
+                        <div class="logo-icon-wrapper">
+                            <a href="back_index.html">
+                                <img class="img-fluid main-logo main-white" src="assets/images/logo/1-white.png" alt="logo">
+                                <img class="img-fluid main-logo main-dark" src="assets/images/logo/logo-white.png"
+                                    alt="logo">
+                            </a>
+                        </div>
+                        <nav class="sidebar-main">
+                            <div class="left-arrow" id="left-arrow">
+                                <i data-feather="arrow-left"></i>
+                            </div>
+    
+                            <div id="sidebar-menu">
+                                <ul class="sidebar-links" id="simple-bar">
+                                    <li class="back-btn"></li>
+    
+                                    <li class="sidebar-list">
+                                        <a class="sidebar-link sidebar-title link-nav" href="back_index.html">
+                                            <i class="ri-home-line"></i>
+                                            <span>主頁</span>
+                                        </a>
+                                    </li>
+    
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                            <i class="ri-store-3-line"></i>
+                                            <span>產品</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="products.html">所有產品</a>
+                                            </li>
+    
+                                            <li>
+                                                <a href="add-new-product.html">添加產品</a>
+                                            </li>
+    
+                                            <li>
+                                                <a href="add-new-product2.html">添加團購</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+    
+                                    <li class="sidebar-list">
+                                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                                            <i class="ri-archive-line"></i>
+                                            <span>訂單</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="order-list.html">訂單列表</a>
+                                            </li>
+                                            <li>
+                                                <a href="order-detail.html">訂單明細</a>
+                                            </li>
+                                            <li>
+                                                <a href="order-list2.html">團購訂單</a>
+                                            </li>
+                                            <li>
+                                                <a href="order-list3.html">團購訂單明細</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+    
+                                    <li class="sidebar-list">
+                                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                            <i class="ri-settings-line"></i>
+                                            <span>編輯</span>
+                                        </a>
+                                        <ul class="sidebar-submenu">
+                                            <li>
+                                                <a href="profile-setting.html"> 個人設定</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+    
+                                    <li class="sidebar-list">
+                                        <a class="sidebar-link sidebar-title link-nav" href="talk.html">
+                                            <i class="fas fa-comments"></i>
+                                            <span>聊天室</span>
+                                        </a>
+                                    </li>
+    
+                                </ul>
+                            </div>
+    
+                            <div class="right-arrow" id="right-arrow">
+                                <i data-feather="arrow-right"></i>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+    
+                <div class="page-body">
+                    <div class="friend-box">
+                        <div class="friend-list">
+                            <div class="friend-title">
+                                <h3 class="centered">好友列表</h3>
+                            </div>
+                            <div class="friend" onclick="selectFriend(1, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友1</h3>
+                            </div>
+                            <div class="friend" onclick="selectFriend(2, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友2</h3>
+                            </div>
+            
+                            <div class="friend" onclick="selectFriend(3, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友3</h3>
+                            </div>
+                            <div class="friend" onclick="selectFriend(4, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友4</h3>
+                            </div>
+                            <div class="friend" onclick="selectFriend(5, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友5</h3>
+                            </div>
+                            <div class="friend" onclick="selectFriend(6, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友6</h3>
+                            </div>
+                            <div class="friend" onclick="selectFriend(7, this)">
+                                <img src="images/sunchunju_qBkZ0s214235.jpg">
+                                <h3>好友7</h3>
+                            </div>
+            
+                        </div>
+                    </div>
+            
+                    <div class="talking">
+                        <div class="content">
+                            <div class="chat-room" id="chatRoom">
+            
+                            </div>
+                            <div class="input-container">
+                                <input type="text" id="messageInput" placeholder="Enter your message"
+                                    onkeypress="handleKeyPress(event)">
+                                <input type="submit" value="Send" onclick="sendMessage()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <footer class="footer">
+                            <div class="row">
+                                <div class="col-md-12 footer-copyright text-center">
+                                    <p class="mb-0">Copyright 2022 © FURREVER theme by THA102G3</p>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                        <p>Are you sure you want to log out?</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="button-box">
+                            <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
+        <script src="assets/js/scrollbar/simplebar.js"></script>
+        <script src="assets/js/scrollbar/custom.js"></script>
+        <script src="assets/js/config.js"></script>
+        <script src="assets/js/sidebar-menu.js"></script>
+        <script src="assets/js/notify/bootstrap-notify.min.js"></script>
+        <script src="assets/js/chart/apex-chart/apex-chart1.js"></script>
+        <script src="assets/js/chart/apex-chart/moment.min.js"></script>
+        <script src="assets/js/chart/apex-chart/apex-chart.js"></script>
+        <script src="assets/js/chart/apex-chart/stock-prices.js"></script>
+        <script src="assets/js/ratio.js"></script>
+        <script src="assets/js/sidebareffect.js"></script>
+        <script src="assets/js/script.js"></script>
+        <script>
+            var selectedFriendId = null;
+    
+            function sendMessage(sender) {
+                sender = "瑋呈";
+                var messageInput = document.getElementById("messageInput");
+                var message = messageInput.value.trim();
+    
+                if (message !== "") {
+                    if (selectedFriendId === null) {
+                        // 若未選取好友，顯示警告訊息
+                        alert("請先選取好友");
+                        return;
+                    }
+    
+    
+                    var chatRoom = document.getElementById("chatRoom");
+                    var messageElement = document.createElement("div");
+                    messageElement.classList.add("message");
+                    messageElement.innerHTML = '<span class="user">' + sender + ':</span><span>' + message + '</span><span class="time">' + getCurrentTime() + '</span>';
+                    chatRoom.appendChild(messageElement);
+    
+                    messageInput.value = "";
+                    // 將新訊息添加到聊天室
+                    chatRoom.appendChild(messageElement);
+                    // 捲動到聊天室底部
+                    chatRoom.scrollTop = chatRoom.scrollHeight;
+                }
+    
+            }
+    
+            function handleKeyPress(event) {
+                if (event.keyCode === 13) { // Enter key
+                    sendMessage();
+                }
+            }
+    
+            function getCurrentTime() {
+                var now = new Date();
+                var hours = now.getHours().toString().padStart(2, "0");
+                var minutes = now.getMinutes().toString().padStart(2, "0");
+                var time = hours + ":" + minutes;
+    
+                return time;
+            }
+            function selectFriend(friendId, element) {
+                // 移除其他好友的選中狀態
+                var friends = document.querySelectorAll('.friend');
+                friends.forEach(function (friend) {
+                    friend.classList.remove('selected');
+                });
+    
+                // 為點選的好友添加選中狀態
+                element.classList.add('selected');
+    
+    
+    
+                if (selectedFriendId !== friendId) {
+                    // 若選取了不同的好友，清空聊天室內容
+                    var chatRoom = document.getElementById("chatRoom");
+                    chatRoom.innerHTML = "";
+    
+    
+    
+    
+                    // 假設這是從資料庫取得的對話資料
+                    var messages = [
+                        {
+                            sender: "瑋呈",
+                            content: "你好，最近過得如何？",
+                            time: "12:01 PM"
+                        },
+                        {
+                            sender: "User",
+                            content: "我很好，謝謝你！你呢？",
+                            time: "12:02 PM"
+                        },
+                        {
+                            sender: "瑋呈",
+                            content: "我也很好，感謝關心。",
+                            time: "12:03 PM"
+                        }
+                    ];
+    
+                    var messages2 = [
+                        {
+                            sender: "瑋呈",
+                            content: "今天天氣真好啊！",
+                            time: "1:30 PM"
+                        },
+                        {
+                            sender: "User",
+                            content: "是的，太陽很大，出去玩會曬黑的。",
+                            time: "1:31 PM"
+                        },
+                        {
+                            sender: "瑋呈",
+                            content: "沒關係，曬黑也很帥氣！",
+                            time: "1:32 PM"
+                        }
+                    ];
+    
+    
+    
+    
+                    messages.forEach(function (message) {
+                        var messageElement = document.createElement("div");
+                        messageElement.classList.add("message");
+                        messageElement.innerHTML = '<span class="user">' + message.sender + ':</span><span>' + message.content + '</span><span class="time">' + message.time + '</span>';
+                        chatRoom.appendChild(messageElement);
+                    });
+                }
+                selectedFriendId = friendId;
+    
+                // 在這裡進行選取好友的處理
+                console.log('選取好友', friendId);
+                // 可以將選取好友的 ID 傳遞給其他函式，進行相應的對話切換操作
+            }
+        </script>
+        <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/icons/feather-icon/feather.min.js"></script>
+        <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+        <!-- <script src="assets/js/chart/apex-chart/chart-custom.js"></script> -->
+        <!-- <script src="assets/js/tooltip-init.js"></script> -->
+        <!-- <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script> -->
+        <!-- <script src="assets/js/icons/feather-icon/feather.min.js"></script> -->
+        <!-- <script src="assets/js/icons/feather-icon/feather-icon.js"></script> -->
+    
+    </body>
+</html>

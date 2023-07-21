@@ -1,0 +1,31 @@
+/* 發文按鈕 */
+.forum-post {
+/*	margin: 0 auto; */
+	z-index: 9999;
+}
+
+.post-button, .forum-toggle {
+	border-radius: 20px;
+	width: 10vw;
+	min-width: 100px;
+	font-size: 1 rem;
+	background-color: #FFCA76;
+	cursor: pointer;
+	border: none !important;
+}
+
+/* toggle 熱門/最新 */
+.-off {
+	display: none;
+}
+
+div#custom-card-body {
+	background-color: #F6F0ED !important;
+	border: none !important;
+}
+
+@media ( min-width : 2000px) {
+	div#custom-card-body {
+		margin-bottom: 5rem !important;
+	}
+}
