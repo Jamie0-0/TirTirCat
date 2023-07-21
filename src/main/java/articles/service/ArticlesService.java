@@ -7,6 +7,7 @@ import articles.vo.ArticlePic;
 
 public interface ArticlesService {
 
+	// select
 	List<Article> selectHot(String page);
 
 	List<Article> selectNew(String page);
@@ -22,4 +23,17 @@ public interface ArticlesService {
 	ArticlePic selectCarouselPic(String art_id, String picOrder);
 
 	String selectCountById(String order, String art_id);
+
+	List<Article> selectAllArticles();
+	
+	List<String> getArticlesByTag(String tag);
+
+	int selectPageCount(String type);
+
+	// insert
+	String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList);
+	
+	
+	// delete
+	String deleteArtclePics(String pic_art_id);
 }

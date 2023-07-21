@@ -1,9 +1,8 @@
 package member.dao;
 
-import javax.sql.DataSource;
+import member.vo.Member;
 
-public class MemberDao {
-	private DataSource ds;
-	
-	
+public interface MemberDao {
+	String login(String email, String password);
+	boolean insert(Member member);
 }

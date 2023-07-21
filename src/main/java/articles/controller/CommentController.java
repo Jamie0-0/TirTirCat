@@ -10,39 +10,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import articles.service.ArticlesService;
-import articles.service.ArticlesServiceImpl;
-import articles.vo.Article;
-import articles.ariclesUtils.*;
+import articles.ariclesUtils.ArticlesUtils;
+import articles.service.CommentService;
+import articles.service.CommentServiceImpl;
+import articles.vo.Comment;
 
-@WebServlet("/article")
-public class TheArticleController extends HttpServlet {
-
-	private ArticlesService service;
+@WebServlet("/comment")
+public class CommentController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private CommentService service;
 
 	@Override
 	public void init() throws ServletException {
-		service = new ArticlesServiceImpl();
+		service = new CommentServiceImpl();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		// 由forum.html的繼續閱讀進來
-		HttpSession session = request.getSession();
-		String art_id = (String) session.getAttribute("art_id");
-		List<Article> artList = null;
-		
-		if (art_id != null) {
-			artList = service.selectByArt_id(art_id);
-			if(artList.isEmpty()) {
-				System.out.println("找不到此文章，送回forum.html");
-				artList = null;   // artList為null傳給前端，前端收到null跳轉回forum.html
-			}
-		}
+		List<Comment> commentList = null;
 
-		// 將select方法拿到的List轉成json
-		String json = ArticlesUtils.TurnIntoJson(artList);
+		HttpSession session = request.getSession();
+		String com_art_id = (String) session.getAttribute("art_id");
+		commentList = service.selectComment(com_art_id);
+
+		String json = ArticlesUtils.TurnIntoJson(commentList);
+
 		// 告訴前端response為json格式
 		response.setContentType("application/json");
 		// 設定編碼

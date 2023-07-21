@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 
 public class Member {
 	private Integer uid;
-	private String uPhone;
-	private String uName;
-	private String uPwd;
-	private String uEmail;
-	private String uAddress;
-	private Date uBirth;
-	private String uGender;
+	private String phone;
+	private String name;
+	private String password;
+	private String email;
+	private String addr;
+	private java.util.Date birth;
+	private String gender;
 	private Timestamp uReg;
 	private byte[] uPic;
 	private Integer u_report;
@@ -30,60 +30,61 @@ public class Member {
 		this.uid = uid;
 	}
 
-	public String getuPhone() {
-		return uPhone;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setuPhone(String uPhone) {
-		this.uPhone = uPhone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getuName() {
-		return uName;
+	public String getName() {
+		return name;
 	}
 
-	public void setuName(String uName) {
-		this.uName = uName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getuPwd() {
-		return uPwd;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setuPwd(String uPwd) {
-		this.uPwd = uPwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getuEmail() {
-		return uEmail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setuEmail(String uEmail) {
-		this.uEmail = uEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getuAddress() {
-		return uAddress;
+	public String getAddr() {
+		return addr;
 	}
 
-	public void setuAddress(String uAddress) {
-		this.uAddress = uAddress;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 
-	public Date getuBirth() {
-		return uBirth;
+	public Date getBirth() {
+		java.sql.Date sqlDate = new java.sql.Date(birth.getTime());
+		return sqlDate;
 	}
 
-	public void setuBirth(Date uBirth) {
-		this.uBirth = uBirth;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 
-	public String getuGender() {
-		return uGender;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setuGender(String uGender) {
-		this.uGender = uGender;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public Timestamp getuReg() {

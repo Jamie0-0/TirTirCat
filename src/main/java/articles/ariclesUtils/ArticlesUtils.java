@@ -1,4 +1,4 @@
-package articles.controller;
+package articles.ariclesUtils;
 
 import java.io.IOException;
 

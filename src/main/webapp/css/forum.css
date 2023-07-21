@@ -1,6 +1,7 @@
 /* 發文按鈕 */
 .forum-post {
-	margin: 0 auto;
+/*	margin: 0 auto; */
+	z-index: 9999;
 }
 
 .post-button, .forum-toggle {

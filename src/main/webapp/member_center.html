@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./images/article1.jpg" type="image/x-icon">
-    <title>交流天地</title>
+    <title>FurrEver</title>
 
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.css">
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
 
     <!-- wow css -->
     <link rel="stylesheet" href="assets/css/animate.min.css" />
@@ -31,13 +30,11 @@
     <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <!-- 自己的css -->
-    
-    <link rel="stylesheet" href="./css/all.css">
-    <link rel="stylesheet" href="./css/forum.css">
+    <link rel="stylesheet" href="assets/css/styleGuide.css">
+
 </head>
 
-<body class="bg-effect">
-
+<body>
     <!-- Header Start -->
     <header class="pb-md-4 pb-0">
         <div class="top-nav top-header sticky-header">
@@ -82,7 +79,7 @@
                                                     <li class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="./images/article1.jpg"
+                                                                <img src="../assets/images/vegetable/product/1.png"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
@@ -101,7 +98,7 @@
                                                     <li class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="./images/article1.jpg"
+                                                                <img src="assets/images/vegetable/product/2.png"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
@@ -146,25 +143,8 @@
                                             </div>
                                             <div class="delivery-detail">
                                                 <h6>Hello,</h6>
-                                                <h5>My Account</h5>
+                                                <h5 class="user_account">My Account</h5>
                                             </div>
-                                        </div>
-
-                                        <div class="onhover-div onhover-div-login">
-                                            <ul class="user-box-name">
-                                                <li class="product-box-contain">
-                                                    <i></i>
-                                                    <a href="login.html">登入</a>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <a href="sign-up.html">註冊</a>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <a href="forgot.html">忘記密碼</a>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </li>
                                 </ul>
@@ -224,147 +204,41 @@
     </header>
     <!-- Header End -->
 
-    <div class="forum_wrapper">
-        <div class="custom-function-default">
-            <div class="card card-body custom-card-body p-0 mb-2"  id="custom-card-body">
-                <div class="all_function_area d-flex justify-content-between">
-                    <div>
-                        <button type="button" class="btn btn-primary rounded-pill forum-toggle" id="forum-hot">熱門</button>
-                        <button type="button" class="btn btn-primary rounded-pill forum-toggle -off" id="forum-new">最新</button>
-                    </div>
-                    <div class="forum-post position-fixed bottom-0 end-0">
-                        <form id="post" action="./rule.html">
-                            <div class="d-grid gap-2 d-md-block">
-                                <button class="btn btn-primary rounded-pill mb-2 me-2"  type="submit" >發文</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="all_search_area">
-                        <div class="container-fluid p-0">
-                            <form class="d-flex">
-                                <input class="btn-outline-primary form-control me-2 forum_searchbox" type="text" placeholder="搜尋標題" aria-label="Search" id="forum-search-input">
-                                <div class="search-btn-wrap">
-                                    <button class="forum_search-btn" id="forum-search-btn" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    <!-- 列表 -->
+    <div class="container  align-items-center mt-4 member-infor">
+        <div class="row">
+            <div class="col member_infor h5">
+                <a href="update_imfor.html">個人資訊</a>
+            </div>
+            <div class="col pet_infor h5">
+                <a href="pet.html">毛孩資訊</a>
+            </div>
+            <div class="col friend h5">
+                <a href="freind.html">好友列表</a>
+            </div>
+            <div class="col act_list h5">
+                <a href="trip.html">活動清單</a>
+            </div>
+            <div class="col tra_list h5">
+                <a href="collect.html">追蹤清單</a>
+            </div>
+            <div class="col order h5">
+                <a href="#">訂單</a>
+            </div>
+            <div class="col article h5">
+                <a href="myarticle.html">文章管理</a>
             </div>
         </div>
-        <div class="parent_block w-100 justify-content-center">
-            <!-- <aside class="forum-aside">
-                <div class="container-fluid">
-                    <ul class="aside_list">
-                        <li>
-                            <a href="#" class="aside_bar">討論區</a><br>
-                        </li>
-                        <div class="separate"></div>
-                        <li>
-                            <a href="#" class="aside_bar">活動區</a><br>
-                            <img src ="./images/bg2.png" class="w-50">
-                        </li>
-                    </ul>
-                </div>
-            </aside> -->
-            <main class="main w-75">
-                <article class="article">
-					                    <div class="container d-flex justify-content-center align-items-center w-100">
-                        <div class="row w-100" id="article-area">
-                        	<img src="./images/notFound"  class="d-none" id="notFound">
-                        	<div class="col-12 paragraph1">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img class="img-fluid rounded-start article1 w-100 pic-content" alt="載入失敗">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile row m-0 d-flex align-items-center">
-                                                    <img alt="Avatar" class="avatar rounded-circle img-fluid col">
-                                                    <p class="author col mb-0"></p>
-                                                </div>
-                                                <div class="row w-100">
-                                                    <time class="post-time col"></time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;"></h5>
-                                                <p class="card-text article"></p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1"></i>
-                                                    <i class="fa-solid fa-comment me-1"></i>
-                                                    <button class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 paragraph2">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img class="img-fluid rounded-start article1 w-100 pic-content" alt="載入失敗">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile row m-0 d-flex align-items-center">
-                                                    <img alt="Avatar" class="avatar rounded-circle img-fluid col">
-                                                    <p class="author col mb-0"></p>
-                                                </div>
-                                                <div class="row w-100">
-                                                    <time class="post-time col"></time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;"></h5>
-                                                <p class="card-text article"></p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1"></i>
-                                                    <i class="fa-solid fa-comment me-1"></i>
-                                                    <button class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 paragraph3">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img class="img-fluid rounded-start article1 w-100 pic-content" alt="載入失敗">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="profile row m-0 d-flex align-items-center">
-                                                    <img alt="Avatar" class="avatar rounded-circle img-fluid col">
-                                                    <p class="author col mb-0"></p>
-                                                </div>
-                                                <div class="row w-100">
-                                                    <time class="post-time col"></time>
-                                                </div>
-                                                <h5 class="card-title" style="font-weight: bold;"></h5>
-                                                <p class="card-text article"></p>
-                                                <div class="blog-contain blog-contain-2">
-                                                    <i class="fa-solid fa-heart me-1"></i>
-                                                    <i class="fa-solid fa-comment me-1"></i>
-                                                    <button class="blog-button">繼續閱讀</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <div class="btn-toolbar pages justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group me-2" role="group" aria-label="Second group" id="forum-page" >
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div> <!-- forum_wrapper -->
+    </div>
+
+    <hr>
+    <!-- end 列表 -->
+
+
+    <!-- 個人資訊 -->
 
     <!-- Footer Section Start -->
+
     <footer class="section-t-space">
         <div class="container-fluid-lg">
             <div class="main-footer section-b-space section-t-space">
@@ -393,7 +267,7 @@
                         <div class="footer-logo">
                             <div class="theme-logo">
                                 <a href="index.html">
-                                    <img src="./images/logo/1.png" class="blur-up lazyload" alt="">
+                                    <img src="assets/images/logo/2.png" class="blur-up lazyload" alt="">
                                 </a>
                             </div>
 
@@ -409,7 +283,6 @@
                         <div class="footer-title">
                             <h4>免責聲明</h4>
                         </div>
-
                         <div class="footer-contain">
                             <ul>
                                 <li>
@@ -433,21 +306,21 @@
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </footer>
+
     <!-- Footer Section End -->
 
     <!-- latest jquery-->
-    <script src="./vendors/jquery/jquery-3.7.0.min.js"></script>
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <!-- jquery ui-->
     <script src="assets/js/jquery-ui.min.js"></script>
 
     <!-- Bootstrap js-->
-    <script src="./vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
     <script src="assets/js/bootstrap/popper.min.js"></script>
 
@@ -482,10 +355,23 @@
     <!-- script js -->
     <script src="assets/js/script.js"></script>
 
-    <!-- my own js -->
-    <script src="https://kit.fontawesome.com/bee31715f0.js" crossorigin="anonymous"></script>
-    <script src="./js/all.js"></script>
-    <script src="./js/test.js"></script>
+    <script>
+        $(function () {
+            let user_account_el = $("h5.user_account");
+            $.ajax({
+                url: "/TirTirCat/member/controller/memberCenterController",
+                type: "POST",
+                data: {
+                    
+                },
+                dataType: "json",
+                success: function (data) {               
+                    user_account_el.text(data);
+                }
+            })
+
+        });
+    </script>
 </body>
 
 </html>
