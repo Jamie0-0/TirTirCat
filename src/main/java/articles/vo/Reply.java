@@ -18,36 +18,38 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "com_reply", catalog = "FurrEver")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment extends Core{
+public class Reply extends Core{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private Integer com_id;
+	private Integer reply_id;
 	@Column
-	private Integer com_art_id;
+	private Integer reply_com_id;
 	@Column 
-	private Integer com_user_id;
+	private Integer reply_user_id;
 	@Column 
-	private String com_content;
+	private String reply_content;
 	@Column 
-	private Timestamp com_date_time;
+	private Timestamp reply_date_time;
 	@Column 
-	private Integer com_rep_count;
+	private Integer reply_rep_count;
 	@Column 
-	private String com_status;
+	private String reply_status;
     @Transient // 告訴 Hibernate 不需要映射到數據庫
     private String u_name;
-    
+	
     @ManyToOne
-    @JoinColumn(name = "COM_USER_ID", insertable = false, updatable = false)  // 自己對應到USER的PK
+    @JoinColumn(name = "REPLY_USER_ID", insertable = false, updatable = false)
     private User user; // 對應到 User 實體
+    
+
 
 }

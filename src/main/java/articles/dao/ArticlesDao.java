@@ -47,4 +47,6 @@ public interface ArticlesDao {
 	String insertArticlePic(String pic_art_id, List<byte[]> imageList, Connection conn);
 
 	String deleteArticlePics(String pic_art_id);
+
+	void jedisRefresh(List<String> list);
 }

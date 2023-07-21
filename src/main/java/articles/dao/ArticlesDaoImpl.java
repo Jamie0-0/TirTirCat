@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,8 +15,6 @@ import javax.sql.DataSource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import articles.ariclesUtils.JedisPoolUtil;
 import articles.vo.Article;
@@ -452,7 +449,9 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			    pstmt.addBatch(); 
 			}
 			int[] rowCount = pstmt.executeBatch();
-			status = "新增圖片成功";
+			if(rowCount != null && rowCount.length != 0) {
+				status = "新增圖片成功";
+			}
 			System.out.println(status);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -472,15 +471,28 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			 pstmt.setInt(1, picArt_id);
 			 
 			int rowCount = pstmt.executeUpdate();
-			status = "刪除圖片成功";
+			if(rowCount !=0) {
+				status = "刪除圖片成功";
+			}
 			System.out.println(status);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return status;
 	}
-	
 	// delete end
+	
+	// refresh
+	
+	@Override
+	public void jedisRefresh(List<String> list) {
+		String key = "";
+		JedisPool pool = JedisPoolUtil.getJedisPool();
+		Jedis jedis = pool.getResource();
+		jedis.expire(key.getBytes(), 0);
+		jedis.close();
+		
+	}
 	
 }
 
