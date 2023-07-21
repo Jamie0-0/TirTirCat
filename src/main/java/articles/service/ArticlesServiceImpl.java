@@ -12,6 +12,7 @@ import articles.dao.ArticlesDao;
 import articles.dao.ArticlesDaoImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import redis.clients.jedis.exceptions.JedisException;
 
 public class ArticlesServiceImpl implements ArticlesService {
 	private ArticlesDao dao;
@@ -23,13 +24,21 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public List<Article> selectHot(String page) {
-		List<Article> list;
-		if (dao.selectHotRedis(page)  == null || dao.selectHotRedis(page).isEmpty()) {
-			list = dao.selectAllHot();
-			dao.saveHotArticlesToRedis(list); // 把熱門全部存進去
+		List<Article> list = null;
+		try {
+			list = dao.selectHotRedis(page);
+			if (list == null || list.isEmpty()) {
+				list = dao.selectAllHot();
+				dao.saveHotArticlesToRedis(list); // 把熱門全部存進去
+				return dao.selectHot(page);
+			}
+		} catch (JedisException e) {
+			System.out.println("selectHotRedis錯誤");
+			e.printStackTrace();
 			list = dao.selectHot(page);
-		} else {
-			list = dao.selectHotRedis(page); // 調用部分熱門
+		} catch (Exception e) {
+			System.out.println("selectHot其他錯誤");
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -48,26 +57,40 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public ArticlePic selectPic(String art_id) {
 
 		ArticlePic articlePic = null;
-		if (dao.selectRedisPic(art_id).getPic_content() == null) { // 注意不是dao.selectRedisPic(art_id) == null
-			articlePic = dao.selectPic(art_id);
-			dao.savePicToRedis(art_id, articlePic);
-			return dao.selectPic(art_id);
-		} else {
+		try {
 			articlePic = dao.selectRedisPic(art_id);
-		}
+			if (dao.selectRedisPic(art_id).getPic_content() == null) { // 注意不是dao.selectRedisPic(art_id) == null
+				articlePic = dao.selectPic(art_id);
+				dao.savePicToRedis(art_id, articlePic);
+			}
 
+		} catch (JedisException e) {
+			System.out.println("selectRedisPic錯誤");
+			e.printStackTrace();
+			return dao.selectPic(art_id);
+		} catch (Exception e) {
+			System.out.println("selectPic其他錯誤");
+			e.printStackTrace();
+		}
 		return articlePic;
 	}
 
 	@Override
 	public ArticlePic selectAvatar(String uid) {
 		ArticlePic avatarPic = null;
-		if (dao.selectRedisAvatar(uid).getPic_content() == null) { // 注意不是dao.selectRedisAvatar(uid) == null
-			avatarPic = dao.selectAvatar(uid);
-			dao.saveAvatarToRedis(uid, avatarPic);
-			return dao.selectAvatar(uid);
-		} else {
+		try {
 			avatarPic = dao.selectRedisAvatar(uid);
+			if (dao.selectRedisAvatar(uid).getPic_content() == null) { // 注意不是dao.selectRedisAvatar(uid) == null
+				avatarPic = dao.selectAvatar(uid);
+				dao.saveAvatarToRedis(uid, avatarPic);
+			}
+		} catch (JedisException e) {
+			System.out.println("selectRedisAvatar錯誤");
+			e.printStackTrace();
+			avatarPic = dao.selectAvatar(uid);
+		} catch (Exception e) {
+			System.out.println("selectAvatar其他錯誤");
+			e.printStackTrace();
 		}
 		return avatarPic;
 	}
@@ -116,66 +139,61 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
-	    
+
 		DataSource ds = null;
 		Connection conn = null;
-	    String status = "新增失敗";
+		String status = "新增失敗";
 		try {
 			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/FurrEver");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-	    try {
-	    	conn = ds.getConnection();
-	        conn.setAutoCommit(false);
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
 
-	        String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content, conn);  // 把conn傳到dao層
-	        if(!pic_art_id.equals("")) {
-	        	 status = dao.insertArticlePic(pic_art_id, imageList, conn);
-	        }
-	        
-	       
+			String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content, conn); // 把conn傳到dao層
+			if (!pic_art_id.equals("")) {
+				status = dao.insertArticlePic(pic_art_id, imageList, conn);
+			}
 
-	        conn.commit();
-	        status = "新增成功";
+			conn.commit();
+			status = "新增成功";
 
-	    } catch (SQLException e) {
-	    	System.out.println("錯了");
-	        e.printStackTrace();
-	        if (conn != null) {
-	            try {
-	                conn.rollback(); 
-	            } catch (SQLException ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-	    } finally {
-	        if (conn != null) {
-	            try {
-	                conn.setAutoCommit(true);
-	                conn.close();
-	            } catch (SQLException ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-	    }
+		} catch (SQLException e) {
+			System.out.println(" insertArticle錯了");
+			e.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		} finally {
+			if (conn != null) {
+				try {
+					conn.setAutoCommit(true);
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 
-	    return status;
+		return status;
 	}
-	
-	
-	
+
 	@Override
 	public String deleteArtclePics(String pic_art_id) {
-		
+
 		String status = dao.deleteArticlePics(pic_art_id);
-		
+
 		return status;
 	}
 	// 新增功能 end
 	// delete
-	
-	
+
 	// delete end
-	
+
 }
