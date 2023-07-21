@@ -1,7 +1,8 @@
 package member.dao;
 
+import member.vo.Member;
+
 public interface MemberDao {
-	
-	
-	String authenticate(String email, String password);
+	String login(String email, String password);
+	boolean insert(Member member);
 }

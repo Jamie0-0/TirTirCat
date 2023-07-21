@@ -15,7 +15,8 @@ import member.vo.Member;
 public class MemberDaoImpl implements MemberDao {
 	private DataSource ds;
 
-	private String login = "select u_name FROM USER WHERE u_email=? && u_pwd=?";
+	private static final String LOGIN = "select u_name FROM USER WHERE u_email=? && u_pwd=?";
+	private static final String REGISTER = "insert into USER(u_email, u_name, u_pwd, u_phone, u_address, u_birth, u_gender) values(?, ?, ?, ?, ?, ?, ?)";
 
 	public MemberDaoImpl() {
 		try {
@@ -25,43 +26,41 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 
-	@Override
-//	public List<Member> login() {
-//		try (Connection connection = ds.getConnection();
-//				PreparedStatement pstm = connection.prepareStatement(login);
-//				ResultSet rs = pstm.executeQuery();) {
-//			var list = new ArrayList<Member>();
-//			while (rs.next()) {
-//				Member member = new Member();
-//				member.setuEmail(rs.getString("u_email"));
-//				member.setuPwd(rs.getString("u_pwd"));
-//				list.add(member);
-//			}
-//			return list;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
 
-	public String authenticate(String email, String password) {
+	public String login(String email, String password) {
 		String username = null;
-		try (Connection connection = ds.getConnection();
-				PreparedStatement pstm = connection.prepareStatement(login);
-				) {
-			
+		try (Connection connection = ds.getConnection(); PreparedStatement pstm = connection.prepareStatement(LOGIN);) {
+
 			pstm.setString(1, email);
 			pstm.setString(2, password);
 			ResultSet rs = pstm.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				username = rs.getString("u_name");
-//				System.out.println(username);
-//				return username;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return username;
+	}
+
+	@Override
+	public boolean insert(Member member) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstm = connection.prepareStatement(REGISTER);) {
+			pstm.setString(1, member.getEmail());
+			pstm.setString(2, member.getName());
+			pstm.setString(3, member.getPassword());
+			pstm.setString(4, member.getPhone());
+			pstm.setString(5, member.getAddr());
+			pstm.setDate(6, member.getBirth());
+			pstm.setString(7, member.getGender());
+
+			int rowInsert = pstm.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

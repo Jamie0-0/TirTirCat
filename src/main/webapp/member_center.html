@@ -359,15 +359,13 @@
         $(function () {
             let user_account_el = $("h5.user_account");
             $.ajax({
-                url: "/TirTirCat/member/controller/member_centerController",
+                url: "/TirTirCat/member/controller/memberCenterController",
                 type: "POST",
                 data: {
                     
                 },
                 dataType: "json",
-                success: function (data) {        
-                    // consoe.log(data);        
-                    var username = data.username;
+                success: function (data) {               
                     user_account_el.text(data);
                 }
             })
