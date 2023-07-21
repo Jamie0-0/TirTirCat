@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.dao.support.DaoSupport;
+
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
-import articles.vo.Article;
 
-@WebServlet("/ArticlesJedis")
-public class ArticlesJedisController extends HttpServlet {
-
+@WebServlet("/refresh")
+public class JedisRefreshController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 	
@@ -23,20 +23,10 @@ public class ArticlesJedisController extends HttpServlet {
 		service = new ArticlesServiceImpl();
 	}
 	
+      
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<String> list = null;
 		
-		String tag = "";
-		
-		List<Article> artList = service.selectAllArticles();
-		service.setArticlesTag(tag);
-
-		// 標籤搜尋
-		service.getArticlesByTag(tag);
-		
+		service.jedisRefresh(list);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }

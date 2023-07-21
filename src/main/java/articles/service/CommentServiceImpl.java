@@ -2,14 +2,11 @@ package articles.service;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import articles.dao.CommentDao;
 import articles.dao.CommentDaoImpl;
 import articles.vo.Comment;
 import articles.vo.Reply;
-import core.util.HibernateUtil;
+import redis.clients.jedis.exceptions.JedisException;
 
 public class CommentServiceImpl implements CommentService {
 
@@ -22,15 +19,21 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<Comment> selectComment(String com_art_id) {
 
-		List<Comment> list;
+		List<Comment> list = null;
 
-		
-//		if (dao.selectComRedis(com_art_id) ==null || dao.selectComRedis(com_art_id).isEmpty()) {
+		try {
+			dao.selectComRedis(com_art_id);
+			if (dao.selectComRedis(com_art_id) == null || dao.selectComRedis(com_art_id).isEmpty()) {
+				list = dao.selectComById(com_art_id);
+				dao.saveComToRedis(list); 
+			}
+		} catch (JedisException e) {
+			System.out.println("selectComRedis錯誤");
+			e.printStackTrace();
 			list = dao.selectComById(com_art_id);
-//			dao.saveComToRedis(list); // 把熱門全部存進去
-//		} else {
-//			list = dao.selectComRedis(com_art_id); // 調用部分熱門
-//		}
+		} catch (Exception e) {
+			System.out.println("selectComment其他錯誤");
+		}
 
 		return list;
 
@@ -39,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<Reply> selectReply(String reply_com_id) {
 		List<Reply> list;
-			list = dao.selectReply(reply_com_id);
+		list = dao.selectReply(reply_com_id);
 
 		return list;
 	}

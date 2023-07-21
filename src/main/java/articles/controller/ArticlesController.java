@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,7 @@ import articles.ariclesUtils.*;
 @WebServlet("/forum")
 public class ArticlesController extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 
 	@Override
@@ -32,11 +32,15 @@ public class ArticlesController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
+
 			request.setCharacterEncoding("UTF-8");
 			String order = request.getParameter("order");
 			String page = request.getParameter("page");
 			String art_id = request.getParameter("art_id");
+			 HttpSession session = request.getSession();
+			 session.setAttribute("art_id",art_id);
 			List<Article> artList = null;
+			
 			
 			// 判斷傳來的指令 熱門文章hot  最新文章new
 			// 搜尋文章search 讀取圖片getPic
@@ -61,13 +65,9 @@ public class ArticlesController extends HttpServlet {
 				ArticlesUtils.sendPicToClient(avatarPic.getPic_content(),response);
 				return;
 			case "article":
-				 HttpSession session = request.getSession();
-				 session.setAttribute("art_id",art_id);
 				 System.out.println("收到art_id並forward:"+art_id);
 				 request.getRequestDispatcher("/comment").forward(request, response);
 				 return;
-				 default:
-					 System.out.println("不明錯誤");
 			}
 			
 			//將select方法拿到的List轉成json

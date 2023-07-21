@@ -1,28 +1,28 @@
 // $.ajax改fetch as a practice
 
-// AddComment
-function addComment(data) {
+// // AddComment
+// function addComment(data) {
 
-	for (let i = 0; i < data.length; i++) {
+// 	for (let i = 0; i < data.length; i++) {
 
-		// 這裡動態生成留言
-	}
+// 		// 這裡動態生成留言
+// 	}
 
-	// Avatar  data.length應從留言數獲得
-	for (let i = 0; i < data.length; i++) {
-		let uid = $("p.author").eq(i).attr("uid");
-		$.ajax({
-			url: "/TirTirCat/forum",
-			type: "GET",
-			data: {
-				order: "getAvatar",
-				"uid": uid
-			},
-			dataType: "json",
-		});
-		$("img.avatar").eq(i).attr("src", "/TirTirCat/forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
-	}
-};
+// 	// Avatar  data.length應從留言數獲得
+// 	for (let i = 0; i < data.length; i++) {
+// 		let uid = $("p.author").eq(i).attr("uid");
+// 		$.ajax({
+// 			url: "/TirTirCat/forum",
+// 			type: "GET",
+// 			data: {
+// 				order: "getAvatar",
+// 				"uid": uid
+// 			},
+// 			dataType: "json",
+// 		});
+// 		$("img.avatar").eq(i).attr("src", "/TirTirCat/forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
+// 	}
+// };
 
 // init
 $(function() {
@@ -144,12 +144,7 @@ $(function() {
 									comReplyWrapper.append(replyItem);
 								}
 							});
-		//		}    else {
-//						comReplyWrapper.addClass("d-none");
-//					}
 				});
-
-
 			}
 		});
 }); // init end
@@ -169,3 +164,8 @@ $("#article-comment").on("click", function() {
 $("i.comment-report").on("click", function() {
 	console.log("留言檢舉");
 });
+
+$("#article-edit").on("click", function(){
+	console.log("編輯文章")
+	
+})
