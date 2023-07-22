@@ -33,7 +33,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// select
 	@Override
 	public List<Article> selectHot(String page) {
@@ -354,7 +354,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	@Override
 	public ArticlePic selectRedisPic(String art_id) {
 		ArticlePic articlePic = new ArticlePic();
-		String key = "pic_art_id:"+art_id;
+		String key = "pic_art_id:" + art_id;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		byte[] articlePicData = jedis.get(key.getBytes());
@@ -366,10 +366,10 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	@Override
 	public void savePicToRedis(String art_id, ArticlePic articlePic) {
-		String key = "pic_art_id:"+art_id;
+		String key = "pic_art_id:" + art_id;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
-		byte[] articlePicData =articlePic.getPic_content();
+		byte[] articlePicData = articlePic.getPic_content();
 		jedis.set(key.getBytes(), articlePicData);
 
 		jedis.close();
@@ -378,7 +378,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	@Override
 	public ArticlePic selectRedisAvatar(String uid) {
 		ArticlePic avatarPic = new ArticlePic();
-		String key = "user_avatar:"+uid;
+		String key = "user_avatar:" + uid;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		byte[] avatarPicData = jedis.get(key.getBytes());
@@ -390,45 +390,44 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	@Override
 	public void saveAvatarToRedis(String uid, ArticlePic avatarPic) {
-		
-		String key = "user_avatar:"+uid;
+
+		String key = "user_avatar:" + uid;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
-		byte[] avatarPicData =avatarPic.getPic_content();
+		byte[] avatarPicData = avatarPic.getPic_content();
 		jedis.set(key.getBytes(), avatarPicData);
 
 		jedis.close();
-	
+
 	}
 	// select end
-	
+
 	// insert
 	@Override
 	public String insertArticle(String art_user_id, String art_title, String art_content, Connection conn) {
-		
 
 		String insertArticle = "INSERT INTO FurrEver.articles (art_user_id, art_title, art_content, art_po_time, art_like, art_rep_count, art_status)\r\n"
 				+ "VALUES (?, ?, ?, NOW(), 0, 0, '1');";
 		String gKey = "";
-		try ( PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
+		try (PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, art_user_id);
 			pstmt.setString(2, art_title);
 			pstmt.setString(3, art_content);
-			
+
 			int generatedKey = 0;
 			int rowCount = pstmt.executeUpdate();
-			
+
 			System.out.println(rowCount + "筆新增成功");
-			
-	        try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	               generatedKey = generatedKeys.getInt(1); 
-	                System.out.println("Generated primary key: " + generatedKey);
-	                gKey = Integer.toString(generatedKey);
-	            } else {
-	            }
-	        }
-			
+
+			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					generatedKey = generatedKeys.getInt(1);
+					System.out.println("Generated primary key: " + generatedKey);
+					gKey = Integer.toString(generatedKey);
+				} else {
+				}
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -444,12 +443,12 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		try (PreparedStatement pstmt = conn.prepareStatement(insertArticlePic);) {
 
 			for (int i = 0; i < imageList.size(); i++) {
-			    pstmt.setBytes(1, imageList.get(i));
-			    pstmt.setInt(2, picArt_id);
-			    pstmt.addBatch(); 
+				pstmt.setBytes(1, imageList.get(i));
+				pstmt.setInt(2, picArt_id);
+				pstmt.addBatch();
 			}
 			int[] rowCount = pstmt.executeBatch();
-			if(rowCount != null && rowCount.length != 0) {
+			if (rowCount != null && rowCount.length != 0) {
 				status = "新增圖片成功";
 			}
 			System.out.println(status);
@@ -458,8 +457,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return status;
 	}
-	
-	
+
 	// delete
 	@Override
 	public String deleteArticlePics(String pic_art_id) {
@@ -468,10 +466,10 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		int picArt_id = Integer.parseInt(pic_art_id);
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			 pstmt.setInt(1, picArt_id);
-			 
+			pstmt.setInt(1, picArt_id);
+
 			int rowCount = pstmt.executeUpdate();
-			if(rowCount !=0) {
+			if (rowCount != 0) {
 				status = "刪除圖片成功";
 			}
 			System.out.println(status);
@@ -481,20 +479,40 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		return status;
 	}
 	// delete end
-	
+
 	// refresh
-	
+
 	@Override
-	public void jedisRefresh(List<String> list) {
-		String key = "";
+	public void jedisRefresh() {
+		JedisPool pool = JedisPoolUtil.getJedisPool();
+		Jedis jedis = null;
+		try {
+			jedis = pool.getResource();
+			jedis.expire("hot", 0);
+			System.out.println("jedis refresh 成功");
+		} catch (Exception e) {
+			System.out.println("jedis refresh 失敗");
+			e.printStackTrace();
+		} finally {
+			jedis.close();
+		}
+	}
+
+	@Override
+	public void jedisPicRefresh(String pic_art_id) {
+		String key = pic_art_id;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		jedis.expire(key.getBytes(), 0);
 		jedis.close();
-		
 	}
-	
+
+	// jedis tag
+
+	@Override
+	public void setArticlesTag(String tag) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
-
-
-

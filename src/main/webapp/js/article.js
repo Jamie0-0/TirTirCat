@@ -1,29 +1,4 @@
 // $.ajax改fetch as a practice
-
-// // AddComment
-// function addComment(data) {
-
-// 	for (let i = 0; i < data.length; i++) {
-
-// 		// 這裡動態生成留言
-// 	}
-
-// 	// Avatar  data.length應從留言數獲得
-// 	for (let i = 0; i < data.length; i++) {
-// 		let uid = $("p.author").eq(i).attr("uid");
-// 		$.ajax({
-// 			url: "/TirTirCat/forum",
-// 			type: "GET",
-// 			data: {
-// 				order: "getAvatar",
-// 				"uid": uid
-// 			},
-// 			dataType: "json",
-// 		});
-// 		$("img.avatar").eq(i).attr("src", "/TirTirCat/forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
-// 	}
-// };
-
 // init
 $(function() {
 
@@ -36,8 +11,8 @@ $(function() {
 					$(window).attr('location', '/TirTirCat/forum.html');
 				}, 2000);
 			} else {
-				$("p.author").text(data[0].u_name);
-				$("p.author").attr("uid", data[0].uid);
+				$(".author").text(data[0].u_name);    // 登入的人  暫定抓發文人
+				$(".author").attr("uid", data[0].uid);  // 登入的人 暫定抓發文人
 				$("time.post-time").text(data[0].art_po_time);
 				$("button.blog-button").attr("art_id", data[0].art_id);
 				$("#article-title").text(data[0].art_title);
@@ -63,37 +38,33 @@ $(function() {
 				$(`#carouPic${i}`).parent('div').remove();
 			}
 		});
-	
+	let comTotal = 0;
 	const comReplyWrapper = null;
 	fetch("/TirTirCat/comment").then(response => response.json()).
 		then(data => {
 			
 			for (let i = 0; i < data.length; i++) {
-		
-	
 				let dataId =data[i].com_id;
+				comTotal = data.length;
 				const responseItem = `
 					<div class="card w-100">
 								<div class="card-body">
-									<h5 class="card-title">
-										<div class="d-flex">
-											<div>
+									<h5 class="card-title  d-flex">
+										<ul class="list-group list-group-horizontal d-flex justify-content-start">
+											<li class="list-group-item border-0">
 												<img alt="Avatar" class="avatar rounded-circle img-fluid col" src="/TirTirCat/avatar?uid=${data[i].com_user_id}">
-											</div>
-											<div class="list-group-item" style="border: none; background-color: #F6F0ED;">
-												<p class="com_username">${data[i].user.u_name}</p>
-											</div>
-											<div class="list-group-item" style="border: none; background-color: #F6F0ED;">
-												<time class="com_time">${data[i].com_date_time}</time>
-											</div>
-										</div>
+											</li>
+											<li class="list-group-item border-0 com_username">
+													${data[i].user.u_name}
+											</li>
+											<li class="list-group-item com_time border-0">
+													${data[i].com_date_time}
+											</li>
+											<li class="list-group-item  border-0">
+													${data[i].com_content}
+											</li>
+										</ul>
 									</h5>
-									<div class="article-comment-pic position-relative ms-1">
-										<!-- <img src="./images/article6.jpg" class="card-text w-25"> -->
-									</div>
-									<div class="article-comment-text position-relative ms-5 end-0 center">
-										<p class="card-text w-100 com-content">${data[i].com_content}</p>
-									</div>
 									<div class="comment-report position-absolute top-0 end-0 me-1">
 										<i type="button" class="fa-solid fa-flag com-report"
 											data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
@@ -104,14 +75,11 @@ $(function() {
 									<div class="com-reply-wrapper${dataId} d-none">
 							</div>
     `;
-
+    
 				$("#com_wrapper").append(responseItem);
-				
 				
 				// 擴充: 回覆的回覆
 				$(`.com-reply-btn${dataId}`).on("click", function(e) {
-
-			//		if ($(`div.com-reply-wrapper${dataId}`).hasClass("d-none")) {
 						$(`div.com-reply-wrapper${dataId}`).toggleClass("d-none");
 						// 要發送的 reply_com_id
 						let reply_com_id =  dataId;
@@ -125,28 +93,54 @@ $(function() {
 								for (let k = 0; k < data.length; k++) {
 
 									const replyItem = `
-    <div class="card mb-3">
-      <div class="row g-0">
-        <ul class="list-group list-group-horizontal" style="vertical-align: center;">
-          <img alt="Avatar" class="avatar rounded-circle img-fluid col" alt="./images/Avatar.png" src="/TirTirCat/avatar?uid=${data[k].reply_user_id}">
-          <li class="list-group-item reply_username" style="border: none; background-color: #F6F0ED;">${data[k].user.u_name}</li>
-          <li class="list-group-item reply_time d-none" style="border: none; background-color: #F6F0ED;">${data[k].reply_date_time}</li>
-        </ul>
-        <div class="article-comment-text">
-          <p class="card-text w-100 reply">${data[k].reply_content}</p>
-        </div>
-        <div>
-          <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0 mt-1 me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" com_id="${data[k].reply_id}"></i>
-        </div>					      
-      </div>
+    <div class="row card mb-3 ms-5">
+      	<div class="col g-0 position-relative post-reply">
+	        	<ul class="list-group list-group-horizontal border-0" style="vertical-align: center;">
+			           <li class="list-group-item border-0">
+			           			  <img alt="Avatar" class="avatar rounded-circle img-fluid col" alt="./images/Avatar.png" src="/TirTirCat/avatar?uid=${data[k].reply_user_id}">
+			           </li>
+			          <li class="list-group-item reply_username border-0">${data[k].user.u_name}</li>
+			          <li class="list-group-item reply_time border-0">${data[k].reply_date_time}</li>
+				       <li class="list-group-item reply border-0">${data[k].reply_content}</p>
+	        	</ul>
+		        <div>
+		          <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0 mt-1 me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" com_id="${data[k].reply_id}"></i>
+		        </div>
+      	</div>
     </div>
   `;
 									comReplyWrapper.append(replyItem);
+ 
 								}
 							});
 				});
+				
 			}
+			
+				const replybutt = `
+							<form action="#" method="post">
+									<textarea class="card-text w-100" placeholder="留言"
+										></textarea>
+									<div class="post-button-list2">
+										<button class="card-link btn btn-primary post-button"
+											type="submit">送出</button>
+									</div>
+								</form>
+								`;
+for( i=1; i<= comTotal; i++){
+		$(`.com-reply-btn${i}`).on("click", function(){
+			let that = $(this).closest("div.card-body").find("div").last();
+			if(that.find("button").length ==0){
+				console.log(that.find("div"))
+				that.after(replybutt);
+				that.find("button").attr("com_id",i+1);
+			}else{
+				$(this).closest("div.card-body").find("form").remove();
+			}
+		})
+};
 		});
+
 }); // init end
 
 

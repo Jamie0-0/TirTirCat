@@ -200,8 +200,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 	
 	// jedis refresh
 	@Override
-	public void jedisRefresh(List<String> list) {
-		dao.jedisRefresh(list);
+	public void jedisRefresh() {
+		dao.jedisRefresh();
+	}
+	
+	// jedis tag
+	@Override
+	public void setArticlesTag(String tag) {
+		dao.setArticlesTag(tag);
 		
 	}
 

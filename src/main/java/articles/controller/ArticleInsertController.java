@@ -63,7 +63,7 @@ public class ArticleInsertController extends HttpServlet {
             imageList.add(imageData);
             inputStream.close();
         }
-        System.out.println(imageList.size());
+        System.out.println("總共幾張照片="+imageList.size());
 		
         // 獲取前端傳遞的 base64 編碼的圖片數據
 //      String base64ImageData = request.getParameter("imageData");

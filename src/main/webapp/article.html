@@ -253,8 +253,7 @@
                 </ul>
             </div>
         </aside> -->
-			<main
-				class="main d-flex justify-content-center align-items-center container">
+			<main class="main d-flex justify-content-center align-items-center container">
 				<div class="card d-block w-75">
 					<div class="card-body">
 						<div id="article-carousel" class="carousel slide"
@@ -302,75 +301,27 @@
 						<p class="card-text" id="article-content"></p>
 						<div class="btn-group d-flex position-relative" role="group" aria-label="Basic example">
 							<i class="fa-solid fa-heart me-1" id="article-like"></i> <i
-								class="fa-solid fa-bookmark me-1" id="article-bookmark"></i> <i
+								class="fa-solid fa-bookmark me-1" id="article-bookmark">收藏</i> <i
 								id="share-tooltip" class="fa-solid fa-share me-1"
 								data-bs-toggle="myTooltip" data-bs-placement="bottom"
 								data-bs-title="點我複製連結網址!"
-								data-url="http://127.0.0.1:5500/TeamProject/article.html"></i> <i
+								data-url="http://127.0.0.1:5500/TeamProject/article.html">分享</i> <i
 								class="fa-solid fa-flag visible" id="article-report"
-								data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+								data-bs-toggle="modal" data-bs-target="#staticBackdrop">檢舉</i>
 						
-								<i class="fa-solid fa-pen-nib position-absolute end-0" id="article-edit">編輯</i>
+								<i class="fa-solid fa-pen-to-square position-absolute end-0" id="article-edit">編輯</i>
 						</div>
 						<div id="com_wrapper">
-							<!-- <div class="card w-100">
-								<div class="card-body">
-									<h5 class="card-title">
-										<div class="d-flex">
-											<div>
-												<img alt="Avatar" class="avatar rounded-circle img-fluid col">
-											</div>
-											<div class="list-group-item" style="border: none; background-color: #F6F0ED;">
-												<p class="com_username"></p>
-											</div>
-											<div class="list-group-item" style="border: none; background-color: #F6F0ED;">
-												<time class="com_time"></time>
-											</div>
-										</div>
-									</h5>
-									<div class="article-comment-pic position-relative ms-1">
-										<img src="./images/article6.jpg" class="card-text w-25">
-									</div>
-									<div class="article-comment-text position-relative ms-5 end-0 center">
-										<p class="card-text w-100 com-content">來點文字內容來點文字內容來點文字內容來點文字內容</p>
-									</div>
-									<div class="comment-report position-absolute top-0 end-0 me-1">
-										<i type="button" class="fa-solid fa-flag com-report"
-											data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
-									</div>
-									<div>
-										<i type="button" class="fa-solid fa-reply com-reply-btn fa-rotate-180 ms-1"></i>
-									</div>
-									<div class="com-reply-wrapper d-none">
-										<ul class="list-group list-group-horizontal"
-												style="vertical-align: center;">
-											<img alt="Avatar" class="avatar rounded-circle img-fluid col">
-											<li class="list-group-item reply_username"
-												style="border: none; background-color: #F6F0ED;"></li>
-											<li class="list-group-item reply_time d-none"
-												style="border: none; background-color: #F6F0ED;"></li>
-										</ul>
-										<div class="article-comment-text">
-											<p class="card-text w-100 reply"></p>
-										</div>
-										<div class="comment-report position-absolute top-0 end-0 me-1">
-											<i type="button" class="fa-solid fa-flag reply-report d-none"
-												data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
-										</div>
-									</div>
-								</div> -->
 							</div>
 						</div>
 						<div class="card w-100 border border-black">
 							<div class="card-body">
 								<h5 class="card-title">
-									<ul class="list-group list-group-horizontal"
-										style="vertical-align: center;">
-										<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
-										<li class="list-group-item"
-											style="border: none; background-color: #F6F0ED;">TonyYen</li>
-										<li class="list-group-item"
-											style="border: none; background-color: #F6F0ED;">2023-06-17</li>
+									<ul class="list-group list-group-horizontal" style="vertical-align: center;">
+										<li class="list-group-item border-0">
+											<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
+										</li>
+										<li class="list-group-item border-0 author"></li>
 									</ul>
 								</h5>
 								<form action="#" method="post">
@@ -561,8 +512,7 @@
 			$('#summernote').summernote({
 				height : 150, // 設定編輯器的高度
 				placeholder : '在此輸入內容', // 設定預設提示文字
-				toolbar : [ [ 'insert', [ 'picture' ] ], ]
-			// 設定工具列的按鈕選項
+				toolbar : [ ]// 設定工具列的按鈕選項
 			});
 		});
 	</script>
