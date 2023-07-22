@@ -80,6 +80,7 @@ $(function() {
 				
 				// 擴充: 回覆的回覆
 				$(`.com-reply-btn${dataId}`).on("click", function(e) {
+					
 						$(`div.com-reply-wrapper${dataId}`).toggleClass("d-none");
 						// 要發送的 reply_com_id
 						let reply_com_id =  dataId;
@@ -87,6 +88,31 @@ $(function() {
 						let url = "/TirTirCat/reply?reply_com_id=" + reply_com_id;
 						const comReplyWrapper = $(`.com-reply-wrapper${dataId}`);
 						comReplyWrapper.empty();
+						
+						
+						//  添加reply的留言區塊
+																			const replybutt = `
+							<form action="#" method="post">
+									<textarea class="card-text w-100" placeholder="留言"
+										></textarea>
+									<div class="post-button-list2">
+										<button class="card-link btn btn-primary post-button"
+											type="submit">送出</button>
+									</div>
+								</form>
+								`;
+					
+					
+							let that = $(this).closest("div.card-body").find("div").last();
+			if(that.find("button").length ==0){
+				console.log(that.find("div"))
+				that.after(replybutt);
+				that.find("button").attr("reply_com_id",reply_com_id);
+			}else{
+				$(this).closest("div.card-body").find("form").remove();
+			}
+						//  添加reply的留言區塊 end
+						
 						fetch(url)
 							.then(response => response.json())
 							.then(data => {
@@ -111,36 +137,11 @@ $(function() {
   `;
 									comReplyWrapper.append(replyItem);
  
-								}
+								} //小迴圈 end
 							});
-				});
-				
-			}
-			
-				const replybutt = `
-							<form action="#" method="post">
-									<textarea class="card-text w-100" placeholder="留言"
-										></textarea>
-									<div class="post-button-list2">
-										<button class="card-link btn btn-primary post-button"
-											type="submit">送出</button>
-									</div>
-								</form>
-								`;
-for( i=1; i<= comTotal; i++){
-		$(`.com-reply-btn${i}`).on("click", function(){
-			let that = $(this).closest("div.card-body").find("div").last();
-			if(that.find("button").length ==0){
-				console.log(that.find("div"))
-				that.after(replybutt);
-				that.find("button").attr("com_id",i+1);
-			}else{
-				$(this).closest("div.card-body").find("form").remove();
-			}
-		})
-};
-		});
-
+				});  // 擴充 end						
+			}  // 大迴圈 end
+		});  // fetch end
 }); // init end
 
 
