@@ -104,12 +104,12 @@ div.function{
   .avatar {
     vertical-align: middle;
     max-width: 2rem;
-   /*  max-height: 2rem;*/
     margin: 0;
     padding: 0;
     object-fit: cover;
     aspect-ratio: 1/1;
   }
+
   
   @media ( min-width : 2000px) {
 		.avatar {

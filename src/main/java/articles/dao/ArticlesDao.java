@@ -48,5 +48,9 @@ public interface ArticlesDao {
 
 	String deleteArticlePics(String pic_art_id);
 
-	void jedisRefresh(List<String> list);
+	void jedisRefresh();
+
+	void setArticlesTag(String tag);
+
+	void jedisPicRefresh(String pic_art_id);
 }
