@@ -14,9 +14,9 @@ public interface CommentService extends CoreService{
 
 	String insertComment(String com_art_id, String com_user_id, String com_content);
 	
-	String updateComment(Comment newComment);
-
 	boolean deleteComment(String com_id);
+
+	String updateComment(String com_id, String com_content);
 
 
 }

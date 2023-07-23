@@ -63,22 +63,7 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return status;
 	}
-	@Override
-	public String updateComment(Comment newComment) {
-		String status ="";
-		try {
-		beginTransaction();
-		status = dao.updateComment(newComment);
-	    commit();
-	    System.out.println("修改留言成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rollback();
-			System.out.println(status);
-		}
-		
-		return status;
- 	}
+
 	
 	@Override
 	public boolean deleteComment(String com_id) {
@@ -96,5 +81,25 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return status;
  	}
+
+	@Override
+	public String updateComment(String com_id, String com_content) {
+		String status ="";
+		try {
+		beginTransaction();
+		Comment newComment = new Comment();
+		newComment.setCom_id(Integer.parseInt(com_id));
+		newComment.setCom_content(com_content);
+		status = dao.updateComment(newComment);
+	    commit();
+	    System.out.println(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = "修改留言失敗";
+			System.out.println(status);
+		}
+		
+		return status;
+	}
 
 }
