@@ -27,6 +27,6 @@ public class JedisRefreshController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> list = null;
 		
-		service.jedisRefresh(list);
+		service.jedisRefresh();
 	}
 }

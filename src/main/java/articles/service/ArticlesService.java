@@ -36,5 +36,8 @@ public interface ArticlesService {
 	// delete
 	String deleteArtclePics(String pic_art_id);
 
-	void jedisRefresh(List<String> list); // 清掉redis
+	void jedisRefresh(); // 清掉redis
+
+	void setArticlesTag(String tag);
+
 }

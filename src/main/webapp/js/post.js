@@ -53,10 +53,13 @@ $(document).ready(function() {
       contentType: false,
       success: function(data) {
         alert(data);
+   		fetch("/TirTirCat/refresh")
+   			.then(response => response.json())
+   			.then(data =>{
+				  	 console.log(data);
+			   });
+		$(window).attr("location","/TirTirCat/forum.html")
       },
-      error: function(xhr, textStatus, errorThrown) {
-        console.log("Error: " + errorThrown);
-      }
     });
   });
 });

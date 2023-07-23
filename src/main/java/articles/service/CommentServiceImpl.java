@@ -6,6 +6,7 @@ import articles.dao.CommentDao;
 import articles.dao.CommentDaoImpl;
 import articles.vo.Comment;
 import articles.vo.Reply;
+
 import redis.clients.jedis.exceptions.JedisException;
 
 public class CommentServiceImpl implements CommentService {
@@ -25,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
 			dao.selectComRedis(com_art_id);
 			if (dao.selectComRedis(com_art_id) == null || dao.selectComRedis(com_art_id).isEmpty()) {
 				list = dao.selectComById(com_art_id);
-				dao.saveComToRedis(list); 
+				dao.saveComToRedis(list);
 			}
 		} catch (JedisException e) {
 			System.out.println("selectComRedis錯誤");
@@ -46,5 +47,54 @@ public class CommentServiceImpl implements CommentService {
 
 		return list;
 	}
+
+	@Override
+	public String insertComment(String com_art_id, String com_user_id, String com_content) {
+		String status = "";
+		try {
+			beginTransaction();
+			status = dao.insertComment(com_art_id, com_user_id, com_content);
+			commit();
+			System.out.println("新增留言成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+			status = "新增留言失敗";
+		}
+		return status;
+	}
+	@Override
+	public String updateComment(Comment newComment) {
+		String status ="";
+		try {
+		beginTransaction();
+		status = dao.updateComment(newComment);
+	    commit();
+	    System.out.println("修改留言成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+			System.out.println(status);
+		}
+		
+		return status;
+ 	}
+	
+	@Override
+	public boolean deleteComment(String com_id) {
+		Boolean status = false;
+		try {
+		beginTransaction();
+		dao.deleteComment(com_id);
+		commit();
+		status = true;
+		System.out.println("deleteComment 成功與否:"+status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+			System.out.println("deleteComment 成功與否:"+status);
+		}
+		return status;
+ 	}
 
 }
