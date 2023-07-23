@@ -27,7 +27,7 @@
     <!-- 自己的css -->
     <link rel="stylesheet" href="assets/css/styleGuide.css">
     <style>
-        #create_btn {
+        #create_member_btn {
             background-color: #ffcb76;
             margin-top: 10px;
         }
@@ -289,60 +289,63 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                     aria-labelledby="nav-home-tab">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">會員帳號(E-MAIL):</span>
-                                        <input type="email" id="member_email" class="form-control" placeholder=""
-                                            aria-label="Useremail" aria-describedby="basic-addon1" required>
-                                    </div>
-                                    <!-- <p id="error_email"></p> -->
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">密碼:</span>
-                                        <input type="password" id="member_pwd" class="form-control" placeholder=""
-                                            aria-label="Userpwd" aria-describedby="basic-addon1" required>
-                                    </div>
-                                    <!-- <p id="error_pwd"></p> -->
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">再次輸入密碼:</span>
-                                        <input type="password" id="member_pwd2" class="form-control" placeholder=""
-                                            aria-label="Userpwd" aria-describedby="basic-addon1" required>
-                                    </div>
-                                    <!-- <p id="error_pwd2"></p> -->
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">姓名:</span>
-                                        <input type="text" id="member_name" class="form-control" placeholder=""
-                                            aria-label="Username" aria-describedby="basic-addon1" required>
-                                    </div>
-                                    <!-- <p id="error_name"></p> -->
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">手機:</span>
-                                        <input type="phone" id="member_phone" class="form-control" placeholder=""
-                                            aria-label="Userphone" aria-describedby="basic-addon1">
-                                    </div>
-                                    <!-- <p id="error_phone"></p> -->
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">性別：</span>
-                                        <select class="form-select" id="member_gender" aria-label="下拉式選項">
-                                            <option selected value="0">男</option>
-                                            <option value="1">女</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">生日：</span>
-                                        <input type="date" id="member_birth" class="form-control" placeholder=""
-                                            aria-label="Userdate" aria-describedby="basic-addon1" required>
-                                    </div>
-                                    <!-- <p id="error_birth"></p> -->
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">地址：</span>
-                                        <input type="text" id="member_addr" class="form-control" placeholder=""
-                                            aria-label="Useraddr" aria-describedby="basic-addon1" required>
-                                    </div>
-                                    <!-- <p id="error_addr"></p> -->
-                                    <textarea class="form-control" rows="3" placeholder="關於我"></textarea>
+                                    <form>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">會員帳號(E-MAIL):</span>
+                                            <input type="email" id="member_email" class="form-control" placeholder=""
+                                                aria-label="Useremail" aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <!-- <p id="error_email"></p> -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">密碼:</span>
+                                            <input type="password" id="member_pwd" class="form-control" placeholder=""
+                                                aria-label="Userpwd" aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <!-- <p id="error_pwd"></p> -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">再次輸入密碼:</span>
+                                            <input type="password" id="member_pwd2" class="form-control" placeholder=""
+                                                aria-label="Userpwd" aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <!-- <p id="error_pwd2"></p> -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">姓名:</span>
+                                            <input type="text" id="member_name" class="form-control" placeholder=""
+                                                aria-label="Username" aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <!-- <p id="error_name"></p> -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">手機:</span>
+                                            <input type="phone" id="member_phone" class="form-control" placeholder=""
+                                                aria-label="Userphone" aria-describedby="basic-addon1">
+                                        </div>
+                                        <!-- <p id="error_phone"></p> -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">性別：</span>
+                                            <select class="form-select" id="member_gender" aria-label="下拉式選項">
+                                                <option selected value="0">男</option>
+                                                <option value="1">女</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">生日：</span>
+                                            <input type="date" id="member_birth" class="form-control" placeholder=""
+                                                aria-label="Userdate" aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <!-- <p id="error_birth"></p> -->
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">地址：</span>
+                                            <input type="text" id="member_addr" class="form-control" placeholder=""
+                                                aria-label="Useraddr" aria-describedby="basic-addon1" required>
+                                        </div>
+                                        <!-- <p id="error_addr"></p> -->
+                                        <textarea class="form-control" id="aboutMe" rows="3" placeholder="關於我"></textarea>
 
-                                    <button type="button" id="create_member_btn"
-                                        class="btn-create rounded-pill w-100 btn-lg">註冊</button>
+                                        <button type="button" id="create_member_btn"
+                                            class="btn-create rounded-pill w-100 btn-lg">註冊</button>
+                                    </form>
                                 </div>
+
                                 <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                                     aria-labelledby="nav-profile-tab">
                                     <div class="tab-content" id="nav-tabContent">
@@ -564,6 +567,7 @@
                 let gender_el = $("#member_gender").val();
                 let birth_el = $("#member_birth").val();
                 let addr_el = $("#member_addr").val();
+                let about_el = $("#aboutMe").val();
 
                 // let error_email_el = $("p#error_email");
                 // let error_pwd_el = $("p#error_pwd");
@@ -582,17 +586,21 @@
                     body: JSON.stringify({
                         email: email_el,
                         password: pwd_el,
+                        password2: pwd2_el,
                         name: name_el,
                         phone: phone_el,
                         gender: gender_el,
                         birth: birth_el,
-                        addr: addr_el
+                        addr: addr_el,
+                        about: about_el
                     })
                 })
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.status == "success") {
-                            window.location.href = "http://localhost:8081/TirTirCat/login.html";
+                            alert("註冊成功，按下確認後，跳到登入畫面");
+                            // setTimeout("location.href='http://localhost:8081/TirTirCat/login.html'",3000); // 3秒後跳轉頁面
+                            // location.href = "/TirTirCat/login.html";
                         }
                         else if (data.status == "error") {
                             var errorMsgs = data.errorMsgs;
@@ -603,11 +611,8 @@
 
                             // 遍歷錯誤訊息，動態添加到錯誤容器中
                             $.each(errorMsgs, function (index, errorMsg) {
-                                // if (!(pwd_el === pwd2_el)) {
-                                //     let errmsg = $("<p>").text("密碼不一致").css("color", "red");
-                                // }
+
                                 var errorItem = $("<p>").text(errorMsg).css("color", "red");
-                                // errorItem.append(errmsg);
                                 errorContainer.append(errorItem);
                             });
                         }

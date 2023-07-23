@@ -3,6 +3,7 @@ package member.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import member.service.MemberService;
 import member.service.MemberServiceImpl;
+import member.vo.Member;
 
-@WebServlet("/member/controller/MemberController")
-public class MemberController extends HttpServlet {
+@WebServlet("/member/controller/LoginController")
+public class LoginController extends HttpServlet {
 	private MemberService service;
 	
 
@@ -33,32 +37,34 @@ public class MemberController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			HttpSession session = req.getSession(true);
-//	        // 获取 session 创建时间
-//	        Date createTime = new Date(session.getCreationTime());
-//	        // 获取该网页的最后一次访问时间
-//	        Date lastAccessTime = new Date(session.getLastAccessedTime());
-//	         
-//	        //设置日期输出的格式  
-//	        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 			req.setCharacterEncoding("UTF-8");
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			Gson gson = new Gson();
+			Member member = gson.fromJson(req.getReader(), Member.class);
 			
-			String email = req.getParameter("email");
-			String password = req.getParameter("password");
-			String username = req.getParameter("username");
-			String isAuthenticated = service.login(email, password);
-			if(isAuthenticated != null) {				
+			String email = member.getEmail();
+			String password = member.getPassword();
+			
+			String message = gson.toJson("");
+			String username = service.login(email, password);
+			List<String> errorMsg = service.getErrorMsgs();
+			if(username != null) {				
 				session.setAttribute("email", email);
 				session.setAttribute("password", password);
-				session.setAttribute("username", isAuthenticated);
-				resp.getWriter().write("true");
+				session.setAttribute("username", username);	
+				message = "{\"status\": \"true\",\"errorMsgs\": " + gson.toJson(errorMsg) + "}";
+				resp.getWriter().write(message);
+//				System.out.println(message);
 			}
 			else {
-				resp.getWriter().write("false");
+				message = "{\"status\": \"error\",\"errorMsgs\": " + gson.toJson(errorMsg) + "}";
+				resp.getWriter().write(message);
+//				System.out.println(gson.toJson(errorMsg));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	
+	}	
 }

@@ -14,11 +14,11 @@ public class Member {
 	private String gender;
 	private Timestamp uReg;
 	private byte[] uPic;
-	private Integer u_report;
-	private String u_status;
-	private Integer gm_ID;
+	private Integer uReport;
+	private Integer uStatus;
+	private Integer gmID;
 	private Timestamp gmDate;
-	private String u1;
+	private String about;
 	private String u2;
 	private String u3;
 
@@ -103,28 +103,28 @@ public class Member {
 		this.uPic = uPic;
 	}
 
-	public Integer getU_report() {
-		return u_report;
+	public Integer getuReport() {
+		return uReport;
 	}
 
-	public void setU_report(Integer u_report) {
-		this.u_report = u_report;
+	public void setuReport(Integer u_report) {
+		this.uReport = u_report;
 	}
 
-	public String getU_status() {
-		return u_status;
+	public Integer getuStatus() {
+		return uStatus;
 	}
 
-	public void setU_status(String u_status) {
-		this.u_status = u_status;
+	public void setuStatus(Integer u_status) {
+		this.uStatus = u_status;
 	}
 
-	public Integer getGm_ID() {
-		return gm_ID;
+	public Integer getGmID() {
+		return gmID;
 	}
 
-	public void setGm_ID(Integer gm_ID) {
-		this.gm_ID = gm_ID;
+	public void setGmID(Integer gm_ID) {
+		this.gmID = gm_ID;
 	}
 
 	public Timestamp getGmDate() {
@@ -135,12 +135,12 @@ public class Member {
 		this.gmDate = gmDate;
 	}
 
-	public String getU1() {
-		return u1;
+	public String getAbout() {
+		return about;
 	}
 
-	public void setU1(String u1) {
-		this.u1 = u1;
+	public void setAbout(String about) {
+		this.about = about;
 	}
 
 	public String getU2() {
