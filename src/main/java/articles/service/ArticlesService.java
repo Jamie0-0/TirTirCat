@@ -39,4 +39,5 @@ public interface ArticlesService {
 	void jedisRefresh(); // 清掉redis
 
 	void setArticlesTag(String tag);
+
 }

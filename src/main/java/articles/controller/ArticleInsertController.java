@@ -64,22 +64,10 @@ public class ArticleInsertController extends HttpServlet {
             inputStream.close();
         }
         System.out.println("總共幾張照片="+imageList.size());
-		
-        // 獲取前端傳遞的 base64 編碼的圖片數據
-//      String base64ImageData = request.getParameter("imageData");
 
-      // 將 base64 編碼的數據解碼為 byte[]
-//		  byte[] imageData = Base64.getDecoder().decode(base64ImageData);
-
-      // 在這裡可以將 byte[] 保存到文件中或進行其他處理
-		
-		
-		
 		String status = service.insertArticle(art_user_id, art_title, art_content,imageList);
 		
 
-
-        // 返回回應給前端
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(status);

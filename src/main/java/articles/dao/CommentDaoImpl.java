@@ -1,6 +1,8 @@
 package articles.dao;
 
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -70,6 +72,43 @@ public class CommentDaoImpl implements CommentDao {
 		HibernateUtil.shutdown();
 
 		return null;
+	}
+
+	@Override
+	public String insertComment(String com_art_id, String com_user_id, String com_content) {
+
+		String status = "新增comment失敗";
+
+		Comment comment =  getSession().load(Comment.class, com_user_id);
+		
+        comment.setCom_art_id(Integer.parseInt(com_art_id)); // 設置相應的屬性值
+        comment.setCom_user_id(Integer.parseInt(com_user_id));
+        comment.setCom_content(com_content);
+        
+        getSession().persist(comment);
+       
+        status = "新增comment成功";
+        System.out.println(status);
+
+		return status;
+	}
+	
+	@Override
+	public String updateComment(Comment newComment) {
+
+		String status = "更新comment失敗"; 
+		Comment comment = getSession().load(Comment.class, newComment.getCom_id());
+        comment.setCom_user_id(newComment.getCom_user_id());
+        comment.setCom_content(newComment.getCom_content());
+        getSession().persist(comment);
+        status = "更新comment成功";
+        System.out.println(status);
+		return status;
+	}
+
+	@Override
+	public void deleteComment(String com_id) {
+		getSession().remove(com_id);
 	}
 
 }

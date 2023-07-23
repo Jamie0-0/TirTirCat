@@ -29,7 +29,6 @@ public class Comment extends Core{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
 	private Integer com_id;
 	@Column
 	private Integer com_art_id;
@@ -37,11 +36,11 @@ public class Comment extends Core{
 	private Integer com_user_id;
 	@Column 
 	private String com_content;
-	@Column 
+	@Column (insertable = false)
 	private Timestamp com_date_time;
-	@Column 
+	@Column (insertable = false)
 	private Integer com_rep_count;
-	@Column 
+	@Column (insertable = false)
 	private String com_status;
     @Transient // 告訴 Hibernate 不需要映射到數據庫
     private String u_name;
