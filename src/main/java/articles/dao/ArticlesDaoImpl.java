@@ -1,6 +1,5 @@
 package articles.dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +12,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
+
+import com.google.gson.Gson;
 
 import articles.ariclesUtils.JedisPoolUtil;
 import articles.vo.Article;
@@ -291,12 +291,10 @@ public class ArticlesDaoImpl implements ArticlesDao {
 					return hotArticles;
 				}
 				// 反序列化 JSON 字符串為 Article 物件
-				ObjectMapper mapper = new ObjectMapper();
-				Article article = mapper.readValue(jsonString, Article.class);
+				Gson gson = new Gson();
+				Article article = gson.fromJson(jsonString, Article.class);
 				hotArticles.add(article);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		} finally {
 			jedis.close();
 		}
@@ -334,16 +332,16 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		jedis = pool.getResource();
 
 		// 將List<Article>序列化成JSON字符串
-		ObjectMapper mapper = new ObjectMapper();
+		Gson gson = new Gson();
 		try {
 
 			for (Article article : hotArticles) {
-				String jsonList = mapper.writeValueAsString(article);
+				String jsonList = gson.toJson(article);
 				// 將JSON字符串存儲到Redis的List中
 				jedis.rpush("hot", jsonList);
 			}
 
-		} catch (JsonProcessingException e) {
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 

@@ -40,4 +40,7 @@ public interface ArticlesService {
 
 	void setArticlesTag(String tag);
 
+	// update
+	int updateArticle(String art_id, String art_title, String art_content);
+
 }
