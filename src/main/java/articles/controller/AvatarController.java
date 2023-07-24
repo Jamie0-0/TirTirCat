@@ -24,7 +24,7 @@ public class AvatarController extends HttpServlet {
 	public void init() throws ServletException {
 		service = new ArticlesServiceImpl();
 	}
-
+//
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
