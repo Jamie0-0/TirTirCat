@@ -211,4 +211,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 		
 	}
 
+	@Override
+	public int updateArticle(String art_id, String art_title, String art_content) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

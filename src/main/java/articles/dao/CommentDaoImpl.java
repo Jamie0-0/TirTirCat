@@ -79,7 +79,7 @@ public class CommentDaoImpl implements CommentDao {
 
 		String status = "新增comment失敗";
 
-		Comment comment =  getSession().load(Comment.class, com_user_id);
+		Comment comment =  new Comment();
 		
         comment.setCom_art_id(Integer.parseInt(com_art_id)); // 設置相應的屬性值
         comment.setCom_user_id(Integer.parseInt(com_user_id));
@@ -96,13 +96,11 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public String updateComment(Comment newComment) {
 
-		String status = "更新comment失敗"; 
+		String status = ""; 
 		Comment comment = getSession().load(Comment.class, newComment.getCom_id());
-        comment.setCom_user_id(newComment.getCom_user_id());
         comment.setCom_content(newComment.getCom_content());
         getSession().persist(comment);
-        status = "更新comment成功";
-        System.out.println(status);
+        status ="修改留言成功";
 		return status;
 	}
 
