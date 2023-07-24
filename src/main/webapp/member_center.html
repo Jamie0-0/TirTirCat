@@ -182,7 +182,7 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="login.html">登出</a>
+                                                    <a href="#" id="logout">登出</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -286,7 +286,8 @@
             <div class="member-introduction">
                 <!-- Member's introduction -->
                 <h2>關於我</h2>
-                <p id="member_intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt semper nisi, nec aliquam
+                <p id="member_intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt semper
+                    nisi, nec aliquam
                     lorem interdum id. Sed in mauris ultrices, fermentum nunc a, faucibus ipsum. Sed a euismod est, eget
                     maximus metus. Nulla facilisi. Duis commodo vel elit eget egestas. Nullam consectetur, magna sit
                     amet commodo lacinia, mi erat fringilla nisi, nec porttitor orci urna eget enim. Sed vitae dictum
@@ -418,14 +419,17 @@
         $(function () {
             let user_account_el = $("h5.user_account");
             let member_intro_el = $("p#member_intro");
-            // 先發送一個 GET 請求來獲取會員中心的資料
+            let uid = sessionStorage.getItem("uid");
             fetch("/TirTirCat/member/controller/memberCenterController", {
                 method: "POST",
-                dataType: "json"
+                dataType: "json",
+                body: JSON.stringify({
+                    uid: uid
+                }),
             })
                 .then(response => response.json())
                 .then(data => {
-                    if(data.status === "true"){
+                    if (data.status === "true") {
                         user_account_el.text(data.username); // 假設伺服器回傳的資料中有 username 欄位，將其顯示在網頁上
                         member_intro_el.text(data.about);
                     }
@@ -434,8 +438,18 @@
                     console.log("請求錯誤");
                 });
 
-            // 接著，再發送一個 GET 請求來獲取更新會員資料的結果
-
+            $("a#logout").on("click", function () {
+                fetch("/TirTirCat/logout", {
+                    method: "GET",
+                    dataType: "json"
+                })
+                    .then(responce => responce.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            location.href = "login.html";
+                        }
+                    })
+            })
         });
 
     </script>

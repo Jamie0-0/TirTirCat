@@ -32,9 +32,10 @@ public class UpdateMemberServlet extends HttpServlet {
 		Gson gson = new Gson();
 		Member member = gson.fromJson(req.getReader(), Member.class);
 		String message = gson.toJson("");
-		
+//		System.out.println(member.getUid());
 		boolean update = service.edit(member);
-		System.out.println(member.getEmail());
+//		System.out.println(member.getEmail());
+//		System.out.println(true);
 		if(update) {
 			 message = "{\"status\": \"success\"}";
 		}

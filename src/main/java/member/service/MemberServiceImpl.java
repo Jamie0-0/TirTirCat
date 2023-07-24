@@ -17,12 +17,14 @@ public class MemberServiceImpl implements MemberService {
 		errorMsgs = new LinkedList<String>();
 	}
 
-	public String login(String email, String password) {
+	public Member login(Member member) {
 		errorMsgs.clear();
-		if (email == null || email.trim().isBlank()) {
+		String email = member.getEmail();
+		String password = member.getPassword();
+		if (email == null || email.isBlank()) {
 			errorMsgs.add("帳號未輸入");
 		}
-		if (password == null || password.trim().isBlank()) {
+		if (password == null || password.isBlank()) {
 			errorMsgs.add("密碼未輸入");
 		}
 		if(!errorMsgs.isEmpty()) {
@@ -58,6 +60,8 @@ public class MemberServiceImpl implements MemberService {
 			errorMsgs.add("會員帳號不能空白");
 		} else if (!email.trim().matches(emailReg)) {
 			errorMsgs.add("信箱必須符合信箱格式");
+		}else if (dao.selectByEmail(email) !=null) {
+			errorMsgs.add("帳號已存在");
 		}
 		if (password == null || password.trim().length() == 0) {
 			errorMsgs.add("會員密碼不能空白");

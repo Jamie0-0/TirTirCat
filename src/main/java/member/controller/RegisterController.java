@@ -30,6 +30,7 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		Gson gson = new Gson();
+		
 		Member member = gson.fromJson(req.getReader(), Member.class);
 		String email = member.getEmail();
 		String password = member.getPassword();
@@ -40,7 +41,6 @@ public class RegisterController extends HttpServlet {
 		String addr = member.getAddr();
 		String about = member.getAbout();
 		String password2 = req.getParameter("password2");
-		System.out.println(password2);
 		boolean isValid = service.validate(email, password, password2, name, phone, gender, birth, addr);
 
 		String message = gson.toJson("");

@@ -20,5 +20,6 @@
 		<mapping class="articles.vo.Comment" />
 		<mapping class="articles.vo.Reply" />
 		<mapping class="articles.vo.User" />
+		<mapping class="pet.vo.Pet" />
 	</session-factory>
 </hibernate-configuration>

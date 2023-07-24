@@ -47,7 +47,7 @@ public class memberCenterController extends HttpServlet {
 		Member member = gson.fromJson(request.getReader(), Member.class);
 		String message = gson.toJson("");
 		if (session != null && session.getAttribute("username") != null) {
-			// 從 Session 中獲取會員的 Email
+			// 從 Session 中獲取會員的 name
 			String username = (String) session.getAttribute("username");
 			// 從數據庫中獲取會員的當前資訊
 			member = memberDao.selectByUserName(username);

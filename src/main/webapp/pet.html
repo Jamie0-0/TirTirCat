@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>編輯會員資料</title>
+    <title>寵物資訊</title>
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
 
@@ -31,73 +30,33 @@
 
     <!-- 自己的css -->
     <link rel="stylesheet" href="assets/css/styleGuide.css">
-
     <style>
-        .change-infor {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid black;
+        .pet-container {
+            max-width: 800px;
         }
 
-        .left {
-            width: 50%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .right {
-            width: 50%;
-            padding: 20px;
-            /* display: flex; */
-            /* position: absolute; */
-        }
-
-        .profile-photo-preview {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
+        .row {
             margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
+        .preview-image {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="date"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #FFCB76;
-            color: black;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-create {
-            display: inline-block;
-        }
-
-        .member_infor>a {
+        .pet_infor>a {
             color: #bfb9fc;
+        }
+
+        #save-pet {
+            background-color: #FFCB76;
         }
     </style>
 </head>
 
 <body>
-
     <!-- Header Start -->
     <header class="pb-md-4 pb-0">
         <div class="top-nav top-header sticky-header">
@@ -206,7 +165,7 @@
                                             </div>
                                             <div class="delivery-detail">
                                                 <h6>Hello,</h6>
-                                                <h5 class="user_account">My Account</h5>
+                                                <h5>My Account</h5>
                                             </div>
                                         </div>
 
@@ -214,7 +173,7 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="login.html">登出</a>
+                                                    <a href="#">登出</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -262,7 +221,7 @@
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                                <a class="nav-link" href="about.html">關於我們</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -274,7 +233,9 @@
             </div>
         </div>
     </header>
+    <!-- Header End -->
 
+    <!-- 列表 -->
     <div class="container  align-items-center mt-4 member-infor">
         <div class="row">
             <div class="col member_infor h5">
@@ -290,53 +251,99 @@
                 <a href="trip.html">活動清單</a>
             </div>
             <div class="col tra_list h5">
-                <a href="#">追蹤清單</a>
+                <a href="collect.html">追蹤清單</a>
             </div>
             <div class="col order h5">
                 <a href="#">訂單</a>
             </div>
             <div class="col article h5">
-                <a href="myarticle.html">文章管理</a>
+                <a href="#">文章管理</a>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <!-- end 列表 -->
+    <div class="container pet-container mt-5">
+        <div class="row">
+            <div class="col-8">
+                <form>
+                    <div class="row mb-3">
+                        <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="petType" value="貓">
+                                <label class="form-check-label">
+                                    貓
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="petType" value="狗">
+                                <label class="form-check-label">
+                                    狗
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petGender" class="col-sm-3 col-form-label">寵物性別：</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="petGender">
+                                <option value="公">公</option>
+                                <option value="母">母</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petPersonality" class="col-sm-3 col-form-label">寵物個性：</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="petPersonality">
+                                <option value="活潑">活潑</option>
+                                <option value="內向">內向</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4">
+                <div class="preview">
+                    <img src="" alt="寵物照片" id="previewImage" class="preview-image">
+                </div>
+                <div class="text-center">
+                    <input type="file" id="petPhoto" accept="image/*">
+                </div>
+            </div>
+            <div class="text-center">
+                <span class="add-pet-btn"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                        fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg></span>
             </div>
         </div>
     </div>
-
-    <hr>
-
-    <div class="container change-infor">
-        <div class="left">
-            <h2>會員圖片</h2>
-            <img id="profile_photo_preview" class="profile-photo-preview" src="#">
-            <input type="file" id="profile_photo" name="profile_photo" onchange="previewProfilePhoto(event)">
-        </div>
-        <div class="right">
-
-            <label for="email">會員帳號(e-mail)</label>
-            <input type="email" id="email" name="email" disabled>
-
-            <label for="name">姓名</label>
-            <input type="text" id="name" name="name" disabled>
-
-            <label for="passowrd">密碼</label>
-            <input type="text" id="password" name="password" disabled>
-
-            <label for="phone">手機</label>
-            <input type="text" id="phone" name="phone" disabled>
-
-            <label for="birthday">生日</label>
-            <input type="date" id="birthday" name="birthday" disabled>
-
-            <textarea id="about" class="form-control" rows="3" placeholder="關於我"></textarea>
-
-            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="update">修改</button>
-
-            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="save">儲存變更</button>
-
-            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="view">瀏覽個人檔案</button>
-
-        </div>
+    <div class="mx-auto" style="width: 200px">
+        <button type="button" id="save-pet" class="btn-save mt-3 w-100 rounded-pill btn-lg">儲存修改</button>
     </div>
-
     <!-- Footer Section Start -->
     <footer class="section-t-space">
         <div class="container-fluid-lg">
@@ -406,12 +413,13 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </footer>
-
     <!-- Footer Section End -->
+
     <!-- latest jquery-->
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -439,7 +447,7 @@
     <script src="assets/js/auto-height.js"></script>
 
     <!-- Timer Js -->
-    <!-- <script src="../assets/js/timer1.js"></script> -->
+    <!-- <script src="assets/js/timer1.js"></script> -->
 
     <!-- Fly Cart Js -->
     <script src="assets/js/fly-cart.js"></script>
@@ -452,101 +460,179 @@
     <script src="assets/js/custom-wow.js"></script>
 
     <!-- script js -->
-    <script src="assets/js/script.js"></script>
+    <!-- <script src="assets/js/script.js"></script> -->
+
     <script>
-        $(function () {
-            let user_account_el = $("h5.user_account");
-            let email_el = $("input#email");
-            let name_el = $("input#name");
-            let password_el = $("input#password");
-            let phone_el = $("input#phone");
-            let birth_el = $("input#birthday");
-            let about_el = $("textarea#about");
-            let user_email = sessionStorage.getItem('email');
-            // console.log(user_email);
-            function previewProfilePhoto(event) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var preview = document.getElementById('profile_photo_preview');
-                    preview.src = reader.result;
+        $(document).ready(function () {
+            // var counter = 1;
+
+            $(".pet-container").on("click", "span.add-pet-btn", function () {
+                var newRow = $('<div class="row dynamic-pet-row">' +
+                    `
+           <div class="col-8">
+        <form>
+            <div class="row mb-3">
+                <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
+                <div class="col-sm-9">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="petType" value="貓">
+                        <label class="form-check-label">
+                            貓
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="petType" value="狗">
+                        <label class="form-check-label">
+                            狗
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="petGender" class="col-sm-3 col-form-label">寵物性別：</label>
+                <div class="col-sm-9">
+                    <select class="form-select" name="petGender">
+                        <option value="公">公</option>
+                        <option value="母">母</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="petPersonality" class="col-sm-3 col-form-label">寵物個性：</label>
+                <div class="col-sm-9">
+                    <select class="form-select" name="petPersonality">
+                        <option value="活潑">活潑</option>
+                        <option value="內向">內向</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-4">
+        <div class="preview">
+            <img src="" alt="寵物照片" id="previewImage" class="preview-image">
+        </div>
+        <div class="text-center">
+            <input type="file" id="petPhoto" accept="image/*">
+        </div>
+    </div>
+    <div class="text-center">
+        <span class="add-pet-btn"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg></span>
+    </div>
+</div>`
+                );
+
+                $(".pet-container").append(newRow);
+
+                // counter++;
+            });
+
+            $(document).on("change", "#petPhoto", function () {
+                readURL(this);
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $(input).closest('.row').find('.preview-image').attr("src", e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
                 }
-                reader.readAsDataURL(event.target.files[0]);
             }
 
-            $("#view").on("click", function (e) {
-                e.preventDefault();
-                location.href = "http://localhost:8081/TirTirCat/update_imfor.html";
-            })
+        });
 
-            $("button#save").on("click", function () {
-                // console.log("123");
-                fetch("/TirTirCat/member/controller/updatemember", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: email_el.val(),
-                        name: name_el.val(),
-                        password: password_el.val(),
-                        phone: phone_el.val(),
-                        about: about_el.val(),
-                        birth:birth_el.val(),
-                        uid:sessionStorage.getItem("uid")
-                    }),
-                })
-                .then(responce => responce.json())
-                .then(data => {
-                    if(data.status === 'success'){
-                        alert("修改成功");
-                    }
-                    else if(data.status === 'error'){
-                        alert("修改失敗");
-                    }
-                })
-            })
-            fetch("/TirTirCat/member/controller/showmember", {
+
+        // 當按鈕被點擊時觸發抓取資料的函式
+        $("button.btn-save").on("click", function () {
+            var allPetData = [];
+
+            // 抓取靜態產生的寵物資料
+            var staticPetData = {
+                petType: $("input[name='petType']:checked").val(),
+                petName: $("input[name='petName']").val(),
+                petBreed: $("input[name='petBreed']").val(),
+                petAge: $("input[name='petAge']").val(),
+                petGender: $("select[name='petGender']").val(),
+                petPersonality: $("select[name='petPersonality']").val(),
+                petPhoto: $("#previewImage").attr("src") // 假設預覽圖片的id為previewImage
+            };
+
+            // 將靜態產生的寵物資料加入到allPetData陣列中
+            allPetData.unshift(staticPetData);
+
+            // 抓取動態產生的寵物資料
+            $(".pet-container .row.dynamic-pet-row").each(function () {
+                var row = $(this);
+                var petType = row.find("input[name='petType']:checked").val();
+                var petName = row.find("input[name='petName']").val();
+                var petBreed = row.find("input[name='petBreed']").val();
+                var petAge = row.find("input[name='petAge']").val();
+                var petGender = row.find("select[name='petGender']").val();
+                var petPersonality = row.find("select[name='petPersonality']").val();
+                var petPhoto = row.find(".preview-image").attr("src");
+
+                allPetData.push({
+                    petType: petType,
+                    petName: petName,
+                    petBreed: petBreed,
+                    petAge: petAge,
+                    petGender: petGender,
+                    petPersonality: petPersonality,
+                    petPhoto: petPhoto
+                });
+            });
+
+            // 印出allPetData陣列中的資料
+            // console.log(allPetData);
+
+            fetch("/TirTirCat/pet/petcontroller", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    // email: email_el.val(),
-                    // name: name_el.val(),
-                    // password: password_el.val(), 
-                    // pgone: phone_el.val(),
-                    // about: about_el.val()
+                    petsData: allPetData
                 }),
             })
                 .then(responce => responce.json())
                 .then(data => {
                     console.log(data);
                     if (data.status === "true") {
-                        user_account_el.text(data.username);
-                        email_el.val(data.email);
-                        name_el.val(data.username);
-                        password_el.val(data.password);
-                        phone_el.val(data.phone);
-                        // let birthDate = new Date(data.birth);
-                        // console.log(birthDate.toISOString());
+                      
                     }
                 })
                 .catch(error => {
 
                 });
-            $("button#update").on("click", function () {
-                email_el.prop("disabled", false);
-                name_el.prop("disabled", false);
-                password_el.prop("disabled", false);
-                phone_el.prop("disabled", false);
-                birth_el.prop("disabled", false);
-                about_el.prop("disabled", false);
-
-            })
         });
-
-
-
 
 
     </script>

@@ -7,7 +7,7 @@ import member.vo.Member;
 
 public interface MemberService {
 	
-	String login(String email, String password);
+	Member login(Member member);
 	
 	Member register(String email, String username, String password, String phone, String address, Date birth, String gender, String aboutme);
 	

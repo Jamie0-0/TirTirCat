@@ -1,8 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,7 +19,6 @@ import member.vo.Member;
 @WebServlet("/member/controller/LoginController")
 public class LoginController extends HttpServlet {
 	private MemberService service;
-	
 
 	@Override
 	public void init() throws ServletException {
@@ -43,22 +40,24 @@ public class LoginController extends HttpServlet {
 			resp.setCharacterEncoding("UTF-8");
 			Gson gson = new Gson();
 			Member member = gson.fromJson(req.getReader(), Member.class);
-			
-			String email = member.getEmail();
-			String password = member.getPassword();
-			
+
+//			String email = member.getEmail();
+//			String password = member.getPassword();
+
 			String message = gson.toJson("");
-			String username = service.login(email, password);
+			member = service.login(member);
+//			System.out.println(member.getUid());
 			List<String> errorMsg = service.getErrorMsgs();
-			if(username != null) {				
-				session.setAttribute("email", email);
-				session.setAttribute("password", password);
-				session.setAttribute("username", username);	
-				message = "{\"status\": \"true\",\"errorMsgs\": " + gson.toJson(errorMsg) + "}";
+			if (member != null) {
+				session.setAttribute("email", member.getEmail());
+				session.setAttribute("password", member.getPassword());
+				session.setAttribute("username", member.getName());
+				Integer uid = member.getUid();
+				message = "{\"status\": \"true\",\"errorMsgs\": " + gson.toJson(errorMsg) + ",\"uid\": "
+						+ gson.toJson(uid) + "}";
 				resp.getWriter().write(message);
 //				System.out.println(message);
-			}
-			else {
+			} else {
 				message = "{\"status\": \"error\",\"errorMsgs\": " + gson.toJson(errorMsg) + "}";
 				resp.getWriter().write(message);
 //				System.out.println(gson.toJson(errorMsg));
@@ -66,5 +65,5 @@ public class LoginController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}	
+	}
 }

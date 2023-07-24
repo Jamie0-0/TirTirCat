@@ -401,7 +401,8 @@
 				.then((data) => {
 					// 登入請求成功後的處理
 					if (data.status === "true") {
-						
+						sessionStorage.setItem('uid', data.uid);
+						console.log(sessionStorage.getItem('uid'));
 						fetch("/TirTirCat/member/controller/memberCenterController", {
 							method: "POST",
 							headers: {
