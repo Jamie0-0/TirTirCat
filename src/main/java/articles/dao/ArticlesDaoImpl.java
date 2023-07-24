@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
 import org.json.JSONException;
 
 import com.google.gson.Gson;
@@ -19,11 +20,16 @@ import com.google.gson.Gson;
 import articles.ariclesUtils.JedisPoolUtil;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import core.util.HibernateUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 public class ArticlesDaoImpl implements ArticlesDao {
 	private DataSource ds;
+	
+	private Session getSession() {
+		return HibernateUtil.getSessionFactory().getCurrentSession();
+	}
 
 	public ArticlesDaoImpl() {
 
@@ -510,6 +516,16 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public void setArticlesTag(String tag) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int updateArticle(Article newArt) {
+		
+		Article article = getSession().load(Article.class, newArt.getArt_id());
+		article.setArt_title(newArt.getArt_title());
+		article.setArt_content(newArt.getArt_content());
+		getSession().persist(article);
+		return 1;
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import articles.ariclesUtils.ArticlesUtils;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 
@@ -32,8 +33,14 @@ public class ArticleUpdateController extends HttpServlet {
 		String art_title = request.getParameter("art_title");
 		String art_content = request.getParameter("art_content");
 		
-		service.updateArticle(art_id, art_title, art_content);
-			
+		int status = service.updateArticle(art_id, art_title, art_content);
+		
+		
+		String statusString = ArticlesUtils.TurnIntoJson(status);   // 如果不轉成json 前端會有問題
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(statusString);
 	}
 
 }

@@ -4,8 +4,9 @@ import java.util.List;
 
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import core.CoreService;
 
-public interface ArticlesService {
+public interface ArticlesService extends CoreService{
 
 	// select
 	List<Article> selectHot(String page);

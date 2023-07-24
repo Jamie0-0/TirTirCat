@@ -1,5 +1,5 @@
-// $.ajax改fetch as a practice
 // init
+let urlArt_id = 0;
 $(function() {
 
 	fetch("/TirTirCat/article")
@@ -19,10 +19,10 @@ $(function() {
 				$("#article-content").text(data[0].art_content);
 				$("i.fa-heart").text(data[0].art_like);
 				$("#ownerAvatar").attr("src", "/TirTirCat/avatar?uid=" + data[0].uid);
-
+				urlArt_id = data[0].art_id;
 				// Share button
 				$("#share-tooltip").on("click", () => {
-					let urlArt_id = data[0].art_id;
+
 					let url = "localhost:8081/TirTirCat/articleXxx?art_id=" + urlArt_id;
 					navigator.clipboard.writeText(url);
 					alert(`文章網址${url}已複製成功`);
@@ -42,9 +42,9 @@ $(function() {
 	const comReplyWrapper = null;
 	fetch("/TirTirCat/comment").then(response => response.json()).
 		then(data => {
-			
+
 			for (let i = 0; i < data.length; i++) {
-				let dataId =data[i].com_id;
+				let dataId = data[i].com_id;
 				comTotal = data.length;
 				const responseItem = `
 					<div class="card w-100">
@@ -75,23 +75,23 @@ $(function() {
 									<div class="com-reply-wrapper${dataId} d-none">
 							</div>
     `;
-    
+
 				$("#com_wrapper").append(responseItem);
-				
+
 				// 擴充: 回覆的回覆
 				$(`.com-reply-btn${dataId}`).on("click", function(e) {
-					
-						$(`div.com-reply-wrapper${dataId}`).toggleClass("d-none");
-						// 要發送的 reply_com_id
-						let reply_com_id =  dataId;
-						console.log("reply_com_id="+reply_com_id)
-						let url = "/TirTirCat/reply?reply_com_id=" + reply_com_id;
-						const comReplyWrapper = $(`.com-reply-wrapper${dataId}`);
-						comReplyWrapper.empty();
-						
-						
-						//  添加reply的留言區塊
-																			const replybutt = `
+
+					$(`div.com-reply-wrapper${dataId}`).toggleClass("d-none");
+					// 要發送的 reply_com_id
+					let reply_com_id = dataId;
+					console.log("reply_com_id=" + reply_com_id)
+					let url = "/TirTirCat/reply?reply_com_id=" + reply_com_id;
+					const comReplyWrapper = $(`.com-reply-wrapper${dataId}`);
+					comReplyWrapper.empty();
+
+
+					//  添加reply的留言區塊
+					const replybutt = `
 							<form action="#" method="post">
 									<textarea class="card-text w-100" placeholder="留言"
 										></textarea>
@@ -101,24 +101,24 @@ $(function() {
 									</div>
 								</form>
 								`;
-					
-					
-							let that = $(this).closest("div.card-body").find("div").last();
-			if(that.find("button").length ==0){
-				console.log(that.find("div"))
-				that.after(replybutt);
-				that.find("button").attr("reply_com_id",reply_com_id);
-			}else{
-				$(this).closest("div.card-body").find("form").remove();
-			}
-						//  添加reply的留言區塊 end
-						
-						fetch(url)
-							.then(response => response.json())
-							.then(data => {
-								for (let k = 0; k < data.length; k++) {
 
-									const replyItem = `
+
+					let that = $(this).closest("div.card-body").find("div").last();
+					if (that.find("button").length == 0) {
+						console.log(that.find("div"))
+						that.after(replybutt);
+						that.find("button").attr("reply_com_id", reply_com_id);
+					} else {
+						$(this).closest("div.card-body").find("form").remove();
+					}
+					//  添加reply的留言區塊 end
+
+					fetch(url)
+						.then(response => response.json())
+						.then(data => {
+							for (let k = 0; k < data.length; k++) {
+
+								const replyItem = `
     <div class="row card mb-3 ms-5">
       	<div class="col g-0 position-relative post-reply">
 	        	<ul class="list-group list-group-horizontal border-0" style="vertical-align: center;">
@@ -135,10 +135,10 @@ $(function() {
       	</div>
     </div>
   `;
-									comReplyWrapper.append(replyItem);
- 
-								} //小迴圈 end
-							});
+								comReplyWrapper.append(replyItem);
+
+							} //小迴圈 end
+						});
 				});  // 擴充 end						
 			}  // 大迴圈 end
 		});  // fetch end
@@ -160,7 +160,54 @@ $("i.comment-report").on("click", function() {
 	console.log("留言檢舉");
 });
 
-$("#article-edit").on("click", function(){
-	console.log("編輯文章")
-	
-})
+// 編輯文章
+let content_value = "";
+let title_value = "";
+$("#article-edit").on("click", function() {
+	let article_content = $("#article-content").text();
+	let article_title = $("#article-title").text();
+	let content_html = '<input type="text" class="content_update" placeholder="輸入欲更新的內容" value="' + article_content + '">';
+	let title_html = '<input type="text" class="title_update" placeholder="輸入欲更新的標題" value="' + article_title + '">';
+	if ($("input.content_update").length == 0) {
+		$("#article-title").after(title_html);
+		$("#article-content").after(content_html);
+		$("#article-content, #article-title").toggleClass("d-none");
+		$(this).text("送出");
+
+	} else {
+		content_value = $("input.content_update").val().trim();
+		title_value = $("input.title_update").val().trim();
+		if (content_value == "" || title_value == "") {
+			alert("內容不可空白");
+		}else if(content_value == article_content && title_value == article_title){
+			alert("並未作任何修改");
+		} else {
+
+			$.ajax({
+				url: "/TirTirCat/articleUpdate",
+				type: "POST",
+				data: {
+					art_id: urlArt_id,
+					art_title: title_value,
+					art_content: content_value
+				},
+				dataType: "json",
+				success: function(data) {
+					if (data === 1) {
+						// 将页面元素内容更新为 content_value 和 title_value
+						$("#article-content").text(content_value);
+						$("#article-title").text(title_value);
+						alert("更新成功")
+						$("#article-content,#article-title").toggleClass("d-none");
+						$("#article-edit").text("編輯");
+						$("input.content_update, input.title_update").remove();
+
+					} else {
+						alert("更新失敗")
+					}
+				}
+			});
+		}
+	}
+});
+

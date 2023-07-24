@@ -35,7 +35,7 @@ public class Article extends Core{
 	@Transient
 	private String u_name;
 	@Column
-	private  String art_title;
+	private String art_title;
 	@Column
 	private String art_content;
 	@Column (insertable = false)
