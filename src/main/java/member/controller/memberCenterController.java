@@ -1,6 +1,8 @@
 package member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +12,23 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import member.dao.MemberDao;
+import member.dao.MemberDaoImpl;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
+import member.vo.Member;
+
 @WebServlet("/member/controller/memberCenterController")
 public class memberCenterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MemberService service;
+	private MemberDao memberDao;
+
+	@Override
+	public void init() throws ServletException {
+		service = new MemberServiceImpl();
+		memberDao = new MemberDaoImpl();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -24,18 +40,22 @@ public class memberCenterController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
-		String username = (String) session.getAttribute("username");
-
-		System.out.println(username);
-		Gson gson = new Gson();
-		String json = gson.toJson(username);
-		// 告訴前端response為json格式
 		response.setContentType("application/json");
-		// 設定編碼
 		response.setCharacterEncoding("UTF-8");
 
-		// 寫出
-		response.getWriter().write(json);
+		Gson gson = new Gson();
+		Member member = gson.fromJson(request.getReader(), Member.class);
+		String message = gson.toJson("");
+		if (session != null && session.getAttribute("username") != null) {
+			// 從 Session 中獲取會員的 name
+			String username = (String) session.getAttribute("username");
+			// 從數據庫中獲取會員的當前資訊
+			member = memberDao.selectByUserName(username);
+			session.setAttribute("username", username);
+			String about = member.getAbout();
+			message = "{\"status\": \"true\",\"about\":" + gson.toJson(about) + ",\"username\":"+gson.toJson(username)+ "}";
+			response.getWriter().write(message);
+		}
 	}
 
 }

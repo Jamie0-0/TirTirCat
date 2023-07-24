@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FurrEver</title>
-
+    <title>編輯會員資料</title>
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
 
@@ -33,40 +33,71 @@
     <link rel="stylesheet" href="assets/css/styleGuide.css">
 
     <style>
-        .member-container {
+        .change-infor {
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-around;
-            padding: 40px;
+            border: 1px solid black;
         }
 
-        .member-photo img {
-            width: 200px;
-            height: 200px;
+        .left {
+            width: 50%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .right {
+            width: 50%;
+            padding: 20px;
+            /* display: flex; */
+            /* position: absolute; */
+        }
+
+        .profile-photo-preview {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
-        .member-introduction {
-            max-width: 50%;
-            padding: 20px;
-        }
-
-        .member-introduction h2 {
-            font-size: 24px;
+        label {
+            display: block;
             margin-bottom: 10px;
         }
 
-        .member-introduction p {
-            font-size: 16px;
-            line-height: 1.6;
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #FFCB76;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-create {
+            display: inline-block;
+        }
+
+        .member_infor>a {
+            color: #bfb9fc;
         }
     </style>
-
 </head>
 
 <body>
+
     <!-- Header Start -->
     <header class="pb-md-4 pb-0">
         <div class="top-nav top-header sticky-header">
@@ -111,7 +142,7 @@
                                                     <li class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="../assets/images/vegetable/product/1.png"
+                                                                <img src="assets/images/vegetable/product/1.png"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
@@ -178,11 +209,12 @@
                                                 <h5 class="user_account">My Account</h5>
                                             </div>
                                         </div>
+
                                         <div class="onhover-div onhover-div-login">
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="#" id="logout">登出</a>
+                                                    <a href="login.html">登出</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -242,9 +274,7 @@
             </div>
         </div>
     </header>
-    <!-- Header End -->
 
-    <!-- 列表 -->
     <div class="container  align-items-center mt-4 member-infor">
         <div class="row">
             <div class="col member_infor h5">
@@ -260,7 +290,7 @@
                 <a href="trip.html">活動清單</a>
             </div>
             <div class="col tra_list h5">
-                <a href="collect.html">追蹤清單</a>
+                <a href="#">追蹤清單</a>
             </div>
             <div class="col order h5">
                 <a href="#">訂單</a>
@@ -272,33 +302,42 @@
     </div>
 
     <hr>
-    <!-- end 列表 -->
 
-
-
-    <!-- 個人資訊 -->
-    <main>
-        <div class="member-container">
-            <div class="member-photo">
-                <!-- Member's profile picture -->
-                <img src="path/to/member_photo.jpg" alt="Member Profile Picture">
-            </div>
-            <div class="member-introduction">
-                <!-- Member's introduction -->
-                <h2>關於我</h2>
-                <p id="member_intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt semper
-                    nisi, nec aliquam
-                    lorem interdum id. Sed in mauris ultrices, fermentum nunc a, faucibus ipsum. Sed a euismod est, eget
-                    maximus metus. Nulla facilisi. Duis commodo vel elit eget egestas. Nullam consectetur, magna sit
-                    amet commodo lacinia, mi erat fringilla nisi, nec porttitor orci urna eget enim. Sed vitae dictum
-                    libero. Nunc nec libero malesuada, gravida quam in, elementum nulla.</p>
-            </div>
+    <div class="container change-infor">
+        <div class="left">
+            <h2>會員圖片</h2>
+            <img id="profile_photo_preview" class="profile-photo-preview" src="#">
+            <input type="file" id="profile_photo" name="profile_photo" onchange="previewProfilePhoto(event)">
         </div>
-    </main>
-    <!-- END 個人資訊 -->
+        <div class="right">
+
+            <label for="email">會員帳號(e-mail)</label>
+            <input type="email" id="email" name="email" disabled>
+
+            <label for="name">姓名</label>
+            <input type="text" id="name" name="name" disabled>
+
+            <label for="passowrd">密碼</label>
+            <input type="text" id="password" name="password" disabled>
+
+            <label for="phone">手機</label>
+            <input type="text" id="phone" name="phone" disabled>
+
+            <label for="birthday">生日</label>
+            <input type="date" id="birthday" name="birthday" disabled>
+
+            <textarea id="about" class="form-control" rows="3" placeholder="關於我"></textarea>
+
+            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="update">修改</button>
+
+            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="save">儲存變更</button>
+
+            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="view">瀏覽個人檔案</button>
+
+        </div>
+    </div>
 
     <!-- Footer Section Start -->
-
     <footer class="section-t-space">
         <div class="container-fluid-lg">
             <div class="main-footer section-b-space section-t-space">
@@ -343,6 +382,7 @@
                         <div class="footer-title">
                             <h4>免責聲明</h4>
                         </div>
+
                         <div class="footer-contain">
                             <ul>
                                 <li>
@@ -372,7 +412,6 @@
     </footer>
 
     <!-- Footer Section End -->
-
     <!-- latest jquery-->
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -400,7 +439,7 @@
     <script src="assets/js/auto-height.js"></script>
 
     <!-- Timer Js -->
-    <script src="assets/js/timer1.js"></script>
+    <!-- <script src="../assets/js/timer1.js"></script> -->
 
     <!-- Fly Cart Js -->
     <script src="assets/js/fly-cart.js"></script>
@@ -414,43 +453,101 @@
 
     <!-- script js -->
     <script src="assets/js/script.js"></script>
-
     <script>
         $(function () {
             let user_account_el = $("h5.user_account");
-            let member_intro_el = $("p#member_intro");
-            let uid = sessionStorage.getItem("uid");
-            fetch("/TirTirCat/member/controller/memberCenterController", {
+            let email_el = $("input#email");
+            let name_el = $("input#name");
+            let password_el = $("input#password");
+            let phone_el = $("input#phone");
+            let birth_el = $("input#birthday");
+            let about_el = $("textarea#about");
+            let user_email = sessionStorage.getItem('email');
+            // console.log(user_email);
+            function previewProfilePhoto(event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var preview = document.getElementById('profile_photo_preview');
+                    preview.src = reader.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+            $("#view").on("click", function (e) {
+                e.preventDefault();
+                location.href = "http://localhost:8081/TirTirCat/update_imfor.html";
+            })
+
+            $("button#save").on("click", function () {
+                // console.log("123");
+                fetch("/TirTirCat/member/controller/updatemember", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email_el.val(),
+                        name: name_el.val(),
+                        password: password_el.val(),
+                        phone: phone_el.val(),
+                        about: about_el.val(),
+                        birth:birth_el.val(),
+                        uid:sessionStorage.getItem("uid")
+                    }),
+                })
+                .then(responce => responce.json())
+                .then(data => {
+                    if(data.status === 'success'){
+                        alert("修改成功");
+                    }
+                    else if(data.status === 'error'){
+                        alert("修改失敗");
+                    }
+                })
+            })
+            fetch("/TirTirCat/member/controller/showmember", {
                 method: "POST",
-                dataType: "json",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
-                    uid: uid
+                    // email: email_el.val(),
+                    // name: name_el.val(),
+                    // password: password_el.val(), 
+                    // pgone: phone_el.val(),
+                    // about: about_el.val()
                 }),
             })
-                .then(response => response.json())
+                .then(responce => responce.json())
                 .then(data => {
+                    console.log(data);
                     if (data.status === "true") {
-                        user_account_el.text(data.username); // 假設伺服器回傳的資料中有 username 欄位，將其顯示在網頁上
-                        member_intro_el.text(data.about);
+                        user_account_el.text(data.username);
+                        email_el.val(data.email);
+                        name_el.val(data.username);
+                        password_el.val(data.password);
+                        phone_el.val(data.phone);
+                        // let birthDate = new Date(data.birth);
+                        // console.log(birthDate.toISOString());
                     }
                 })
                 .catch(error => {
-                    console.log("請求錯誤");
-                });
 
-            $("a#logout").on("click", function () {
-                fetch("/TirTirCat/logout", {
-                    method: "GET",
-                    dataType: "json"
-                })
-                    .then(responce => responce.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            location.href = "login.html";
-                        }
-                    })
+                });
+            $("button#update").on("click", function () {
+                email_el.prop("disabled", false);
+                name_el.prop("disabled", false);
+                password_el.prop("disabled", false);
+                phone_el.prop("disabled", false);
+                birth_el.prop("disabled", false);
+                about_el.prop("disabled", false);
+
             })
         });
+
+
+
+
 
     </script>
 </body>

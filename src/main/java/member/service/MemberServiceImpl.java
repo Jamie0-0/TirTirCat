@@ -10,20 +10,34 @@ import member.vo.Member;
 
 public class MemberServiceImpl implements MemberService {
 	private MemberDao dao;
-	List<String> errorMsgs ;
+	List<String> errorMsgs;
 
 	public MemberServiceImpl() {
 		dao = new MemberDaoImpl();
-		errorMsgs =	new LinkedList<String>();
+		errorMsgs = new LinkedList<String>();
 	}
 
-	public String login(String email, String password) {
-		return dao.login(email, password);
+	public Member login(Member member) {
+		errorMsgs.clear();
+		String email = member.getEmail();
+		String password = member.getPassword();
+		if (email == null || email.isBlank()) {
+			errorMsgs.add("帳號未輸入");
+		}
+		if (password == null || password.isBlank()) {
+			errorMsgs.add("密碼未輸入");
+		}
+		if(!errorMsgs.isEmpty()) {
+			getErrorMsgs();
+			return null;
+		}
+		return dao.login(email, password);			
 	}
 
 	@Override
 	public Member register(String email, String username, String password, String phone, String address, Date birth,
-			String gender) {
+			String gender, String aboutme) {
+		errorMsgs.clear();
 		Member member = new Member();
 		member.setEmail(email);
 		member.setName(username);
@@ -32,22 +46,28 @@ public class MemberServiceImpl implements MemberService {
 		member.setAddr(address);
 		member.setBirth(birth);
 		member.setGender(gender);
+		member.setAbout(aboutme);
 		dao.insert(member);
 		return member;
 	}
 
-	public boolean validate(String email, String password, String name, String phone, String gender, Date birth,
+	public boolean validate(String email, String password, String password2, String name, String phone, String gender, Date birth,
 			String addr) {
-		
-		
+
+		errorMsgs.clear();
 		String emailReg = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 		if (email == null || email.trim().length() == 0) {
 			errorMsgs.add("會員帳號不能空白");
 		} else if (!email.trim().matches(emailReg)) {
 			errorMsgs.add("信箱必須符合信箱格式");
+		}else if (dao.selectByEmail(email) !=null) {
+			errorMsgs.add("帳號已存在");
 		}
 		if (password == null || password.trim().length() == 0) {
 			errorMsgs.add("會員密碼不能空白");
+		}
+		if(!password.equals(password2)) {
+			errorMsgs.add("密碼必須一致");
 		}
 		String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 		if (name == null || name.trim().length() == 0) {
@@ -61,15 +81,24 @@ public class MemberServiceImpl implements MemberService {
 		} else if (!phone.trim().matches(phoneReg)) {
 			errorMsgs.add("請符合手機格式");
 		}
+		if (birth == null) {
+			errorMsgs.add("生日不能空白");
+		}
 		if (addr == null || addr.trim().length() == 0) {
 			errorMsgs.add("地址不能空白");
 		}
-		
+
 		return errorMsgs.isEmpty();
 	}
 
 	public List<String> getErrorMsgs() {
-        return errorMsgs;
-    }
+		return errorMsgs;
+	}
+
+	@Override
+	public boolean edit(Member member) {
+		int result = dao.update(member);
+		return result > 0;
+	}
 
 }
