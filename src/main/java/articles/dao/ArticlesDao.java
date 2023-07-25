@@ -42,11 +42,11 @@ public interface ArticlesDao {
 
 	void saveAvatarToRedis(String uid, ArticlePic AvatarPic);
 
-	String insertArticle(String art_user_id, String art_title, String art_content, Connection conn);
+	String insertArticle(String art_user_id, String art_title, String art_content);
 
-	String insertArticlePic(String pic_art_id, List<byte[]> imageList, Connection conn);
+	String insertArticlePic(String pic_art_id, List<byte[]> imageList);
 
-	String deleteArticlePics(String pic_art_id);
+	int deleteArticlePics(String pic_art_id);
 
 	void jedisRefresh();
 

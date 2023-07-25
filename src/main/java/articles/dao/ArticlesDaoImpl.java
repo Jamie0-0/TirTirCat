@@ -433,12 +433,12 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	// insert
 	@Override
-	public String insertArticle(String art_user_id, String art_title, String art_content, Connection conn) {
+	public String insertArticle(String art_user_id, String art_title, String art_content) {
 
 		String insertArticle = "INSERT INTO FurrEver.articles (art_user_id, art_title, art_content, art_po_time, art_like, art_rep_count, art_status)\r\n"
 				+ "VALUES (?, ?, ?, NOW(), 0, 0, '1');";
 		String gKey = "";
-		try (PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, art_user_id);
 			pstmt.setString(2, art_title);
 			pstmt.setString(3, art_content);
@@ -465,11 +465,11 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	}
 
 	@Override
-	public String insertArticlePic(String pic_art_id, List<byte[]> imageList, Connection conn) {
+	public String insertArticlePic(String pic_art_id, List<byte[]> imageList) {
 		String status = "新增失敗";
 		String insertArticlePic = "INSERT INTO FurrEver.articles_pics (pic_content, pic_art_id) VALUES (?, ?);";
 		int picArt_id = Integer.parseInt(pic_art_id);
-		try (PreparedStatement pstmt = conn.prepareStatement(insertArticlePic);) {
+		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertArticlePic);) {
 
 			for (int i = 0; i < imageList.size(); i++) {
 				pstmt.setBytes(1, imageList.get(i));
@@ -489,8 +489,8 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	// delete
 	@Override
-	public String deleteArticlePics(String pic_art_id) {
-		String status = "刪除失敗";
+	public int deleteArticlePics(String pic_art_id) {
+		int status = 0;
 		String sql = "DELETE FROM FurrEver.articles_pics WHERE pic_art_id = ? ";
 		int picArt_id = Integer.parseInt(pic_art_id);
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -499,7 +499,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 			int rowCount = pstmt.executeUpdate();
 			if (rowCount != 0) {
-				status = "刪除圖片成功";
+				status = 1;
 			}
 			System.out.println(status);
 		} catch (SQLException e) {

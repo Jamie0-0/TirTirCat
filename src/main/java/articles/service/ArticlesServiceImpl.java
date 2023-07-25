@@ -1,12 +1,6 @@
 package articles.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import articles.dao.ArticlesDao;
 import articles.dao.ArticlesDaoImpl;
@@ -147,54 +141,19 @@ public class ArticlesServiceImpl implements ArticlesService {
 	@Override
 	public String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
 
-		DataSource ds = null;
-		Connection conn = null;
 		String status = "新增失敗";
-		try {
-			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/FurrEver");
-		} catch (NamingException e) {
-			e.printStackTrace();
+		String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content);
+		if (!pic_art_id.equals("")) {
+			status = dao.insertArticlePic(pic_art_id, imageList);
 		}
-		try {
-			conn = ds.getConnection();
-			conn.setAutoCommit(false);
-
-			String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content, conn); // 把conn傳到dao層
-			if (!pic_art_id.equals("")) {
-				status = dao.insertArticlePic(pic_art_id, imageList, conn);
-			}
-
-			conn.commit();
-			status = "新增成功";
-
-		} catch (SQLException e) {
-			System.out.println(" insertArticle錯了");
-			e.printStackTrace();
-			if (conn != null) {
-				try {
-					conn.rollback();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-			}
-		} finally {
-			if (conn != null) {
-				try {
-					conn.setAutoCommit(true);
-					conn.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-
+		status = "新增成功";
 		return status;
 	}
 
 	@Override
-	public String deleteArtclePics(String pic_art_id) {
+	public int deleteArtclePics(String pic_art_id) {
 
-		String status = dao.deleteArticlePics(pic_art_id);
+		int status = dao.deleteArticlePics(pic_art_id);
 
 		return status;
 	}
@@ -217,7 +176,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
-	public int updateArticle(String art_id, String art_title, String art_content) {
+	public int updateArticle(String art_id, String art_title, String art_content, List<byte[]> imagList) {
 		
 		int statusCode = 0;
 		
@@ -230,6 +189,9 @@ public class ArticlesServiceImpl implements ArticlesService {
 		article.setArt_content(art_content);
 	
 		statusCode = dao.updateArticle(article);
+		dao.deleteArticlePics(art_id);
+		dao.insertArticlePic(art_id, imagList);
+
 		commit();
 		
 		} catch (Exception e) {
