@@ -8,9 +8,9 @@ $("a.dropdown-item").on("click", function() {
 // upload_img
 $('#upload_img').on('change', function() {
 
-	var imgFiles = $(this)[0].files
-	var preview = document.getElementById("previewImg")
-	var nodes = document.getElementsByClassName("carousel-item");
+	let imgFiles = $(this)[0].files;
+	let preview = document.getElementById("previewImg")
+	let nodes = document.getElementsByClassName("carousel-item");
 	while (nodes.length > 0) {
 		nodes[0].parentNode.removeChild(nodes[0]);
 	}

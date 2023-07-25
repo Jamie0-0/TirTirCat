@@ -44,4 +44,6 @@ public interface ArticlesService extends CoreService{
 	// update
 	int updateArticle(String art_id, String art_title, String art_content);
 
+	Integer selectComCount(int com_art_id);
+
 }

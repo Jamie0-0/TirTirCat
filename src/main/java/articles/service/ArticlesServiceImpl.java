@@ -40,9 +40,16 @@ public class ArticlesServiceImpl implements ArticlesService {
 			System.out.println("selectHot其他錯誤");
 			e.printStackTrace();
 		}
+	
 		return list;
 	}
 
+	@Override
+	public Integer selectComCount(int com_art_id) {
+		
+		return dao.selectComCount(com_art_id);
+	}
+	
 	@Override
 	public List<Article> selectNew(String page) {
 		return dao.selectNew(page);
@@ -230,5 +237,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 		}
 		return statusCode;
 	}
+
+
 
 }

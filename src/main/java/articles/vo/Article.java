@@ -42,9 +42,12 @@ public class Article extends Core{
 	private Timestamp art_po_time;
 	@Column (insertable = false)
 	private Integer art_like;
+	@Transient
+	private Integer com_count;
 	@Column(insertable = false)
 	private Integer art_rep_count;
 	@Column (insertable = false)
 	private String art_status;	
+	
 	
 }
