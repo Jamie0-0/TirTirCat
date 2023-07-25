@@ -260,28 +260,23 @@
 							data-bs-ride="carousel">
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img src="/TirTirCat/carousel?picOrder=0"
-										class="img-thumbnail card-img-top article d-block w-100"
+									<img class="img-thumbnail card-img-top article d-block w-100"
 										alt="/TirTirCat/images/notFound.png" id="carouPic1">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=1"
-										class="img-thumbnail card-img-top article d-block w-100"
+									<img class="img-thumbnail card-img-top article d-block w-100"
 										alt="/TirTirCat/images/notFound.png" id="carouPic2">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=2"
-										class="img-thumbnail card-img-top article d-block w-100"
+									<img class="img-thumbnail card-img-top article d-block w-100"
 										alt="/TirTirCat/images/notFound.png" id="carouPic3">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=3"
-										class="img-thumbnail card-img-top article d-block w-100"
+									<img class="img-thumbnail card-img-top article d-block w-100"
 										alt="/TirTirCat/images/notFound.png" id="carouPic4">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=4"
-										class="img-thumbnail card-img-top article d-block w-100"
+									<img class="img-thumbnail card-img-top article d-block w-100"
 										alt="/TirTirCat/images/notFound.png" id="carouPic5">
 								</div>
 								<button class="carousel-control-prev" type="button"
@@ -300,30 +295,35 @@
 							style="font-weight: bold;"></h5>
 						<p class="card-text" id="article-content"></p>
 						<div class="btn-group d-flex position-relative" role="group" aria-label="Basic example">
-							<i class="fa-solid fa-heart me-1" id="article-like"></i> <i
-								class="fa-solid fa-bookmark me-1" id="article-bookmark">收藏</i> <i
-								id="share-tooltip" class="fa-solid fa-share me-1"
+							<i class="fa-solid fa-heart me-1 from-rule" id="article-like"></i> <i
+								class="fa-solid fa-bookmark me-1 from-rule" id="article-bookmark">收藏</i> <i
+								id="share-tooltip" class="fa-solid fa-share me-1 from-rule"
 								data-bs-toggle="myTooltip" data-bs-placement="bottom"
 								data-bs-title="點我複製連結網址!"
 								data-url="http://127.0.0.1:5500/TeamProject/article.html">分享</i> <i
-								class="fa-solid fa-flag visible" id="article-report"
+								class="fa-solid fa-flag visible from-rule" id="article-report"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">檢舉</i>
-						
-								<i class="fa-solid fa-pen-to-square position-absolute end-0" id="article-edit">編輯</i>
+							<div>
+								<label id="upload_img_label" class="btn d-none">
+									<input id="upload_img" class="d-none" type="file" name="image" accept="image/*" multiple />
+										<i class="note-icon-picture">上傳封面輪播照片</i>
+								</label>
+								<input class="d-none" name="pic_art_id" value="">
+								<input class= "d-none" name="art_user_id" value="">
+							</div>
+							<i class="fa-solid fa-pen-to-square position-absolute end-0 from-rule" id="article-edit">編輯</i>
 						</div>
 						<div id="com_wrapper">
 							</div>
 						</div>
 						<div class="card w-100 border border-black">
 							<div class="card-body">
-								<h5 class="card-title">
-									<ul class="list-group list-group-horizontal" style="vertical-align: center;">
-										<li class="list-group-item border-0">
-											<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
-										</li>
-										<li class="list-group-item border-0 author"></li>
-									</ul>
-								</h5>
+								<ul class="list-group list-group-horizontal" style="vertical-align: center;">
+									<li class="list-group-item border-0">
+										<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
+									</li>
+									<li class="list-group-item border-0 author"></li>
+								</ul>
 								<form action="#" method="post">
 									<textarea class="card-text w-100" placeholder="留言"
 										id="summernote"></textarea>
@@ -340,7 +340,7 @@
 			<!-- main edit-->
 			<!-- main edit-->
 			<!-- report modal -->
-			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+			<div class="modal fade from-rule" id="staticBackdrop" data-bs-backdrop="static"
 				data-bs-keyboard="false" tabindex="-1"
 				aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable">

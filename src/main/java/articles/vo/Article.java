@@ -35,16 +35,19 @@ public class Article extends Core{
 	@Transient
 	private String u_name;
 	@Column
-	private  String art_title;
+	private String art_title;
 	@Column
 	private String art_content;
 	@Column (insertable = false)
 	private Timestamp art_po_time;
 	@Column (insertable = false)
 	private Integer art_like;
+	@Transient
+	private Integer com_count;
 	@Column(insertable = false)
 	private Integer art_rep_count;
 	@Column (insertable = false)
 	private String art_status;	
+	
 	
 }

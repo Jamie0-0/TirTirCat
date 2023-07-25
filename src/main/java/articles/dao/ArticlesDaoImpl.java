@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
 import org.json.JSONException;
 
 import com.google.gson.Gson;
@@ -19,11 +20,16 @@ import com.google.gson.Gson;
 import articles.ariclesUtils.JedisPoolUtil;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import core.util.HibernateUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 public class ArticlesDaoImpl implements ArticlesDao {
 	private DataSource ds;
+	
+	private Session getSession() {
+		return HibernateUtil.getSessionFactory().getCurrentSession();
+	}
 
 	public ArticlesDaoImpl() {
 
@@ -62,7 +68,33 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return list;
 	}
+	
+	
+	@Override
+	public Integer selectComCount(int com_art_id) {
+	    String sql1 = "SELECT COUNT(*) AS com_count FROM FurrEver.COMMENT WHERE com_art_id = ?";
+	    String sql2 = "SELECT COUNT(*) AS com_count FROM FurrEver.COMMENT c JOIN FurrEver.COM_REPLY cr ON c.com_id = cr.reply_com_id where com_art_id = ?";
+	    Integer count1 = 0;
+	    Integer count2 = 0;
+	    try (Connection conn = ds.getConnection(); PreparedStatement pstmt1 = conn.prepareStatement(sql1);PreparedStatement pstmt2= conn.prepareStatement(sql2);) {
+	        pstmt1.setInt(1, com_art_id);
+	        pstmt2.setInt(1, com_art_id);
+	        ResultSet rs1 = pstmt1.executeQuery();
+	        if (rs1.next()) {
+	            count1 = rs1.getInt("com_count");
+	        }
+	        ResultSet rs2 = pstmt2.executeQuery();
+	        if (rs2.next()) {
+	            count2 = rs2.getInt("com_count");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return count1+count2;
+	}
 
+	
+	
 	@Override
 	public List<Article> selectNew(String page) {
 		String selectNew = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n"
@@ -142,7 +174,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectCarouselPic);) {
 			pstmt.setString(1, art_id);
-			pstmt.setInt(2, Integer.parseInt(picOrder)); // OFFSET 需要的是整數值...否則會報錯
+			pstmt.setInt(2, Integer.parseInt(picOrder)-1); // OFFSET 需要的是整數值...否則會報錯
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -510,6 +542,16 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public void setArticlesTag(String tag) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int updateArticle(Article newArt) {
+		
+		Article article = getSession().load(Article.class, newArt.getArt_id());
+		article.setArt_title(newArt.getArt_title());
+		article.setArt_content(newArt.getArt_content());
+		getSession().persist(article);
+		return 1;
 	}
 
 }

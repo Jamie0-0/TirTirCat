@@ -12,35 +12,39 @@ import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 
 
-@WebServlet("/articleUpdate")
-public class ArticleUpdateController extends HttpServlet {
+@WebServlet("/artComCount")
+public class ArticleComCountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private ArticlesService service;
+
 	@Override
 	public void init() throws ServletException {
 		service = new ArticlesServiceImpl();
 	}
        
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+
 		request.setCharacterEncoding("UTF-8");
 		
-		String art_id = request.getParameter("art_id");
-		String art_title = request.getParameter("art_title");
-		String art_content = request.getParameter("art_content");
+		String com_art_id = request.getParameter("com_art_id");
 		
-		int status = service.updateArticle(art_id, art_title, art_content);
+		Integer comCount = service.selectComCount(Integer.parseInt(com_art_id));
 		
+		//將select方法拿到的List轉成json
+		String json = ArticlesUtils.TurnIntoJson(comCount);
+        // 告訴前端response為json格式
+        response.setContentType("application/json");
+        // 設定編碼
+        response.setCharacterEncoding("UTF-8");
+        // 寫出
+        response.getWriter().write(json);
 		
-		String statusString = ArticlesUtils.TurnIntoJson(status);   // 如果不轉成json 前端會有問題
+	}
 
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(statusString);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

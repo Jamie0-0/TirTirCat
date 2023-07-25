@@ -4,7 +4,7 @@ let searchText = "";
 // 上文章內容、照片、頭像
 function addArt(data) {
 	if (data != null) {
-		for (var i = 0; i < data.length; i++) {
+		for (let i = 0; i < data.length; i++) {
 			$("p.author").eq(i).text(data[i].u_name);
 			$("p.author").eq(i).attr("uid", data[i].uid);
 			$("time.post-time").eq(i).text(data[i].art_po_time);
@@ -13,11 +13,8 @@ function addArt(data) {
 			$("p.card-text").eq(i).text(data[i].art_content);
 			$("i.fa-heart").eq(i).text(data[i].art_like);
 			$("img.pic-content").eq(i).attr("art_id", data[i].art_id);
-		}
-	}
-	// 上照片
-	if (data != null) {
-		for (let i = 0; i < data.length; i++) {
+			
+			// 上照片
 			let artId = $("img.pic-content").eq(i).attr("art_id");
 			let that = $("img.pic-content").eq(i);
 			$.ajax({
@@ -36,11 +33,8 @@ function addArt(data) {
 				}
 			});
 			$("img.pic-content").eq(i).attr("src", "/TirTirCat/forum" + "?order=getPic&art_id=" + artId);  // 封面圖綁src
-		}
-	}
-	// Avatar Picture
-	if (data != null) {
-		for (let i = 0; i < data.length; i++) {
+					
+			// Avatar Picture
 			let uid = $("p.author").eq(i).attr("uid");
 			$.ajax({
 				url: "/TirTirCat/forum",
@@ -52,8 +46,25 @@ function addArt(data) {
 				dataType: "json",
 			});
 			$("img.avatar").eq(i).attr("src", "/TirTirCat/forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
+			
+			// ComCount
+			$.ajax({
+				url: `/TirTirCat/artComCount?com_art_id=${data[i].art_id}`,           // 資料請求的網址
+				type: "GET",
+				dataType: "json",
+				success: function(data) {
+					$("i.fa-comment").eq(i).text(data);
+				}
+			});
+			
 		}
+
+
+		
+
+		
 	}
+	
 } // addArt()結束
 
 function disControl(length) {
@@ -102,16 +113,12 @@ function clickPageTag(order, searchText, page) {
 		dataType: "json",
 		success: function(data) {
 			addArt(data);
-			
-			console.log(data);
 			if (data===null) {
 				currentPage = page-1;
 			}else{
 				disControl(data.length);
 				currentPage = page;
 			}
-			
-			console.log("點完後=" + currentPage);
 		}
 	});
 };
@@ -166,7 +173,6 @@ function init() {
 // 載入頁面
 $(function() {
 	init();
-	console.log("載入成功")
 });
 
 
@@ -253,7 +259,6 @@ $("#forum-search-btn").on("click", function() {
 			}
 		}
 	});
-	//	$("#forum-search-input").val("");
 });
 
 // 搜尋Enter
@@ -289,6 +294,5 @@ $("#forum-search-input").on("keydown", function(e) {
 				}
 			}
 		});
-		//	$("#forum-search-input").val("");
 	}
 });

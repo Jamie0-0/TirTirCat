@@ -4,8 +4,9 @@ import java.util.List;
 
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import core.CoreService;
 
-public interface ArticlesService {
+public interface ArticlesService extends CoreService{
 
 	// select
 	List<Article> selectHot(String page);
@@ -42,5 +43,7 @@ public interface ArticlesService {
 
 	// update
 	int updateArticle(String art_id, String art_title, String art_content);
+
+	Integer selectComCount(int com_art_id);
 
 }

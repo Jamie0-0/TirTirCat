@@ -40,9 +40,16 @@ public class ArticlesServiceImpl implements ArticlesService {
 			System.out.println("selectHot其他錯誤");
 			e.printStackTrace();
 		}
+	
 		return list;
 	}
 
+	@Override
+	public Integer selectComCount(int com_art_id) {
+		
+		return dao.selectComCount(com_art_id);
+	}
+	
 	@Override
 	public List<Article> selectNew(String page) {
 		return dao.selectNew(page);
@@ -194,27 +201,43 @@ public class ArticlesServiceImpl implements ArticlesService {
 	// 新增功能 end
 	// delete
 
-
-
 	// delete end
-	
+
 	// jedis refresh
 	@Override
 	public void jedisRefresh() {
 		dao.jedisRefresh();
 	}
-	
+
 	// jedis tag
 	@Override
 	public void setArticlesTag(String tag) {
 		dao.setArticlesTag(tag);
-		
+
 	}
 
 	@Override
 	public int updateArticle(String art_id, String art_title, String art_content) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int statusCode = 0;
+		
+		try {
+	
+		beginTransaction();
+		Article article = new Article();
+		article.setArt_id(Integer.parseInt(art_id));
+		article.setArt_title(art_title);
+		article.setArt_content(art_content);
+	
+		statusCode = dao.updateArticle(article);
+		commit();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return statusCode;
 	}
+
+
 
 }

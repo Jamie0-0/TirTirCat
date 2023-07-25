@@ -53,4 +53,8 @@ public interface ArticlesDao {
 	void setArticlesTag(String tag);
 
 	void jedisPicRefresh(String pic_art_id);
+
+	int updateArticle(Article newArt);
+
+	Integer selectComCount(int com_art_id);
 }
