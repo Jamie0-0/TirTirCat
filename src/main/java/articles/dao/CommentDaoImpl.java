@@ -75,9 +75,9 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public String insertComment(String com_art_id, String com_user_id, String com_content) {
+	public int insertComment(String com_art_id, String com_user_id, String com_content) {
 
-		String status = "新增comment失敗";
+		int status = 0;
 
 		Comment comment =  new Comment();
 		
@@ -87,8 +87,7 @@ public class CommentDaoImpl implements CommentDao {
         
         getSession().persist(comment);
        
-        status = "新增comment成功";
-        System.out.println(status);
+        status = 1;
 
 		return status;
 	}

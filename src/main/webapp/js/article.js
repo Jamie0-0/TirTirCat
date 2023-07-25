@@ -3,96 +3,10 @@ let title_html = '<input type="text" class="title_post" placeholder="輸入標�
 let imgFiles = null;
 let imgFilesLength = 0;
 let formData = new FormData();
-
-
-function addUpload() {
-	$("#upload_img_label").removeClass(" d-none")
-
-	$('#upload_img').on('change', function() {
-		imgFiles = $(this)[0].files;
-		
-		imgFilesLength = imgFiles.length
-		console.log("imgFilesLength="+imgFilesLength)
-		$(".carousel-item").remove();
-		if (imgFiles.length > 5) {
-			alert("最多只能上傳五張照片，請重新選擇")
-			return;
-		}
-		for (i = 0; i < imgFiles.length; i++) {
-			filePath = imgFiles[i].name
-			fileFormat = filePath.split('.')[1].toLowerCase()
-			src = window.URL.createObjectURL(imgFiles[i])
-			let isActive = i === 0 ? " active" : "";  // 加入active才不會bootstrap一次顯示多張圖導致重疊
-			let element = `<div class="carousel-item${isActive}"><img class="img-thumbnail card-img-top article d-block w-100" id="carouPic${i}" src="${src}"></div>`
-
-			$(".carousel-inner").append(element);
-		}
-	});
-		console.log(imgFiles)
-		return imgFiles;
-}
-
-// init
 let urlArt_id = 0;
-$(function() {
 
-
-	if (window.location.search.includes("fromRule=true")) {
-		console.log("從rule進來")
-		$(".from-rule").addClass(" d-none");
-		$(".carousel-item").remove();
-		$("#article-content").after(content_html);
-		$("#article-title").after(title_html);
-
-		addUpload();
-
-	} else {
-		for (let i = 1; i <= 5; i++) {
-			$(`#carouPic${i}`).attr("src", `/TirTirCat/carousel?picOrder=${i}`);
-		}
-
-
-		fetch("/TirTirCat/article")
-			.then(response => response.json())
-			.then(data => {
-				if (data === null) {
-					alert("這篇文章不存在，即將送您回交流天地");
-					setTimeout(function() {
-						$(window).attr('location', '/TirTirCat/forum.html');
-					}, 2000);
-
-
-				} else {
-					$(".author").text(data[0].u_name);    // 登入的人  暫定抓發文人
-					$(".author").attr("uid", data[0].uid);  // 登入的人 暫定抓發文人
-					$("time.post-time").text(data[0].art_po_time);
-					$("button.blog-button").attr("art_id", data[0].art_id);
-					$("#article-title").text(data[0].art_title);
-					$("#article-content").text(data[0].art_content);
-					$("i.fa-heart").text(data[0].art_like);
-					$("#ownerAvatar").attr("src", "/TirTirCat/avatar?uid=" + data[0].uid);
-					urlArt_id = data[0].art_id;
-					// Share button
-					$("#share-tooltip").on("click", () => {
-
-						let url = "localhost:8081/TirTirCat/articleXxx?art_id=" + urlArt_id;
-						navigator.clipboard.writeText(url);
-						alert(`文章網址${url}已複製成功`);
-					})
-					// Share button end
-
-
-					// carousel控tag
-					fetch("/TirTirCat/artDnone")
-						.then(response => response.json())
-						.then(data => {
-							for (let i = 5; i > data; i--) {
-								$(`#carouPic${i}`).parent('div').remove();
-							}
-						});
-					let comTotal = 0;
-					const comReplyWrapper = null;
-					fetch("/TirTirCat/comment").then(response => response.json()).
+function fetchComment(){
+						fetch("/TirTirCat/comment").then(response => response.json()).
 						then(data => {
 
 							for (let i = 0; i < data.length; i++) {
@@ -194,43 +108,174 @@ $(function() {
 								});  // 擴充 end						
 							}  // 大迴圈 end
 						});  // fetch end
+}
 
+function addUpload() {
+	$("#upload_img_label").removeClass(" d-none")
+
+	$('#upload_img').on('change', function() {
+		imgFiles = $(this)[0].files;
+		
+		imgFilesLength = imgFiles.length
+		console.log("imgFilesLength="+imgFilesLength)
+		$(".carousel-item").remove();
+		if (imgFiles.length > 5) {
+			alert("最多只能上傳五張照片，請重新選擇")
+			return;
+		}
+		for (i = 0; i < imgFiles.length; i++) {
+			filePath = imgFiles[i].name
+			fileFormat = filePath.split('.')[1].toLowerCase()
+			src = window.URL.createObjectURL(imgFiles[i])
+			let isActive = i === 0 ? " active" : "";  // 加入active才不會bootstrap一次顯示多張圖導致重疊
+			let element = `<div class="carousel-item${isActive}"><img class="img-thumbnail card-img-top article d-block w-100" id="carouPic${i}" src="${src}"></div>`
+
+			$(".carousel-inner").append(element);
+		}
+	});
+		console.log(imgFiles)
+		return imgFiles;
+}
+
+function buildArticle(){
+			fetch("/TirTirCat/article")
+			.then(response => response.json())
+			.then(data => {
+				if (data === null) {
+					alert("這篇文章不存在，即將送您回交流天地");
+					setTimeout(function() {
+						$(window).attr('location', '/TirTirCat/forum.html');
+					}, 2000);
+
+
+				} else {
+					$(".author").text(data[0].u_name);    // 登入的人  暫定抓發文人
+					$(".author").attr("uid", data[0].uid);  // 登入的人 暫定抓發文人
+					$("time.post-time").text(data[0].art_po_time);
+					$("button.blog-button").attr("art_id", data[0].art_id);
+					$("#article-title").text(data[0].art_title);
+					$("#article-content").append(data[0].art_content);
+					$("i.fa-heart").text(data[0].art_like);
+					$("#ownerAvatar").attr("src", "/TirTirCat/avatar?uid=" + data[0].uid);
+					urlArt_id = data[0].art_id;
+					// Share button
+					$("#share-tooltip").on("click", () => {
+
+						let url = "localhost:8081/TirTirCat/articleXxx?art_id=" + urlArt_id;
+						navigator.clipboard.writeText(url);
+						alert(`文章網址${url}已複製成功`);
+					})
+					// Share button end
+
+
+					// carousel控tag
+					fetch("/TirTirCat/artDnone")
+						.then(response => response.json())
+						.then(data => {
+							for (let i = 5; i > data; i--) {
+								$(`#carouPic${i}`).parent('div').remove();
+							}
+						});
+						
+						
+					let comTotal = 0;
+					const comReplyWrapper = null;
+					fetchComment();
+					console.log("-----------------build--------------------")
 				}
 			});
+}
 
+// init
+
+$(function() {
+
+	$("#summer2").on("click", function () {
+		var markupStr = $('#summernote2').val(); 
+		$.ajax({
+						url: "/TirTirCat/commentInsert",
+						type: "POST",
+						data: {
+							com_art_id: urlArt_id
+							,com_user_id: "1"  // 屆時填入發文者id
+							,com_content: markupStr
+							},
+						dataType: "json",
+						success: function(data) {
+								console.log(data)
+								if(data === 1){
+									fetchComment();
+									$('.note-editable').empty();
+								}else{
+									alert("新增留言失敗");
+								}
+								
+						}
+					});
+	});
+
+	if (window.location.search.includes("fromRule=true")) {
+		console.log("從rule進來")
+		$(".from-rule").addClass(" d-none");
+		$(".carousel-item").remove();
+		$("#article-content").after(content_html);
+		$("#article-title").after(title_html);
+
+		addUpload();
+
+	} else {
+		for (let i = 1; i <= 5; i++) {
+			$(`#carouPic${i}`).attr("src", `/TirTirCat/carousel?picOrder=${i}`);
+		}
+
+		buildArticle();
 
 		// 編輯文章
 		let content_value = "";
 		let title_value = "";
 		$("#article-edit").on("click", function() {
-			let article_content = $("#article-content").text();
+			
+			let article_content = $("#article-content").find("*");
 			let article_title = $("#article-title").text();
-			content_html = '<input type="text" class="content_update" placeholder="輸入內容" value="' + article_content + '">';
-			title_html = '<input type="text" class="title_update" placeholder="輸入標題" value="' + article_title + '">';
+			content_html = `<textarea class="content_update" id="summernote1" value="${article_content}"></textarea>`;
+			title_html = '<input type="text" class="title_update w-50" placeholder="輸入標題" value="' + article_title + '">';
 
 			imgFiles = addUpload();
 
-			if ($("input.content_update").length == 0) {
-				console.log("有新增標籤")
+			if ($("textarea.content_update").length == 0) {
 				$("#article-title").after(title_html);
 				$("#article-content").after(content_html);
 				$("#article-content, #article-title").toggleClass("d-none");
 				$(this).text("送出");
+				
+				$('#summernote1').summernote({
+ 		        placeholder: '請輸入文章內容',
+ 		        tabsize: 2,
+ 		        height: 120,
+ 		        toolbar: [
+ 		          ['style', ['style']],
+ 		          ['font', ['bold', 'underline', 'clear']],
+ 		          ['color', ['color']],
+ 		          ['para', ['ul', 'ol', 'paragraph']],
+ 		          ['table', ['table']],
+ 		          ['insert', ['link', 'picture', 'video']],
+ 		          ['view', ['fullscreen', 'codeview', 'help']]
+ 		        ]
+ 		      });
 
 			} else {
-				content_value = $("input.content_update").val().trim();
+				
 				title_value = $("input.title_update").val().trim();
-				if (content_value == "" || title_value == "") {
+				if ($(".note-editable").find("*").length == 0 || title_value == "") {
 					alert("內容不可空白");
-				} else if (content_value == article_content && title_value == article_title && imgFilesLength == 0) {
+				} else if ($(".note-editable").find("*") == article_content && title_value == article_title && imgFilesLength == 0) {
 					alert("並未作任何修改");
 				} else {
-					
+						content_value = $('#summernote1').val();
+						formData = new FormData();  // 洗掉之前的formData; 因為是全域變數 不new會越來越多
 						formData.append('art_id', urlArt_id);
 						formData.append('art_title', title_value);
 						formData.append('art_content', content_value);
-						console.log("Again="+imgFilesLength);
-						console.log(imgFiles);
 
 						for (let i = 0; i < imgFilesLength; i++) {
 						  formData.append('image', imgFiles[i]);
@@ -245,13 +290,17 @@ $(function() {
 						dataType: "json",
 						success: function(data) {
 							if (data === 1) {
-								$("#article-content").text(content_value);
-								$("#article-title").text(title_value);
+							//	$("#article-content").append(content_value);
+							//	$("#article-title").text(title_value);
 								alert("更新成功")
-								$("#article-content,#article-title").toggleClass("d-none");
+								$("#article-content,#article-title").toggleClass(" d-none");
+								$("#summernote1").remove();
+								$("#article-content").empty();
 								$("#article-edit").text("編輯");
-								$("input.content_update, input.title_update").remove();
+								$("input.title_update").remove();
+								$(".note-editor").remove();
 								$("#upload_img_label").addClass(" d-none")
+								buildArticle();
 
 							} else {
 								alert("更新失敗")

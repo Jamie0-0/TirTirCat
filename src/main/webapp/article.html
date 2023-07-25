@@ -293,7 +293,7 @@
 						</div>
 						<h5 class="card-title" id="article-title"
 							style="font-weight: bold;"></h5>
-						<p class="card-text" id="article-content"></p>
+						<div class="card-text" id="article-content"></div>
 						<div class="btn-group d-flex position-relative" role="group" aria-label="Basic example">
 							<i class="fa-solid fa-heart me-1 from-rule" id="article-like"></i> <i
 								class="fa-solid fa-bookmark me-1 from-rule" id="article-bookmark">收藏</i> <i
@@ -326,10 +326,10 @@
 								</ul>
 								<form action="#" method="post">
 									<textarea class="card-text w-100 from-rule" placeholder="留言"
-										id="summernote"></textarea>
+										id="summernote2"></textarea>
 									<div class="post-button-list2">
-										<button class="card-link btn btn-primary post-button"
-											type="submit">送出</button>
+										<button class="card-link btn btn-primary post-button" id="summer2"
+											type="button">送出</button>
 									</div>
 								</form>
 							</div>
@@ -510,13 +510,29 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			$('#summernote').summernote({
-				height : 150, // 設定編輯器的高度
-				placeholder : '在此輸入內容', // 設定預設提示文字
-				toolbar : [ ]// 設定工具列的按鈕選項
-			});
-		});
+ 		$(document).ready(function() {
+// 			$('#summernote').summernote({
+// 				height : 150, // 設定編輯器的高度
+// 				placeholder : '在此輸入內容', // 設定預設提示文字
+// 				toolbar : [ ]// 設定工具列的按鈕選項
+// 			});
+
+ 			$('#summernote2').summernote({
+ 		        placeholder: '請輸入留言內容',
+ 		        tabsize: 2,
+ 		        height: 120,
+ 		        toolbar: [
+ 		          ['style', ['style']],
+ 		          ['font', ['bold', 'underline', 'clear']],
+ 		          ['color', ['color']],
+ 		          ['para', ['ul', 'ol', 'paragraph']],
+ 		          ['table', ['table']],
+ 		          ['insert', ['link', 'picture', 'video']],
+ 		          ['view', ['fullscreen', 'codeview', 'help']]
+ 		        ]
+ 		      });
+ 		});
+
 	</script>
 	<!-- my own js -->
 	<script src="https://kit.fontawesome.com/bee31715f0.js"
