@@ -32,7 +32,7 @@ public interface ArticlesService extends CoreService{
 	int selectPageCount(String type);
 
 	// insert
-	String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList);
+	int insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList);
 	
 	// delete
 	int deleteArtclePics(String pic_art_id);

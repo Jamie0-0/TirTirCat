@@ -139,14 +139,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 	// 新增功能
 
 	@Override
-	public String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
-
-		String status = "新增失敗";
-		String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content);
-		if (!pic_art_id.equals("")) {
+	public int insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
+		int status = 0;
+		int pic_art_id = dao.insertArticle(art_user_id, art_title, art_content);
+		if (pic_art_id != 0) {
 			status = dao.insertArticlePic(pic_art_id, imageList);
+		} else {
+			System.out.println("新增文章失敗");
 		}
-		status = "新增成功";
 		return status;
 	}
 
@@ -176,28 +176,33 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
-	public int updateArticle(String art_id, String art_title, String art_content, List<byte[]> imagList) {
+	public int updateArticle(String art_id, String art_title, String art_content, List<byte[]> imageList) {
 		
-		int statusCode = 0;
+		int status = 0;
+		int artId = Integer.parseInt(art_id);
 		
 		try {
 	
 		beginTransaction();
 		Article article = new Article();
-		article.setArt_id(Integer.parseInt(art_id));
+		article.setArt_id(artId);
 		article.setArt_title(art_title);
 		article.setArt_content(art_content);
 	
-		statusCode = dao.updateArticle(article);
+		dao.updateArticle(article);
+		dao.jedisRefresh();
+		if(imageList.size() != 0) {
 		dao.deleteArticlePics(art_id);
-		dao.insertArticlePic(art_id, imagList);
-
+		dao.insertArticlePic(artId, imageList);
+		dao.jedisPicRefresh(art_id);
+		}
 		commit();
+		status = 1;
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return statusCode;
+		return status;
 	}
 
 

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import articles.ariclesUtils.ArticlesUtils;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 
@@ -65,12 +66,12 @@ public class ArticleInsertController extends HttpServlet {
         }
         System.out.println("總共幾張照片="+imageList.size());
 
-		String status = service.insertArticle(art_user_id, art_title, art_content,imageList);
+		int status = service.insertArticle(art_user_id, art_title, art_content,imageList);
 		
-
-        response.setContentType("text/plain");
+		String jsonString = ArticlesUtils.TurnIntoJson(status);
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(status);
+        response.getWriter().write(jsonString);
 	}
 
 }

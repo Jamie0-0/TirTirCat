@@ -433,55 +433,54 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	// insert
 	@Override
-	public String insertArticle(String art_user_id, String art_title, String art_content) {
+	public int insertArticle(String art_user_id, String art_title, String art_content) {
 
 		String insertArticle = "INSERT INTO FurrEver.articles (art_user_id, art_title, art_content, art_po_time, art_like, art_rep_count, art_status)\r\n"
 				+ "VALUES (?, ?, ?, NOW(), 0, 0, '1');";
-		String gKey = "";
+		int generatedKey = 0;
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, art_user_id);
 			pstmt.setString(2, art_title);
 			pstmt.setString(3, art_content);
 
-			int generatedKey = 0;
+			
 			int rowCount = pstmt.executeUpdate();
 
 			System.out.println(rowCount + "筆新增成功");
 
-			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
-					generatedKey = generatedKeys.getInt(1);
+			try (ResultSet gKeys = pstmt.getGeneratedKeys()) {
+				if (gKeys.next()) {
+					generatedKey = gKeys.getInt(1);
 					System.out.println("Generated primary key: " + generatedKey);
-					gKey = Integer.toString(generatedKey);
-				} else {
-				}
+				} 
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return gKey;
+		return generatedKey;
 
 	}
 
 	@Override
-	public String insertArticlePic(String pic_art_id, List<byte[]> imageList) {
-		String status = "新增失敗";
+	public int insertArticlePic(int pic_art_id, List<byte[]> imageList) {
+		int status = 0;
 		String insertArticlePic = "INSERT INTO FurrEver.articles_pics (pic_content, pic_art_id) VALUES (?, ?);";
-		int picArt_id = Integer.parseInt(pic_art_id);
+		
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertArticlePic);) {
 
 			for (int i = 0; i < imageList.size(); i++) {
 				pstmt.setBytes(1, imageList.get(i));
-				pstmt.setInt(2, picArt_id);
+				pstmt.setInt(2, pic_art_id);
 				pstmt.addBatch();
 			}
 			int[] rowCount = pstmt.executeBatch();
 			if (rowCount != null && rowCount.length != 0) {
-				status = "新增圖片成功";
+				status = 1;
 			}
-			System.out.println(status);
+			System.out.println("新增文章圖片成功");
 		} catch (SQLException e) {
+			System.out.println("新增文章圖片失敗");
 			e.printStackTrace();
 		}
 		return status;
@@ -529,11 +528,12 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	@Override
 	public void jedisPicRefresh(String pic_art_id) {
-		String key = pic_art_id;
+		String key = "pic_art_id:"+pic_art_id;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		jedis.expire(key.getBytes(), 0);
 		jedis.close();
+		System.out.println("jedisPicRefresh完成");
 	}
 
 	// jedis tag

@@ -10,7 +10,8 @@ function addArt(data) {
 			$("time.post-time").eq(i).text(data[i].art_po_time);
 			$("button.blog-button").eq(i).attr("art_id", data[i].art_id);
 			$("h5.card-title").eq(i).text(data[i].art_title);
-			$("p.card-text").eq(i).text(data[i].art_content);
+			$("div.card-text").eq(i).empty();
+			$("div.card-text").eq(i).append(data[i].art_content);
 			$("i.fa-heart").eq(i).text(data[i].art_like);
 			$("img.pic-content").eq(i).attr("art_id", data[i].art_id);
 			
