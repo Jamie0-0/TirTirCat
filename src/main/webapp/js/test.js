@@ -15,11 +15,25 @@ function addArt(data) {
 			$("i.fa-heart").eq(i).text(data[i].art_like);
 			$("img.pic-content").eq(i).attr("art_id", data[i].art_id);
 			
+			// 點愛心
+			$("i.fa-heart").eq(i).on("click", function(e){
+				e.stopPropagation();
+				fetch(`artLike?art_id=${data[i].art_id}&uid=3`)    // 登入的人 暫定uid=3
+				.then(response => response.json())
+				.then(data => {
+					if(data === -1){
+						
+					}else{
+						$("i.fa-heart").eq(i).text(data);
+					}
+				})
+			});
+			
 			// 上照片
 			let artId = $("img.pic-content").eq(i).attr("art_id");
 			let that = $("img.pic-content").eq(i);
 			$.ajax({
-				url: "/TirTirCat/forum",           // 資料請求的網址
+				url: "forum",           // 資料請求的網址
 				type: "GET",
 				data: {
 					order: "getPic",
@@ -33,12 +47,12 @@ function addArt(data) {
 					$(that).closest("div").find("div.temp_loading").remove();
 				}
 			});
-			$("img.pic-content").eq(i).attr("src", "/TirTirCat/forum" + "?order=getPic&art_id=" + artId);  // 封面圖綁src
+			$("img.pic-content").eq(i).attr("src", "forum" + "?order=getPic&art_id=" + artId);  // 封面圖綁src
 					
 			// Avatar Picture
 			let uid = $("p.author").eq(i).attr("uid");
 			$.ajax({
-				url: "/TirTirCat/forum",
+				url: "forum",
 				type: "GET",
 				data: {
 					order: "getAvatar",
@@ -46,24 +60,18 @@ function addArt(data) {
 				},
 				dataType: "json",
 			});
-			$("img.avatar").eq(i).attr("src", "/TirTirCat/forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
+			$("img.avatar").eq(i).attr("src", "forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
 			
 			// ComCount
 			$.ajax({
-				url: `/TirTirCat/artComCount?com_art_id=${data[i].art_id}`,           // 資料請求的網址
+				url: `artComCount?com_art_id=${data[i].art_id}`,           // 資料請求的網址
 				type: "GET",
 				dataType: "json",
 				success: function(data) {
 					$("i.fa-comment").eq(i).text(data);
 				}
 			});
-			
 		}
-
-
-		
-
-		
 	}
 	
 } // addArt()結束
@@ -108,7 +116,7 @@ function pageFilter(data) {
 // 點擊分頁標籤的事件
 function clickPageTag(order, searchText, page) {
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		pe: "GET",
 		data: { "order": order, "searchText": searchText, "page": page },
 		dataType: "json",
@@ -149,7 +157,7 @@ function fctSearch(data) {
 // init
 function init() {
 	$.ajax({
-		url: "/TirTirCat/forum",           // 資料請求的網址
+		url: "forum",           // 資料請求的網址
 		type: "GET",                  // GET | POST | PUT | DELETE | PATCH
 		data: { order: "hot", page: "1" },             // 將物件資料(不用雙引號) 傳送到指定的 url
 		dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
@@ -160,7 +168,7 @@ function init() {
 
 	// 添加分頁
 	$.ajax({
-		url: "/TirTirCat/forumPage",
+		url: "forumPage",
 		type: "GET",
 		data: {},
 		dataType: "json",
@@ -180,9 +188,9 @@ $(function() {
 // 繼續閱讀
 $("button.blog-button").on("click", function() {
 	let artId = $(this).attr("art_id");
-	$(window).attr('location', '/TirTirCat/article.html');
+	$(window).attr('location', 'article.html');
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		type: "GET",
 		data: { order: "article", art_id: artId },
 		dataType: "json",
@@ -196,7 +204,7 @@ $("button.blog-button").on("click", function() {
 $("#forum-hot").on("click", function() {
 	var that = $(this);
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		type: "GET",
 		data: { order: "new", page: "1" },
 		dataType: "json",
@@ -209,7 +217,7 @@ $("#forum-hot").on("click", function() {
 		}
 	});
 	$.ajax({
-		url: "/TirTirCat/forumPage",
+		url: "forumPage",
 		type: "GET",
 		data: {},
 		dataType: "json",
@@ -235,7 +243,7 @@ $("#forum-search-btn").on("click", function() {
 	currentPage = 1;
 	searchText = $("#forum-search-input").val();
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		type: "GET",
 		data: {
 			order: "search",
@@ -247,7 +255,7 @@ $("#forum-search-btn").on("click", function() {
 		}
 	});
 	$.ajax({
-		url: "/TirTirCat/forumPage",
+		url: "forumPage",
 		type: "GET",
 		data: { "searchText": searchText },
 		dataType: "json",
@@ -270,7 +278,7 @@ $("#forum-search-input").on("keydown", function(e) {
 		currentPage = 1;
 		searchText = $("#forum-search-input").val();
 		$.ajax({
-			url: "/TirTirCat/forum",
+			url: "forum",
 			type: "GET",
 			data: {
 				order: "search",
@@ -282,7 +290,7 @@ $("#forum-search-input").on("keydown", function(e) {
 			}
 		});
 		$.ajax({
-			url: "/TirTirCat/forumPage",
+			url: "forumPage",
 			type: "GET",
 			data: { "searchText": searchText },
 			dataType: "json",

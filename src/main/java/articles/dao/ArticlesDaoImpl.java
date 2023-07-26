@@ -18,8 +18,8 @@ import org.json.JSONException;
 import com.google.gson.Gson;
 
 import articles.ariclesUtils.JedisPoolUtil;
-import articles.vo.Article;
-import articles.vo.ArticlePic;
+import articles.vo.*;
+
 import core.util.HibernateUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -429,6 +429,22 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		jedis.close();
 
 	}
+	
+
+	@Override
+	public ArticlesLike selectLike(int artId, int userId) {
+		
+		ArticlesLikeId id = new ArticlesLikeId(artId, userId);
+		
+		ArticlesLike articlesLike = getSession().get(ArticlesLike.class, id);
+		
+		if (articlesLike != null) {
+			System.out.println("用戶"+articlesLike.getLike_user_id()+"號喜歡"+articlesLike.getLike_articles_id()+"號文章");
+		}
+		
+		return articlesLike;
+	}
+	
 	// select end
 
 	// insert
@@ -485,7 +501,28 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return status;
 	}
-
+	
+	@Override
+	public void insertArticleLike(int like_articles_id, int like_user_id) {
+		ArticlesLike articlesLike = new ArticlesLike();
+		articlesLike.setLike_articles_id(like_articles_id);
+		articlesLike.setLike_user_id(like_user_id);
+		getSession().persist(articlesLike);
+		
+	}
+	
+	@Override
+	public int likeArticle(int art_id) {
+		
+		Article article = getSession().get(Article.class, art_id);
+		article.setArt_like(article.getArt_like()+1);
+		getSession().update(article);
+		
+		return article.getArt_like();
+	}
+	
+	
+	// insert end
 	// delete
 	@Override
 	public int deleteArticlePics(String pic_art_id) {
@@ -506,6 +543,21 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return status;
 	}
+	
+
+
+	@Override
+	public int unLikeArticle(ArticlesLike articlesLike) {
+		
+		getSession().delete(articlesLike);
+		Article article = getSession().get(Article.class, articlesLike.getLike_articles_id());
+		article.setArt_like(article.getArt_like()-1);
+		getSession().update(article);
+		
+		return article.getArt_like();
+
+	}
+
 	// delete end
 
 	// refresh
@@ -553,5 +605,9 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		getSession().persist(article);
 		return 1;
 	}
+	
+
+
+
 
 }

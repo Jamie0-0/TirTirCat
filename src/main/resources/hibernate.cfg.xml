@@ -21,5 +21,6 @@
 		<mapping class="articles.vo.Reply" />
 		<mapping class="articles.vo.User" />
 		<mapping class="articles.vo.Article" />
+		<mapping class="articles.vo.ArticlesLike" />
 	</session-factory>
 </hibernate-configuration>

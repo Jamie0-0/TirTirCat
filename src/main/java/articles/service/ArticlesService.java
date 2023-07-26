@@ -46,4 +46,6 @@ public interface ArticlesService extends CoreService{
 
 	Integer selectComCount(int com_art_id);
 
+	int likeArticle(String art_id, String uid);
+
 }

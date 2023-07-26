@@ -62,14 +62,10 @@ public class ArticleUpdateController extends HttpServlet {
 		int status = service.updateArticle(art_id, art_title, art_content, imageList);
 		
 		
-		String statusString = ArticlesUtils.TurnIntoJson(status);   // 如果不轉成json 前端會有問題
+		String json = ArticlesUtils.TurnIntoJson(status);   // 如果不轉成json 前端會有問題
 		
-		
-		
-
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(statusString);
+		response.setContentType("application/json; charset=UTF-8");
+		response.getWriter().write(json);
 	}
 
 }

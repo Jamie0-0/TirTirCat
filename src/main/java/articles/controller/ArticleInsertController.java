@@ -69,8 +69,8 @@ public class ArticleInsertController extends HttpServlet {
 		int status = service.insertArticle(art_user_id, art_title, art_content,imageList);
 		
 		String jsonString = ArticlesUtils.TurnIntoJson(status);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+		// 告訴前端response為json格式 編碼為UTF-8
+		response.setContentType("application/json; charset=UTF-8");
         response.getWriter().write(jsonString);
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import articles.vo.ArticlesLike;
 
 public interface ArticlesDao {
 
@@ -57,4 +58,12 @@ public interface ArticlesDao {
 	int updateArticle(Article newArt);
 
 	Integer selectComCount(int com_art_id);
+
+	int likeArticle(int art_id);
+	
+	void insertArticleLike(int like_articles_id, int like_user_id);
+
+	ArticlesLike selectLike(int artId, int userId);
+
+	int unLikeArticle(ArticlesLike articlesLike);
 }

@@ -44,8 +44,7 @@ public class ReplyInsertController extends HttpServlet {
 
 		String status =  service.insertReply(reply_com_id, reply_user_id, reply_content);
 
-		response.setContentType("text/plain");
-		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/plain; charset=UTF-8");
 		response.getWriter().write(status);
 	}
 

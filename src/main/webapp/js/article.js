@@ -6,7 +6,7 @@ let formData = new FormData();
 let urlArt_id = 0;
 
 function fetchComment() {
-	fetch("/TirTirCat/comment").then(response => response.json()).
+	fetch("comment").then(response => response.json()).
 		then(data => {
 
 			for (let i = 0; i < data.length; i++) {
@@ -18,7 +18,7 @@ function fetchComment() {
 									<div class="card-title d-flex">
 										<ul class="list-group list-group-horizontal d-flex justify-content-start">
 											<li class="list-group-item border-0">
-												<img alt="Avatar" class="avatar rounded-circle img-fluid col" src="/TirTirCat/avatar?uid=${data[i].com_user_id}">
+												<img alt="Avatar" class="avatar rounded-circle img-fluid col" src="avatar?uid=${data[i].com_user_id}">
 											</li>
 											<li class="list-group-item border-0 com_username">
 													${data[i].user.u_name}
@@ -45,12 +45,12 @@ function fetchComment() {
 				$("#com_wrapper").append(responseItem);
 
 				// 擴充: 回覆的回覆
-				$(`.com-reply-btn${dataId}`).on("click", function(e) {
+				$(`.com-reply-btn${dataId}`).on("click", function() {
 
 					$(`div.com-reply-wrapper${dataId}`).toggleClass("d-none");
 					// 要發送的 reply_com_id
 					let reply_com_id = dataId;
-					let url = "/TirTirCat/reply?reply_com_id=" + reply_com_id;
+					let url = "reply?reply_com_id=" + reply_com_id;
 					const comReplyWrapper = $(`.com-reply-wrapper${dataId}`);
 					comReplyWrapper.empty();
 
@@ -87,7 +87,7 @@ function fetchComment() {
       	<div class="col g-0 position-relative post-reply">
 	        	<ul class="list-group list-group-horizontal border-0" style="vertical-align: center;">
 			           <li class="list-group-item border-0">
-			           			  <img alt="Avatar" class="avatar rounded-circle img-fluid col" alt="./images/Avatar.png" src="/TirTirCat/avatar?uid=${data[k].reply_user_id}">
+			           			  <img alt="Avatar" class="avatar rounded-circle img-fluid col" alt="./images/Avatar.png" src="avatar?uid=${data[k].reply_user_id}">
 			           </li>
 			          <li class="list-group-item reply_username border-0">${data[k].user.u_name}</li>
 			          <li class="list-group-item reply_time border-0">${data[k].reply_date_time}</li>
@@ -115,7 +115,6 @@ function addUpload() {
 		imgFiles = $(this)[0].files;
 
 		imgFilesLength = imgFiles.length
-		console.log("imgFilesLength=" + imgFilesLength)
 		$(".carousel-item").remove();
 		if (imgFiles.length > 5) {
 			alert("最多只能上傳五張照片，請重新選擇")
@@ -135,13 +134,13 @@ function addUpload() {
 }
 
 function buildArticle() {
-	fetch("/TirTirCat/article")
+	fetch("article")
 		.then(response => response.json())
 		.then(data => {
 			if (data === null) {
 				alert("這篇文章不存在，即將送您回交流天地");
 				setTimeout(function() {
-					$(window).attr('location', '/TirTirCat/forum.html');
+					$(window).attr('location', 'forum.html');
 				}, 2000);
 
 
@@ -153,8 +152,24 @@ function buildArticle() {
 				$("#article-title").text(data[0].art_title);
 				$("#article-content").append(data[0].art_content);
 				$("i.fa-heart").text(data[0].art_like);
-				$("#ownerAvatar").attr("src", "/TirTirCat/avatar?uid=" + data[0].uid);
+				$("#ownerAvatar").attr("src", "avatar?uid=" + data[0].uid);
 				urlArt_id = data[0].art_id;
+				
+				// Like
+				$("#article-like").on("click", function(){
+					fetch(`artLike?art_id=${data[0].art_id}&uid=3`)    // 登入的人 暫定uid=3
+						.then(response => response.json())
+						.then(data => {
+							if(data === -1){
+								
+							}else{
+								console.log(data);
+								$("i.fa-heart").text(data);
+							}
+						})
+				});
+				
+				// Like end
 				// Share button
 				$("#share-tooltip").on("click", () => {
 
@@ -166,7 +181,7 @@ function buildArticle() {
 
 
 				// carousel控tag
-				fetch("/TirTirCat/artDnone")
+				fetch("artDnone")
 					.then(response => response.json())
 					.then(data => {
 						for (let i = 5; i > data; i--) {
@@ -189,7 +204,7 @@ $(function() {
 	$("#summer2").on("click", function() {
 		var markupStr = $('#summernote2').val();
 		$.ajax({
-			url: "/TirTirCat/commentInsert",
+			url: "commentInsert",
 			type: "POST",
 			data: {
 				com_art_id: urlArt_id
@@ -198,14 +213,14 @@ $(function() {
 			},
 			dataType: "json",
 			success: function(data) {
-				console.log(data)
 				if (data === 1) {
-					fetchComment();
+					$("#com_wrapper").empty();
 					$('.note-editable').empty();
+					$("#article-content").empty();
+					buildArticle();	
 				} else {
 					alert("新增留言失敗");
 				}
-
 			}
 		});
 	});
@@ -249,7 +264,7 @@ $(function() {
 			}
 	
 			$.ajax({
-				url: "/TirTirCat/ArtInsert",
+				url: "ArtInsert",
 				type: "POST",
 				data: formData,
 				processData: false,
@@ -258,12 +273,12 @@ $(function() {
 
 					if (data === 1) {
 						alert("發文成功")
-						fetch("/TirTirCat/refresh")
+						fetch("refresh")
 							.then(response => response.json())
 							.then(data => {
 								console.log("refresh=" + data);
 							});
-						$(window).attr("location", "/TirTirCat/forum.html")
+						$(window).attr("location", "forum.html")
 
 					} else {
 						alert("更新失敗")
@@ -275,7 +290,7 @@ $(function() {
 
 	} else {
 		for (let i = 1; i <= 5; i++) {
-			$(`#carouPic${i}`).attr("src", `/TirTirCat/carousel?picOrder=${i}`);
+			$(`#carouPic${i}`).attr("src", `carousel?picOrder=${i}`);
 		}
 
 		buildArticle();
@@ -333,7 +348,7 @@ $(function() {
 					}
 
 					$.ajax({
-						url: "/TirTirCat/articleUpdate",
+						url: "articleUpdate",
 						type: "POST",
 						data: formData,
 						processData: false,
@@ -357,7 +372,7 @@ $(function() {
 								alert("更新失敗")
 
 								for (let i = 1; i <= 5; i++) {
-									$(`#carouPic${i}`).attr("src", `/TirTirCat/carousel?picOrder=${i}`);
+									$(`#carouPic${i}`).attr("src", `carousel?picOrder=${i}`);
 								}
 							}
 						}
@@ -368,12 +383,6 @@ $(function() {
 	} // if 
 }); // init end
 
-
-
-// article like button
-$("#article-like").on("click", function() {
-	console.log("喜歡");
-});
 
 // article comment button
 $("#article-comment").on("click", function() {

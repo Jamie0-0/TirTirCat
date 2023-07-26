@@ -6,6 +6,7 @@ import articles.dao.ArticlesDao;
 import articles.dao.ArticlesDaoImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import articles.vo.ArticlesLike;
 import redis.clients.jedis.exceptions.JedisException;
 
 public class ArticlesServiceImpl implements ArticlesService {
@@ -174,6 +175,8 @@ public class ArticlesServiceImpl implements ArticlesService {
 		dao.setArticlesTag(tag);
 
 	}
+	
+	// update
 
 	@Override
 	public int updateArticle(String art_id, String art_title, String art_content, List<byte[]> imageList) {
@@ -201,10 +204,56 @@ public class ArticlesServiceImpl implements ArticlesService {
 		
 		} catch (Exception e) {
 			e.printStackTrace();
+			rollback();
 		}
 		return status;
 	}
+	
+	@Override
+	public int likeArticle(String art_id, String uid) {
+		
+		int artId = Integer.parseInt(art_id);
+		int userId = Integer.parseInt(uid);
+		int result = -1;
+		
+		try {
+		
+			beginTransaction();
+			
+			// 先查
+			ArticlesLike articlesLike = dao.selectLike(artId, userId);
+			
+			if (articlesLike != null) {
+				result = dao.unLikeArticle(articlesLike);
+				
+				System.out.println("收回讚成功");
+				
+			} else {
+				// table: articles_like
+				dao.insertArticleLike(artId, userId);
+				
+				// table: articles
+				result = dao.likeArticle(artId);
 
+				System.out.println("按讚成功");
+			}
+			
+			
+
+			
+			commit();
+			
+			
+		
+		} catch (Exception e) {
+			System.out.println("按讚或收回讚失敗");
+			e.printStackTrace();
+			rollback();
+		}
+		
+		return result;
+	}
+	// update end
 
 
 }
