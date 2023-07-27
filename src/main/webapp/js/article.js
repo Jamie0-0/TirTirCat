@@ -32,7 +32,7 @@ function fetchComment() {
 										</ul>
 									</div>
 									<div class="comment-report position-absolute top-0 end-0 me-1">
-										<i type="button" class="fa-solid fa-flag com-report"
+										<i type="button" class="fa-solid fa-flag com-report" com_id="${data[i].com_id}"
 											data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
 									</div>
 									<div>
@@ -94,7 +94,7 @@ function fetchComment() {
 				       <li class="list-group-item reply border-0">${data[k].reply_content}</p>
 	        	</ul>
 		        <div>
-		          <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0 mt-1 me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" com_id="${data[k].reply_id}"></i>
+		          <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0 mt-1 me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" reply_id="${data[k].reply_id}"></i>
 		        </div>
       	</div>
     </div>
@@ -102,6 +102,16 @@ function fetchComment() {
 								comReplyWrapper.append(replyItem);
 
 							} //小迴圈 end
+						});
+						
+						// reply report button
+						$(`.com-reply-wrapper${dataId}`).on("click", "i.reply-report", function(e) {
+						 	e.stopPropagation();
+							let reply_id = $(this).attr("reply_id");
+							$("#report-submit").attr("reply_id",reply_id);
+							$("#report-submit").attr("art_id",0);
+							$("#report-submit").attr("com_id",0);
+							// 傳id去 $("#report-submit")
 						});
 				});  // 擴充 end						
 			}  // 大迴圈 end
@@ -153,6 +163,7 @@ function buildArticle() {
 				$("#article-content").append(data[0].art_content);
 				$("i.fa-heart").text(data[0].art_like);
 				$("#ownerAvatar").attr("src", "avatar?uid=" + data[0].uid);
+				$("#article-report").attr("art_id",data[0].art_id)
 				urlArt_id = data[0].art_id;
 				
 				// Like
@@ -167,9 +178,9 @@ function buildArticle() {
 								$("i.fa-heart").text(data);
 							}
 						})
-				});
-				
+				});	
 				// Like end
+				
 				// Share button
 				$("#share-tooltip").on("click", () => {
 
@@ -179,7 +190,6 @@ function buildArticle() {
 				})
 				// Share button end
 
-
 				// carousel控tag
 				fetch("artDnone")
 					.then(response => response.json())
@@ -188,7 +198,6 @@ function buildArticle() {
 							$(`#carouPic${i}`).parent('div').remove();
 						}
 					});
-
 
 				let comTotal = 0;
 				const comReplyWrapper = null;
@@ -389,8 +398,56 @@ $("#article-comment").on("click", function() {
 	console.log("跳到留言");
 });
 
-// comment report button
-$("i.comment-report").on("click", function() {
-	console.log("留言檢舉");
+// comment report button 事件委派到父元素
+$("#com_wrapper").on("click", "i.com-report", function(e) {
+ 	e.stopPropagation();
+	let com_id = $(this).attr("com_id");
+	$("#report-submit").attr("com_id",com_id);
+	$("#report-submit").attr("art_id",0);
+	$("#report-submit").attr("reply_id",0);
+	// 傳id去 $("#report-submit")
+});
+
+// article report button
+$("#article-report").on("click", function(){
+	let art_id = $(this).attr("art_id");
+	$("#report-submit").attr("art_id",art_id);
+	$("#report-submit").attr("com_id",0);
+	$("#report-submit").attr("reply_id",0);
+	// 傳id去 $("#report-submit")
+	
+})
+
+
+$("#report-submit").on("click", function(){
+	
+	let artId = $("#report-submit").attr("art_id");
+	let comId = $("#report-submit").attr("com_id");
+	let replyId = $("#report-submit").attr("reply_id");
+	let selectedReason = $("input[name='listGroupRadio']:checked").val();
+	
+	$.ajax({
+	  url: "artReport",           
+	  type: "GET",               
+	  data: {
+		rep_art_id: artId,
+		crep_com_id: comId,
+		rrep_reply_id: replyId,
+	  	rep_reason: selectedReason,
+	  	uid : "1"   // 暫定1 應為登入者id
+	  },
+	  dataType: "json",
+	  beforesend: function(){
+		$("#report-submit").addClass(" disabled");
+	},             
+	  success: function(){     
+	    $("#report-submit").removeClass(" disabled");
+	    $(window).attr('location', 'article.html');
+	  }
+	});
+});
+
+$("#cancel-report").on("click", function(){
+	console.log("取消")
 });
 

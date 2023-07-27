@@ -299,9 +299,8 @@
 								class="fa-solid fa-bookmark me-1 from-rule" id="article-bookmark">收藏</i> <i
 								id="share-tooltip" class="fa-solid fa-share me-1 from-rule"
 								data-bs-toggle="myTooltip" data-bs-placement="bottom"
-								data-bs-title="點我複製連結網址!"
-								data-url="http://127.0.0.1:5500/TeamProject/article.html">分享</i> <i
-								class="fa-solid fa-flag visible from-rule" id="article-report"
+								data-bs-title="點我複製連結網址!">分享</i>
+							<i class="fa-solid fa-flag visible from-rule" id="article-report"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">檢舉</i>
 							<div>
 								<label id="upload_img_label" class="btn d-none">
@@ -350,47 +349,47 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
-						<div class="modal-body">
-							<ul class="list-group"
-								style="background-color: #F6F0ED !important">
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="firstRadio" checked>
-									<label class="form-check-label" for="firstRadio">不喜歡這篇文章/留言</label>
-								</li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="secondRadio"> <label
-									class="form-check-label" for="secondRadio">重傷、挑釁、歧視或謾罵他人</label>
-								</li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="thirdRadio"> <label
-									class="form-check-label" for="thirdRadio">包含18禁內容</label></li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="fourthRadio"> <label
-									class="form-check-label" for="fourthRadio">文章內容無意義或內容空泛</label>
-								</li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="fifthRadio"> <label
-									class="form-check-label" for="fifthRadio">虐待寵物</label></li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="sixthRadio"> <label
-									class="form-check-label" for="sixthRadio">違反隱私</label></li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="seventhRadio"> <label
-									class="form-check-label" for="seventhRadio">內容有釣魚連結</label></li>
-							</ul>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"
-								data-bs-dismiss="modal">取消</button>
-							<button type="submit" class="btn btn-primary">送出</button>
-						</div>
+						<div class="modal-body">					
+								<ul class="list-group"
+									style="background-color: #F6F0ED !important">
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="1" id="firstRadio" checked>
+										<label class="form-check-label" for="firstRadio">不喜歡這篇文章/留言</label>
+									</li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="2" id="secondRadio"> <label
+										class="form-check-label" for="secondRadio">重傷、挑釁、歧視或謾罵他人</label>
+									</li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="3" id="thirdRadio"> <label
+										class="form-check-label" for="thirdRadio">包含18禁內容</label></li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="4" id="fourthRadio"> <label
+										class="form-check-label" for="fourthRadio">文章內容無意義或內容空泛</label>
+									</li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="5" id="fifthRadio"> <label
+										class="form-check-label" for="fifthRadio">虐待寵物</label></li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="6" id="sixthRadio"> <label
+										class="form-check-label" for="sixthRadio">違反隱私</label></li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="7" id="seventhRadio"> <label
+										class="form-check-label" for="seventhRadio">內容有釣魚連結</label></li>
+								</ul>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="cancel-report"
+									data-bs-dismiss="modal">取消</button>
+								<button type="button" class="btn btn-primary" id="report-submit">送出</button>
+							</div>
 					</div>
 				</div>
 			</div>
