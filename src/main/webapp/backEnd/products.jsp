@@ -5,9 +5,11 @@
 
 <%
 List<ProductVO> list = (List<ProductVO>) request.getAttribute("list");
+
 if (list == null) {
 	ProductJDBCDAO dao = new ProductJDBCDAO();
 	list = dao.getAll();
+	
 }
 pageContext.setAttribute("list", list);
 %>
@@ -161,6 +163,16 @@ tr:hover {
 	margin: 5px;
 }
 
+#iForm1 {
+	width: 100px;
+	height: 40px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 16px;
+	/* 添加其他樣式規則，例如文字顏色、背景色等 */
+}
+
 #searchBtn {
 	width: 40px;
 	height: 40px;
@@ -172,6 +184,24 @@ tr:hover {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+select {
+	border: none; /* 移除邊框 */
+	background-color: transparent; /* 背景透明，不顯示白色背景 */
+	appearance: none; /* 移除系統默認樣式，例如下拉箭頭 */
+	-webkit-appearance: none; /* 適用於某些瀏覽器的前綴 */
+	-moz-appearance: none; /* 適用於某些瀏覽器的前綴 */
+}
+
+#p_status {
+	width: 150px;
+	height: 40px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 16px;
+	/* 添加其他樣式規則，例如文字顏色、背景色等 */
 }
 </style>
 </head>
@@ -320,11 +350,7 @@ tr:hover {
 										</li>
 
 										<li><a
-											href="<%=request.getContextPath()%>/backEnd/add-new-product.html">添加產品</a>
-										</li>
-
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/add-new-product2.html">添加團購</a>
+											href="<%=request.getContextPath()%>/backEnd/add-new-product.jsp">添加產品</a>
 										</li>
 									</ul></li>
 
@@ -395,8 +421,30 @@ tr:hover {
 													ACTION="<%=request.getContextPath()%>/pro.do">
 													<b style="font-size: 20px;">輸入商品編號:</b> <input id="iForm1"
 														type="text" name="p_id"
-														style="width: 100px; height: 40px;" pattern="[0-9]+">
-													<input id="iForm2" type="hidden" name="action"
+														style="width: 70px; height: 35px; border: 2px solid #ccc; border-radius: 5px;"
+														pattern="[0-9]+">
+
+													<jsp:useBean id="pMapSvc" scope="page"
+														class="pMapping.model.PMappingService" />
+													<select id="p_class" size="1" name="p_class"
+														style="width: 90px; height: 35px; border: 2px solid #ccc; border-radius: 5px; padding: 5px; font-size: 16px; margin-right: 6px;">
+														<option value="0">輸入類別</option>
+														<c:forEach var="pMappingVO" items="${pMapSvc.getAll()}">
+															<option value="${pMappingVO.pm_id}"
+																${productVO.p_class==pMappingVO.pm_id ? 'selected' : ''}>${pMappingVO.pm_name}</option>
+														</c:forEach>
+													</select>
+
+													<jsp:useBean id="pStatusSvc" scope="page"
+														class="pStatus.model.PStatusService" />
+													<select id="p_status" size="1" name="p_status"
+														style="width: 90px; height: 35px; border: 2px solid #ccc; border-radius: 5px; padding: 5px; font-size: 16px;">
+														<option value="0">輸入狀態</option>
+														<c:forEach var="pStatusVO" items="${pStatusSvc.getAll()}">
+															<option value="${pStatusVO.ps_id}"
+																${productVO.p_status == pStatusVO.ps_id ? 'selected' : ''}>${pStatusVO.ps_name}</option>
+														</c:forEach>
+													</select> <input id="iForm2" type="hidden" name="action"
 														value="getOneSearch">
 													<button id="searchBtn" type="submit">
 														<i class="fas fa-search"></i>
@@ -408,7 +456,7 @@ tr:hover {
 										<div class="right-options">
 											<ul>
 												<li><a class="btn btn-solid"
-													href="<%=request.getContextPath()%>/backEnd/add-new-product.html">新增產品</a>
+													href="<%=request.getContextPath()%>/backEnd/add-new-product.jsp">新增產品</a>
 												</li>
 											</ul>
 										</div>
@@ -424,9 +472,8 @@ tr:hover {
 													<th>商品數量</th>
 													<th>收藏數量</th>
 													<th>貓狗商品</th>
-													<th>商品型態</th>
 													<th>商品狀態</th>
-													<th>上架時間</th>
+													<th>修改時間</th>
 													<th>修改</th>
 
 
@@ -436,22 +483,50 @@ tr:hover {
 													begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 													<tr>
 														<td>${productVO.p_id}</td>
-														<td>${productVO.p_class}</td>
+
+														<td><c:forEach var="pMappingVO1"
+																items="${pMapSvc.getAll()}">
+																<c:if test="${productVO.p_class == pMappingVO1.pm_id}">
+														            ${pMappingVO1.pm_name}
+														        </c:if>
+															</c:forEach></td>
+
 														<td>${productVO.p_name}</td>
 														<td>${productVO.p_price}</td>
 														<td>${productVO.p_stock}</td>
 														<td>${productVO.p_count}</td>
-														<td>${productVO.p_type}</td>
-														<td>${productVO.p_1}</td>
-														<td>${productVO.p_status}</td>
+
+														<jsp:useBean id="pTypeSvc" scope="page"
+															class="pType.model.PTypeService" />
+														<td><c:forEach var="pTypeVO"
+																items="${pTypeSvc.getAll()}">
+																<c:if test="${productVO.p_type == pTypeVO.pt_id}">
+														            ${pTypeVO.pt_name}
+														        </c:if>
+															</c:forEach></td>
+
+														<td><c:forEach var="pStatusVO"
+																items="${pStatusSvc.getAll()}">
+																<c:if test="${productVO.p_status == pStatusVO.ps_id}">
+														            ${pStatusVO.ps_name}
+														        </c:if>
+															</c:forEach></td>
 														<td>${productVO.p_upload_time}</td>
+														<td>
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pro.do"
+																style="margin-bottom: 0px;">
+																<input type="hidden" name="action" value="getUpdate">
+																<input type="hidden" name="p_id" value="${productVO.p_id}"> 
+																<input type="submit" value="修改">
+															</FORM>
+														</td>
 														<td>
 															<FORM METHOD="post"
 																ACTION="<%=request.getContextPath()%>/pro.do"
 																style="margin-bottom: 0px;">
-																<input type="submit" value="修改"> <input
-																	type="hidden" name="p_id" value="${productVO.p_id}">
-																<input type="hidden" name="action" value="getUpdate">
+																<input type="hidden" name="action" value="delete">
+																<input type="hidden" name="p_id" value="${productVO.p_id}"> 
+																<input type="submit" value="刪除">
 															</FORM>
 														</td>
 													</tr>

@@ -15,9 +15,9 @@ public class Tools {
 				return "信箱格式錯誤";
 			}
 		} else if(type.equals("word")) {
-			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]$";
+			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,10}$";
 			if(!input.matches(enameReg)) {
-				return "只能是中、英文字母、數字和_";
+				return "只能小於10個字，且中、英文字母、數字和_";
 			}
 		} else if(type.equals("date")) {
 			if(input.length() == 8) {

@@ -1,3 +1,24 @@
+<%@page import="product.model.*"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+
+<%
+
+// 	ProductDAO dao = new ProductDAO();
+// 	ProductVO iValue = dao.indexValue(1);
+	
+	ProductDAO dao2 = new ProductDAO();
+	List<ProductVO> list1 = dao2.indexNatrix1(1);
+// 	List<ProductVO> list2 = dao.indexNatrix2(1);
+    for (ProductVO productVO : list1) {
+        System.out.println("Product Name: " + productVO.getP_name());
+    }
+%>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -10,26 +31,30 @@
     <meta name="keywords"
         content="admin template, Furrever admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="Tha102G3">
-    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="<%=request.getContextPath()%>/backEnd/assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/backEnd/assets/images/favicon.png" type="image/x-icon">
     <title>Frever - Dashboard</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/linearicon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/themify.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/ratio.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/remixicon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css"> 
-    <link rel="stylesheet" href="assets/css/vendors/slick.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backEnd/assets/css/linearicon.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/themify.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/ratio.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/remixicon.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/animate.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/bootstrap.css"> 
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/slick.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backEnd/assets/css/style.css">
 </head>
 
 <body>
+
+
+
+
+
     <div class="tap-top">
         <span class="lnr lnr-chevron-up"></span>
     </div>
@@ -39,15 +64,15 @@
             <div class="header-wrapper m-0">
                 <div class="header-logo-wrapper p-0">
                     <div class="logo-wrapper">
-                        <a href="back_index.html">
-                            <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
-                            <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
+                        <a href="<%=request.getContextPath()%>/backEnd/back_index.html">
+                            <img class="img-fluid main-logo" src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1.png" alt="logo">
+                            <img class="img-fluid white-logo" src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1-white.png" alt="logo">
                         </a>
                     </div>
                     <div class="toggle-sidebar">
                         <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
-                        <a href="back_index.html">
-                            <img src="assets/images/logo/1.png" class="img-fluid" alt="">
+                        <a href="<%=request.getContextPath()%>/backEnd/back_index.html">
+                            <img src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1.png" class="img-fluid" alt="">
                         </a>
                     </div>
                 </div>
@@ -102,7 +127,7 @@
 
                         <li class="profile-nav onhover-dropdown pe-0 me-0">
                             <div class="media profile-media">
-                                <img class="user-profile rounded-circle" src="assets/images/users/4.jpg" alt="">
+                                <img class="user-profile rounded-circle" src="<%=request.getContextPath()%>/backEnd/assets/images/users/4.jpg" alt="">
                                 <div class="user-name-hide media-body">
                                     <span>埃梅·沃爾特</span>
                                     <p class="mb-0 font-roboto">行政<i class="middle ri-arrow-down-s-line"></i></p>
@@ -110,13 +135,13 @@
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
                                 <li>
-                                    <a href="order-list.html">
+                                    <a href="<%=request.getContextPath()%>/backEnd/order-list.html">
                                         <i data-feather="archive"></i>
                                         <span>訂單</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="profile-setting.html">
+                                    <a href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
                                         <i data-feather="settings"></i>
                                         <span>設置</span>
                                     </a>
@@ -141,17 +166,17 @@
                 <div id="sidebarEffect"></div>
                 <div>
                     <div class="logo-wrapper logo-wrapper-center">
-                        <a href="back_index.html" data-bs-original-title="" title="">
-                            <img class="img-fluid for-white" src="assets/images/logo/full-white.png" alt="logo">
+                        <a href="<%=request.getContextPath()%>/backEnd/back_index.html" data-bs-original-title="" title="">
+                            <img class="img-fluid for-white" src="<%=request.getContextPath()%>/backEnd/assets/images/logo/full-white.png" alt="logo">
                         </a>
                         <div class="back-btn">
                             <i class="fa fa-angle-left"></i>
                         </div>
                     </div>
                     <div class="logo-icon-wrapper">
-                        <a href="back_index.html">
-                            <img class="img-fluid main-logo main-white" src="assets/images/logo/logo.png" alt="logo">
-                            <img class="img-fluid main-logo main-dark" src="assets/images/logo/logo-white.png"
+                        <a href="<%=request.getContextPath()%>/backEnd/back_index.html">
+                            <img class="img-fluid main-logo main-white" src="<%=request.getContextPath()%>/backEnd/assets/images/logo/logo.png" alt="logo">
+                            <img class="img-fluid main-logo main-dark" src="<%=request.getContextPath()%>/backEnd/assets/images/logo/logo-white.png"
                                 alt="logo">
                         </a>
                     </div>
@@ -165,7 +190,7 @@
                                 <li class="back-btn"></li>
 
                                 <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="back_index.html">
+                                    <a class="sidebar-link sidebar-title link-nav" href="<%=request.getContextPath()%>/backEnd/back_index.html">
                                         <i class="ri-home-line"></i>
                                         <span>主頁</span>
                                     </a>
@@ -178,11 +203,11 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="products.jsp">所有產品</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/products.jsp">所有產品</a>
                                         </li>
 
                                         <li>
-                                            <a href="add-new-product.jsp">添加產品</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/add-new-product.jsp">添加產品</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -194,16 +219,16 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="order-list.html">訂單列表</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a>
                                         </li>
                                         <li>
-                                            <a href="order-detail.html">訂單明細</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a>
                                         </li>
                                         <li>
-                                            <a href="order-list2.html">團購訂單</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a>
                                         </li>
                                         <li>
-                                            <a href="order-list3.html">團購訂單明細</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -215,13 +240,13 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="profile-setting.html"> 個人設定</a>
+                                            <a href="<%=request.getContextPath()%>/backEnd/profile-setting.html"> 個人設定</a>
                                         </li>
                                     </ul>
                                 </li>
 
                                 <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="chat.jsp">
+                                    <a class="sidebar-link sidebar-title link-nav" href="<%=request.getContextPath()%>/backEnd/chat.jsp">
                                         <i class="fas fa-comments"></i>
                                         <span>聊天室</span>
                                     </a>
@@ -247,10 +272,10 @@
                                     <div class="media align-items-center static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">近30天收入</span>
-                                            <h4 class="mb-0 counter">$6659
-                                                <span class="badge badge-light-primary grow">
-                                                    <i data-feather="trending-up"></i>8.5%</span>
-                                            </h4>
+<%--                                             <h4 class="mb-0 counter"><%=iValue.getA()%> --%>
+<!--                                                 <span class="badge badge-light-primary grow"> -->
+<!--                                                     <i data-feather="trending-up"></i>8.5%</span> -->
+<!--                                             </h4> -->
                                         </div>
                                         <div class="align-self-center text-center">
                                             <i class="ri-database-2-line"></i>
@@ -266,10 +291,10 @@
                                     <div class="media static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">近30天訂單數</span>
-                                            <h4 class="mb-0 counter">9856
-                                                <span class="badge badge-light-danger grow">
-                                                    <i data-feather="trending-down"></i>8.5%</span>
-                                            </h4>
+<%--                                             <h4 class="mb-0 counter"><%=iValue.getB()%> --%>
+<!--                                                 <span class="badge badge-light-danger grow"> -->
+<!--                                                     <i data-feather="trending-down"></i>8.5%</span> -->
+<!--                                             </h4> -->
                                         </div>
                                         <div class="align-self-center text-center">
                                             <i class="ri-shopping-bag-3-line"></i>
@@ -285,10 +310,10 @@
                                     <div class="media static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">產品數</span>
-                                            <h4 class="mb-0 counter">893
-                                                <a href="add-new-product.jsp" class="badge badge-light-secondary grow">
-                                                    添加</a>
-                                            </h4>
+<%--                                             <h4 class="mb-0 counter"><%=iValue.getC()%> --%>
+<%--                                                 <a href="<%=request.getContextPath()%>/backEnd/add-new-product.jsp" class="badge badge-light-secondary grow"> --%>
+<!--                                                     添加</a> -->
+<!--                                             </h4> -->
                                         </div>
 
                                         <div class="align-self-center text-center">
@@ -305,10 +330,10 @@
                                     <div class="media static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">近30天消費人數</span>
-                                            <h4 class="mb-0 counter">4.6k
-                                                <span class="badge badge-light-success grow">
-                                                    <i data-feather="trending-down"></i>8.5%</span>
-                                            </h4>
+<%--                                             <h4 class="mb-0 counter"><%=iValue.getD()%> --%>
+<!--                                                 <span class="badge badge-light-success grow"> -->
+<!--                                                     <i data-feather="trending-down"></i>8.5%</span> -->
+<!--                                             </h4> -->
                                         </div>
 
                                         <div class="align-self-center text-center">
@@ -336,19 +361,23 @@
                                         </div>
                                     </div>
                                 </div>
+    <c:forEach var="xxx" items="${list1}">
+        <p>產品名稱：${xxx.getP_name()}</p>
+    </c:forEach>
 
+
+<p><%=list1.size()%></p>
+<p>產品名稱xxxxxxxxxxxxxxxxxxxxxxxxx</p>
                                 <div class="card-body p-0">
                                     <div>
                                         <div class="table-responsive">
-                                            <table class="best-selling-table w-image
-                                            w-image
-                                            w-image table border-0">
+                                            <table class="best-selling-table w-image w-image w-image table border-0">
                                                 <tbody>
-                                                    <tr>
+                                                	<tr>
                                                         <td>
                                                             <div class="best-product-box">
                                                                 <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
+                                                                    <img src="<%=request.getContextPath()%>/backEnd/assets/images/product/1.png"
                                                                         class="img-fluid" alt="Product">
                                                                 </div>
                                                                 <div class="product-name">
@@ -386,92 +415,124 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
-                                                    <tr>
-                                                        <td>
+                                                
+                                                
+                                                <c:forEach var="productVO" items="${list1}">
+													<tr>
+		                                                <td>
                                                             <div class="best-product-box">
                                                                 <div class="product-image">
-                                                                    <img src="assets/images/product/2.png"
+                                                                    <img src="<%=request.getContextPath()%>/backEnd/assets/images/product/1.png"
                                                                         class="img-fluid" alt="Product">
                                                                 </div>
                                                                 <div class="product-name">
-                                                                    <h5>阿塔餅乾</h5>
-                                                                    <h6>26-08-2022</h6>
+                                                                    <h5>${productVO.p_name}</h5>
                                                                 </div>
                                                             </div>
                                                         </td>
+													</tr>
+												</c:forEach>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+<!--                                                     
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$29.00</h5>
-                                                            </div>
-                                                        </td>
+<!--                                                     <tr> -->
+<!--                                                         <td> -->
+<!--                                                             <div class="best-product-box"> -->
+<!--                                                                 <div class="product-image"> -->
+<%--                                                                     <img src="<%=request.getContextPath()%>/backEnd/assets/images/product/2.png" --%>
+<!--                                                                         class="img-fluid" alt="Product"> -->
+<!--                                                                 </div> -->
+<!--                                                                 <div class="product-name"> -->
+<!--                                                                     <h5>阿塔餅乾</h5> -->
+<!--                                                                     <h6>26-08-2022</h6> -->
+<!--                                                                 </div> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Orders</h6>
-                                                                <h5>62</h5>
-                                                            </div>
-                                                        </td>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Price</h6> -->
+<!--                                                                 <h5>$29.00</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Stock</h6>
-                                                                <h5>510</h5>
-                                                            </div>
-                                                        </td>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Orders</h6> -->
+<!--                                                                 <h5>62</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Amount</h6>
-                                                                <h5>$1,798</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Stock</h6> -->
+<!--                                                                 <h5>510</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/3.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>阿塔餅乾</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Amount</h6> -->
+<!--                                                                 <h5>$1,798</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
+<!--                                                     </tr> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$29.00</h5>
-                                                            </div>
-                                                        </td>
+<!--                                                     <tr> -->
+<!--                                                         <td> -->
+<!--                                                             <div class="best-product-box"> -->
+<!--                                                                 <div class="product-image"> -->
+<%--                                                                     <img src="<%=request.getContextPath()%>/backEnd/assets/images/product/3.png" --%>
+<!--                                                                         class="img-fluid" alt="Product"> -->
+<!--                                                                 </div> -->
+<!--                                                                 <div class="product-name"> -->
+<!--                                                                     <h5>阿塔餅乾</h5> -->
+<!--                                                                     <h6>26-08-2022</h6> -->
+<!--                                                                 </div> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Orders</h6>
-                                                                <h5>62</h5>
-                                                            </div>
-                                                        </td>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Price</h6> -->
+<!--                                                                 <h5>$29.00</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Stock</h6>
-                                                                <h5>510</h5>
-                                                            </div>
-                                                        </td>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Orders</h6> -->
+<!--                                                                 <h5>62</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
 
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Amount</h6>
-                                                                <h5>$1,798</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Stock</h6> -->
+<!--                                                                 <h5>510</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
+
+<!--                                                         <td> -->
+<!--                                                             <div class="product-detail-box"> -->
+<!--                                                                 <h6>Amount</h6> -->
+<!--                                                                 <h5>$1,798</h5> -->
+<!--                                                             </div> -->
+<!--                                                         </td> -->
+<!--                                                     </tr> -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -772,25 +833,25 @@
         </div>
     </div>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/scrollbar/simplebar.js"></script>
-    <script src="assets/js/scrollbar/custom.js"></script>
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/sidebar-menu.js"></script>
-    <script src="assets/js/notify/bootstrap-notify.min.js"></script>
-    <script src="assets/js/chart/apex-chart/apex-chart1.js"></script>
-    <script src="assets/js/chart/apex-chart/moment.min.js"></script>
-    <script src="assets/js/chart/apex-chart/apex-chart.js"></script>
-    <script src="assets/js/chart/apex-chart/stock-prices.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/custom-slick.js"></script>
-    <script src="assets/js/ratio.js"></script>
-    <script src="assets/js/sidebareffect.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/chart/apex-chart/chart-custom1.js"></script>
-    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/icons/feather-icon/feather.min.js"></script>
-    <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/scrollbar/simplebar.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/scrollbar/custom.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/config.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/sidebar-menu.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/notify/bootstrap-notify.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/chart/apex-chart/apex-chart1.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/chart/apex-chart/moment.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/chart/apex-chart/apex-chart.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/chart/apex-chart/stock-prices.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/slick.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/custom-slick.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/ratio.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/sidebareffect.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/script.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/chart/apex-chart/chart-custom1.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather-icon.js"></script>
 
 
 

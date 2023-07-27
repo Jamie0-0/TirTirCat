@@ -6,7 +6,6 @@
 ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 %>
 
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -25,10 +24,10 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/backEnd/assets/images/favicon.png"
 	type="image/x-icon">
-<title>Frever - Update Product</title>
-<!-- <link -->
-<!-- 	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" -->
-<!-- 	rel="stylesheet"> -->
+<title>Frever - Add New Product</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/backEnd/assets/css/linearicon.css">
 <link rel="stylesheet" type="text/css"
@@ -53,12 +52,13 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 	href="<%=request.getContextPath()%>/backEnd/assets/css/vendors/bootstrap-tagsinput.css">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/backEnd/assets/css/style.css">
-
-
-
 <style>
-#preView, #send {
+#preView, #send, #bSpace {
 	display: inline-block;
+}
+
+#bSpace {
+	width: 130px;
 }
 </style>
 </head>
@@ -107,20 +107,20 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 									<h6 class="f-18 mb-0">通知</h6></li>
 								<li>
 									<p>
-										<i class="fa fa-circle me-2"></i>交貨加工 <span class="pull-right">10
+										<i class="fa fa-circle me-2"></i>交貨加工<span class="pull-right">10
 											min.</span>
 									</p>
 								</li>
 								<li>
 									<p>
-										<i class="fa fa-circle me-2"></i>訂單完成<span class="pull-right">1
-											hr</span>
+										<i class="fa fa-circle me-2"></i>訂單完成<span
+											class="pull-right">1 hr</span>
 									</p>
 								</li>
 								<li>
 									<p>
-										<i class="fa fa-circle me-2"></i>訂單生成<span class="pull-right">3
-											hr</span>
+										<i class="fa fa-circle me-2"></i>訂單生成<span
+											class="pull-right">3 hr</span>
 									</p>
 								</li>
 								<li>
@@ -145,13 +145,11 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 								</div>
 							</div>
 							<ul class="profile-dropdown onhover-show-div">
-								<li><a
-									href="<%=request.getContextPath()%>/backEnd/order-list.html">
-										<i data-feather="archive"></i> <span>訂單</span>
+								<li><a href="<%=request.getContextPath()%>/backEnd/order-list.html"> <i
+										data-feather="archive"></i> <span>訂單</span>
 								</a></li>
-								<li><a
-									href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
-										<i data-feather="settings"></i> <span>設置</span>
+								<li><a href="<%=request.getContextPath()%>/backEnd/profile-setting.html"> <i
+										data-feather="settings"></i> <span>設置</span>
 								</a></li>
 								<li><a data-bs-toggle="modal"
 									data-bs-target="#staticBackdrop" href="javascript:void(0)">
@@ -169,9 +167,8 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 				<div id="sidebarEffect"></div>
 				<div>
 					<div class="logo-wrapper logo-wrapper-center">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html"
-							data-bs-original-title="" title=""> <img
-							class="img-fluid for-white"
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.html" data-bs-original-title="" title="">
+							<img class="img-fluid for-white"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/full-white.png"
 							alt="logo">
 						</a>
@@ -180,8 +177,8 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 						</div>
 					</div>
 					<div class="logo-icon-wrapper">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html">
-							<img class="img-fluid main-logo main-white"
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.html"> <img
+							class="img-fluid main-logo main-white"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/logo.png"
 							alt="logo"> <img class="img-fluid main-logo main-dark"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/logo-white.png"
@@ -199,8 +196,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 
 								<li class="sidebar-list"><a
 									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/back_index.html">
-										<i class="ri-home-line"></i> <span>主頁</span>
+									href="<%=request.getContextPath()%>/backEnd/back_index.html"> <i class="ri-home-line"></i> <span>主頁</span>
 								</a></li>
 
 								<li class="sidebar-list"><a
@@ -209,11 +205,9 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 										<span>產品</span>
 								</a>
 									<ul class="sidebar-submenu">
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/products.jsp">所有產品</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/products.jsp">所有產品</a></li>
 
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/add-new-product.jsp">添加產品</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/add-new-product.jsp">添加產品</a></li>
 									</ul></li>
 
 								<li class="sidebar-list"><a
@@ -221,14 +215,10 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 										<i class="ri-archive-line"></i> <span>訂單</span>
 								</a>
 									<ul class="sidebar-submenu">
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a></li>
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a></li>
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a></li>
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a></li>
 									</ul></li>
 
 								<li class="sidebar-list"><a
@@ -237,15 +227,12 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 										<span>編輯</span>
 								</a>
 									<ul class="sidebar-submenu">
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
-												個人設定</a></li>
+										<li><a href="<%=request.getContextPath()%>/backEnd/profile-setting.html">個人設定</a></li>
 									</ul></li>
 
 								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/chat.jsp"> <i
-										class="fas fa-comments"></i> <span>聊天室</span>
+									class="sidebar-link sidebar-title link-nav" href="<%=request.getContextPath()%>/backEnd/chat.jsp">
+										<i class="fas fa-comments"></i> <span>聊天室</span>
 								</a></li>
 							</ul>
 						</div>
@@ -278,45 +265,31 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 												</c:if>
 											</div>
 
-											<form METHOD="post" ACTION="<%=request.getContextPath()%>/pro.do" name="form1"
+											<form METHOD="post"
+												ACTION="<%=request.getContextPath()%>/pro.do" name="form1"
 												class="theme-form theme-form-2 mega-form"
 												enctype="multipart/form-data">
-												<!-- 								 enctype="multipart/form-data"	  autocomplete="off" -->
 												<div class="mb-4 row align-items-center">
-													<label class="form-label-title col-sm-3 mb-0">商品類別</label>
-													<div class="col-sm-9">
-														<jsp:useBean id="pMapSvc" scope="page"
-															class="pMapping.model.PMappingService" />
-														<select size="1" name="p_class" id="p_class">
-															<c:forEach var="pMappingVO" items="${pMapSvc.getAll()}">
-																<option value="${pMappingVO.pm_id}"
-																	${(proVO.p_class==pMappingVO.pm_id)?'selected':'' }>${pMappingVO.pm_name}</option>
-															</c:forEach>
-														</select>
-													</div>
-												</div>
-
-												<div class="mb-4 row align-items-center">
-													<label class="form-label-title col-sm-3 mb-0">商品名稱</label>
+													<label class="form-label-title col-sm-3 mb-0">產品名稱</label>
 													<div class="col-sm-9">
 														<input class="form-control" type="text" id="p_name"
-															name="p_name" value="<%=proVO.getP_name()%>">
+															name="p_name" value="${proVO == null ? '' : proVO.getP_name()}">
 													</div>
 												</div>
 
 												<div class="mb-4 row align-items-center">
 													<label class="form-label-title col-sm-3 mb-0">商品價格</label>
 													<div class="col-sm-9">
-														<input class="form-control" type="text" id="p_price"
-															name="p_price" value="<%=proVO.getP_price()%>">
+														<input class="form-control" type="text" id="p_price" 
+														name="p_price" value="${proVO == null ? '' : proVO.getP_price()}">
 													</div>
 												</div>
 
 												<div class="mb-4 row align-items-center">
 													<label class="form-label-title col-sm-3 mb-0">商品數量</label>
 													<div class="col-sm-9">
-														<input class="form-control" type="text" id="p_stock"
-															name="p_stock" value="<%=proVO.getP_stock()%>">
+														<input class="form-control" type="text" id="p_stock" 
+														name="p_stock" value="${proVO == null ? '' : proVO.getP_stock()}">
 													</div>
 												</div>
 
@@ -335,19 +308,18 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 												</div>
 
 												<div class="mb-4 row align-items-center">
-													<label class="form-label-title col-sm-3 mb-0">商品狀態</label>
+													<label class="form-label-title col-sm-3 mb-0">商品類別</label>
 													<div class="col-sm-9">
-														<jsp:useBean id="pStatusSvc" scope="page"
-															class="pStatus.model.PStatusService" />
-														<select size="1" name="p_status">
-															<c:forEach var="pStatusVO" items="${pStatusSvc.getAll()}">
-																<option value="${pStatusVO.ps_id}"
-																	${(proVO.p_status==pStatusVO.ps_id)?'selected':'' }>${pStatusVO.ps_name}</option>
+														<jsp:useBean id="pMapSvc" scope="page"
+															class="pMapping.model.PMappingService" />
+														<select size="1" name="p_class" id="p_class">
+															<c:forEach var="pMappingVO" items="${pMapSvc.getAll()}">
+																<option value="${pMappingVO.pm_id}"
+																	${(proVO.p_class==pMappingVO.pm_id)?'selected':'' }>${pMappingVO.pm_name}</option>
 															</c:forEach>
 														</select>
 													</div>
 												</div>
-
 
 												<div class="card">
 													<div class="card-body">
@@ -355,58 +327,66 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 															<div class="col-12">
 																<label class="form-label-title col-sm-3 mb-0">商品描述</label>
 																<div class="col-sm-9">
-																	<div id="editor"><%=proVO.getP_des()%></div>
+																	<div id="editor">${proVO == null ? '' : proVO.getP_des()}</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-												<input type="hidden" name="p_des" id="p_des_hidden">
-												<input type="hidden" name="p_id" value="<%=proVO.getP_id()%>"> 
-												<input type="hidden" name="action" value="update">
-
-
-												<div class="col-sm-9">
-													<input class="form-control form-choose" type="file"
-														id="p_pic_one" name="p_pic_one"> 
-													<label class="form-label-title col-sm-3 mb-0">圖1</label>
-													<div>
-														<img id="p_pic_one_preview_1"
-															src="data:image/jpeg;base64, <%=request.getAttribute("p1")%>"
-															width="200" height="200" alt="產品圖片">
+												<div class="card-body">
+													<div class="card-header-2">
+														<h5>產品圖片</h5>
 													</div>
-												</div>
 
-												<div class="col-sm-9">
-													<input class="form-control form-choose" type="file"
-														id="p_pic_two" name="p_pic_two"> 
-													<label class="form-label-title col-sm-3 mb-0">圖2</label>
-													<div>
-														<img id="p_pic_one_preview_2"
-															src="data:image/jpeg;base64, <%=request.getAttribute("p2")%>"
-															width="200" height="200" alt="產品圖片">
+
+													<div class="col-sm-9">
+														<input class="form-control form-choose" type="file"
+															id="p_pic_one" name="p_pic_one"> <label
+															class="form-label-title col-sm-3 mb-0">圖1</label>
+														<div>
+															<img id="p_pic_one_preview_1"
+																src="data:image/jpeg;base64, <%=request.getAttribute("p1")%>"
+																width="200" height="200" alt="產品圖片">
+														</div>
 													</div>
-												</div>
 
-												<div class="col-sm-9">
-													<input class="form-control form-choose" type="file"
-														id="p_pic_three" name="p_pic_three"> 
-													<label class="form-label-title col-sm-3 mb-0">圖3</label>
-													<div>
-														<img id="p_pic_one_preview_3"
-															src="data:image/jpeg;base64, <%=request.getAttribute("p3")%>"
-															width="200" height="200" alt="產品圖片">
+													<div class="col-sm-9">
+														<input class="form-control form-choose" type="file"
+															id="p_pic_two" name="p_pic_two"> <label
+															class="form-label-title col-sm-3 mb-0">圖2</label>
+														<div>
+															<img id="p_pic_one_preview_2"
+																src="data:image/jpeg;base64, <%=request.getAttribute("p2")%>"
+																width="200" height="200" alt="產品圖片">
+														</div>
 													</div>
-												</div>
 
-												<div class="col-sm-9">
-													<input class="form-control form-choose" type="file"
-														id="p_pic_four" name="p_pic_four"> 
-													<label class="form-label-title col-sm-3 mb-0">圖4</label>
+													<div class="col-sm-9">
+														<input class="form-control form-choose" type="file"
+															id="p_pic_three" name="p_pic_three"> <label
+															class="form-label-title col-sm-3 mb-0">圖3</label>
+														<div>
+															<img id="p_pic_one_preview_3"
+																src="data:image/jpeg;base64, <%=request.getAttribute("p3")%>"
+																width="200" height="200" alt="產品圖片">
+														</div>
+													</div>
+
+													<div class="col-sm-9">
+														<input class="form-control form-choose" type="file"
+															id="p_pic_four" name="p_pic_four"> <label
+															class="form-label-title col-sm-3 mb-0">圖4</label>
+														<div>
+															<img id="p_pic_one_preview_4"
+																src="data:image/jpeg;base64, <%=request.getAttribute("p4")%>"
+																width="200" height="200" alt="產品圖片">
+														</div>
+													</div>
+
 													<div>
-														<img id="p_pic_one_preview_4"
-															src="data:image/jpeg;base64, <%=request.getAttribute("p4")%>"
-															width="200" height="200" alt="產品圖片">
+														<input type="hidden" name="p_des" id="p_des_hidden">
+														<input type="hidden" name="p_m_id" value="1"> 
+														<input type="hidden" name="action" value="insert">
 													</div>
 												</div>
 											</form>
@@ -418,13 +398,10 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 					</div>
 				</div>
 
-
 				<div style="display: flex; justify-content: center; width: 900px;">
-					<button class="btn btn--yes btn-primary" id="sendInfo" 
-						onclick="handleButtonClick()">送出修改</button>
+					<button class="btn btn--yes btn-primary" id="sendInfo"
+						onclick="handleButtonClick()">送出</button>
 				</div>
-
-
 
 				<div class="container-fluid">
 					<footer class="footer">
@@ -480,6 +457,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 		src="<%=request.getContextPath()%>/backEnd/assets/js/select2.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/backEnd/assets/js/select2-custom.js"></script>
+
 
 	<script
 		src="<%=request.getContextPath()%>/backEnd/assets/js/ckeditor.js"></script>
@@ -590,6 +568,10 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 			form.submit();
 		}
 	</script>
+
+
+
+
 </body>
 
 </html>

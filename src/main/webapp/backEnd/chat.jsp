@@ -349,10 +349,7 @@
 								</a>
 									<ul class="sidebar-submenu">
 										<li><a href="<%= request.getContextPath() %>/backEnd/products.jsp">所有產品</a></li>
-
-										<li><a href="<%= request.getContextPath() %>/backEnd/add-new-product.html">添加產品</a></li>
-
-										<li><a href="<%= request.getContextPath() %>/backEnd/add-new-product2.html">添加團購</a></li>
+										<li><a href="<%= request.getContextPath() %>/backEnd/add-new-product.jsp">添加產品</a></li>
 									</ul></li>
 
 								<li class="sidebar-list"><a

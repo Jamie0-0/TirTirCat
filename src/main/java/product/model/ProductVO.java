@@ -1,8 +1,43 @@
 package product.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ProductVO {
+    private int a;
+    private int b;
+    private int c;
+    private int d;
+	public Integer getA() {
+		return a;
+	}
+	public void setA(Integer a) {
+		this.a = a;
+	}
+    
+	public Integer getB() {
+		return b;
+	}
+	public void setB(Integer b) {
+		this.b = b;
+	}
+    
+	public Integer getC() {
+		return c;
+	}
+	public void setC(Integer c) {
+		this.c = c;
+	}
+    
+	public Integer getD() {
+		return d;
+	}
+	public void setD(Integer d) {
+		this.d = d;
+	}
+    
+	
+	
 	private Integer p_id;
 	public Integer getP_id() {
 		return p_id;
@@ -71,8 +106,8 @@ public class ProductVO {
 	public LocalDateTime getP_upload_time() {
 		return p_upload_time;
 	}
-	public void setP_upload_time(LocalDateTime p_upload_time) {
-		this.p_upload_time = p_upload_time;
+	public void setP_upload_time(LocalDateTime localDateTime) {
+		this.p_upload_time = localDateTime;
 	}
 	
 	private String p_des;
