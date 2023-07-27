@@ -59,11 +59,6 @@ public class ArticlesController extends HttpServlet {
 				ArticlePic articlePic = service.selectPic(art_id);
 				ArticlesUtils.sendPicToClient(articlePic.getPic_content(),response);
 				return;
-			case "getAvatar":
-				String uid = request.getParameter("uid");
-				ArticlePic avatarPic = service.selectAvatar(uid);
-				ArticlesUtils.sendPicToClient(avatarPic.getPic_content(),response);
-				return;
 			case "article":
 				 System.out.println("收到art_id並forward:"+art_id);
 				 request.getRequestDispatcher("/comment").forward(request, response);

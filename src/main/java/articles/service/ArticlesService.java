@@ -48,4 +48,10 @@ public interface ArticlesService extends CoreService{
 
 	int likeArticle(String art_id, String uid);
 
+	int artReport(String rep_art_id, String crep_com_id, String rrep_reply_id, String uid, String rep_reason);
+
+	void saveAllHotArticles();
+
+	void saveAllNewArticles();
+
 }

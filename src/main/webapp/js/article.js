@@ -103,16 +103,16 @@ function fetchComment() {
 
 							} //小迴圈 end
 						});
-						
-						// reply report button
-						$(`.com-reply-wrapper${dataId}`).on("click", "i.reply-report", function(e) {
-						 	e.stopPropagation();
-							let reply_id = $(this).attr("reply_id");
-							$("#report-submit").attr("reply_id",reply_id);
-							$("#report-submit").attr("art_id",0);
-							$("#report-submit").attr("com_id",0);
-							// 傳id去 $("#report-submit")
-						});
+
+					// reply report button
+					$(`.com-reply-wrapper${dataId}`).on("click", "i.reply-report", function(e) {
+						e.stopPropagation();
+						let reply_id = $(this).attr("reply_id");
+						$("#report-submit").attr("reply_id", reply_id);
+						$("#report-submit").attr("art_id", 0);
+						$("#report-submit").attr("com_id", 0);
+						// 傳id去 $("#report-submit")
+					});
 				});  // 擴充 end						
 			}  // 大迴圈 end
 		});  // fetch end
@@ -163,24 +163,33 @@ function buildArticle() {
 				$("#article-content").append(data[0].art_content);
 				$("i.fa-heart").text(data[0].art_like);
 				$("#ownerAvatar").attr("src", "avatar?uid=" + data[0].uid);
-				$("#article-report").attr("art_id",data[0].art_id)
+				$("#article-report").attr("art_id", data[0].art_id)
 				urlArt_id = data[0].art_id;
-				
+
 				// Like
-				$("#article-like").on("click", function(){
-					fetch(`artLike?art_id=${data[0].art_id}&uid=3`)    // 登入的人 暫定uid=3
+				$("#article-like").on("click", function(e) {
+					// 避免重複點擊
+					e.stopPropagation();
+					$(this).css("pointer-events", "none");
+
+					fetch(`artLike?art_id=${data[0].art_id}&uid=3`)
 						.then(response => response.json())
 						.then(data => {
-							if(data === -1){
-								
-							}else{
-								console.log(data);
+							if (data === -1) {
+
+							} else {
 								$("i.fa-heart").text(data);
 							}
 						})
-				});	
+						.finally(() => {
+							// 從元素中完全移除pointer-events屬性，恢復點擊事件
+							$(this).removeAttr("style");
+
+						});
+				});
+
 				// Like end
-				
+
 				// Share button
 				$("#share-tooltip").on("click", () => {
 
@@ -226,7 +235,7 @@ $(function() {
 					$("#com_wrapper").empty();
 					$('.note-editable').empty();
 					$("#article-content").empty();
-					buildArticle();	
+					buildArticle();
 				} else {
 					alert("新增留言失敗");
 				}
@@ -260,7 +269,7 @@ $(function() {
 
 
 		$("#post-new").on("click", function() {
-	
+
 			content_value = $('#summernote1').val();
 			title_value = $(".title_post").val();
 			formData = new FormData();  // 洗掉之前的formData; 因為是全域變數 不new會越來越多
@@ -271,7 +280,7 @@ $(function() {
 			for (let i = 0; i < imgFilesLength; i++) {
 				formData.append('image', imgFiles[i]);
 			}
-	
+
 			$.ajax({
 				url: "ArtInsert",
 				type: "POST",
@@ -400,54 +409,50 @@ $("#article-comment").on("click", function() {
 
 // comment report button 事件委派到父元素
 $("#com_wrapper").on("click", "i.com-report", function(e) {
- 	e.stopPropagation();
+	e.stopPropagation();
 	let com_id = $(this).attr("com_id");
-	$("#report-submit").attr("com_id",com_id);
-	$("#report-submit").attr("art_id",0);
-	$("#report-submit").attr("reply_id",0);
+	$("#report-submit").attr("com_id", com_id);
+	$("#report-submit").attr("art_id", 0);
+	$("#report-submit").attr("reply_id", 0);
 	// 傳id去 $("#report-submit")
 });
 
 // article report button
-$("#article-report").on("click", function(){
+$("#article-report").on("click", function() {
 	let art_id = $(this).attr("art_id");
-	$("#report-submit").attr("art_id",art_id);
-	$("#report-submit").attr("com_id",0);
-	$("#report-submit").attr("reply_id",0);
+	$("#report-submit").attr("art_id", art_id);
+	$("#report-submit").attr("com_id", 0);
+	$("#report-submit").attr("reply_id", 0);
 	// 傳id去 $("#report-submit")
-	
+
 })
 
 
-$("#report-submit").on("click", function(){
-	
+$("#report-submit").on("click", function() {
+
 	let artId = $("#report-submit").attr("art_id");
 	let comId = $("#report-submit").attr("com_id");
 	let replyId = $("#report-submit").attr("reply_id");
 	let selectedReason = $("input[name='listGroupRadio']:checked").val();
-	
-	$.ajax({
-	  url: "artReport",           
-	  type: "GET",               
-	  data: {
-		rep_art_id: artId,
-		crep_com_id: comId,
-		rrep_reply_id: replyId,
-	  	rep_reason: selectedReason,
-	  	uid : "1"   // 暫定1 應為登入者id
-	  },
-	  dataType: "json",
-	  beforesend: function(){
-		$("#report-submit").addClass(" disabled");
-	},             
-	  success: function(){     
-	    $("#report-submit").removeClass(" disabled");
-	    $(window).attr('location', 'article.html');
-	  }
-	});
-});
 
-$("#cancel-report").on("click", function(){
-	console.log("取消")
+	$.ajax({
+		url: "artReport",
+		type: "GET",
+		data: {
+			rep_art_id: artId,
+			crep_com_id: comId,
+			rrep_reply_id: replyId,
+			rep_reason: selectedReason,
+			uid: "1"   // 暫定1 應為登入者id
+		},
+		dataType: "json",
+		beforesend: function() {
+			$("#report-submit").addClass(" disabled");
+		},
+		success: function() {
+			$("#report-submit").removeClass(" disabled");
+			$(window).attr('location', 'article.html');
+		}
+	});
 });
 

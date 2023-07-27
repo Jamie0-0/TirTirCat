@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import articles.ariclesUtils.ArticlesUtils;
 import articles.service.CommentService;
 import articles.service.CommentServiceImpl;
-import articles.service.ReplyService;
-import articles.service.ReplyServiceImpl;
 
 @WebServlet("/commentInsert")
 public class CommentInsertController extends HttpServlet {
@@ -39,18 +37,13 @@ public class CommentInsertController extends HttpServlet {
 		String com_art_id = request.getParameter("com_art_id");
 		String com_user_id = request.getParameter("com_user_id");
 		String com_content = request.getParameter("com_content");
-		System.out.println("=================================");
-		System.out.println("com_com_id=" + com_art_id);
-		System.out.println("com_user_id=" + com_user_id);
-		System.out.println("com_content=" + com_content);
-		System.out.println("=================================");
 		
 		
 		int status = service.insertComment(com_art_id, com_user_id, com_content);
-		String jsonString = ArticlesUtils.TurnIntoJson(status);
+		String String = ArticlesUtils.TurnIntoJson(status);
 		response.setContentType("application/JSON");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(jsonString);
+		response.getWriter().write(String);
 	}
 
 }

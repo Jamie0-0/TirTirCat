@@ -1,5 +1,6 @@
 package articles.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import articles.dao.ArticlesDao;
@@ -21,22 +22,45 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> selectHot(String page) {
 		List<Article> list = null;
 		try {
-			list = dao.selectHotRedis(page);
+			list = dao.selectRedis(page,"hot");
 			if (list == null || list.isEmpty()) {
-				list = dao.selectAllHot();
-				dao.saveHotArticlesToRedis(list); // 把熱門全部存進去
 				return dao.selectHot(page);
 			}
-		} catch (JedisException e) {
-			System.out.println("selectHotRedis錯誤");
+		} catch (Exception e) {
+			System.out.println("selectHot錯誤");
 			e.printStackTrace();
 			list = dao.selectHot(page);
-		} catch (Exception e) {
-			System.out.println("selectHot其他錯誤");
-			e.printStackTrace();
 		}
 	
 		return list;
+	}
+	
+	@Override
+	public void saveAllHotArticles() {
+		
+		try {
+			
+			dao.saveHotArticlesToRedis(dao.selectAllHot()); // 把熱門全部存進去
+			
+		} catch (Exception e) {
+			System.out.println("saveAllHotArticles錯誤");
+			e.printStackTrace();
+		}
+
+	}
+	
+	@Override
+	public void saveAllNewArticles() {
+		
+		try {
+			
+			dao.saveNewArticlesToRedis(dao.selectAllNew()); 
+			
+		} catch (Exception e) {
+			System.out.println("saveAllNewArticles錯誤");
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -47,7 +71,19 @@ public class ArticlesServiceImpl implements ArticlesService {
 	
 	@Override
 	public List<Article> selectNew(String page) {
-		return dao.selectNew(page);
+		List<Article> list = null;
+		try {
+			list = dao.selectRedis(page, "new");
+			if (list == null || list.isEmpty()) {
+				return dao.selectNew(page);
+			}
+		}  catch (Exception e) {
+			System.out.println("selectNew錯誤");
+			e.printStackTrace();
+			list = dao.selectNew(page);
+		}
+	
+		return list;
 	}
 
 	@Override
@@ -158,6 +194,73 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 		return status;
 	}
+	
+	
+	@Override
+	public int artReport(String rep_art_id, String crep_com_id, String rrep_reply_id, String uid, String rep_reason) {
+		
+		int repArtId = Integer.parseInt(rep_art_id);
+		int crepComId = Integer.parseInt(crep_com_id);
+		int rrepReplyId = Integer.parseInt(rrep_reply_id);
+		int userId = Integer.parseInt(uid);
+		final String repReason;
+		
+		List<Integer> ids = Arrays.asList(repArtId, crepComId, rrepReplyId);
+		
+		
+		switch (rep_reason) {
+		case "1":
+			repReason = "不喜歡";
+			break;
+		case "2":
+			repReason = "重傷、挑釁、歧視、謾罵";
+			break;
+		case "3":
+			repReason = "18禁";
+			break;
+		case "4":
+			repReason = "內容空泛";
+			break;
+		case "5":
+			repReason = "虐待寵物";
+			break;
+		case "6":
+			repReason = "違反隱私";
+			break;
+		case "7":
+			repReason = "釣魚連結"; 
+			break;
+		default:
+			repReason = "";
+			break;
+		}
+		
+		System.out.println(repReason);
+
+		try {
+			beginTransaction();
+			
+			ids.stream()
+			   .filter(id -> id != 0)
+			   .forEach(id -> {
+			       if (id == repArtId) {
+			    	   dao.reportArt(id,userId,repReason);       // 檢舉文章
+			       } else if (id == crepComId) {
+			           dao.reportCrep(id,userId,repReason);	   // 檢舉留言
+			       } else if (id == rrepReplyId) {
+			           dao.reportRrep(id,userId,repReason);	   // 檢舉留言的回覆
+			       }
+			   });
+			
+			commit();
+		} catch (Exception e) {
+			System.out.println("檢舉失敗");
+			e.printStackTrace();
+			rollback();
+		}
+		
+		return 1;
+	}
 	// 新增功能 end
 	// delete
 
@@ -238,13 +341,8 @@ public class ArticlesServiceImpl implements ArticlesService {
 				System.out.println("按讚成功");
 			}
 			
-			
-
-			
 			commit();
-			
-			
-		
+
 		} catch (Exception e) {
 			System.out.println("按讚或收回讚失敗");
 			e.printStackTrace();
@@ -254,6 +352,8 @@ public class ArticlesServiceImpl implements ArticlesService {
 		return result;
 	}
 	// update end
+
+
 
 
 }

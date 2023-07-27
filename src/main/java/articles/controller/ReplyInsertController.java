@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import articles.ariclesUtils.ArticlesUtils;
 import articles.service.ReplyService;
 import articles.service.ReplyServiceImpl;
 
@@ -42,10 +42,12 @@ public class ReplyInsertController extends HttpServlet {
 		System.out.println("reply_user_id=" + reply_user_id);
 		System.out.println("reply_content=" + reply_content);
 
-		String status =  service.insertReply(reply_com_id, reply_user_id, reply_content);
+		int status =  service.insertReply(reply_com_id, reply_user_id, reply_content);
 
-		response.setContentType("text/plain; charset=UTF-8");
-		response.getWriter().write(status);
+		String json = ArticlesUtils.TurnIntoJson(status);
+		response.setContentType("application/JSON");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json);
 	}
 
 }

@@ -306,11 +306,12 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return count;
 	}
-
+	
+	
 	@Override
-	public List<Article> selectHotRedis(String page) {
+	public List<Article> selectRedis(String page, String key) {
 
-		List<Article> hotArticles = new ArrayList<>();
+		List<Article> articles = new ArrayList<>();
 
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
@@ -318,20 +319,20 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 			int pageOrder = Integer.parseInt(page);
 			for (int i = 3 * (pageOrder - 1); i <= 3 * pageOrder - 1; i++) {
-				String jsonString = jedis.lindex("hot", i);
+				String jsonString = jedis.lindex(key, i);
 				if (jsonString == null) {
-					return hotArticles;
+					return articles;
 				}
 				// 反序列化 JSON 字符串為 Article 物件
 				Gson gson = new Gson();
 				Article article = gson.fromJson(jsonString, Article.class);
-				hotArticles.add(article);
+				articles.add(article);
 			}
 		} finally {
 			jedis.close();
 		}
 
-		return hotArticles;
+		return articles;
 	}
 
 	@Override
@@ -371,6 +372,52 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				String jsonList = gson.toJson(article);
 				// 將JSON字符串存儲到Redis的List中
 				jedis.rpush("hot", jsonList);
+			}
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		jedis.close();
+	}
+	
+	@Override
+	public List<Article> selectAllNew() {
+		String sql = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
+				+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
+				+ "WHERE\r\n" + "    art_status = '1'\r\n" +  "ORDER BY\r\n" + "art_po_time DESC\r\n";
+
+		var list = new ArrayList<Article>();
+
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();) {
+			while (rs.next()) {
+				list.add(setArticle(rs));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@Override
+	public void saveNewArticlesToRedis(List<Article> newArticles) {
+		JedisPool pool = JedisPoolUtil.getJedisPool();
+		Jedis jedis;
+
+		// 初始化 Jedis 連接
+		jedis = pool.getResource();
+
+		// 將List<Article>序列化成JSON字符串
+		Gson gson = new Gson();
+		try {
+
+			for (Article article : newArticles) {
+				String jsonList = gson.toJson(article);
+				// 將JSON字符串存儲到Redis的List中
+				jedis.rpush("new", jsonList);
 			}
 
 		} catch (JSONException e) {
@@ -605,6 +652,52 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		getSession().persist(article);
 		return 1;
 	}
+
+	@Override
+	public void reportArt(Integer rep_art_id, int userId, String repReason) {
+			
+		Article article = getSession().get(Article.class, rep_art_id);
+		article.setArt_rep_count(article.getArt_rep_count()+1);
+		getSession().persist(article);
+	    ArticlesReport articlesReport = ArticlesReport.builder()
+	            .rep_art_id(rep_art_id)
+	            .rep_user_id(userId)
+	            .rep_reason(repReason)
+	            .build();
+		getSession().persist(articlesReport);
+						
+	}
+
+	@Override
+	public void reportCrep(Integer crep_com_id, int userId, String repReason) {
+		Comment comment = getSession().get(Comment.class, crep_com_id);
+		comment.setCom_rep_count(comment.getCom_rep_count()+1);
+		getSession().persist(comment);
+	    ComReport comReport = ComReport.builder()
+	            .crep_com_id(crep_com_id)
+	            .crep_user_id(userId)
+	            .crep_reason(repReason)
+	            .build();
+		getSession().persist(comReport);
+		
+	}
+
+	@Override
+	public void reportRrep(Integer rrep_reply_id, int userId, String repReason) {
+		Reply reply = getSession().get(Reply.class, rrep_reply_id);
+		reply.setReply_rep_count(reply.getReply_rep_count()+1);
+		getSession().persist(reply);
+		ReplyReport replyReport = ReplyReport.builder()
+	            .rrep_reply_id(rrep_reply_id)
+	            .rrep_user_id(userId)
+	            .rrep_reason(repReason)
+	            .build();
+		getSession().persist(replyReport);
+		
+	}
+
+
+
 	
 
 

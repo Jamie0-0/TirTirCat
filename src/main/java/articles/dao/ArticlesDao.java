@@ -29,9 +29,9 @@ public interface ArticlesDao {
 
 	int selectPageSearchCount(String searchText);
 
-	List<Article> selectHotRedis(String page);
-
 	void saveHotArticlesToRedis(List<Article> hotArticles);
+	
+	void saveNewArticlesToRedis(List<Article> newArticles);
 
 	List<Article> selectAllHot();
 
@@ -66,4 +66,15 @@ public interface ArticlesDao {
 	ArticlesLike selectLike(int artId, int userId);
 
 	int unLikeArticle(ArticlesLike articlesLike);
+
+	List<Article> selectAllNew();
+
+	List<Article> selectRedis(String page, String key);
+
+	void reportArt(Integer id, int userId, String repReason);
+
+	void reportCrep(Integer id, int userId, String repReason);
+
+	void reportRrep(Integer id, int userId, String repReason);
+
 }

@@ -17,7 +17,9 @@ function addArt(data) {
 			
 			// 點愛心
 			$("i.fa-heart").eq(i).on("click", function(e){
+				// 避免重複點擊
 				e.stopPropagation();
+				$(this).css("pointer-events", "none");
 				fetch(`artLike?art_id=${data[i].art_id}&uid=3`)    // 登入的人 暫定uid=3
 				.then(response => response.json())
 				.then(data => {
@@ -27,40 +29,20 @@ function addArt(data) {
 						$("i.fa-heart").eq(i).text(data);
 					}
 				})
+				.finally(() => {
+				// 從元素中完全移除pointer-events屬性，恢復點擊事件
+					$(this).removeAttr("style");
+				});
 			});
 			
 			// 上照片
 			let artId = $("img.pic-content").eq(i).attr("art_id");
-			let that = $("img.pic-content").eq(i);
-			$.ajax({
-				url: "forum",           // 資料請求的網址
-				type: "GET",
-				data: {
-					order: "getPic",
-					art_id: artId
-				},
-				dataType: "json",
-				beforeSend: function() {
-					$(that).closest("div").append('<div class="temp_loading"><span><i class="fas fa-spinner fa-spin"></i></span></div>');
-				},
-				complete: function() {
-					$(that).closest("div").find("div.temp_loading").remove();
-				}
-			});
+
 			$("img.pic-content").eq(i).attr("src", "forum" + "?order=getPic&art_id=" + artId);  // 封面圖綁src
 					
 			// Avatar Picture
 			let uid = $("p.author").eq(i).attr("uid");
-			$.ajax({
-				url: "forum",
-				type: "GET",
-				data: {
-					order: "getAvatar",
-					"uid": uid
-				},
-				dataType: "json",
-			});
-			$("img.avatar").eq(i).attr("src", "forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
+			$("img.avatar").eq(i).attr("src", "avatar?uid=" + uid);  // 替avatar上src
 			
 			// ComCount
 			$.ajax({
@@ -156,6 +138,9 @@ function fctSearch(data) {
 };
 // init
 function init() {
+	
+	
+	
 	$.ajax({
 		url: "forum",           // 資料請求的網址
 		type: "GET",                  // GET | POST | PUT | DELETE | PATCH
@@ -165,6 +150,9 @@ function init() {
 			addArt(data);
 		}
 	});
+	
+	// 存全部文章去Redis
+	fetch("saveAllArt");
 
 	// 添加分頁
 	$.ajax({
