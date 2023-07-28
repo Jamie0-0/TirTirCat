@@ -616,6 +616,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		try {
 			jedis = pool.getResource();
 			jedis.expire("hot", 0);
+			jedis.expire("new", 0);
 			System.out.println("jedis refresh 成功");
 		} catch (Exception e) {
 			System.out.println("jedis refresh 失敗");

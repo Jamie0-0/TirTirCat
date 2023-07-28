@@ -54,6 +54,12 @@ function addArt(data) {
 				}
 			});
 		}
+		
+		for(let i= 0; i<3; i++){
+			if($("iframe").eq(i) != null){
+				$("iframe").eq(i).removeAttr("width").removeAttr("height");  // 避免YT影片跑版
+			}
+		}
 	}
 	
 } // addArt()結束

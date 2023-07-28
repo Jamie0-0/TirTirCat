@@ -14,7 +14,7 @@ function fetchComment() {
 				comTotal = data.length;
 				const responseItem = `
 					<div class="card w-100">
-								<div class="card-body">
+								<div class="card-body mw-100">
 									<div class="card-title d-flex">
 										<ul class="list-group list-group-horizontal d-flex justify-content-start">
 											<li class="list-group-item border-0">
@@ -115,7 +115,12 @@ function fetchComment() {
 					});
 				});  // 擴充 end						
 			}  // 大迴圈 end
+
+			// 避免YT影響RWD
+			$("iframe").removeAttr("width").removeAttr("height");
+			$("iframe").addClass("mw-100").css("aspect-ratio","16/9");
 		});  // fetch end
+
 }
 
 function addUpload() {
@@ -210,6 +215,7 @@ function buildArticle() {
 
 				let comTotal = 0;
 				const comReplyWrapper = null;
+
 				fetchComment();
 			}
 		});

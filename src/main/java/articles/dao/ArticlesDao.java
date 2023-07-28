@@ -1,6 +1,5 @@
 package articles.dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 import articles.vo.Article;
@@ -49,8 +48,6 @@ public interface ArticlesDao {
 
 	int deleteArticlePics(String pic_art_id);
 
-	void jedisRefresh();
-
 	void setArticlesTag(String tag);
 
 	void jedisPicRefresh(String pic_art_id);
@@ -76,5 +73,7 @@ public interface ArticlesDao {
 	void reportCrep(Integer id, int userId, String repReason);
 
 	void reportRrep(Integer id, int userId, String repReason);
+
+	void jedisRefresh();
 
 }
