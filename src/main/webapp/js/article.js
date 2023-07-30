@@ -38,7 +38,7 @@ function fetchComment() {
 									<div>
 										<i type="button" class="fa-solid fa-reply com-reply-btn${dataId} fa-rotate-180 ms-1"></i>
 									</div>
-									<div class="com-reply-wrapper${dataId} d-none">
+									<div class="com-reply-wrapper${dataId} d-none d-flex justify-content-end">
 							</div>
     `;
 
@@ -83,21 +83,20 @@ function fetchComment() {
 							for (let k = 0; k < data.length; k++) {
 
 								const replyItem = `
-    <div class="row card mb-3 ms-5">
-      	<div class="col g-0 position-relative post-reply">
-	        	<ul class="list-group list-group-horizontal border-0" style="vertical-align: center;">
-			           <li class="list-group-item border-0">
-			           			  <img alt="Avatar" class="avatar rounded-circle img-fluid col" alt="./images/Avatar.png" src="avatar?uid=${data[k].reply_user_id}">
-			           </li>
-			          <li class="list-group-item reply_username border-0">${data[k].user.u_name}</li>
-			          <li class="list-group-item reply_time border-0">${data[k].reply_date_time}</li>
-				       <li class="list-group-item reply border-0">${data[k].reply_content}</p>
-	        	</ul>
-		        <div>
-		          <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0 mt-1 me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" reply_id="${data[k].reply_id}"></i>
-		        </div>
-      	</div>
+<div class="row card" style="width:90%;">
+    <div class="post-reply container w-100 d-flex position-relative">
+        <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop" reply_id="${data[k].reply_id}"></i>
+        <div class="border-0">
+            <div class="border-0">
+                <img alt="Avatar" class="avatar rounded-circle img-fluid" alt="./images/Avatar.png" src="avatar?uid=${data[k].reply_user_id}">
+            </div>
+            <div class="reply_username border-0">${data[k].user.u_name}</div>
+            <p class="reply_time border-0">${data[k].reply_date_time}</p>
+            <div class="reply border-0">${data[k].reply_content}</div>  
+        </div> 
     </div>
+</div>
+
   `;
 								comReplyWrapper.append(replyItem);
 

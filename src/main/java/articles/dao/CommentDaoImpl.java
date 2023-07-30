@@ -1,8 +1,6 @@
 package articles.dao;
 
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,7 +24,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectComById(String com_art_id) {
-		String hql = "SELECT c FROM Comment c WHERE c.com_art_id = :com_art_Id";
+		String hql = "FROM Comment c WHERE c.com_art_id = :com_art_Id";
 		Integer int_com_art_id = Integer.parseInt(com_art_id);
 		Session session = getSession();
 
@@ -54,7 +52,7 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public List<Reply> selectReply(String reply_com_id) {
 		
-		String hql = "SELECT r FROM Reply r WHERE r.reply_com_id = :reply_com_id";
+		String hql = "FROM Reply r WHERE r.reply_com_id = :reply_com_id";
 		Integer int_reply_com_id = Integer.parseInt(reply_com_id);
 		Session session = getSession();
 

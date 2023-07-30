@@ -101,7 +101,7 @@ function pageFilter(data) {
 	return page;
 }
 
-// 點擊分頁標籤的事件
+// 點擊分頁標籤的事件 發頁數給後端
 function clickPageTag(order, searchText, page) {
 	$.ajax({
 		url: "forum",
@@ -109,9 +109,9 @@ function clickPageTag(order, searchText, page) {
 		data: { "order": order, "searchText": searchText, "page": page },
 		dataType: "json",
 		success: function(data) {
-			addArt(data);
+			addArt(data);  // 渲染到畫面上
 			if (data===null) {
-				currentPage = page-1;
+				currentPage = page-1; // 請忽略
 			}else{
 				disControl(data.length);
 				currentPage = page;
@@ -121,13 +121,15 @@ function clickPageTag(order, searchText, page) {
 };
 
 // 製造分頁標籤，綁定事件
-function pageTagCreator(order, searchText, page) {
-	$("a.btn-page").slice(0).remove();
-	for (let i = 1; i <= page; i++) {
-		let newButton = `<a class="btn btn-secondary btn-page">${i}</a>`;
-		$("#forum-page").append(newButton);
+function pageTagCreator(order, searchText, page) { //先傳請求查總共有幾筆，數學運算後回傳頁數傳進方法裡
+	$("a.btn-page").slice(0).remove(); // 移除先前已存在的頁籤
+	for (let i = 1; i <= page; i++) { // 看有幾頁就用迴圈跑幾次
+		let newButton = `<a class="btn btn-secondary btn-page">${i}</a>`; // i是頁數
+		$("#forum-page").append(newButton); // ->插入一個分頁按鈕
 		$("a.btn-page").eq(i - 1).on("click", function() {
-			clickPageTag(order, searchText, i);
+			
+			clickPageTag(order, searchText, i);  
+			// 綁點擊事件 傳i(頁數)到方法 方法用ajax發頁數給後端
 		});
 	}
 };
