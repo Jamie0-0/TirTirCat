@@ -306,8 +306,8 @@
     <div class="container change-infor">
         <div class="left">
             <h2>會員圖片</h2>
-            <img id="profile_photo_preview" class="profile-photo-preview" src="#">
-            <input type="file" id="profile_photo" name="profile_photo" onchange="previewProfilePhoto(event)">
+            <img id="profile_photo_preview" class="profile-photo-preview" src="">
+            <input type="file" id="profile_photo" name="profile_photo" accept="image/*" disabled>
         </div>
         <div class="right">
 
@@ -326,7 +326,7 @@
             <label for="birthday">生日</label>
             <input type="date" id="birthday" name="birthday" disabled>
 
-            <textarea id="about" class="form-control" rows="3" placeholder="關於我"></textarea>
+            <textarea id="about" class="form-control" rows="3" placeholder="關於我" disabled></textarea>
 
             <button type="button" class="btn-create rounded-pill w-100 mt-3" id="update">修改</button>
 
@@ -455,6 +455,8 @@
     <script src="assets/js/script.js"></script>
     <script>
         $(function () {
+            
+
             let user_account_el = $("h5.user_account");
             let email_el = $("input#email");
             let name_el = $("input#name");
@@ -463,24 +465,29 @@
             let birth_el = $("input#birthday");
             let about_el = $("textarea#about");
             let user_email = sessionStorage.getItem('email');
-            // console.log(user_email);
-            function previewProfilePhoto(event) {
+            let uPic_el = $("img#profile_photo_preview");
+            let upPic_el = $("input#profile_photo");
+
+            $("input#profile_photo").on("change", function () {
+
                 var reader = new FileReader();
-                reader.onload = function () {
-                    var preview = document.getElementById('profile_photo_preview');
-                    preview.src = reader.result;
+                reader.onload = function (e) {
+                    var base64String = e.target.result.split(',')[1]; // 獲取 Base64 編碼的圖片資料部分                     
+                    $("img#profile_photo_preview").attr("src", "data:image/jpeg;base64," + base64String);
                 }
                 reader.readAsDataURL(event.target.files[0]);
-            }
+
+            });
 
             $("#view").on("click", function (e) {
                 e.preventDefault();
-                location.href = "http://localhost:8081/TirTirCat/update_imfor.html";
+                location.href = "member_center.html";
             })
 
             $("button#save").on("click", function () {
-                // console.log("123");
-                fetch("/TirTirCat/member/controller/updatemember", {
+                const userPic_el = $("img#profile_photo_preview").attr("src");
+                const base64UserPic = userPic_el.split(',')[1];     //擷取"data:image/jpeg;base64,"後面的值
+                fetch("updatemember", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -491,58 +498,95 @@
                         password: password_el.val(),
                         phone: phone_el.val(),
                         about: about_el.val(),
-                        birth:birth_el.val(),
-                        uid:sessionStorage.getItem("uid")
+                        birth: birth_el.val(),
+                        uPic: base64UserPic,
+                        uid: sessionStorage.getItem("uid")
                     }),
                 })
-                .then(responce => responce.json())
-                .then(data => {
-                    if(data.status === 'success'){
-                        alert("修改成功");
-                    }
-                    else if(data.status === 'error'){
-                        alert("修改失敗");
-                    }
-                })
+                    .then(responce => responce.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert("修改成功");
+                        }
+                        else if (data.status === 'error') {
+                            alert("修改失敗");
+                        }
+                    })
             })
-            fetch("/TirTirCat/member/controller/showmember", {
+            fetch("showmember", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    // email: email_el.val(),
-                    // name: name_el.val(),
-                    // password: password_el.val(), 
-                    // pgone: phone_el.val(),
-                    // about: about_el.val()
+
                 }),
             })
                 .then(responce => responce.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.status === "true") {
+                        const formattedDate = parseDateFromString(data.birth);
+
                         user_account_el.text(data.username);
                         email_el.val(data.email);
                         name_el.val(data.username);
                         password_el.val(data.password);
                         phone_el.val(data.phone);
-                        // let birthDate = new Date(data.birth);
-                        // console.log(birthDate.toISOString());
+                        birth_el.val(formattedDate);
+                        uPic_el.attr("src", "data:image/jpeg;base64," + data.uPic);
+
                     }
                 })
                 .catch(error => {
 
                 });
             $("button#update").on("click", function () {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 因為月份是從0開始，所以需要+1
+                const day = today.getDate().toString().padStart(2, '0');
+
+                const dateString = `${year}-${month}-${day}`;
+
+                const birth = document.getElementById('birthday');
+                birth.value = dateString;
+                const todaymax = new Date().toISOString().split('T')[0];
+                birth.max = todaymax;
+
+
                 email_el.prop("disabled", false);
                 name_el.prop("disabled", false);
                 password_el.prop("disabled", false);
                 phone_el.prop("disabled", false);
                 birth_el.prop("disabled", false);
                 about_el.prop("disabled", false);
+                upPic_el.prop("disabled", false);
 
             })
+
+            // 定義函式 parseDateFromString，用於將日期字串格式化為 "yyyy-MM-dd" 的形式
+            function parseDateFromString(dateString) {
+                // 定義選項物件 options，包含了需要的日期格式，即年份為 4 位數字，月份和日期為 2 位數字
+                const options = {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                };
+
+                // 使用正規表示式和 Date.parse 方法將日期字串轉換為日期物件 dateObject
+                // 正規表示式用於提取 "7月 25, 2023" 中的年、月、日，並將其以 "yyyy-MM-dd" 的格式傳遞給 Date.parse 方法
+                const dateObject = new Date(Date.parse(dateString.replace(/(\d+)月 (\d+), (\d+)/, '$3-$1-$2')));
+
+                // 使用 toLocaleDateString 方法將日期物件 dateObject 轉換成本地化的日期字串 formattedDate
+                // 並將其格式化為 "yyyy-MM-dd" 的形式，符合我們要的日期格式
+                const formattedDate = dateObject.toLocaleDateString(undefined, options);
+
+                // 將 formattedDate 中的斜線 / 替換成短橫線 -
+                // 並將格式化後的日期字串 formattedDateForInput 設定給 <input> 元素的 value 屬性
+                const formattedDateForInput = formattedDate.replace(/\//g, '-');
+                return formattedDateForInput;
+            }
         });
 
 

@@ -173,7 +173,7 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="#">登出</a>
+                                                    <a href="#" id="logout">登出</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -272,7 +272,7 @@
                         <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
                         <div class="col-sm-9">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="petType" value="貓">
+                                <input class="form-check-input" type="radio" name="petType" value="貓" checked>
                                 <label class="form-check-label">
                                     貓
                                 </label>
@@ -288,19 +288,20 @@
                     <div class="row mb-3">
                         <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名">
+                            <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種">
+                            <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡">
+                            <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡 必須介於0~30之間"
+                                required>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -321,7 +322,7 @@
                             </select>
                         </div>
                     </div>
-                </form>
+
             </div>
             <div class="col-4">
                 <div class="preview">
@@ -342,8 +343,9 @@
         </div>
     </div>
     <div class="mx-auto" style="width: 200px">
-        <button type="button" id="save-pet" class="btn-save mt-3 w-100 rounded-pill btn-lg">儲存修改</button>
+        <button type="submit" id="save-pet" class="btn-save mt-3 w-100 rounded-pill btn-lg">儲存修改</button>
     </div>
+    </form>
     <!-- Footer Section Start -->
     <footer class="section-t-space">
         <div class="container-fluid-lg">
@@ -459,96 +461,106 @@
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/custom-wow.js"></script>
 
-    <!-- script js -->
-    <!-- <script src="assets/js/script.js"></script> -->
-
     <script>
         $(document).ready(function () {
-            // var counter = 1;
+            let user_account_el = $("h5");
+
+            fetch("showusername", {
+                method: "POST",
+                dataType: "json",
+                body: JSON.stringify({
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        user_account_el.text(data.username); // 假設伺服器回傳的資料中有 username 欄位，將其顯示在網頁上
+                    }
+                })
+                .catch(error => {
+                    console.log("請求錯誤");
+                });
 
             $(".pet-container").on("click", "span.add-pet-btn", function () {
                 var newRow = $('<div class="row dynamic-pet-row">' +
                     `
-           <div class="col-8">
-        <form>
-            <div class="row mb-3">
-                <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
-                <div class="col-sm-9">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="petType" value="貓">
-                        <label class="form-check-label">
-                            貓
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="petType" value="狗">
-                        <label class="form-check-label">
-                            狗
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="petGender" class="col-sm-3 col-form-label">寵物性別：</label>
-                <div class="col-sm-9">
-                    <select class="form-select" name="petGender">
-                        <option value="公">公</option>
-                        <option value="母">母</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="petPersonality" class="col-sm-3 col-form-label">寵物個性：</label>
-                <div class="col-sm-9">
-                    <select class="form-select" name="petPersonality">
-                        <option value="活潑">活潑</option>
-                        <option value="內向">內向</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-4">
-        <div class="preview">
-            <img src="" alt="寵物照片" id="previewImage" class="preview-image">
-        </div>
-        <div class="text-center">
-            <input type="file" id="petPhoto" accept="image/*">
-        </div>
-    </div>
-    <div class="text-center">
-        <span class="add-pet-btn"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                <path
-                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                <path
-                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg></span>
-    </div>
-</div>`
+                        <div class="col-8">
+                            <form>
+                                <div class="row mb-3">
+                                    <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
+                                    <div class="col-sm-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="petType" value="貓" checked>
+                                            <label class="form-check-label">
+                                                貓
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="petType" value="狗">
+                                            <label class="form-check-label">
+                                                狗
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡 必須介於0~30之間" required> 
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petGender" class="col-sm-3 col-form-label">寵物性別：</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" name="petGender">
+                                            <option value="公">公</option>
+                                            <option value="母">母</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petPersonality" class="col-sm-3 col-form-label">寵物個性：</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" name="petPersonality">
+                                            <option value="活潑">活潑</option>
+                                            <option value="內向">內向</option>
+                                        </select>
+                                    </div>
+                                </div>                        
+                            </div>
+                        <div class="col-4">
+                            <div class="preview">
+                                <img src="" alt="寵物照片" id="previewImage" class="preview-image">
+                            </div>
+                            <div class="text-center">
+                                <input type="file" id="petPhoto" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <span class="add-pet-btn"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                    fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg></span>
+                        </div>
+                    </form>`
                 );
 
                 $(".pet-container").append(newRow);
-
-                // counter++;
             });
 
             $(document).on("change", "#petPhoto", function () {
@@ -556,33 +568,70 @@
             });
 
             function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+                if (input.files && input.files[0]) { // 檢查是否選擇文件
+                    var file = input.files[0]; // 拿到文件
+                    var reader = new FileReader(); // 創建 FileReader 物件
 
+                    // 讀取檔案並在載入完成後執行以下回調函式
                     reader.onload = function (e) {
-                        $(input).closest('.row').find('.preview-image').attr("src", e.target.result);
+                        var base64String = e.target.result.split(',')[1]; // 獲取 Base64 編碼的圖片資料部分
+                        $(input).closest('.row').find('.preview-image').attr("src", "data:image/jpeg;base64," + base64String);
+                        // 將 Base64 編碼的圖片資料賦值給預覽圖片元素的 src 屬性，從而實現圖片預覽
                     }
-
-                    reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(file); // 以 DataURL 格式讀取檔案資料，這樣可以獲取 Base64 編碼的圖片資料
                 }
             }
-
         });
 
+        //當登出被點擊時
+        $("a#logout").on("click", function(e){
+            console.log("123");
+            e.preventDefault();
+            sessionStorage.removeItem("uid");
+            location.href = "login.html";
+        })
 
+        const chineseOrEnglishRegex = /^[\u4e00-\u9fa5a-zA-Z]+$/;
         // 當按鈕被點擊時觸發抓取資料的函式
         $("button.btn-save").on("click", function () {
+            let uid = sessionStorage.getItem("uid");
             var allPetData = [];
+
+            const petType_el = $("input[name='petType']:checked").val()
+            const petName_el = $("input[name='petName']").val()
+            const petBreed_el = $("input[name='petBreed']").val()
+            const petAge_el = $("input[name='petAge']").val()
+            const petSex_el = $("select[name='petGender']").val()
+            const petPerson_el = $("select[name='petPersonality']").val()
+            const petPic_el = $("#previewImage").attr("src") // 假設預覽圖片的id為previewImage
+
+            if (petName_el.trim() === "" || petBreed_el.trim() === "" || petAge_el.trim() === "" || petPic_el.trim() === "") {
+                alert("請完整填寫全部寵物資訊");
+            }
+
+            if (!chineseOrEnglishRegex.test(petBreed_el)) {
+                alert("寵物品種必須是中文或英文");
+            }
+
+            if (isNaN(petAge_el)) {
+                alert("年齡必須是數字");
+            }
+
+            const petAgeNumber = parseInt(petAge_el, 10);
+
+            if (petAgeNumber < 0 || petAgeNumber > 30) {
+                alert("年齡必須介於0~30之間");
+            }
 
             // 抓取靜態產生的寵物資料
             var staticPetData = {
-                petType: $("input[name='petType']:checked").val(),
-                petName: $("input[name='petName']").val(),
-                petBreed: $("input[name='petBreed']").val(),
-                petAge: $("input[name='petAge']").val(),
-                petGender: $("select[name='petGender']").val(),
-                petPersonality: $("select[name='petPersonality']").val(),
-                petPhoto: $("#previewImage").attr("src") // 假設預覽圖片的id為previewImage
+                petType: petType_el,
+                petName: petName_el,
+                petBreed: petBreed_el,
+                petAge: petAge_el,
+                petSex: petSex_el,
+                petPerson: petPerson_el,
+                petPic: petPic_el
             };
 
             // 將靜態產生的寵物資料加入到allPetData陣列中
@@ -599,26 +648,42 @@
                 var petPersonality = row.find("select[name='petPersonality']").val();
                 var petPhoto = row.find(".preview-image").attr("src");
 
+                if (!petName || !petBreed || !petAge || !petPic) {
+                    alert("請填寫所有欄位");
+                }
+
+                if (!chineseOrEnglishRegex.test(petBreed)) {
+                    alert("寵物品種必須是中文或英文");
+                }
+
+                if (isNaN(petAge)) {
+                    alert("年齡必須是數字");
+                }
+
+                const petAgeNumber = parseInt(petAge, 10);
+
+                if (petAgeNumber < 0 || petAgeNumber > 30) {
+                    alert("年齡必須介於0~30之間");
+                }
+
                 allPetData.push({
                     petType: petType,
                     petName: petName,
                     petBreed: petBreed,
                     petAge: petAge,
-                    petGender: petGender,
-                    petPersonality: petPersonality,
-                    petPhoto: petPhoto
+                    petSex: petGender,
+                    petPerson: petPersonality,
+                    petPic: petPhoto
                 });
             });
 
-            // 印出allPetData陣列中的資料
-            // console.log(allPetData);
-
-            fetch("/TirTirCat/pet/petcontroller", {
+            fetch("petcontroller", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    uid: uid,
                     petsData: allPetData
                 }),
             })
@@ -626,15 +691,13 @@
                 .then(data => {
                     console.log(data);
                     if (data.status === "true") {
-                      
+                        alert("新增成功");
                     }
                 })
                 .catch(error => {
-
+                    console.log("請求錯誤");
                 });
         });
-
-
     </script>
 </body>
 

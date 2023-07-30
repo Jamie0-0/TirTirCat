@@ -383,11 +383,13 @@
 	<!-- script js -->
 	<script src="assets/js/script.js"></script>
 	<script>
+		$(function(){
+
 		document.querySelector('#loginBtn').addEventListener("click", function () {
 			let email_el = $("#email").val();
 			let pwd_el = $("#password").val();
 
-			fetch("/TirTirCat/member/controller/LoginController", {
+			fetch("loginController", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -403,7 +405,7 @@
 					if (data.status === "true") {
 						sessionStorage.setItem('uid', data.uid);
 						console.log(sessionStorage.getItem('uid'));
-						fetch("/TirTirCat/member/controller/memberCenterController", {
+						fetch("memberCenterController", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json",
@@ -417,12 +419,12 @@
 							.then((data) => {
 								// 在此處處理 memberCenterController 回傳的資料
 							});
-							location.href = "http://localhost:8081/TirTirCat/member_center.html";
+						location.href = "http://localhost:8081/TirTirCat/member_center.html";
 					} else if (data.status === "error") {
 						// 登入失敗的處理
 						var errorMsgs = data.errorMsgs;
 						var errorContainer = $("#error-messages");
-						
+
 						// 先清空錯誤容器
 						errorContainer.empty();
 
@@ -439,7 +441,7 @@
 				});
 
 		});
-
+	});
 	</script>
 
 </body>

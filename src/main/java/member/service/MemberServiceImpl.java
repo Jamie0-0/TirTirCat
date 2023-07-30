@@ -1,8 +1,15 @@
 package member.service;
 
+import java.io.BufferedReader;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import member.dao.MemberDao;
 import member.dao.MemberDaoImpl;
@@ -21,17 +28,25 @@ public class MemberServiceImpl implements MemberService {
 		errorMsgs.clear();
 		String email = member.getEmail();
 		String password = member.getPassword();
-		if (email == null || email.isBlank()) {
+		Member result = dao.selectByEmail(email);
+		if (result == null) {
+			errorMsgs.add("查無帳號");
+		} else if (email.equals(result.getEmail())) {
+			if (!password.equals(result.getPassword())) {
+				errorMsgs.add("密碼不正確");
+			}
+		}
+		if (email.isBlank()) {
 			errorMsgs.add("帳號未輸入");
 		}
-		if (password == null || password.isBlank()) {
+		if (password.isBlank()) {
 			errorMsgs.add("密碼未輸入");
 		}
-		if(!errorMsgs.isEmpty()) {
+		if (!errorMsgs.isEmpty()) {
 			getErrorMsgs();
 			return null;
 		}
-		return dao.login(email, password);			
+		return dao.login(email, password);
 	}
 
 	@Override
@@ -51,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
-	public boolean validate(String email, String password, String password2, String name, String phone, String gender, Date birth,
+	public boolean validate(String email, String password, String name, String phone, String gender, Date birth,
 			String addr) {
 
 		errorMsgs.clear();
@@ -60,14 +75,11 @@ public class MemberServiceImpl implements MemberService {
 			errorMsgs.add("會員帳號不能空白");
 		} else if (!email.trim().matches(emailReg)) {
 			errorMsgs.add("信箱必須符合信箱格式");
-		}else if (dao.selectByEmail(email) !=null) {
+		} else if (dao.selectByEmail(email) != null) {
 			errorMsgs.add("帳號已存在");
 		}
 		if (password == null || password.trim().length() == 0) {
 			errorMsgs.add("會員密碼不能空白");
-		}
-		if(!password.equals(password2)) {
-			errorMsgs.add("密碼必須一致");
 		}
 		String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 		if (name == null || name.trim().length() == 0) {
@@ -81,13 +93,12 @@ public class MemberServiceImpl implements MemberService {
 		} else if (!phone.trim().matches(phoneReg)) {
 			errorMsgs.add("請符合手機格式");
 		}
-		if (birth == null) {
+		if (birth == null || "".equals(birth)) {
 			errorMsgs.add("生日不能空白");
 		}
 		if (addr == null || addr.trim().length() == 0) {
 			errorMsgs.add("地址不能空白");
 		}
-
 		return errorMsgs.isEmpty();
 	}
 
@@ -96,7 +107,30 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean edit(Member member) {
+	public boolean edit(BufferedReader reader) {
+		JsonElement jsonElement = JsonParser.parseReader(reader);
+		JsonObject jsonObject = jsonElement.getAsJsonObject();
+		String uEmail = jsonObject.get("email").getAsString();
+		String uName = jsonObject.get("name").getAsString();
+		String uPwd = jsonObject.get("password").getAsString();
+		String uPhone = jsonObject.get("phone").getAsString();
+		String uPic = jsonObject.get("uPic").getAsString();
+		String base64 = uPic.substring(uPic.indexOf(",") + 1);
+		byte[] uicBytes = Base64.getDecoder().decode(base64);
+
+		String uAbout = jsonObject.get("about").getAsString();
+		String uBirth = jsonObject.get("birth").getAsString();
+		Integer uid = jsonObject.get("uid").getAsInt();
+
+		Member member = new Member();
+		member.setEmail(uEmail);
+		member.setName(uName);
+		member.setPassword(uPwd);
+		member.setPhone(uPhone);
+		member.setAbout(uAbout);
+//		member.setBirth(uBirth);
+		member.setuPic(uicBytes);
+		member.setUid(uid);
 		int result = dao.update(member);
 		return result > 0;
 	}

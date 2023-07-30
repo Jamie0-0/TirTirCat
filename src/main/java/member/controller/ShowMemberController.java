@@ -2,6 +2,7 @@ package member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,7 @@ import member.service.MemberService;
 import member.service.MemberServiceImpl;
 import member.vo.Member;
 
-@WebServlet("/member/controller/showmember")
+@WebServlet("/showmember")
 public class ShowMemberController extends HttpServlet {
 	private MemberService service;
 	private MemberDao memberDao;
@@ -33,9 +34,9 @@ public class ShowMemberController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(true);
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("application/json;charset=utf-8");
 		Gson gson = new Gson();
+		String base64 = "";
 		Member member = gson.fromJson(req.getReader(), Member.class);
 		String message = gson.toJson("");
 		if (session != null && session.getAttribute("username") != null) {
@@ -46,9 +47,15 @@ public class ShowMemberController extends HttpServlet {
 			String phone = member.getPhone();
 			String password = member.getPassword();
 			Date birth = member.getBirth();
+			if(member.getuPic() != null) {
+				base64 = Base64.getEncoder().encodeToString(member.getuPic());
+			}else {
+				base64 = "";
+			}
+			
 			message = "{\"status\": \"true\",\"email\":" + gson.toJson(email) + ", \"username\":"
 					+ gson.toJson(username) + ",\"password\":" + gson.toJson(password) + ", \"phone\":"
-					+ gson.toJson(phone) + ", \"birth\":" + gson.toJson(birth) + "}";
+					+ gson.toJson(phone) + ", \"birth\":" + gson.toJson(birth) + ", \"uPic\":"+gson.toJson(base64)+"}";
 			resp.getWriter().write(message);
 		}
 		else {

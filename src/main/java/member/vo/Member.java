@@ -2,6 +2,12 @@ package member.vo;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import pet.vo.Pet;
 
 public class Member {
 	private Integer uid;
@@ -22,6 +28,11 @@ public class Member {
 	private String u2;
 	private String u3;
 
+//	@OneToMany
+//	@JoinColumn(name = "pet_uid",
+//			referencedColumnName = "uid")
+//	private List<Pet> pets;
+	
 	public Integer getUid() {
 		return uid;
 	}
