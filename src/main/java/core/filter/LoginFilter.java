@@ -2,44 +2,40 @@ package core.filter;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-@WebFilter("/member_center.html")
-public class LoginFilter implements Filter{
+@WebFilter("/*")
+public class LoginFilter extends HttpFilter {
+	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
-		HttpSession session = req.getSession();
+		String[] urls = { "/login.html", "/assets/","/css/", "/sign-up.html", "/loginController", "/registerController" };
+		String url = request.getServletPath();
+		String url1 = request.getContextPath() + "/assets";
+
+		HttpSession session = request.getSession();
 		Object user = session.getAttribute("username");
-		if(user == null) {
-			resp.sendRedirect("login.html");
+
+		for (String u : urls) {
+			if (url.contains(u) || url1.contains(u)) {
+				chain.doFilter(request, response);
+				return;
+			}
 		}
-		else {
+
+		if (user == null) {
+			session.setAttribute("loginNotice", true);
+			response.sendRedirect("login.html");
+		} else {
 			chain.doFilter(request, response);
-			
 		}
-	}
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		
-	}
-
-	@Override
-	public void destroy() {
-		
 	}
 }
