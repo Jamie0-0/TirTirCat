@@ -17,7 +17,7 @@ public class LoginFilter extends HttpFilter {
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String[] urls = { "/login.html", "/assets/","/css/", "/sign-up.html", "/loginController", "/registerController" };
+		String[] urls = { "/login.html", "/assets/","/css/", "/sign-up.html", "/loginController", "/registerController", "/restigermastercontroller" };
 		String url = request.getServletPath();
 		String url1 = request.getContextPath() + "/assets";
 
