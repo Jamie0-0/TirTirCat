@@ -20,7 +20,10 @@
 		<mapping class="articles.vo.Comment" />
 		<mapping class="articles.vo.Reply" />
 		<mapping class="articles.vo.User" />
-
+        <mapping class="articles.vo.ArticlesLike" />
+        <mapping class="articles.vo.ArticlesReport" />
+        <mapping class="articles.vo.ComReport" />
+        <mapping class="articles.vo.ReplyReport" />
 		<mapping class="articles.vo.Article" />
 
 		<mapping class="pet.vo.Pet" />
