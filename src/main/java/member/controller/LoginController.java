@@ -16,7 +16,7 @@ import member.service.MemberService;
 import member.service.MemberServiceImpl;
 import member.vo.Member;
 
-@WebServlet("/member/controller/LoginController")
+@WebServlet("/loginController")
 public class LoginController extends HttpServlet {
 	private MemberService service;
 
@@ -36,8 +36,7 @@ public class LoginController extends HttpServlet {
 			HttpSession session = req.getSession(true);
 
 			req.setCharacterEncoding("UTF-8");
-			resp.setContentType("application/json");
-			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("application/json;charset=utf-8");
 			Gson gson = new Gson();
 			Member member = gson.fromJson(req.getReader(), Member.class);
 

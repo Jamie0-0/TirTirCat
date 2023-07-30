@@ -20,10 +20,11 @@
 		<mapping class="articles.vo.Comment" />
 		<mapping class="articles.vo.Reply" />
 		<mapping class="articles.vo.User" />
-<<<<<<< HEAD
+
 		<mapping class="articles.vo.Article" />
-=======
+
 		<mapping class="pet.vo.Pet" />
->>>>>>> aaron
+		
+		<mapping class="master.vo.Master" />
 	</session-factory>
 </hibernate-configuration>

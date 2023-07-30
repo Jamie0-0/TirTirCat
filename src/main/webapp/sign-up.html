@@ -27,7 +27,8 @@
     <!-- 自己的css -->
     <link rel="stylesheet" href="assets/css/styleGuide.css">
     <style>
-        #create_member_btn {
+        #create_member_btn,
+        #create_master_btn {
             background-color: #ffcb76;
             margin-top: 10px;
         }
@@ -289,61 +290,62 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                     aria-labelledby="nav-home-tab">
-                                    <form>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">會員帳號(E-MAIL):</span>
-                                            <input type="email" id="member_email" class="form-control" placeholder=""
-                                                aria-label="Useremail" aria-describedby="basic-addon1" required>
-                                        </div>
-                                        <!-- <p id="error_email"></p> -->
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">密碼:</span>
-                                            <input type="password" id="member_pwd" class="form-control" placeholder=""
-                                                aria-label="Userpwd" aria-describedby="basic-addon1" required>
-                                        </div>
-                                        <!-- <p id="error_pwd"></p> -->
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">再次輸入密碼:</span>
-                                            <input type="password" id="member_pwd2" class="form-control" placeholder=""
-                                                aria-label="Userpwd" aria-describedby="basic-addon1" required>
-                                        </div>
-                                        <!-- <p id="error_pwd2"></p> -->
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">姓名:</span>
-                                            <input type="text" id="member_name" class="form-control" placeholder=""
-                                                aria-label="Username" aria-describedby="basic-addon1" required>
-                                        </div>
-                                        <!-- <p id="error_name"></p> -->
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">手機:</span>
-                                            <input type="phone" id="member_phone" class="form-control" placeholder=""
-                                                aria-label="Userphone" aria-describedby="basic-addon1">
-                                        </div>
-                                        <!-- <p id="error_phone"></p> -->
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">性別：</span>
-                                            <select class="form-select" id="member_gender" aria-label="下拉式選項">
-                                                <option selected value="0">男</option>
-                                                <option value="1">女</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">生日：</span>
-                                            <input type="date" id="member_birth" class="form-control" placeholder=""
-                                                aria-label="Userdate" aria-describedby="basic-addon1" required>
-                                        </div>
-                                        <!-- <p id="error_birth"></p> -->
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">地址：</span>
-                                            <input type="text" id="member_addr" class="form-control" placeholder=""
-                                                aria-label="Useraddr" aria-describedby="basic-addon1" required>
-                                        </div>
-                                        <!-- <p id="error_addr"></p> -->
-                                        <textarea class="form-control" id="aboutMe" rows="3" placeholder="關於我"></textarea>
 
-                                        <button type="button" id="create_member_btn"
-                                            class="btn-create rounded-pill w-100 btn-lg">註冊</button>
-                                    </form>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">會員帳號(E-MAIL):</span>
+                                        <input type="email" id="member_email" class="form-control" placeholder=""
+                                            aria-label="Useremail" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <!-- <p id="error_email"></p> -->
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">密碼:</span>
+                                        <input type="password" name="password" id="member_pwd" class="form-control"
+                                            placeholder="" aria-label="Userpwd" aria-describedby="basic-addon1"
+                                            required>
+                                    </div>
+                                    <!-- <p id="error_pwd"></p> -->
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">再次輸入密碼:</span>
+                                        <input type="password" id="member_pwd2" name="password2" class="form-control"
+                                            placeholder="" aria-label="Userpwd" aria-describedby="basic-addon1"
+                                            required>
+                                    </div>
+                                    <!-- <p id="error_pwd2"></p> -->
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">姓名:</span>
+                                        <input type="text" id="member_name" class="form-control" placeholder=""
+                                            aria-label="Username" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <!-- <p id="error_name"></p> -->
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">手機:</span>
+                                        <input type="phone" id="member_phone" class="form-control" placeholder=""
+                                            aria-label="Userphone" aria-describedby="basic-addon1">
+                                    </div>
+                                    <!-- <p id="error_phone"></p> -->
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">性別：</span>
+                                        <select class="form-select" id="member_gender" aria-label="下拉式選項">
+                                            <option selected value="0">男</option>
+                                            <option value="1">女</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">生日：</span>
+                                        <input type="date" id="member_birth" class="form-control" placeholder=""
+                                            aria-label="Userdate" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <!-- <p id="error_birth"></p> -->
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">地址：</span>
+                                        <input type="text" id="member_addr" class="form-control" placeholder=""
+                                            aria-label="Useraddr" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <!-- <p id="error_addr"></p> -->
+                                    <textarea class="form-control" id="aboutMe" rows="3" placeholder="關於我"></textarea>
+
+                                    <button type="button" id="create_member_btn"
+                                        class="btn-create rounded-pill w-100 btn-lg">註冊</button>
                                 </div>
 
                                 <div class="tab-pane fade" id="nav-profile" role="tabpanel"
@@ -353,27 +355,29 @@
                                             aria-labelledby="nav-home-tab">
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">廠商帳號(統一編號):</span>
-                                                <input type="text" class="form-control" placeholder=""
+                                                <input type="text" id="company-gui" class="form-control" placeholder=""
                                                     aria-label="Companycount" aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">公司名稱:</span>
-                                                <input type="text" class="form-control" placeholder=""
+                                                <input type="text" id="company-name" class="form-control" placeholder=""
                                                     aria-label="Companyname" aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">密碼:</span>
-                                                <input type="password" class="form-control" placeholder=""
-                                                    aria-label="Companypwd" aria-describedby="basic-addon1" required>
+                                                <input type="password" id="company-pwd" class="form-control"
+                                                    placeholder="" aria-label="Companypwd"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">再次輸入密碼:</span>
-                                                <input type="password" class="form-control" placeholder=""
-                                                    aria-label="Companypwd" aria-describedby="basic-addon1" required>
+                                                <input type="password" id="company-pwd2" class="form-control"
+                                                    placeholder="" aria-label="Companypwd"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">銀行行號：</span>
-                                                <select class="form-select" aria-label="下拉式選項">
+                                                <select class="form-select" aria-label="下拉式選項" name="bank-id">
                                                     <option selected>003 交通銀行</option>
                                                     <option>004 台灣銀行</option>
                                                     <option>005 土地銀行</option>
@@ -389,45 +393,44 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">銀行帳號:</span>
-                                                <input type="text" class="form-control" placeholder=""
-                                                    aria-label="Companyaccount" aria-describedby="basic-addon1"
-                                                    required>
+                                                <input type="text" id="company-account" class="form-control"
+                                                    placeholder="" aria-label="Companyaccount"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">廠商地址:</span>
-                                                <input type="text" class="form-control" placeholder=""
+                                                <input type="text" id="company-addr" class="form-control" placeholder=""
                                                     aria-label="Companyaccount" aria-describedby="basic-addon1"
                                                     required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">負責人身份證字號:</span>
-                                                <input type="text" class="form-control" placeholder=""
-                                                    aria-label="Companyaccount" aria-describedby="basic-addon1"
-                                                    required>
+                                                <input type="text" id="company-manId" class="form-control"
+                                                    placeholder="" aria-label="Companyaccount"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">聯絡人姓名:</span>
-                                                <input type="text" class="form-control" placeholder=""
-                                                    aria-label="Company_connect_name" aria-describedby="basic-addon1"
-                                                    required>
+                                                <input type="text" id="company-mann-name" class="form-control"
+                                                    placeholder="" aria-label="Company_connect_name"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">聯絡人E-mail:</span>
-                                                <input type="email" class="form-control" placeholder=""
-                                                    aria-label="Company_connect_email" aria-describedby="basic-addon1"
-                                                    required>
+                                                <input type="email" id="company-man-email" class="form-control"
+                                                    placeholder="" aria-label="Company_connect_email"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">聯絡人電話：</span>
-                                                <input type="text" class="form-control" placeholder=""
-                                                    aria-label="Company_connect_phone" aria-describedby="basic-addon1"
-                                                    required>
+                                                <input type="text" id="company-man-phone" class="form-control"
+                                                    placeholder="" aria-label="Company_connect_phone"
+                                                    aria-describedby="basic-addon1" required>
                                             </div>
                                             <button type="button" id="create_master_btn"
                                                 class="btn-create rounded-pill w-100 btn-lg">註冊</button>
                                         </div>
                                     </div>
-
                                 </div>
                         </nav>
                         <div class="sign-up-box">
@@ -558,6 +561,100 @@
 
     <script>
         $(function () {
+            //  =================   清空錯誤訊息    ======================
+            $("#nav-profile-tab").on("click", function(){
+                $("div#error-messages").text("");
+            })
+
+            //  =================   註冊廠商資料    ======================
+
+            $("#create_master_btn").on("click", function () {
+                // console.log("123");
+                let companyGui = $("#company-gui").val();
+                let companyName = $("#company-name").val();
+                let companyPwd = $("#company-pwd").val();
+                let companyPwd2 = $("#company-pwd2").val();
+                let bankId = $("select[name='bank-id']").val();
+                let companyAccount = $("#company-account").val();
+                let companyAddr = $("#company-addr").val();
+                let companyManId = $("#company-manId").val();
+                let companyManName = $("#company-mann-name").val();
+                let companyManEmail = $("#company-man-email").val();
+                let companyManPhone = $("#company-man-phone").val();
+                // console.log(bankId);
+                if (bankId === "003 交通銀行") {
+                    bankId = '1';
+                }
+                else if (bankId === "004 台灣銀行") {
+                    bankId = '2';
+                }
+                else if (bankId === "005 土地銀行") {
+                    bankId = '3';
+                }
+                else if (bankId === "007 第一銀行") {
+                    bankId = '4';
+                }
+                else if (bankId === "008 華南銀行") {
+                    bankId = '5';
+                }
+                else if (bankId === "011 上海銀行") {
+                    bankId = '6';
+                }
+                else if (bankId === "012 富邦銀行") {
+                    bankId = '7';
+                }
+                else if (bankId === "013 國泰世華") {
+                    bankId = '8';
+                } else if (bankId === "700 中華郵政") {
+                    bankId = '9';
+                } else if (bankId === "805 遠東銀行") {
+                    bankId = '10';
+                } else if (bankId === "808 玉山銀行") {
+                    bankId = '11';
+                }
+                fetch("restigermastercontroller", {
+                    method: "POST",
+                    dataType: "json",
+                    body: JSON.stringify({
+                        mName: companyName,
+                        mPwd: companyPwd,
+                        mGui: companyGui,
+                        mBankName: bankId,
+                        mBankId: companyAccount,
+                        mAddress: companyAddr,
+                        mManId: companyManId,
+                        mManName: companyManName,
+                        mEmail: companyManEmail,
+                        mPhone: companyManPhone
+
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data === "success") {
+                            alert("新增成功");
+                        }
+                        else{
+                            alert("新增失敗");
+                        }
+                    })
+                    .catch(error => {
+                        console.log("請求錯誤");
+                    });
+            });
+
+            // ============== 註冊會員資料  ===========================
+
+            const datePicker = document.getElementById('member_birth');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 因為月份是從0開始，所以需要+1
+            const day = today.getDate().toString().padStart(2, '0');
+
+            const dateString = `${year}-${month}-${day}`;
+            datePicker.max = dateString;
+            datePicker.value = dateString;
+
             $("#create_member_btn").on("click", function () {
                 let email_el = $("#member_email").val();
                 let pwd_el = $("#member_pwd").val();
@@ -569,16 +666,9 @@
                 let addr_el = $("#member_addr").val();
                 let about_el = $("#aboutMe").val();
 
-                // let error_email_el = $("p#error_email");
-                // let error_pwd_el = $("p#error_pwd");
-                // let error_pwd2_el = $("p#error_pwd2");
-                // let error_name_el = $("p#error_name");
-                // let error_phone_el = $("p#error_phone");
-                // let error_gender_el = $("p#error_gender");
-                // let error_birth_el = $("p#error_birth");
-                // let error_addr_el = $("p#error_addr");
 
-                fetch("/TirTirCat/member/controller/registerController", {
+
+                fetch("registerController", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -609,16 +699,29 @@
                             // 先清空錯誤容器
                             errorContainer.empty();
 
+                            if (pwd_el !== pwd2_el) {
+                                var errorItem = $("<p>").text("密碼不一致").css("color", "red");
+                                $("#error-messages").append(errorItem);
+                            }
                             // 遍歷錯誤訊息，動態添加到錯誤容器中
                             $.each(errorMsgs, function (index, errorMsg) {
 
                                 var errorItem = $("<p>").text(errorMsg).css("color", "red");
                                 errorContainer.append(errorItem);
                             });
-                        }
+                        };
                     });
-            })
+            });
+
+
+
+
+
+
         });
+
+
+
     </script>
 </body>
 

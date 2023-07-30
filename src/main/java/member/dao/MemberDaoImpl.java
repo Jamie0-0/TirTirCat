@@ -78,9 +78,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member login(String email, String password) {
 		final String login = "select * FROM USER WHERE u_email=? && u_pwd=?";
-		try (Connection connection = ds.getConnection();
-			PreparedStatement pstm = connection.prepareStatement(login);) 
-		{
+		try (Connection connection = ds.getConnection(); PreparedStatement pstm = connection.prepareStatement(login);) {
 			pstm.setString(1, email);
 			pstm.setString(2, password);
 			ResultSet rs = pstm.executeQuery();
@@ -100,10 +98,9 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int update(Member member) {
-		final String update = "UPDATE USER SET u_email = ?, u_name =?, u_pwd = ?, u_phone = ?, u_about = ?, u_pic = ? WHERE uid = ? ";	
-		try (Connection connection = ds.getConnection(); 
-				PreparedStatement pstm = connection.prepareStatement(update);)
-		{		
+		final String update = "UPDATE USER SET u_email = ?, u_name =?, u_pwd = ?, u_phone = ?, u_about = ?, u_pic = ? WHERE uid = ? ";
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstm = connection.prepareStatement(update);) {
 			pstm.setString(1, member.getEmail());
 			pstm.setString(2, member.getName());
 			pstm.setString(3, member.getPassword());
@@ -114,14 +111,13 @@ public class MemberDaoImpl implements MemberDao {
 			pstm.setInt(7, member.getUid());
 			int result = pstm.executeUpdate();
 
-			 return result;
-		}catch (Exception e) {
+			return result;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("345");
 		return -1;
 	}
-	
+
 	@Override
 	public Member selectByEmail(String email) {
 		final String sql = "select * from USER where u_email = ?";

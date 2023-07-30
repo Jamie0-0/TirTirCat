@@ -5,10 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import member.vo.Member;
+
 @Entity
-@Table
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "PET")
 public class Pet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,77 +42,8 @@ public class Pet {
 	private String petSex;
 	@Column(name = "pet_person")
 	private Integer petPerson;
-
-	public Integer getPetId() {
-		return petId;
-	}
-
-	public void setPetId(Integer petId) {
-		this.petId = petId;
-	}
-
-	public Integer getuId() {
-		return uId;
-	}
-
-	public void setuId(Integer uId) {
-		this.uId = uId;
-	}
-
-	public Integer getPetType() {
-		return petType;
-	}
-
-	public void setPetType(Integer petType) {
-		this.petType = petType;
-	}
-
-	public String getPetName() {
-		return petName;
-	}
-
-	public void setPetName(String petName) {
-		this.petName = petName;
-	}
-
-	public String getPetBreed() {
-		return petBreed;
-	}
-
-	public void setPetBreed(String petBreed) {
-		this.petBreed = petBreed;
-	}
-
-	public Integer getPetAge() {
-		return petAge;
-	}
-
-	public void setPetAge(Integer petAge) {
-		this.petAge = petAge;
-	}
-
-	public byte[] getPetPic() {
-		return petPic;
-	}
-
-	public void setPetPic(byte[] petPic) {
-		this.petPic = petPic;
-	}
-
-	public String getPetSex() {
-		return petSex;
-	}
-
-	public void setPetSex(String petSex) {
-		this.petSex = petSex;
-	}
-
-	public Integer getPetPerson() {
-		return petPerson;
-	}
-
-	public void setPetPerson(Integer petPerson) {
-		this.petPerson = petPerson;
-	}
-
+	
+//	@ManyToOne
+//	@JoinColumn(name = "pet_uid", insertable = false, updatable = false)
+//	private Member member;
 }
