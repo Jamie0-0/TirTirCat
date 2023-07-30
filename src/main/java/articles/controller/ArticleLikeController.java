@@ -6,16 +6,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import articles.ariclesUtils.ArticlesUtils;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 
 
-@WebServlet("/artDnone")
-public class TheArtDnoneController extends HttpServlet {
-
+@WebServlet("/artLike")
+public class ArticleLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private ArticlesService service;
 
 	@Override
@@ -24,15 +24,19 @@ public class TheArtDnoneController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String art_id = (String) session.getAttribute("art_id");
-		String count = service.selectCountById("dnone",art_id);
 		
-		response.setContentType("plain/text; charset=UTF-8");
-        // 寫出
-        response.getWriter().write(count);
+		request.setCharacterEncoding("UTF-8");
+		
+		String art_id = request.getParameter("art_id");
+		String uid = request.getParameter("uid");
+		int status = service.likeArticle(art_id, uid);
+		
+		String json = ArticlesUtils.TurnIntoJson(status);
+		
+		response.setContentType("application/json");
+		response.getWriter().write(json);
+		
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

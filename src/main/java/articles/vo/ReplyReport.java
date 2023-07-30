@@ -2,7 +2,6 @@ package articles.vo;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,38 +16,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "articles", catalog = "FurrEver")
+@Table (name = "reply_report", catalog = "FurrEver")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article extends Core{
+public class ReplyReport extends Core{
 	
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer art_id;
+	private Integer rrep_id;
 	
-	private Integer art_user_id;
+	private Integer rrep_reply_id;
+	
+	private Integer rrep_user_id;
+	
+	private String rrep_reason;
 	@Transient
-	private Integer uid;
+	private Timestamp rrep_time;
 	@Transient
-	private String u_name;
+	private String rrep_status;
 
-	private String art_title;
-
-	private String art_content;
-	@Column (insertable = false)
-	private Timestamp art_po_time;
-	@Column (insertable = false)
-	private Integer art_like;
-	@Transient
-	private Integer com_count;
-	@Column(insertable = false)
-	private Integer art_rep_count;
-	@Column (insertable = false)
-	private String art_status;	
-	
-	
 }

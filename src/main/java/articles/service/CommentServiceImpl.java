@@ -49,8 +49,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public String insertComment(String com_art_id, String com_user_id, String com_content) {
-		String status = "";
+	public int insertComment(String com_art_id, String com_user_id, String com_content) {
+		int status = 0;
 		try {
 			beginTransaction();
 			status = dao.insertComment(com_art_id, com_user_id, com_content);
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
-			status = "新增留言失敗";
+			System.out.println("新增留言失敗");
 		}
 		return status;
 	}

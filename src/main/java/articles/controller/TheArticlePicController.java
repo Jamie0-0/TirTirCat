@@ -17,6 +17,7 @@ import articles.ariclesUtils.*;
 @WebServlet("/carousel")
 public class TheArticlePicController extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 
 	@Override

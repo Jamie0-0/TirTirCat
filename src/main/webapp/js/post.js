@@ -44,7 +44,7 @@ $(document).ready(function() {
   $("#post-form").on("submit", function(e) {
     e.preventDefault();
 
-    let formData = new FormData(this);
+    let formData = new FormData(this);  // 收集所有form表單裡的input值
     $.ajax({
       url: "/TirTirCat/ArtInsert",
       type: "POST",

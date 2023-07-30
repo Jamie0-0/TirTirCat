@@ -43,8 +43,7 @@ public class CommentUpdateController extends HttpServlet {
 
 		String status =  service.updateComment(com_id, com_content);
 
-		response.setContentType("text/plain");
-		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/plain; charset=UTF-8");
 		response.getWriter().write(status);
 	}
 
