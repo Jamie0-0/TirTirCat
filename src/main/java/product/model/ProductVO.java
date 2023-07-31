@@ -4,6 +4,11 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ProductVO {
+	
+	
+	
+	
+	
     private Integer a;
     private Integer b;
     private Integer c;
