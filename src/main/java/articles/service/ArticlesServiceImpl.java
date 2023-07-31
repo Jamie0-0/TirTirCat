@@ -1,17 +1,14 @@
 package articles.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import articles.dao.ArticlesDao;
 import articles.dao.ArticlesDaoImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import articles.vo.ArticlesLike;
+import redis.clients.jedis.exceptions.JedisException;
 
 public class ArticlesServiceImpl implements ArticlesService {
 	private ArticlesDao dao;
@@ -23,20 +20,70 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public List<Article> selectHot(String page) {
-		List<Article> list;
-		if (dao.selectHotRedis(page)  == null || dao.selectHotRedis(page).isEmpty()) {
-			list = dao.selectAllHot();
-			dao.saveHotArticlesToRedis(list); // 把熱門全部存進去
+		List<Article> list = null;
+		try {
+			list = dao.selectRedis(page,"hot");
+			if (list == null || list.isEmpty()) {
+				return dao.selectHot(page);
+			}
+		} catch (Exception e) {
+			System.out.println("selectHot錯誤");
+			e.printStackTrace();
 			list = dao.selectHot(page);
-		} else {
-			list = dao.selectHotRedis(page); // 調用部分熱門
 		}
+	
 		return list;
+	}
+	
+	@Override
+	public void saveAllHotArticles() {
+		
+		try {
+			
+			dao.saveHotArticlesToRedis(dao.selectAllHot()); // 把熱門全部存進去
+			
+		} catch (Exception e) {
+			System.out.println("saveAllHotArticles錯誤");
+			e.printStackTrace();
+		}
+
+	}
+	
+	@Override
+	public void saveAllNewArticles() {
+		
+		try {
+			
+			dao.saveNewArticlesToRedis(dao.selectAllNew()); 
+			
+		} catch (Exception e) {
+			System.out.println("saveAllNewArticles錯誤");
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
+	public Integer selectComCount(int com_art_id) {
+		
+		return dao.selectComCount(com_art_id);
+	}
+	
+	@Override
 	public List<Article> selectNew(String page) {
-		return dao.selectNew(page);
+		List<Article> list = null;
+		try {
+			list = dao.selectRedis(page, "new");
+			if (list == null || list.isEmpty()) {
+				return dao.selectNew(page);
+			}
+		}  catch (Exception e) {
+			System.out.println("selectNew錯誤");
+			e.printStackTrace();
+			list = dao.selectNew(page);
+		}
+	
+		return list;
 	}
 
 	@Override
@@ -48,26 +95,40 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public ArticlePic selectPic(String art_id) {
 
 		ArticlePic articlePic = null;
-		if (dao.selectRedisPic(art_id).getPic_content() == null) { // 注意不是dao.selectRedisPic(art_id) == null
-			articlePic = dao.selectPic(art_id);
-			dao.savePicToRedis(art_id, articlePic);
-			return dao.selectPic(art_id);
-		} else {
+		try {
 			articlePic = dao.selectRedisPic(art_id);
-		}
+			if (dao.selectRedisPic(art_id).getPic_content() == null) { // 注意不是dao.selectRedisPic(art_id) == null
+				articlePic = dao.selectPic(art_id);
+				dao.savePicToRedis(art_id, articlePic);
+			}
 
+		} catch (JedisException e) {
+			System.out.println("selectRedisPic錯誤");
+			e.printStackTrace();
+			return dao.selectPic(art_id);
+		} catch (Exception e) {
+			System.out.println("selectPic其他錯誤");
+			e.printStackTrace();
+		}
 		return articlePic;
 	}
 
 	@Override
 	public ArticlePic selectAvatar(String uid) {
 		ArticlePic avatarPic = null;
-		if (dao.selectRedisAvatar(uid).getPic_content() == null) { // 注意不是dao.selectRedisAvatar(uid) == null
-			avatarPic = dao.selectAvatar(uid);
-			dao.saveAvatarToRedis(uid, avatarPic);
-			return dao.selectAvatar(uid);
-		} else {
+		try {
 			avatarPic = dao.selectRedisAvatar(uid);
+			if (dao.selectRedisAvatar(uid).getPic_content() == null) { // 注意不是dao.selectRedisAvatar(uid) == null
+				avatarPic = dao.selectAvatar(uid);
+				dao.saveAvatarToRedis(uid, avatarPic);
+			}
+		} catch (JedisException e) {
+			System.out.println("selectRedisAvatar錯誤");
+			e.printStackTrace();
+			avatarPic = dao.selectAvatar(uid);
+		} catch (Exception e) {
+			System.out.println("selectAvatar其他錯誤");
+			e.printStackTrace();
 		}
 		return avatarPic;
 	}
@@ -115,67 +176,184 @@ public class ArticlesServiceImpl implements ArticlesService {
 	// 新增功能
 
 	@Override
-	public String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
-	    
-		DataSource ds = null;
-		Connection conn = null;
-	    String status = "新增失敗";
-		try {
-			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/FurrEver");
-		} catch (NamingException e) {
-			e.printStackTrace();
+	public int insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList) {
+		int status = 0;
+		int pic_art_id = dao.insertArticle(art_user_id, art_title, art_content);
+		if (pic_art_id != 0) {
+			status = dao.insertArticlePic(pic_art_id, imageList);
+		} else {
+			System.out.println("新增文章失敗");
 		}
-	    try {
-	    	conn = ds.getConnection();
-	        conn.setAutoCommit(false);
-
-	        String pic_art_id = dao.insertArticle(art_user_id, art_title, art_content, conn);  // 把conn傳到dao層
-	        if(!pic_art_id.equals("")) {
-	        	 status = dao.insertArticlePic(pic_art_id, imageList, conn);
-	        }
-	        
-	       
-
-	        conn.commit();
-	        status = "新增成功";
-
-	    } catch (SQLException e) {
-	    	System.out.println("錯了");
-	        e.printStackTrace();
-	        if (conn != null) {
-	            try {
-	                conn.rollback(); 
-	            } catch (SQLException ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-	    } finally {
-	        if (conn != null) {
-	            try {
-	                conn.setAutoCommit(true);
-	                conn.close();
-	            } catch (SQLException ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-	    }
-
-	    return status;
+		return status;
 	}
-	
+
+	@Override
+	public int deleteArtclePics(String pic_art_id) {
+
+		int status = dao.deleteArticlePics(pic_art_id);
+
+		return status;
+	}
 	
 	
 	@Override
-	public String deleteArtclePics(String pic_art_id) {
+	public int artReport(String rep_art_id, String crep_com_id, String rrep_reply_id, String uid, String rep_reason) {
 		
-		String status = dao.deleteArticlePics(pic_art_id);
+		int repArtId = Integer.parseInt(rep_art_id);
+		int crepComId = Integer.parseInt(crep_com_id);
+		int rrepReplyId = Integer.parseInt(rrep_reply_id);
+		int userId = Integer.parseInt(uid);
+		final String repReason;
 		
-		return status;
+		List<Integer> ids = Arrays.asList(repArtId, crepComId, rrepReplyId);
+		
+		
+		switch (rep_reason) {
+		case "1":
+			repReason = "不喜歡";
+			break;
+		case "2":
+			repReason = "重傷、挑釁、歧視、謾罵";
+			break;
+		case "3":
+			repReason = "18禁";
+			break;
+		case "4":
+			repReason = "內容空泛";
+			break;
+		case "5":
+			repReason = "虐待寵物";
+			break;
+		case "6":
+			repReason = "違反隱私";
+			break;
+		case "7":
+			repReason = "釣魚連結"; 
+			break;
+		default:
+			repReason = "";
+			break;
+		}
+		
+		System.out.println(repReason);
+
+		try {
+			beginTransaction();
+			
+			ids.stream()
+			   .filter(id -> id != 0)
+			   .forEach(id -> {
+			       if (id == repArtId) {
+			    	   dao.reportArt(id,userId,repReason);       // 檢舉文章
+			       } else if (id == crepComId) {
+			           dao.reportCrep(id,userId,repReason);	   // 檢舉留言
+			       } else if (id == rrepReplyId) {
+			           dao.reportRrep(id,userId,repReason);	   // 檢舉留言的回覆
+			       }
+			   });
+			
+			commit();
+		} catch (Exception e) {
+			System.out.println("檢舉失敗");
+			e.printStackTrace();
+			rollback();
+		}
+		
+		return 1;
 	}
 	// 新增功能 end
 	// delete
-	
-	
+
 	// delete end
+
+	// jedis refresh
+	@Override
+	public void jedisRefresh() {
+		dao.jedisRefresh();
+	}
+
+	// jedis tag
+	@Override
+	public void setArticlesTag(String tag) {
+		dao.setArticlesTag(tag);
+
+	}
 	
+	// update
+
+	@Override
+	public int updateArticle(String art_id, String art_title, String art_content, List<byte[]> imageList) {
+		
+		int status = 0;
+		int artId = Integer.parseInt(art_id);
+		
+		try {
+	
+		beginTransaction();
+		Article article = new Article();
+		article.setArt_id(artId);
+		article.setArt_title(art_title);
+		article.setArt_content(art_content);
+	
+		dao.updateArticle(article);
+		dao.jedisRefresh();
+		if(imageList.size() != 0) {
+		dao.deleteArticlePics(art_id);
+		dao.insertArticlePic(artId, imageList);
+		dao.jedisPicRefresh(art_id);
+		}
+		commit();
+		status = 1;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+		}
+		return status;
+	}
+	
+	@Override
+	public int likeArticle(String art_id, String uid) {
+		
+		int artId = Integer.parseInt(art_id);
+		int userId = Integer.parseInt(uid);
+		int result = -1;
+		
+		try {
+		
+			beginTransaction();
+			
+			// 先查
+			ArticlesLike articlesLike = dao.selectLike(artId, userId);
+			
+			if (articlesLike != null) {
+				result = dao.unLikeArticle(articlesLike);
+				
+				System.out.println("收回讚成功");
+				
+			} else {
+				// table: articles_like
+				dao.insertArticleLike(artId, userId);
+				
+				// table: articles
+				result = dao.likeArticle(artId);
+
+				System.out.println("按讚成功");
+			}
+			
+			commit();
+
+		} catch (Exception e) {
+			System.out.println("按讚或收回讚失敗");
+			e.printStackTrace();
+			rollback();
+		}
+		
+		return result;
+	}
+	// update end
+
+
+
+
 }

@@ -24,7 +24,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectComById(String com_art_id) {
-		String hql = "SELECT c FROM Comment c WHERE c.com_art_id = :com_art_Id";
+		String hql = "FROM Comment c WHERE c.com_art_id = :com_art_Id";
 		Integer int_com_art_id = Integer.parseInt(com_art_id);
 		Session session = getSession();
 
@@ -52,7 +52,7 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public List<Reply> selectReply(String reply_com_id) {
 		
-		String hql = "SELECT r FROM Reply r WHERE r.reply_com_id = :reply_com_id";
+		String hql = "FROM Reply r WHERE r.reply_com_id = :reply_com_id";
 		Integer int_reply_com_id = Integer.parseInt(reply_com_id);
 		Session session = getSession();
 
@@ -70,6 +70,40 @@ public class CommentDaoImpl implements CommentDao {
 		HibernateUtil.shutdown();
 
 		return null;
+	}
+
+	@Override
+	public int insertComment(String com_art_id, String com_user_id, String com_content) {
+
+		int status = 0;
+
+		Comment comment =  new Comment();
+		
+        comment.setCom_art_id(Integer.parseInt(com_art_id)); // 設置相應的屬性值
+        comment.setCom_user_id(Integer.parseInt(com_user_id));
+        comment.setCom_content(com_content);
+        
+        getSession().persist(comment);
+       
+        status = 1;
+
+		return status;
+	}
+	
+	@Override
+	public String updateComment(Comment newComment) {
+
+		String status = ""; 
+		Comment comment = getSession().load(Comment.class, newComment.getCom_id());
+        comment.setCom_content(newComment.getCom_content());
+        getSession().persist(comment);
+        status ="修改留言成功";
+		return status;
+	}
+
+	@Override
+	public void deleteComment(String com_id) {
+		getSession().remove(com_id);
 	}
 
 }

@@ -16,4 +16,54 @@ div.parent_block main.main p.article{
     background-color: #F6F0ED !important;
 }
 
+/* CSS 媒體查詢，當螢幕寬度小於 768px 時套用 */
+@media (max-width: 767px) {
+  /* 調整 list-group 樣式為垂直排列 */
+  .list-group {
+    flex-direction: column;
+  }
+
+  /* 調整 reply_username 和 reply_time 的寬度 */
+  .reply_username, .reply_time {
+    flex-basis: 50%;
+    text-align: center;
+  }
+
+  /* 調整圖片和資訊的佈局 */
+  .post-reply {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 將 flag icon 移至下方並置中 */
+  .reply-report {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+  }
+}
+/* CSS 媒體查詢，當螢幕寬度小於 768px 時套用 */
+@media (max-width: 767px) {
+  .list-group-horizontal {
+    flex-direction: column;
+  }
+
+  .avatar,
+  .com_username,
+  .com_time,
+  .com_content {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .com-reply-btn {
+    margin-top: 1rem;
+  }
+}
+
+
 

@@ -15,6 +15,8 @@ import articles.vo.Article;
 
 @WebServlet("/ArticlesJedis")
 public class ArticlesJedisController extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 	
 	public void init() throws ServletException {
@@ -25,7 +27,7 @@ public class ArticlesJedisController extends HttpServlet {
 		
 		String tag = "";
 		
-		List<Article> artList = service.selectAllArticles();
+		
 		service.setArticlesTag(tag);
 
 		// 標籤搜尋

@@ -4,56 +4,64 @@ let searchText = "";
 // 上文章內容、照片、頭像
 function addArt(data) {
 	if (data != null) {
-		for (var i = 0; i < data.length; i++) {
+		for (let i = 0; i < data.length; i++) {
 			$("p.author").eq(i).text(data[i].u_name);
 			$("p.author").eq(i).attr("uid", data[i].uid);
 			$("time.post-time").eq(i).text(data[i].art_po_time);
 			$("button.blog-button").eq(i).attr("art_id", data[i].art_id);
 			$("h5.card-title").eq(i).text(data[i].art_title);
-			$("p.card-text").eq(i).text(data[i].art_content);
+			$("div.card-text").eq(i).empty();
+			$("div.card-text").eq(i).append(data[i].art_content);
 			$("i.fa-heart").eq(i).text(data[i].art_like);
 			$("img.pic-content").eq(i).attr("art_id", data[i].art_id);
-		}
-	}
-	// 上照片
-	if (data != null) {
-		for (let i = 0; i < data.length; i++) {
+			
+			// 點愛心
+			$("i.fa-heart").eq(i).on("click", function(e){
+				// 避免重複點擊
+				e.stopPropagation();
+				$(this).css("pointer-events", "none");
+				fetch(`artLike?art_id=${data[i].art_id}&uid=3`)    // 登入的人 暫定uid=3
+				.then(response => response.json())
+				.then(data => {
+					if(data === -1){
+						
+					}else{
+						$("i.fa-heart").eq(i).text(data);
+					}
+				})
+				.finally(() => {
+				// 從元素中完全移除pointer-events屬性，恢復點擊事件
+					$(this).removeAttr("style");
+				});
+			});
+			
+			// 上照片
 			let artId = $("img.pic-content").eq(i).attr("art_id");
-			let that = $("img.pic-content").eq(i);
+
+			$("img.pic-content").eq(i).attr("src", "forum" + "?order=getPic&art_id=" + artId);  // 封面圖綁src
+					
+			// Avatar Picture
+			let uid = $("p.author").eq(i).attr("uid");
+			$("img.avatar").eq(i).attr("src", "avatar?uid=" + uid);  // 替avatar上src
+			
+			// ComCount
 			$.ajax({
-				url: "/TirTirCat/forum",           // 資料請求的網址
+				url: `artComCount?com_art_id=${data[i].art_id}`,           // 資料請求的網址
 				type: "GET",
-				data: {
-					order: "getPic",
-					art_id: artId
-				},
 				dataType: "json",
-				beforeSend: function() {
-					$(that).closest("div").append('<div class="temp_loading"><span><i class="fas fa-spinner fa-spin"></i></span></div>');
-				},
-				complete: function() {
-					$(that).closest("div").find("div.temp_loading").remove();
+				success: function(data) {
+					$("i.fa-comment").eq(i).text(data);
 				}
 			});
-			$("img.pic-content").eq(i).attr("src", "/TirTirCat/forum" + "?order=getPic&art_id=" + artId);  // 封面圖綁src
+		}
+		
+		for(let i= 0; i<3; i++){
+			if($("iframe").eq(i) != null){
+				$("iframe").eq(i).removeAttr("width").removeAttr("height");  // 避免YT影片跑版
+			}
 		}
 	}
-	// Avatar Picture
-	if (data != null) {
-		for (let i = 0; i < data.length; i++) {
-			let uid = $("p.author").eq(i).attr("uid");
-			$.ajax({
-				url: "/TirTirCat/forum",
-				type: "GET",
-				data: {
-					order: "getAvatar",
-					"uid": uid
-				},
-				dataType: "json",
-			});
-			$("img.avatar").eq(i).attr("src", "/TirTirCat/forum" + "?order=getAvatar&uid=" + uid);  // 替avatar上src
-		}
-	}
+	
 } // addArt()結束
 
 function disControl(length) {
@@ -93,37 +101,35 @@ function pageFilter(data) {
 	return page;
 }
 
-// 點擊分頁標籤的事件
+// 點擊分頁標籤的事件 發頁數給後端
 function clickPageTag(order, searchText, page) {
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		pe: "GET",
 		data: { "order": order, "searchText": searchText, "page": page },
 		dataType: "json",
 		success: function(data) {
-			addArt(data);
-			
-			console.log(data);
+			addArt(data);  // 渲染到畫面上
 			if (data===null) {
-				currentPage = page-1;
+				currentPage = page-1; // 請忽略
 			}else{
 				disControl(data.length);
 				currentPage = page;
 			}
-			
-			console.log("點完後=" + currentPage);
 		}
 	});
 };
 
 // 製造分頁標籤，綁定事件
-function pageTagCreator(order, searchText, page) {
-	$("a.btn-page").slice(0).remove();
-	for (let i = 1; i <= page; i++) {
-		let newButton = `<a class="btn btn-secondary btn-page">${i}</a>`;
-		$("#forum-page").append(newButton);
+function pageTagCreator(order, searchText, page) { //先傳請求查總共有幾筆，數學運算後回傳頁數傳進方法裡
+	$("a.btn-page").slice(0).remove(); // 移除先前已存在的頁籤
+	for (let i = 1; i <= page; i++) { // 看有幾頁就用迴圈跑幾次
+		let newButton = `<a class="btn btn-secondary btn-page">${i}</a>`; // i是頁數
+		$("#forum-page").append(newButton); // ->插入一個分頁按鈕
 		$("a.btn-page").eq(i - 1).on("click", function() {
-			clickPageTag(order, searchText, i);
+			
+			clickPageTag(order, searchText, i);  
+			// 綁點擊事件 傳i(頁數)到方法 方法用ajax發頁數給後端
 		});
 	}
 };
@@ -140,8 +146,11 @@ function fctSearch(data) {
 };
 // init
 function init() {
+	
+	
+	
 	$.ajax({
-		url: "/TirTirCat/forum",           // 資料請求的網址
+		url: "forum",           // 資料請求的網址
 		type: "GET",                  // GET | POST | PUT | DELETE | PATCH
 		data: { order: "hot", page: "1" },             // 將物件資料(不用雙引號) 傳送到指定的 url
 		dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
@@ -149,10 +158,13 @@ function init() {
 			addArt(data);
 		}
 	});
+	
+	// 存全部文章去Redis
+	fetch("saveAllArt");
 
 	// 添加分頁
 	$.ajax({
-		url: "/TirTirCat/forumPage",
+		url: "forumPage",
 		type: "GET",
 		data: {},
 		dataType: "json",
@@ -166,16 +178,15 @@ function init() {
 // 載入頁面
 $(function() {
 	init();
-	console.log("載入成功")
 });
 
 
 // 繼續閱讀
 $("button.blog-button").on("click", function() {
 	let artId = $(this).attr("art_id");
-	$(window).attr('location', '/TirTirCat/article.html');
+	$(window).attr('location', 'article.html');
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		type: "GET",
 		data: { order: "article", art_id: artId },
 		dataType: "json",
@@ -189,7 +200,7 @@ $("button.blog-button").on("click", function() {
 $("#forum-hot").on("click", function() {
 	var that = $(this);
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		type: "GET",
 		data: { order: "new", page: "1" },
 		dataType: "json",
@@ -202,7 +213,7 @@ $("#forum-hot").on("click", function() {
 		}
 	});
 	$.ajax({
-		url: "/TirTirCat/forumPage",
+		url: "forumPage",
 		type: "GET",
 		data: {},
 		dataType: "json",
@@ -228,7 +239,7 @@ $("#forum-search-btn").on("click", function() {
 	currentPage = 1;
 	searchText = $("#forum-search-input").val();
 	$.ajax({
-		url: "/TirTirCat/forum",
+		url: "forum",
 		type: "GET",
 		data: {
 			order: "search",
@@ -240,7 +251,7 @@ $("#forum-search-btn").on("click", function() {
 		}
 	});
 	$.ajax({
-		url: "/TirTirCat/forumPage",
+		url: "forumPage",
 		type: "GET",
 		data: { "searchText": searchText },
 		dataType: "json",
@@ -253,7 +264,6 @@ $("#forum-search-btn").on("click", function() {
 			}
 		}
 	});
-	//	$("#forum-search-input").val("");
 });
 
 // 搜尋Enter
@@ -264,7 +274,7 @@ $("#forum-search-input").on("keydown", function(e) {
 		currentPage = 1;
 		searchText = $("#forum-search-input").val();
 		$.ajax({
-			url: "/TirTirCat/forum",
+			url: "forum",
 			type: "GET",
 			data: {
 				order: "search",
@@ -276,7 +286,7 @@ $("#forum-search-input").on("keydown", function(e) {
 			}
 		});
 		$.ajax({
-			url: "/TirTirCat/forumPage",
+			url: "forumPage",
 			type: "GET",
 			data: { "searchText": searchText },
 			dataType: "json",
@@ -289,6 +299,5 @@ $("#forum-search-input").on("keydown", function(e) {
 				}
 			}
 		});
-		//	$("#forum-search-input").val("");
 	}
 });

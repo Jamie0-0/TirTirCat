@@ -17,4 +17,10 @@ public interface CommentDao {
 
 	List<Reply> selectReply(String reply_com_id);
 
+	int insertComment(String com_art_id, String com_user_id, String com_content);
+
+	String updateComment(Comment newComment);
+
+	void deleteComment(String com_id);
+
 }

@@ -25,19 +25,16 @@ public class AvatarController extends HttpServlet {
 		service = new ArticlesServiceImpl();
 	}
 
+//
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		try {
-			request.setCharacterEncoding("UTF-8");
-			
-				String uid = request.getParameter("uid");
-				ArticlePic avatarPic = service.selectAvatar(uid);
-				ArticlesUtils.sendPicToClient(avatarPic.getPic_content(),response);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		request.setCharacterEncoding("UTF-8");
+
+		String uid = request.getParameter("uid");
+		ArticlePic avatarPic = service.selectAvatar(uid);
+		ArticlesUtils.sendPicToClient(avatarPic.getPic_content(), response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

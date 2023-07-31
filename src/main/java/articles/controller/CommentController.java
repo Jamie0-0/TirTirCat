@@ -35,17 +35,9 @@ public class CommentController extends HttpServlet {
 
 		String json = ArticlesUtils.TurnIntoJson(commentList);
 
-		// 告訴前端response為json格式
-		response.setContentType("application/json");
-		// 設定編碼
-		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
 		// 寫出
 		response.getWriter().write(json);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

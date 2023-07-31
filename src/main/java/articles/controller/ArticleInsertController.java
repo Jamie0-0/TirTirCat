@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import articles.ariclesUtils.ArticlesUtils;
 import articles.service.ArticlesService;
 import articles.service.ArticlesServiceImpl;
 
@@ -63,26 +64,14 @@ public class ArticleInsertController extends HttpServlet {
             imageList.add(imageData);
             inputStream.close();
         }
-        System.out.println(imageList.size());
-		
-        // 獲取前端傳遞的 base64 編碼的圖片數據
-//      String base64ImageData = request.getParameter("imageData");
+        System.out.println("總共幾張照片="+imageList.size());
 
-      // 將 base64 編碼的數據解碼為 byte[]
-//		  byte[] imageData = Base64.getDecoder().decode(base64ImageData);
-
-      // 在這裡可以將 byte[] 保存到文件中或進行其他處理
+		int status = service.insertArticle(art_user_id, art_title, art_content,imageList);
 		
-		
-		
-		String status = service.insertArticle(art_user_id, art_title, art_content,imageList);
-		
-
-
-        // 返回回應給前端
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(status);
+		String jsonString = ArticlesUtils.TurnIntoJson(status);
+		// 告訴前端response為json格式 編碼為UTF-8
+		response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write(jsonString);
 	}
 
 }

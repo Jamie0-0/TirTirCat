@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編輯會員資料</title>
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="assets/css/styleGuide.css">
+
+    <style>
+        .change-infor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+        }
+
+        .left {
+            width: 50%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .right {
+            width: 50%;
+            padding: 20px;
+            /* display: flex; */
+            /* position: absolute; */
+        }
+
+        .profile-photo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #FFCB76;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-create {
+            display: inline-block;
+        }
+
+        .member_infor>a {
+            color: #bfb9fc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5 class="user_account">My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登出</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container  align-items-center mt-4 member-infor">
+        <div class="row">
+            <div class="col member_infor h5">
+                <a href="update_imfor.html">個人資訊</a>
+            </div>
+            <div class="col pet_infor h5">
+                <a href="pet.html">毛孩資訊</a>
+            </div>
+            <div class="col friend h5">
+                <a href="freind.html">好友列表</a>
+            </div>
+            <div class="col act_list h5">
+                <a href="trip.html">活動清單</a>
+            </div>
+            <div class="col tra_list h5">
+                <a href="#">追蹤清單</a>
+            </div>
+            <div class="col order h5">
+                <a href="#">訂單</a>
+            </div>
+            <div class="col article h5">
+                <a href="myarticle.html">文章管理</a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container change-infor">
+        <div class="left">
+            <h2>會員圖片</h2>
+            <img id="profile_photo_preview" class="profile-photo-preview" src="">
+            <input type="file" id="profile_photo" name="profile_photo" accept="image/*" disabled>
+        </div>
+        <div class="right">
+
+            <label for="email">會員帳號(e-mail)</label>
+            <input type="email" id="email" name="email" disabled>
+
+            <label for="name">姓名</label>
+            <input type="text" id="name" name="name" disabled>
+
+            <label for="passowrd">密碼</label>
+            <input type="text" id="password" name="password" disabled>
+
+            <label for="phone">手機</label>
+            <input type="text" id="phone" name="phone" disabled>
+
+            <label for="birthday">生日</label>
+            <input type="date" id="birthday" name="birthday" disabled>
+
+            <textarea id="about" class="form-control" rows="3" placeholder="關於我" disabled></textarea>
+
+            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="update">修改</button>
+
+            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="save">儲存變更</button>
+
+            <button type="button" class="btn-create rounded-pill w-100 mt-3" id="view">瀏覽個人檔案</button>
+
+        </div>
+    </div>
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Section End -->
+    <!-- latest jquery-->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="assets/js/feather/feather.min.js"></script>
+    <script src="assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="assets/js/slick/slick.js"></script>
+    <script src="assets/js/slick/slick-animation.min.js"></script>
+    <script src="assets/js/slick/custom_slick.js"></script>
+
+    <!-- Auto Height Js -->
+    <script src="assets/js/auto-height.js"></script>
+
+    <!-- Timer Js -->
+    <!-- <script src="../assets/js/timer1.js"></script> -->
+
+    <!-- Fly Cart Js -->
+    <script src="assets/js/fly-cart.js"></script>
+
+    <!-- Quantity js -->
+    <script src="assets/js/quantity-2.js"></script>
+
+    <!-- WOW js -->
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="assets/js/script.js"></script>
+    <script>
+        $(function () {
+            
+
+            let user_account_el = $("h5.user_account");
+            let email_el = $("input#email");
+            let name_el = $("input#name");
+            let password_el = $("input#password");
+            let phone_el = $("input#phone");
+            let birth_el = $("input#birthday");
+            let about_el = $("textarea#about");
+            let user_email = sessionStorage.getItem('email');
+            let uPic_el = $("img#profile_photo_preview");
+            let upPic_el = $("input#profile_photo");
+
+            $("input#profile_photo").on("change", function () {
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var base64String = e.target.result.split(',')[1]; // 獲取 Base64 編碼的圖片資料部分                     
+                    $("img#profile_photo_preview").attr("src", "data:image/jpeg;base64," + base64String);
+                }
+                reader.readAsDataURL(event.target.files[0]);
+
+            });
+
+            $("#view").on("click", function (e) {
+                e.preventDefault();
+                location.href = "member_center.html";
+            })
+
+            $("button#save").on("click", function () {
+                const userPic_el = $("img#profile_photo_preview").attr("src");
+                const base64UserPic = userPic_el.split(',')[1];     //擷取"data:image/jpeg;base64,"後面的值
+                fetch("updatemember", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email_el.val(),
+                        name: name_el.val(),
+                        password: password_el.val(),
+                        phone: phone_el.val(),
+                        about: about_el.val(),
+                        birth: birth_el.val(),
+                        uPic: base64UserPic,
+                        uid: sessionStorage.getItem("uid")
+                    }),
+                })
+                    .then(responce => responce.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert("修改成功");
+                        }
+                        else if (data.status === 'error') {
+                            alert("修改失敗");
+                        }
+                    })
+            })
+            fetch("showmember", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                }),
+            })
+                .then(responce => responce.json())
+                .then(data => {
+                    // console.log(data);
+                    if (data.status === "true") {
+                        const formattedDate = parseDateFromString(data.birth);
+
+                        user_account_el.text(data.username);
+                        email_el.val(data.email);
+                        name_el.val(data.username);
+                        password_el.val(data.password);
+                        phone_el.val(data.phone);
+                        birth_el.val(formattedDate);
+                        uPic_el.attr("src", "data:image/jpeg;base64," + data.uPic);
+
+                    }
+                })
+                .catch(error => {
+
+                });
+            $("button#update").on("click", function () {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 因為月份是從0開始，所以需要+1
+                const day = today.getDate().toString().padStart(2, '0');
+
+                const dateString = `${year}-${month}-${day}`;
+
+                const birth = document.getElementById('birthday');
+                birth.value = dateString;
+                const todaymax = new Date().toISOString().split('T')[0];
+                birth.max = todaymax;
+
+
+                email_el.prop("disabled", false);
+                name_el.prop("disabled", false);
+                password_el.prop("disabled", false);
+                phone_el.prop("disabled", false);
+                birth_el.prop("disabled", false);
+                about_el.prop("disabled", false);
+                upPic_el.prop("disabled", false);
+
+            })
+
+            // 定義函式 parseDateFromString，用於將日期字串格式化為 "yyyy-MM-dd" 的形式
+            function parseDateFromString(dateString) {
+                // 定義選項物件 options，包含了需要的日期格式，即年份為 4 位數字，月份和日期為 2 位數字
+                const options = {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                };
+
+                // 使用正規表示式和 Date.parse 方法將日期字串轉換為日期物件 dateObject
+                // 正規表示式用於提取 "7月 25, 2023" 中的年、月、日，並將其以 "yyyy-MM-dd" 的格式傳遞給 Date.parse 方法
+                const dateObject = new Date(Date.parse(dateString.replace(/(\d+)月 (\d+), (\d+)/, '$3-$1-$2')));
+
+                // 使用 toLocaleDateString 方法將日期物件 dateObject 轉換成本地化的日期字串 formattedDate
+                // 並將其格式化為 "yyyy-MM-dd" 的形式，符合我們要的日期格式
+                const formattedDate = dateObject.toLocaleDateString(undefined, options);
+
+                // 將 formattedDate 中的斜線 / 替換成短橫線 -
+                // 並將格式化後的日期字串 formattedDateForInput 設定給 <input> 元素的 value 屬性
+                const formattedDateForInput = formattedDate.replace(/\//g, '-');
+                return formattedDateForInput;
+            }
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寵物資訊</title>
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="assets/css/styleGuide.css">
+    <style>
+        .pet-container {
+            max-width: 800px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .preview-image {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        .pet_infor>a {
+            color: #bfb9fc;
+        }
+
+        #save-pet {
+            background-color: #FFCB76;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="#" id="logout">登出</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- 列表 -->
+    <div class="container  align-items-center mt-4 member-infor">
+        <div class="row">
+            <div class="col member_infor h5">
+                <a href="update_imfor.html">個人資訊</a>
+            </div>
+            <div class="col pet_infor h5">
+                <a href="pet.html">毛孩資訊</a>
+            </div>
+            <div class="col friend h5">
+                <a href="freind.html">好友列表</a>
+            </div>
+            <div class="col act_list h5">
+                <a href="trip.html">活動清單</a>
+            </div>
+            <div class="col tra_list h5">
+                <a href="collect.html">追蹤清單</a>
+            </div>
+            <div class="col order h5">
+                <a href="#">訂單</a>
+            </div>
+            <div class="col article h5">
+                <a href="#">文章管理</a>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <!-- end 列表 -->
+    <div class="container pet-container mt-5">
+        <div class="row">
+            <div class="col-8">
+                <form>
+                    <div class="row mb-3">
+                        <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="petType" value="貓" checked>
+                                <label class="form-check-label">
+                                    貓
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="petType" value="狗">
+                                <label class="form-check-label">
+                                    狗
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡 必須介於0~30之間"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petGender" class="col-sm-3 col-form-label">寵物性別：</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="petGender">
+                                <option value="公">公</option>
+                                <option value="母">母</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petPersonality" class="col-sm-3 col-form-label">寵物個性：</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="petPersonality">
+                                <option value="活潑">活潑</option>
+                                <option value="內向">內向</option>
+                            </select>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="col-4">
+                <div class="preview">
+                    <img src="" alt="寵物照片" id="previewImage" class="preview-image">
+                </div>
+                <div class="text-center">
+                    <input type="file" id="petPhoto" accept="image/*">
+                </div>
+            </div>
+            <div class="text-center">
+                <span class="add-pet-btn"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                        fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg></span>
+            </div>
+        </div>
+    </div>
+    <div class="mx-auto" style="width: 200px">
+        <button type="submit" id="save-pet" class="btn-save mt-3 w-100 rounded-pill btn-lg">儲存修改</button>
+    </div>
+    </form>
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- latest jquery-->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="assets/js/feather/feather.min.js"></script>
+    <script src="assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="assets/js/slick/slick.js"></script>
+    <script src="assets/js/slick/slick-animation.min.js"></script>
+    <script src="assets/js/slick/custom_slick.js"></script>
+
+    <!-- Auto Height Js -->
+    <script src="assets/js/auto-height.js"></script>
+
+    <!-- Timer Js -->
+    <!-- <script src="assets/js/timer1.js"></script> -->
+
+    <!-- Fly Cart Js -->
+    <script src="assets/js/fly-cart.js"></script>
+
+    <!-- Quantity js -->
+    <script src="assets/js/quantity-2.js"></script>
+
+    <!-- WOW js -->
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/custom-wow.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let user_account_el = $("h5");
+
+            fetch("showusername", {
+                method: "POST",
+                dataType: "json",
+                body: JSON.stringify({
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        user_account_el.text(data.username); // 假設伺服器回傳的資料中有 username 欄位，將其顯示在網頁上
+                    }
+                })
+                .catch(error => {
+                    console.log("請求錯誤");
+                });
+
+            $(".pet-container").on("click", "span.add-pet-btn", function () {
+                var newRow = $('<div class="row dynamic-pet-row">' +
+                    `
+                        <div class="col-8">
+                            <form>
+                                <div class="row mb-3">
+                                    <legend class="col-form-label col-sm-3 pt-0">寵物類型：</legend>
+                                    <div class="col-sm-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="petType" value="貓" checked>
+                                            <label class="form-check-label">
+                                                貓
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="petType" value="狗">
+                                            <label class="form-check-label">
+                                                狗
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petName" class="col-sm-3 col-form-label">寵物姓名：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="petName" placeholder="輸入寵物姓名" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petBreed" class="col-sm-3 col-form-label">寵物品種：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="petBreed" placeholder="輸入寵物品種" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petAge" class="col-sm-3 col-form-label">寵物年齡：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="petAge" placeholder="輸入寵物年齡 必須介於0~30之間" required> 
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petGender" class="col-sm-3 col-form-label">寵物性別：</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" name="petGender">
+                                            <option value="公">公</option>
+                                            <option value="母">母</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="petPersonality" class="col-sm-3 col-form-label">寵物個性：</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" name="petPersonality">
+                                            <option value="活潑">活潑</option>
+                                            <option value="內向">內向</option>
+                                        </select>
+                                    </div>
+                                </div>                        
+                            </div>
+                        <div class="col-4">
+                            <div class="preview">
+                                <img src="" alt="寵物照片" id="previewImage" class="preview-image">
+                            </div>
+                            <div class="text-center">
+                                <input type="file" id="petPhoto" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <span class="add-pet-btn"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                    fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg></span>
+                        </div>
+                    </form>`
+                );
+
+                $(".pet-container").append(newRow);
+            });
+
+            $(document).on("change", "#petPhoto", function () {
+                readURL(this);
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) { // 檢查是否選擇文件
+                    var file = input.files[0]; // 拿到文件
+                    var reader = new FileReader(); // 創建 FileReader 物件
+
+                    // 讀取檔案並在載入完成後執行以下回調函式
+                    reader.onload = function (e) {
+                        var base64String = e.target.result.split(',')[1]; // 獲取 Base64 編碼的圖片資料部分
+                        $(input).closest('.row').find('.preview-image').attr("src", "data:image/jpeg;base64," + base64String);
+                        // 將 Base64 編碼的圖片資料賦值給預覽圖片元素的 src 屬性，從而實現圖片預覽
+                    }
+                    reader.readAsDataURL(file); // 以 DataURL 格式讀取檔案資料，這樣可以獲取 Base64 編碼的圖片資料
+                }
+            }
+        });
+
+        //當登出被點擊時
+        $("a#logout").on("click", function(e){
+            console.log("123");
+            e.preventDefault();
+            sessionStorage.removeItem("uid");
+            location.href = "login.html";
+        })
+
+        const chineseOrEnglishRegex = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+        // 當按鈕被點擊時觸發抓取資料的函式
+        $("button.btn-save").on("click", function () {
+            let uid = sessionStorage.getItem("uid");
+            var allPetData = [];
+
+            const petType_el = $("input[name='petType']:checked").val()
+            const petName_el = $("input[name='petName']").val()
+            const petBreed_el = $("input[name='petBreed']").val()
+            const petAge_el = $("input[name='petAge']").val()
+            const petSex_el = $("select[name='petGender']").val()
+            const petPerson_el = $("select[name='petPersonality']").val()
+            const petPic_el = $("#previewImage").attr("src") // 假設預覽圖片的id為previewImage
+
+            if (petName_el.trim() === "" || petBreed_el.trim() === "" || petAge_el.trim() === "" || petPic_el.trim() === "") {
+                alert("請完整填寫全部寵物資訊");
+            }
+
+            if (!chineseOrEnglishRegex.test(petBreed_el)) {
+                alert("寵物品種必須是中文或英文");
+            }
+
+            if (isNaN(petAge_el)) {
+                alert("年齡必須是數字");
+            }
+
+            const petAgeNumber = parseInt(petAge_el, 10);
+
+            if (petAgeNumber < 0 || petAgeNumber > 30) {
+                alert("年齡必須介於0~30之間");
+            }
+
+            // 抓取靜態產生的寵物資料
+            var staticPetData = {
+                petType: petType_el,
+                petName: petName_el,
+                petBreed: petBreed_el,
+                petAge: petAge_el,
+                petSex: petSex_el,
+                petPerson: petPerson_el,
+                petPic: petPic_el
+            };
+
+            // 將靜態產生的寵物資料加入到allPetData陣列中
+            allPetData.unshift(staticPetData);
+
+            // 抓取動態產生的寵物資料
+            $(".pet-container .row.dynamic-pet-row").each(function () {
+                var row = $(this);
+                var petType = row.find("input[name='petType']:checked").val();
+                var petName = row.find("input[name='petName']").val();
+                var petBreed = row.find("input[name='petBreed']").val();
+                var petAge = row.find("input[name='petAge']").val();
+                var petGender = row.find("select[name='petGender']").val();
+                var petPersonality = row.find("select[name='petPersonality']").val();
+                var petPhoto = row.find(".preview-image").attr("src");
+
+                if (!petName || !petBreed || !petAge || !petPic) {
+                    alert("請填寫所有欄位");
+                }
+
+                if (!chineseOrEnglishRegex.test(petBreed)) {
+                    alert("寵物品種必須是中文或英文");
+                }
+
+                if (isNaN(petAge)) {
+                    alert("年齡必須是數字");
+                }
+
+                const petAgeNumber = parseInt(petAge, 10);
+
+                if (petAgeNumber < 0 || petAgeNumber > 30) {
+                    alert("年齡必須介於0~30之間");
+                }
+
+                allPetData.push({
+                    petType: petType,
+                    petName: petName,
+                    petBreed: petBreed,
+                    petAge: petAge,
+                    petSex: petGender,
+                    petPerson: petPersonality,
+                    petPic: petPhoto
+                });
+            });
+
+            fetch("petcontroller", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    uid: uid,
+                    petsData: allPetData
+                }),
+            })
+                .then(responce => responce.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.status === "true") {
+                        alert("新增成功");
+                    }
+                })
+                .catch(error => {
+                    console.log("請求錯誤");
+                });
+        });
+    </script>
+</body>
+
+</html>

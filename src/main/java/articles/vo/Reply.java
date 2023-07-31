@@ -29,19 +29,18 @@ public class Reply extends Core{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
 	private Integer reply_id;
-	@Column
+	
 	private Integer reply_com_id;
-	@Column 
+
 	private Integer reply_user_id;
-	@Column 
+
 	private String reply_content;
-	@Column 
+	@Column (insertable = false)
 	private Timestamp reply_date_time;
-	@Column 
+	@Column (insertable = false)
 	private Integer reply_rep_count;
-	@Column 
+	@Column (insertable = false)
 	private String reply_status;
     @Transient // 告訴 Hibernate 不需要映射到數據庫
     private String u_name;
@@ -49,7 +48,6 @@ public class Reply extends Core{
     @ManyToOne
     @JoinColumn(name = "REPLY_USER_ID", insertable = false, updatable = false)
     private User user; // 對應到 User 實體
+
     
-
-
 }

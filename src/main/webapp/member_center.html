@@ -32,6 +32,58 @@
     <!-- 自己的css -->
     <link rel="stylesheet" href="assets/css/styleGuide.css">
 
+    <style>
+        .member-container,
+        .pet-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 40px;
+        }
+
+        .member-photo img,
+        .pet-photo img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-introduction,
+        .pet-introduction {
+            max-width: 50%;
+            padding: 20px;
+        }
+
+        .member-introduction h2,
+        .pet-introduction h2 {
+            /* font-size: 24px; */
+            margin-bottom: 10px;
+        }
+
+        .member-introduction p {
+            /* font-size: 16px; */
+            line-height: 1.6;
+        }
+
+        .pet-introduction label {
+            display: block;
+            margin-bottom: 5px;
+            /* Add margin to separate the labels */
+        }
+
+        .pet-introduction ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pet-introduction li {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -146,6 +198,14 @@
                                                 <h5 class="user_account">My Account</h5>
                                             </div>
                                         </div>
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="#" id="logout">登出</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -235,7 +295,44 @@
     <!-- end 列表 -->
 
 
+
     <!-- 個人資訊 -->
+    <main class="member">
+        <div class="member-container row">
+            <div class="member-photo col-2 d-flex align-items-center justify-content-around">
+                <!-- Member's profile picture -->
+                <img src="path/to/member_photo.jpg" alt="Member Profile Picture" class="uPic">
+            </div>
+            <div class="member-introduction col-10">
+                <!-- Member's introduction -->
+                <h2>關於我</h2>
+                <p id="member_intro" class="h4"></p>
+            </div>
+        </div>
+        <!-- <div class="pet-container row">
+            <div class="pet-photo col-2 d-flex align-items-center justify-content-around ">
+                Pet's profile picture
+                <img src="path/to/pet_photo.jpg" alt="Pet Profile Picture">
+            </div> -->
+        <!-- <div class="pet-introduction col-10">
+                Pet's introduction
+                <h2 class="pet-name"></h2>
+                <ul>
+                    <li>
+                        <label for="" class="pet-breed">品種:<span class="pet-breed">123</span></label>
+
+                        <label for="" class="pet-age">年齡:<span class="pet-age"></span></label>
+
+                        <label for="" class="pet-sex">性別:<span class="pet-sex"></span></label>
+
+                        <label for="" class="pet-person">個性:<span class="pet-person"></span></label>
+
+                    </li>
+                </ul>
+            </div> -->
+        <!-- </div> -->
+    </main>
+    <!-- END 個人資訊 -->
 
     <!-- Footer Section Start -->
 
@@ -356,21 +453,98 @@
     <script src="assets/js/script.js"></script>
 
     <script>
+
         $(function () {
             let user_account_el = $("h5.user_account");
-            $.ajax({
-                url: "/TirTirCat/member/controller/memberCenterController",
-                type: "POST",
-                data: {
-                    
-                },
-                dataType: "json",
-                success: function (data) {               
-                    user_account_el.text(data);
-                }
-            })
+            let member_intro_el = $("p#member_intro");
+            //  拿到我存在sessionStorage的value
+            let uid = sessionStorage.getItem("uid");
+            let petName_el = $("h2.pet-name");
+            let petBreed_el = $("span.pet-breed");
+            let petAge_el = $("span.pet-age");
+            let petSex_el = $("span.pet-sex");
+            let petPerson_el = $("span.pet-person");
+            let uPic_el = $("img.uPic");
 
+            fetch
+            fetch("memberCenterController", {
+                method: "POST",
+                dataType: "json",
+                body: JSON.stringify({
+                    uId: uid
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "true") {
+                        user_account_el.text(data.username); // 假設伺服器回傳的資料中有 username 欄位，將其顯示在網頁上
+                        member_intro_el.text(data.about);
+                        uPic_el.attr("src","data:image/jpeg;base64," + data.uPic);
+                    }
+                })
+                .catch(error => {
+                    console.log("請求錯誤");
+                });
+            fetch("findpetcontroller", {
+                method: "POST",
+                dataType: "json",
+                body: JSON.stringify({
+                    uId: uid
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.status === "success") {
+                        const petContainer = $("#pet-container");
+                        const petDataArray = data.petdata;
+
+
+                        for (var i = 0; i < petDataArray.length; i++) {
+                            const petData = petDataArray[i]; // 取得目前索引 i 的 petData 物件
+                            // console.log(petData.petPic);
+                            const newRow = `
+                                <div class="pet-container row">
+                                    <div class="pet-photo col-2 d-flex align-items-center justify-content-around">
+                                        <img src= "data:image/jpeg;base64, ${petData.petPic}" alt="Pet Profile Picture">
+                                    </div>
+                                    <div class="pet-introduction col-10"> 
+                                        <h2 class="pet-name">${petData.petName}</h2>
+                                        <ul>
+                                            <li>
+                                                <label for="petBreed" class="pet-breed h4">品種:<span class="pet-breed h4">${petData.petBreed}</span></label>
+                                                <label for="petAge" class="pet-age h4">年齡:<span class="pet-age h4">${petData.petAge}</span></label>
+                                                <label for="petGender" class="pet-sex h4">性別:<span class="pet-sex h4">${petData.petSex === "0" ? "公" : "母"}</span></label>
+                                                <label for="petPersonality" class="pet-person h4">個性:<span class="pet-person h4">${petData.petPerson === "1" ? "活潑" : "內向"}</span></label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>`;
+
+                            $("main.member").append(newRow);
+
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log("請求錯誤");
+                });
+
+
+            $("a#logout").on("click", function () {
+                fetch("/TirTirCat/logout", {
+                    method: "GET",
+                    dataType: "json"
+                })
+                    .then(responce => responce.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            location.href = "login.html";
+                        }
+                    })
+            })
         });
+
     </script>
 </body>
 
