@@ -116,7 +116,6 @@ public class ProductServlet extends HttpServlet {
 			// 查詢完成,準備轉交
 			req.setAttribute("proVO", proVO);
 			String url = "/backEnd/update-product.jsp";
-//			String url = "/backEnd/ttttttt.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -232,18 +231,6 @@ public class ProductServlet extends HttpServlet {
 											.setP_class(p_class)
 											.setP_des(p_des)
 											.build();
-
-//			ProductVO proVO = new ProductVO();
-//			proVO.setP_id(p_id);
-//			proVO.setP_name(p_name);
-//			proVO.setP_price(Integer.parseInt(p_price));
-//			proVO.setP_stock(Integer.parseInt(p_stock));
-//			proVO.setP_type(p_type);
-//			proVO.setP_status(p_status);
-//			proVO.setP_class(p_class);
-//			proVO.setP_des(p_des);
-
-
 
 			if (!errorMsgs.isEmpty()) {
 				filecontent4.close();
@@ -398,14 +385,6 @@ public class ProductServlet extends HttpServlet {
 											.setP_class(p_class)
 											.setP_des(p_des)
 											.build();
-
-//			ProductVO proVO = new ProductVO();
-//			proVO.setP_name(p_name);
-//			proVO.setP_price(Integer.parseInt(p_price));
-//			proVO.setP_stock(Integer.parseInt(p_stock));
-//			proVO.setP_type(p_type);
-//			proVO.setP_class(p_class);
-//			proVO.setP_des(p_des);
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("proVO", proVO);

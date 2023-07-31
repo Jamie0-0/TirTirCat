@@ -1,4 +1,5 @@
 <%@page import="product.model.*"%>
+<%@page import="master.model.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
@@ -8,8 +9,8 @@ ProductDAO dao = new ProductDAO();
 ProductVO iValue = dao.indexValue(1);
 
 ProductDAO dao2 = new ProductDAO();
-List<ProductVO> list1 = dao2.indexNatrix1(1);
-List<ProductVO> list2 = dao.indexNatrix2();
+List<MasterPicVO> list1 = dao2.indexNatrix1(1);
+List<MasterPicVO2> list2 = dao2.indexNatrix2();
 %>
 
 
@@ -62,11 +63,6 @@ List<ProductVO> list2 = dao.indexNatrix2();
 </head>
 
 <body>
-
-
-
-
-
 	<div class="tap-top">
 		<span class="lnr lnr-chevron-up"></span>
 	</div>
@@ -332,62 +328,43 @@ List<ProductVO> list2 = dao.indexNatrix2();
 									<div class="card-header-title">
 										<h4>最暢銷產品</h4>
 									</div>
-
-									<div class="best-selling-box d-sm-flex d-none">
-										<div class="dropdown">
-											<ul class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton1">
-												<li><a class="dropdown-item" href="#">行動</a></li>
-												<li><a class="dropdown-item" href="#">額外行動</a></li>
-												<li><a class="dropdown-item" href="#">其他</a></li>
-											</ul>
-										</div>
-									</div>
 								</div>
 
 								<div class="card-body p-0">
-									<div>
-										<div class="table-responsive">
-											<table
-												class="best-selling-table w-image w-image w-image table border-0">
-												<tbody>
-
-
-
-
-													<c:forEach var="productVO" items="<%=list1%>">
-														<tr>
-															<td>
-																<div class="best-product-box">
-																	<div class="product-image">
-																		<img
-																			src="<%=request.getContextPath()%>/backEnd/assets/images/product/1.jpg"
-																			class="img-fluid" alt="Product">
-																	</div>
-																	<div class="product-name">
-																		<h6>商品名稱:</h6>
-																		<h5>${productVO.p_name}</h5>
-																	</div>
+									<div class="table-responsive">
+										<table
+											class="best-selling-table w-image w-image w-image table border-0">
+											<tbody>
+												<c:forEach var="productVO" items="<%=list1%>">
+													<tr>
+														<td>
+															<div class="best-product-box">
+																<div class="product-image">
+																<img src="data:image/jpeg;base64,${productVO.p_pic_one}" alt="Product Image" width="200">
 																</div>
-															</td>
+																<div class="product-name">
+																	<h6>商品名稱:</h6>
+																	<h5>${productVO.p_name}</h5>
+																</div>
+															</div>
+														</td>
 
-															<td>
-																<div class="product-detail-box">
-																	<h6>數量</h6>
-																	<h5>${productVO.b}</h5>
-																</div>
-															</td>
-															<td>
-																<div class="product-detail-box">
-																	<h6>收益</h6>
-																	<h5>${productVO.c}</h5>
-																</div>
-															</td>
-														</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
+														<td>
+															<div class="product-detail-box">
+																<h6>數量</h6>
+																<h5>${productVO.b}</h5>
+															</div>
+														</td>
+														<td>
+															<div class="product-detail-box">
+																<h6>收益</h6>
+																<h5>${productVO.c}</h5>
+															</div>
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
@@ -427,13 +404,11 @@ List<ProductVO> list2 = dao.indexNatrix2();
 															<td>
 																<div class="best-product-box">
 																	<div class="product-image">
-																		<img
-																			src="<%=request.getContextPath()%>/backEnd/assets/images/product/1.jpg"
-																			class="img-fluid" alt="Product">
+																		<img src="data:image/jpeg;base64,${productVO2.u_pic}" alt="Product Image" width="200">
 																	</div>
 																	<div class="product-name">
 																		<h6>收件者:</h6>
-																		<h5>${productVO2.p_name}</h5>
+																		<h5>${productVO2.order_r_name}</h5>
 																	</div>
 																</div>
 															</td>
@@ -441,29 +416,29 @@ List<ProductVO> list2 = dao.indexNatrix2();
 															<td>
 																<div class="product-detail-box">
 																	<h6>電話</h6>
-																	<h5>${productVO2.p_des}</h5>
+																	<h5>${productVO2.order_r_phone}</h5>
 																</div>
 															</td>
 															<td>
 																<div class="product-detail-box">
 																	<h6>地址</h6>
-																	<h5>${productVO2.p_1}</h5>
+																	<h5>${productVO2.order_r_addr}</h5>
 																</div>
 															</td>
 															<td>
 																<div class="product-detail-box">
 																	<h6>消費金額</h6>
-																	<h5>${productVO2.p_price}</h5>
+																	<h5>${productVO2.order_t}</h5>
 																</div>
 															</td>
 															<td>
 																<div class="product-detail-box">
 																	<h6>付款狀態</h6>
- 																	<jsp:useBean id="payStatusSvc" scope="page"
- 																	class="payStatus.model.PayStatusService" />
-																	<c:forEach var="payStatusVO" items="${payStatusSvc.getAll()}">
-																		<h5>${productVO2.p_status==payStatusVO.pa_id ? payStatusVO.pa_name : ''}</h5>
-																	</c:forEach>
+  																	<jsp:useBean id="payStatusSvc" scope="page"
+  																	class="payStatus.model.PayStatusService" />
+ 																	<c:forEach var="payStatusVO" items="${payStatusSvc.getAll()}">
+ 																		<h5>${productVO2.order_pay==payStatusVO.pa_id ? payStatusVO.pa_name : ''}</h5>
+ 																	</c:forEach>
 																</div> 
 															</td>
 														</tr>
@@ -475,74 +450,6 @@ List<ProductVO> list2 = dao.indexNatrix2();
 								</div>
 							</div>
 						</div>
-
-						<!-- <div class="col-xxl-4 col-md-6">
-                            <div class="card o-hidden card-hover">
-                                <div class="card-header border-0">
-                                    <div class="card-header-title">
-                                        <h4>待辦事項清單</h4>
-                                    </div>
-                                </div>
-
-                                <div class="card-body pt-0">
-                                    <ul class="to-do-list">
-                                        <li class="to-do-item">
-                                            <div class="form-check user-checkbox">
-                                                <input class="checkbox_animated check-it" type="checkbox" value=""
-                                                    id="flexCheckDefault">
-                                            </div>
-                                            <div class="to-do-list-name">
-                                                <strong>接孩子放學</strong>
-                                                <p>8 Hours</p>
-                                            </div>
-                                        </li>
-                                        <li class="to-do-item">
-                                            <div class="form-check user-checkbox">
-                                                <input class="checkbox_animated check-it" type="checkbox" value=""
-                                                    id="flexCheckDefault1">
-                                            </div>
-                                            <div class="to-do-list-name">
-                                                <strong>準備或演示</strong>
-                                                <p>8 Hours</p>
-                                            </div>
-                                        </li>
-                                        <li class="to-do-item">
-                                            <div class="form-check user-checkbox">
-                                                <input class="checkbox_animated check-it" type="checkbox" value=""
-                                                    id="flexCheckDefault2">
-                                            </div>
-                                            <div class="to-do-list-name">
-                                                <strong>創建發票</strong>
-                                                <p>8 Hours</p>
-                                            </div>
-                                        </li>
-                                        <li class="to-do-item">
-                                            <div class="form-check user-checkbox">
-                                                <input class="checkbox_animated check-it" type="checkbox" value=""
-                                                    id="flexCheckDefault3">
-                                            </div>
-                                            <div class="to-do-list-name">
-                                                <strong>與艾麗莎會面</strong>
-                                                <p>8 Hours</p>
-                                            </div>
-                                        </li>
-
-                                        <li class="to-do-item">
-                                            <form class="row g-2">
-                                                <div class="col-8">
-                                                    <input type="text" class="form-control" id="name"
-                                                        placeholder="Enter Task Name">
-                                                </div>
-                                                <div class="col-4">
-                                                    <button type="submit" class="btn btn-primary w-100 h-100">新增
-                                                        項目</button>
-                                                </div>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> -->
 					</div>
 				</div>
 

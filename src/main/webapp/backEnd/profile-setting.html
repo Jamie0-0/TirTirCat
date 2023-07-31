@@ -269,23 +269,8 @@ console.log("111111111111111111");
 														</div>
 													</div>
 
-<!-- 													<div class="mb-4 row align-items-center"> -->
-<!-- 														<label class="form-label-title col-sm-2 mb-0">輸入密碼</label> -->
-<!-- 														<div class="col-sm-10"> -->
-<!-- 															<input id="m_pwd" class="form-control" type="password" -->
-<!-- 																placeholder="輸入密碼"> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-
-<!-- 													<div class="mb-4 row align-items-center"> -->
-<!-- 														<label class="form-label-title col-sm-2 mb-0">密碼確認</label> -->
-<!-- 														<div class="col-sm-10"> -->
-<!-- 															<input id="m_pwd2" class="form-control" type="password" -->
-<!-- 																placeholder="再次   輸入密碼"> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
 													<div class="button-box">
-														<button type="button" class="btn  btn--yes btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="javascript:void(0)">修改</button>
+														<button type="button" class="btn  btn--yes btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="javascript:void(0)" onclick="updateForm()">修改</button>
 													</div>
 												</div>
 											</form>
@@ -340,8 +325,7 @@ console.log("111111111111111111");
 	<script src="assets/js/icons/feather-icon/feather.min.js"></script>
 	<script src="assets/js/icons/feather-icon/feather-icon.js"></script>
 	
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script>
 		function init() {
 			$.ajax({
@@ -354,12 +338,11 @@ console.log("111111111111111111");
 				dataType : "json",
 
 				success : function(data) {
+
 					var parsedData = JSON.parse(data);
 					let m_id = parsedData.m_id;
 					let m_name = parsedData.m_name;
-					let m_pwd = parsedData.m_pwd;
 					let m_gui = parsedData.m_gui;
-					let m_bank_name = parsedData.m_bank_name;
 					let m_bank_id = parsedData.m_bank_id;
 					let m_address = parsedData.m_address;
 					let m_man_id = parsedData.m_man_id;
@@ -409,12 +392,6 @@ console.log("111111111111111111");
 		    return;
 		  }
 
-		  if (m_bank_name === "") {
-		    alert("請輸入銀行行號");
-		    return;
-		  }
-		  
-		  
 		  if (m_bank_id === "") {
 		    alert("請輸入銀行帳號");
 		    return;
@@ -509,6 +486,48 @@ console.log("111111111111111111");
 		document.getElementById("logoutLink").addEventListener("click", function() {
 		  window.location.href = "back_index.jsp";
 		});
+		
+
+		function updateForm() {
+
+            let m_id = "1";
+            let m_name = document.getElementById("m_name").value;
+            let m_gui = document.getElementById("m_gui").value;
+            let m_bank_id = document.getElementById("m_bank_id").value;
+            let m_address = document.getElementById("m_address").value;
+            let m_man_id = document.getElementById("m_man_id").value;
+            let m_man_name = document.getElementById("m_man_name").value;
+            console.log(document.getElementById("m_email").value);
+            let m_email = document.getElementById("m_email").value;
+            let m_phone = document.getElementById("m_phone").value;
+
+            $.ajax({
+                url: "http://localhost:8081/TirTirCat/mas.do",
+                type: "POST",
+                data: {
+                    "action": "update",
+                    "m_id": m_id,
+                    "m_name": m_name,
+                    "m_gui": m_gui,
+                    "m_bank_id": m_bank_id,
+                    "m_address": m_address,
+                    "m_man_id": m_man_id,
+                    "m_man_name": m_man_name,
+                    "m_email": m_email,
+                    "m_phone": m_phone,
+                },
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                },
+                complete: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        }
 	</script>
 </body>
 

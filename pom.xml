@@ -82,15 +82,21 @@
 			<version>8.0.33</version>
 		</dependency>
 		<dependency>
-			<groupId>THA102_To_Maven2</groupId>
-			<artifactId>THA102_To_Maven2</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.ron</groupId>
-			<artifactId>AjaxDBDemo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		<!--		<dependency>-->
+		<!--			<groupId>THA102_To_Maven2</groupId>-->
+		<!--			<artifactId>THA102_To_Maven2</artifactId>-->
+		<!--			<version>0.0.1-SNAPSHOT</version>-->
+		<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>com.ron</groupId>-->
+		<!--			<artifactId>AjaxDBDemo</artifactId>-->
+		<!--			<version>0.0.1-SNAPSHOT</version>-->
+		<!--		</dependency>-->
 	</dependencies>
 
 	<build>

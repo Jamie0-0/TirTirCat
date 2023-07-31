@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import master.model.MasterPicVO;
+import master.model.MasterPicVO2;
 import product.model.ProductVO;
 
 public class ProductJDBCDAO implements ProductDAO_interface{
@@ -27,13 +30,13 @@ public class ProductJDBCDAO implements ProductDAO_interface{
     }
     
     @Override
-    public List<ProductVO> indexNatrix1(Integer p_m_id){
+    public List<MasterPicVO> indexNatrix1(Integer p_m_id){
 
     	return null;
     }
 
     @Override
-    public List<ProductVO> indexNatrix2(){
+    public List<MasterPicVO2> indexNatrix2(){
     	
     	
     	

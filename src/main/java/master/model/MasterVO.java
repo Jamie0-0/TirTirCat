@@ -1,6 +1,7 @@
 package master.model;
 
 import java.time.LocalDateTime;
+
 public class MasterVO {
 
     private Integer m_id;

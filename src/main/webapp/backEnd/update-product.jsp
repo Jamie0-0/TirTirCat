@@ -26,9 +26,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 	href="<%=request.getContextPath()%>/backEnd/assets/images/favicon.png"
 	type="image/x-icon">
 <title>Frever - Update Product</title>
-<!-- <link -->
-<!-- 	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" -->
-<!-- 	rel="stylesheet"> -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/backEnd/assets/css/linearicon.css">
 <link rel="stylesheet" type="text/css"
@@ -247,7 +244,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 											<form METHOD="post" ACTION="<%=request.getContextPath()%>/pro.do" name="form1"
 												class="theme-form theme-form-2 mega-form"
 												enctype="multipart/form-data">
-												<!-- 								 enctype="multipart/form-data"	  autocomplete="off" -->
 												<div class="mb-4 row align-items-center">
 													<label class="form-label-title col-sm-3 mb-0">商品類別</label>
 													<div class="col-sm-9">

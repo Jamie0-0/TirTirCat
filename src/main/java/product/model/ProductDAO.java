@@ -9,9 +9,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import master.model.MasterPicVO;
+import master.model.MasterPicVO2;
+
 public class ProductDAO implements ProductDAO_interface  {
-	
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
 		try {
@@ -44,8 +45,8 @@ public class ProductDAO implements ProductDAO_interface  {
 			+ "where a.order_id = b.so_order_id\r\n"
 			+ "and so_m_id = ?\r\n"
 			+ ") as allvalue\r\n";
-
-	private static final String GET_TOP_PRO = "SELECT p_name,sum(p_m_stock) as 'a',sum(p_m_price) as 'b'\r\n"
+	
+	private static final String GET_TOP_PRO = "SELECT p_name,sum(p_m_stock) as 'a',sum(p_m_price)as 'b',p_pic_one \r\n"
 			+ "FROM FurrEver.sub_order,FurrEver.sub_product,FurrEver.product\r\n"
 			+ "where so_order_id = order_id\r\n"
 			+ "and p_p_id = p_id\r\n"
@@ -53,9 +54,9 @@ public class ProductDAO implements ProductDAO_interface  {
 			+ "group by p_p_id\r\n"
 			+ "order by 2 desc limit 3";
 	
-	
-	private static final String GET_TOP_ORD = "	SELECT *\r\n"
-			+ "	FROM FurrEver.product_order\r\n"
+	private static final String GET_TOP_ORD = "	SELECT order_r_name,order_r_phone,order_r_addr,order_t,order_pay,u_pic\r\n"
+			+ "	FROM FurrEver.product_order,FurrEver.user\r\n"
+			+ "	where uid = order_uid\r\n"
 			+ "	order by order_id limit 3";
 
     @Override
@@ -82,10 +83,6 @@ public class ProductDAO implements ProductDAO_interface  {
 											.setC(rs.getInt(3))
 											.setD(rs.getInt(4))
 											.build();
-//				productVO.setA(rs.getInt(1));
-//				productVO.setB(rs.getInt(2));
-//				productVO.setC(rs.getInt(3));
-//				productVO.setD(rs.getInt(4));			
 			}
 
 		} catch (SQLException se) {
@@ -118,9 +115,9 @@ public class ProductDAO implements ProductDAO_interface  {
     }
     
     @Override
-    public List<ProductVO> indexNatrix1(Integer p_m_id){
-    	List<ProductVO> list = new ArrayList<ProductVO>();
-    	ProductVO productVO = null;
+    public List<MasterPicVO> indexNatrix1(Integer p_m_id){
+    	List<MasterPicVO> list = new ArrayList<MasterPicVO>();
+    	MasterPicVO masterPicVO = null;
 
     	Connection con = null;
 		PreparedStatement pstmt = null;
@@ -135,16 +132,19 @@ public class ProductDAO implements ProductDAO_interface  {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-//				productVO = new ProductVO();
-//				productVO.setP_name(rs.getString(1));
-//				productVO.setB(rs.getInt(2));
-//				productVO.setC(rs.getInt(3));
-				productVO = new ProductVO.Builder()
+				String p1 = "";
+				if(rs.getBytes(4) != null) {
+					p1 = Base64.getEncoder().encodeToString(rs.getBytes(4));
+				}				
+
+				masterPicVO = new MasterPicVO.Builder()
 											.setP_name(rs.getString(1))
 											.setB(rs.getInt(2))
 											.setC(rs.getInt(3))
+											.setP_pic_one(p1)
 											.build();
-				list.add(productVO);
+
+				list.add(masterPicVO);
 			}
 
 		} catch (SQLException se) {
@@ -177,9 +177,9 @@ public class ProductDAO implements ProductDAO_interface  {
     }
 
     @Override
-    public List<ProductVO> indexNatrix2(){
-    	List<ProductVO> list = new ArrayList<ProductVO>();
-    	ProductVO productVO = null;
+    public List<MasterPicVO2> indexNatrix2(){
+    	List<MasterPicVO2> list = new ArrayList<MasterPicVO2>();
+    	MasterPicVO2 masterPicVO2 = null;
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -190,20 +190,19 @@ public class ProductDAO implements ProductDAO_interface  {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO.Builder()
-											.setP_name(rs.getString(3))
-											.setP_des(rs.getString(4))
-											.setP_1(rs.getString(5))
-											.setP_price(rs.getInt(7))
-											.setP_status(rs.getInt(9))
-											.build();
-//				productVO = new ProductVO();
-//				productVO.setP_name(rs.getString(3));
-//				productVO.setP_des(rs.getString(4));
-//				productVO.setP_1(rs.getString(5));
-//				productVO.setP_price(rs.getInt(7));
-//				productVO.setP_status(rs.getInt(9));
-				list.add(productVO);
+				String p1 = "";
+				if(rs.getBytes(6) != null) {
+					p1 = Base64.getEncoder().encodeToString(rs.getBytes(6));
+				}	
+				masterPicVO2 = new MasterPicVO2.Builder()
+												.setOrder_r_name(rs.getString(1))
+												.setOrder_r_phone(rs.getString(2))
+												.setOrder_r_addr(rs.getString(3))
+												.setOrder_t(rs.getString(4))
+												.setOrder_pay(rs.getString(5))
+												.setU_pic(p1)
+												.build();
+				list.add(masterPicVO2);
 			}
 
 		} catch (SQLException se) {
@@ -274,25 +273,6 @@ public class ProductDAO implements ProductDAO_interface  {
 											.setP_3(rs.getString("p_3"))
 											.build();
 
-//				productVO = new ProductVO();
-//				productVO.setP_id(rs.getInt("p_id"));
-//				productVO.setP_m_id(rs.getInt("p_m_id"));
-//				productVO.setP_name(rs.getString("p_name"));
-//				productVO.setP_price(rs.getInt("p_price"));
-//				productVO.setP_stock(rs.getInt("p_stock"));
-//				productVO.setP_count(rs.getInt("p_count"));
-//				productVO.setP_type(rs.getInt("p_type"));
-//				productVO.setP_class(rs.getInt("p_class"));
-//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-//				productVO.setP_des(rs.getString("p_des"));
-//				productVO.setP_status(rs.getInt("p_status"));
-//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-//				productVO.setP_1(rs.getString("p_1"));
-//				productVO.setP_2(rs.getString("p_2"));
-//				productVO.setP_3(rs.getString("p_3"));
 				list.add(productVO);
 			}
 		} catch (SQLException se) {
@@ -525,25 +505,6 @@ public class ProductDAO implements ProductDAO_interface  {
 											.setP_3(rs.getString("p_3"))
 											.build();
 
-//				productVO = new ProductVO();
-//				productVO.setP_id(rs.getInt("p_id"));
-//				productVO.setP_m_id(rs.getInt("p_m_id"));
-//				productVO.setP_name(rs.getString("p_name"));
-//				productVO.setP_price(rs.getInt("p_price"));
-//				productVO.setP_stock(rs.getInt("p_stock"));
-//				productVO.setP_count(rs.getInt("p_count"));
-//				productVO.setP_type(rs.getInt("p_type"));
-//				productVO.setP_class(rs.getInt("p_class"));
-//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-//				productVO.setP_des(rs.getString("p_des"));
-//				productVO.setP_status(rs.getInt("p_status"));
-//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-//				productVO.setP_1(rs.getString("p_1"));
-//				productVO.setP_2(rs.getString("p_2"));
-//				productVO.setP_3(rs.getString("p_3"));
 				list.add(productVO);
 			}
 		} catch (SQLException se) {
@@ -614,26 +575,6 @@ public class ProductDAO implements ProductDAO_interface  {
 											.setP_3(rs.getString("p_3"))
 											.build();
 
-//				productVO = new ProductVO();
-//				productVO.setP_id(rs.getInt("p_id"));
-//				productVO.setP_m_id(rs.getInt("p_m_id"));
-//				productVO.setP_name(rs.getString("p_name"));
-//				productVO.setP_price(rs.getInt("p_price"));
-//				productVO.setP_stock(rs.getInt("p_stock"));
-//				productVO.setP_count(rs.getInt("p_count"));
-//				productVO.setP_type(rs.getInt("p_type"));
-//				productVO.setP_class(rs.getInt("p_class"));
-//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-//				productVO.setP_des(rs.getString("p_des"));
-//				productVO.setP_status(rs.getInt("p_status"));
-//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-//				productVO.setP_1(rs.getString("p_1"));
-//				productVO.setP_2(rs.getString("p_2"));
-//				productVO.setP_3(rs.getString("p_3"));
-
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -662,8 +603,7 @@ public class ProductDAO implements ProductDAO_interface  {
 		}
 		return productVO;
 	}
-	
-	
+
 	@Override
 	public List<ProductVO> findByPrimaryKey2(Integer p_id,Integer p_status,Integer p_class) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
@@ -742,25 +682,6 @@ public class ProductDAO implements ProductDAO_interface  {
 										.setP_3(rs.getString("p_3"))
 										.build();
 
-//				productVO = new ProductVO();
-//				productVO.setP_id(rs.getInt("p_id"));
-//				productVO.setP_m_id(rs.getInt("p_m_id"));
-//				productVO.setP_name(rs.getString("p_name"));
-//				productVO.setP_price(rs.getInt("p_price"));
-//				productVO.setP_stock(rs.getInt("p_stock"));
-//				productVO.setP_count(rs.getInt("p_count"));
-//				productVO.setP_type(rs.getInt("p_type"));
-//				productVO.setP_class(rs.getInt("p_class"));
-//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-//				productVO.setP_des(rs.getString("p_des"));
-//				productVO.setP_status(rs.getInt("p_status"));
-//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-//				productVO.setP_1(rs.getString("p_1"));
-//				productVO.setP_2(rs.getString("p_2"));
-//				productVO.setP_3(rs.getString("p_3"));
 				list.add(productVO);
 			}
 		} catch (SQLException se) {
