@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		System.out.println("action===="+action);
 //=============================================================================
 //=============================================================================
 //=====================================單一查詢==================================
@@ -128,9 +128,6 @@ public class ProductServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			// 自製檢查程式
-			Tools t = new Tools();
-
 			// 商品編號一定正確故不檢查
 			Integer p_id = Integer.valueOf(req.getParameter("p_id"));
 
@@ -141,7 +138,7 @@ public class ProductServlet extends HttpServlet {
 				p_name = "";
 				errorMsgs.add("商品名稱: 請勿空白");
 			} else {
-				errMsg = t.check(p_name, "word");
+				errMsg = Tools.check(p_name, "word");
 				if (!errMsg.equals("ok")) {
 					errorMsgs.add("商品名稱:" + errMsg);
 				}
@@ -154,7 +151,7 @@ public class ProductServlet extends HttpServlet {
 				p_price = "0";
 				errorMsgs.add("商品價格: 請勿空白");
 			} else {
-				errMsg = t.check(p_price, "num");
+				errMsg = Tools.check(p_price, "num");
 
 				if (!errMsg.equals("ok")) {
 					errorMsgs.add("商品價格:" + errMsg);
@@ -169,7 +166,7 @@ public class ProductServlet extends HttpServlet {
 				p_stock = "0";
 				errorMsgs.add("商品數量: 請勿空白");
 			} else {
-				errMsg = t.check(p_stock, "num");
+				errMsg = Tools.check(p_stock, "num");
 				if (!errMsg.equals("ok")) {
 					errorMsgs.add("商品數量:" + errMsg);
 					p_stock = "0";
@@ -189,7 +186,7 @@ public class ProductServlet extends HttpServlet {
 			InputStream filecontent1 = filePart1.getInputStream();
 			byte[] p_pic_one = new byte[filecontent1.available()];
 			filecontent1.read(p_pic_one);
-
+			
 			InputStream filecontent2 = filePart2.getInputStream();
 			byte[] p_pic_two = new byte[filecontent2.available()];
 			filecontent2.read(p_pic_two);
@@ -202,30 +199,74 @@ public class ProductServlet extends HttpServlet {
 			byte[] p_pic_four = new byte[filecontent4.available()];
 			filecontent4.read(p_pic_four);
 
-			ProductVO proVO = new ProductVO();
-
-			proVO.setP_id(p_id);
-			proVO.setP_name(p_name);
-			proVO.setP_price(Integer.parseInt(p_price));
-			proVO.setP_stock(Integer.parseInt(p_stock));
-			proVO.setP_type(p_type);
-			proVO.setP_status(p_status);
-			proVO.setP_class(p_class);
-			proVO.setP_des(p_des);
-
+			//查詢資料庫是否有紀錄
 			ProductService proSvc2 = new ProductService();
 			ProductVO productVO1 = proSvc2.getOnePro(p_id);
+			Integer p_idSearch = productVO1.getP_id();
+
+			if(p_idSearch == null || p_idSearch == 0) {
+				if(p_pic_one.length == 0) {
+					errorMsgs.add("圖1:請輸入圖片");
+				}
+				
+				if(p_pic_two.length == 0) {
+					errorMsgs.add("圖2:請輸入圖片");
+				}			
+				
+				if(p_pic_three.length == 0) {
+					errorMsgs.add("圖3:請輸入圖片");
+				}
+				
+				if(p_pic_four.length == 0) {
+					errorMsgs.add("圖4:請輸入圖片");
+				}
+			}
+
+			ProductVO proVO = new ProductVO.Builder()
+											.setP_id(p_id)
+											.setP_name(p_name)
+											.setP_price(Integer.parseInt(p_price))
+											.setP_stock(Integer.parseInt(p_stock))
+											.setP_type(p_type)
+											.setP_status(p_status)
+											.setP_class(p_class)
+											.setP_des(p_des)
+											.build();
+
+//			ProductVO proVO = new ProductVO();
+//			proVO.setP_id(p_id);
+//			proVO.setP_name(p_name);
+//			proVO.setP_price(Integer.parseInt(p_price));
+//			proVO.setP_stock(Integer.parseInt(p_stock));
+//			proVO.setP_type(p_type);
+//			proVO.setP_status(p_status);
+//			proVO.setP_class(p_class);
+//			proVO.setP_des(p_des);
+
+
 
 			if (!errorMsgs.isEmpty()) {
 				filecontent4.close();
 				filecontent3.close();
 				filecontent2.close();
 				filecontent1.close();
-				String p1 = Base64.getEncoder().encodeToString(productVO1.getP_pic_one());
-				String p2 = Base64.getEncoder().encodeToString(productVO1.getP_pic_two());
-				String p3 = Base64.getEncoder().encodeToString(productVO1.getP_pic_three());
-				String p4 = Base64.getEncoder().encodeToString(productVO1.getP_pic_four());
+				String p1 = "";
+				String p2 = "";
+				String p3 = "";
+				String p4 = "";
 
+				if(productVO1.getP_pic_one() != null) {
+					p1 = Base64.getEncoder().encodeToString(productVO1.getP_pic_one());
+				}
+				if(productVO1.getP_pic_two() != null) {
+					p2 = Base64.getEncoder().encodeToString(productVO1.getP_pic_two());
+				}
+				if(productVO1.getP_pic_three() != null) {
+					p3 = Base64.getEncoder().encodeToString(productVO1.getP_pic_three());
+				}
+				if(productVO1.getP_pic_four() != null) {
+					p4 = Base64.getEncoder().encodeToString(productVO1.getP_pic_four());
+				}
 				// 將 Base64 編碼的圖片位元資料流傳遞給 JSP 頁面
 				req.setAttribute("p1", p1);
 				req.setAttribute("p2", p2);
@@ -261,16 +302,12 @@ public class ProductServlet extends HttpServlet {
 			filecontent1.close();
 		}
 
-		
 //=============================================================================
 //=============================================================================
 //=====================================新增資料==================================
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-
-			// 自製檢查程式
-			Tools t = new Tools();
 
 			// 商品名稱 - 錯誤處理
 			String p_name = req.getParameter("p_name");
@@ -279,7 +316,7 @@ public class ProductServlet extends HttpServlet {
 				p_name = "";
 				errorMsgs.add("商品名稱: 請勿空白");
 			} else {
-				errMsg = t.check(p_name, "word");
+				errMsg = Tools.check(p_name, "word");
 				if (!errMsg.equals("ok")) {
 					errorMsgs.add("商品名稱:" + errMsg);
 				}
@@ -292,7 +329,7 @@ public class ProductServlet extends HttpServlet {
 				p_price = "0";
 				errorMsgs.add("商品價格: 請勿空白");
 			} else {
-				errMsg = t.check(p_price, "num");
+				errMsg = Tools.check(p_price, "num");
 
 				if (!errMsg.equals("ok")) {
 					errorMsgs.add("商品價格:" + errMsg);
@@ -307,7 +344,7 @@ public class ProductServlet extends HttpServlet {
 				p_stock = "0";
 				errorMsgs.add("商品數量: 請勿空白");
 			} else {
-				errMsg = t.check(p_stock, "num");
+				errMsg = Tools.check(p_stock, "num");
 				if (!errMsg.equals("ok")) {
 					errorMsgs.add("商品數量:" + errMsg);
 					p_stock = "0";
@@ -353,13 +390,22 @@ public class ProductServlet extends HttpServlet {
 				errorMsgs.add("圖片四請輸入圖片");
 			}
 			
-			ProductVO proVO = new ProductVO();
-			proVO.setP_name(p_name);
-			proVO.setP_price(Integer.parseInt(p_price));
-			proVO.setP_stock(Integer.parseInt(p_stock));
-			proVO.setP_type(p_type);
-			proVO.setP_class(p_class);
-			proVO.setP_des(p_des);
+			ProductVO proVO = new ProductVO.Builder()
+											.setP_name(p_name)
+											.setP_price(Integer.parseInt(p_price))
+											.setP_stock(Integer.parseInt(p_stock))
+											.setP_type(p_type)
+											.setP_class(p_class)
+											.setP_des(p_des)
+											.build();
+
+//			ProductVO proVO = new ProductVO();
+//			proVO.setP_name(p_name);
+//			proVO.setP_price(Integer.parseInt(p_price));
+//			proVO.setP_stock(Integer.parseInt(p_stock));
+//			proVO.setP_type(p_type);
+//			proVO.setP_class(p_class);
+//			proVO.setP_des(p_des);
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("proVO", proVO);
@@ -394,7 +440,22 @@ public class ProductServlet extends HttpServlet {
 
 			// 開始刪除資料
 			ProductService proSvc = new ProductService();
-			proSvc.deletePro(p_id);
+			try {
+				proSvc.deletePro(p_id);
+			} catch (Exception e){
+				List<String> errorMsgs = new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				errorMsgs.add("此筆資料已有消費紀錄，不能刪除");
+				
+				ProductService proSvc1 = new ProductService();
+				ArrayList<ProductVO> list = (ArrayList<ProductVO>) proSvc1.getAll();
+				req.setAttribute("list", list);
+				
+				String url2 = "/backEnd/products.jsp";
+				RequestDispatcher failureView = req.getRequestDispatcher(url2);
+				failureView.forward(req, res);
+				return;
+			}
 
 			// 查詢完成,準備轉交
 			String url = "/backEnd/products.jsp";

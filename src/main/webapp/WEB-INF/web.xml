@@ -24,5 +24,15 @@
 	    <servlet-name>ProductServlet</servlet-name>
 	    <url-pattern>/pro.do</url-pattern>
 	  </servlet-mapping>
+	  
+<!--   	  <servlet> -->
+<!-- 	    <servlet-name>MasterServlet</servlet-name> -->
+<!-- 	    <servlet-class>master.controller.MasterServlet -->
+<!-- 	    </servlet-class> -->
+<!-- 	  </servlet> -->
+<!-- 	  <servlet-mapping> -->
+<!-- 	    <servlet-name>MasterServlet</servlet-name> -->
+<!-- 	    <url-pattern>/mas.do</url-pattern> -->
+<!-- 	  </servlet-mapping> -->
 
 </web-app>

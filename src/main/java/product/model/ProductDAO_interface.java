@@ -12,5 +12,5 @@ public interface ProductDAO_interface {
     public List<ProductVO> getAll();
     public ProductVO indexValue(Integer p_m_id);
     public List<ProductVO> indexNatrix1(Integer p_m_id);
-    public List<ProductVO> indexNatrix2(Integer p_m_id);
+    public List<ProductVO> indexNatrix2();
 }

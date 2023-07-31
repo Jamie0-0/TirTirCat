@@ -73,7 +73,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 			<div class="header-wrapper m-0">
 				<div class="header-logo-wrapper p-0">
 					<div class="logo-wrapper">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html">
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.jsp">
 							<img class="img-fluid main-logo"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1.png"
 							alt="logo"> <img class="img-fluid white-logo"
@@ -84,7 +84,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 					<div class="toggle-sidebar">
 						<i class="status_toggle middle sidebar-toggle"
 							data-feather="align-center"></i> <a
-							href="<%=request.getContextPath()%>/backEnd/back_index.html">
+							href="<%=request.getContextPath()%>/backEnd/back_index.jsp">
 							<img
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1.png"
 							class="img-fluid" alt="">
@@ -97,40 +97,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 						<li><span class="header-search"> <i
 								class="ri-search-line"></i>
 						</span></li>
-						<li class="onhover-dropdown">
-							<div class="notification-box">
-								<i class="ri-notification-line"></i> <span
-									class="badge rounded-pill badge-theme">4</span>
-							</div>
-							<ul class="notification-dropdown onhover-show-div">
-								<li><i class="ri-notification-line"></i>
-									<h6 class="f-18 mb-0">通知</h6></li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2"></i>交貨加工<span class="pull-right">10
-											min.</span>
-									</p>
-								</li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2"></i>訂單完成<span
-											class="pull-right">1 hr</span>
-									</p>
-								</li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2"></i>訂單生成<span
-											class="pull-right">3 hr</span>
-									</p>
-								</li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2"></i>交付完成<span class="pull-right">6
-											hr</span>
-									</p>
-								</li>
-							</ul>
-						</li>
 
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
 							<div class="media profile-media">
@@ -167,7 +133,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 				<div id="sidebarEffect"></div>
 				<div>
 					<div class="logo-wrapper logo-wrapper-center">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html" data-bs-original-title="" title="">
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.jsp" data-bs-original-title="" title="">
 							<img class="img-fluid for-white"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/full-white.png"
 							alt="logo">
@@ -177,7 +143,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 						</div>
 					</div>
 					<div class="logo-icon-wrapper">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html"> <img
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.jsp"> <img
 							class="img-fluid main-logo main-white"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/logo.png"
 							alt="logo"> <img class="img-fluid main-logo main-dark"
@@ -196,7 +162,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 
 								<li class="sidebar-list"><a
 									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/back_index.html"> <i class="ri-home-line"></i> <span>主頁</span>
+									href="<%=request.getContextPath()%>/backEnd/back_index.jsp"> <i class="ri-home-line"></i> <span>主頁</span>
 								</a></li>
 
 								<li class="sidebar-list"><a

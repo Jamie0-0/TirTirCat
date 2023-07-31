@@ -92,6 +92,11 @@
 			<artifactId>THA102_To_Maven2</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.ron</groupId>
+			<artifactId>AjaxDBDemo</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

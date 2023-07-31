@@ -3,15 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 
+
 <%
 List<ProductVO> list = (List<ProductVO>) request.getAttribute("list");
 
 if (list == null) {
-	ProductJDBCDAO dao = new ProductJDBCDAO();
-	list = dao.getAll();
-	
-}
-pageContext.setAttribute("list", list);
+		ProductJDBCDAO dao = new ProductJDBCDAO();
+		list = dao.getAll();
+		
+	}
+	pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -216,7 +217,7 @@ select {
 			<div class="header-wrapper m-0">
 				<div class="header-logo-wrapper p-0">
 					<div class="logo-wrapper">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html">
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.jsp">
 							<img class="img-fluid main-logo"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1.png"
 							alt="logo"> <img class="img-fluid white-logo"
@@ -227,7 +228,7 @@ select {
 					<div class="toggle-sidebar">
 						<i class="status_toggle middle sidebar-toggle"
 							data-feather="align-center"></i> <a
-							href="<%=request.getContextPath()%>/backEnd/back_index.html">
+							href="<%=request.getContextPath()%>/backEnd/back_index.jsp">
 							<img
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/1.png"
 							class="img-fluid" alt="">
@@ -240,42 +241,7 @@ select {
 						<li><span class="header-search"> <i
 								class="ri-search-line"></i>
 						</span></li>
-						<li class="onhover-dropdown">
-							<div class="notification-box">
-								<i class="ri-notification-line"></i> <span
-									class="badge rounded-pill badge-theme">4</span>
-							</div>
-							<ul class="notification-dropdown onhover-show-div">
-								<li><i class="ri-notification-line"></i>
-									<h6 class="f-18 mb-0">通知</h6></li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2 font-primary"></i>交貨加工 <span
-											class="pull-right">10 min.</span>
-									</p>
-								</li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2 font-success"></i>訂單完成<span
-											class="pull-right">1 hr</span>
-									</p>
-								</li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2 font-info"></i>訂單生成<span
-											class="pull-right">3 hr</span>
-									</p>
-								</li>
-								<li>
-									<p>
-										<i class="fa fa-circle me-2 font-danger"></i>交付完成<span
-											class="pull-right">6 hr</span>
-									</p>
-								</li>
-								<li></li>
-							</ul>
-						</li>
-
+						
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
 							<div class="media profile-media">
 								<img class="user-profile rounded-circle"
@@ -313,7 +279,7 @@ select {
 				<div id="sidebarEffect"></div>
 				<div>
 					<div class="logo-wrapper logo-wrapper-center">
-						<a href="<%=request.getContextPath()%>/backEnd/back_index.html"
+						<a href="<%=request.getContextPath()%>/backEnd/back_index.jsp"
 							data-bs-original-title="" title=""> <img
 							class="img-fluid for-white"
 							src="<%=request.getContextPath()%>/backEnd/assets/images/logo/full-white.png"
@@ -335,7 +301,7 @@ select {
 
 								<li class="sidebar-list"><a
 									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/back_index.html">
+									href="<%=request.getContextPath()%>/backEnd/back_index.jsp">
 										<i class="ri-home-line"></i> <span>主頁</span>
 								</a></li>
 
@@ -475,6 +441,7 @@ select {
 													<th>商品狀態</th>
 													<th>修改時間</th>
 													<th>修改</th>
+													<th>刪除</th>
 
 
 												</tr>
@@ -517,7 +484,10 @@ select {
 																style="margin-bottom: 0px;">
 																<input type="hidden" name="action" value="getUpdate">
 																<input type="hidden" name="p_id" value="${productVO.p_id}"> 
-																<input type="submit" value="修改">
+																<button type="submit" class="btn btn-primary">
+																  <i class="fas fa-pencil-alt"></i>
+																</button>
+
 															</FORM>
 														</td>
 														<td>
@@ -526,7 +496,10 @@ select {
 																style="margin-bottom: 0px;">
 																<input type="hidden" name="action" value="delete">
 																<input type="hidden" name="p_id" value="${productVO.p_id}"> 
-																<input type="submit" value="刪除">
+																<button type="submit" class="btn btn-danger">
+																  <i class="fas fa-trash"></i>
+																</button>
+
 															</FORM>
 														</td>
 													</tr>

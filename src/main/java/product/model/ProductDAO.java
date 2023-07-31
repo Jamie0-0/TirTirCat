@@ -27,7 +27,7 @@ public class ProductDAO implements ProductDAO_interface  {
 	private String GET_ONE_STMT2 = "SELECT * FROM FurrEver.product";
 	private static final String DELETE = "DELETE FROM product where p_id=?";
 	private String UPDATE = "UPDATE product set p_name=?,p_price=?,p_stock=?,p_type=?,p_class=?,p_des=?,p_status=?, p_upload_time=?";
-	private static final String GET_ALL_STMT = "SELECT * FROM product order by p_id";
+	private static final String GET_ALL_STMT = "SELECT * FROM product where p_m_id=? order by p_id";
 	private static final String GET_NEW_PRO = "SELECT * FROM product order by p_upload_time desc limit 1";
 	private static final String GET_NEW_info = "select sum(a) as 'a',sum(b) as 'b',sum(c) as 'c',sum(d) as 'd' \r\n"
 			+ "from (\r\n"
@@ -52,10 +52,15 @@ public class ProductDAO implements ProductDAO_interface  {
 			+ "and so_m_id = ?\r\n"
 			+ "group by p_p_id\r\n"
 			+ "order by 2 desc limit 3";
+	
+	
+	private static final String GET_TOP_ORD = "	SELECT *\r\n"
+			+ "	FROM FurrEver.product_order\r\n"
+			+ "	order by order_id limit 3";
 
     @Override
     public ProductVO indexValue(Integer p_m_id) {
-    	ProductVO productVO = new ProductVO();
+    	ProductVO productVO = null;
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -71,16 +76,29 @@ public class ProductDAO implements ProductDAO_interface  {
 			rs = pstmt.executeQuery();
 		
 			while (rs.next()) {
-				productVO.setA(rs.getInt(1));
-				productVO.setB(rs.getInt(2));
-				productVO.setC(rs.getInt(3));
-				productVO.setD(rs.getInt(4));			
+				productVO = new ProductVO.Builder()
+											.setA(rs.getInt(1))
+											.setB(rs.getInt(2))
+											.setC(rs.getInt(3))
+											.setD(rs.getInt(4))
+											.build();
+//				productVO.setA(rs.getInt(1));
+//				productVO.setB(rs.getInt(2));
+//				productVO.setC(rs.getInt(3));
+//				productVO.setD(rs.getInt(4));			
 			}
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -117,12 +135,15 @@ public class ProductDAO implements ProductDAO_interface  {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO();
-				productVO.setP_name(rs.getString(1));
-				System.out.println("2========");
-				System.out.println("========"+rs.getString(1));
-				productVO.setB(rs.getInt(2));
-				productVO.setC(rs.getInt(3));
+//				productVO = new ProductVO();
+//				productVO.setP_name(rs.getString(1));
+//				productVO.setB(rs.getInt(2));
+//				productVO.setC(rs.getInt(3));
+				productVO = new ProductVO.Builder()
+											.setP_name(rs.getString(1))
+											.setB(rs.getInt(2))
+											.setC(rs.getInt(3))
+											.build();
 				list.add(productVO);
 			}
 
@@ -130,6 +151,13 @@ public class ProductDAO implements ProductDAO_interface  {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -149,11 +177,62 @@ public class ProductDAO implements ProductDAO_interface  {
     }
 
     @Override
-    public List<ProductVO> indexNatrix2(Integer p_m_id){
-    	
-    	
-    	
-    	return null;
+    public List<ProductVO> indexNatrix2(){
+    	List<ProductVO> list = new ArrayList<ProductVO>();
+    	ProductVO productVO = null;
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_TOP_ORD);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productVO = new ProductVO.Builder()
+											.setP_name(rs.getString(3))
+											.setP_des(rs.getString(4))
+											.setP_1(rs.getString(5))
+											.setP_price(rs.getInt(7))
+											.setP_status(rs.getInt(9))
+											.build();
+//				productVO = new ProductVO();
+//				productVO.setP_name(rs.getString(3));
+//				productVO.setP_des(rs.getString(4));
+//				productVO.setP_1(rs.getString(5));
+//				productVO.setP_price(rs.getInt(7));
+//				productVO.setP_status(rs.getInt(9));
+				list.add(productVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+    	return list;
     }
 	
 	
@@ -162,33 +241,58 @@ public class ProductDAO implements ProductDAO_interface  {
 	public List<ProductVO> searchLatest() {
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO productVO = null;
+    	Connection con = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			rs = ds.getConnection().prepareStatement(GET_NEW_PRO).executeQuery();
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_NEW_PRO);
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
 				// 這裡是查到的值，須將所有欄位值放進去
-				productVO = new ProductVO();
-				productVO.setP_id(rs.getInt("p_id"));
-				productVO.setP_m_id(rs.getInt("p_m_id"));
-				productVO.setP_name(rs.getString("p_name"));
-				productVO.setP_price(rs.getInt("p_price"));
-				productVO.setP_stock(rs.getInt("p_stock"));
-				productVO.setP_count(rs.getInt("p_count"));
-				productVO.setP_type(rs.getInt("p_type"));
-				productVO.setP_class(rs.getInt("p_class"));
-				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-				productVO.setP_des(rs.getString("p_des"));
-				productVO.setP_status(rs.getInt("p_status"));
-				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-				productVO.setP_1(rs.getString("p_1"));
-				productVO.setP_2(rs.getString("p_2"));
-				productVO.setP_3(rs.getString("p_3"));
+				productVO = new ProductVO.Builder()
+											.setP_id(rs.getInt("p_id"))
+											.setP_m_id(rs.getInt("p_m_id"))
+											.setP_name(rs.getString("p_name"))
+											.setP_price(rs.getInt("p_price"))
+											.setP_stock(rs.getInt("p_stock"))
+											.setP_count(rs.getInt("p_count"))
+											.setP_type(rs.getInt("p_type"))
+											.setP_class(rs.getInt("p_class"))
+											.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime())
+											.setP_des(rs.getString("p_des"))
+											.setP_status(rs.getInt("p_status"))
+											.setP_pic_one(rs.getBytes("p_pic_one"))
+											.setP_pic_two(rs.getBytes("p_pic_two"))
+											.setP_pic_three(rs.getBytes("p_pic_three"))
+											.setP_pic_four(rs.getBytes("p_pic_four"))
+											.setP_1(rs.getString("p_1"))
+											.setP_2(rs.getString("p_2"))
+											.setP_3(rs.getString("p_3"))
+											.build();
+
+//				productVO = new ProductVO();
+//				productVO.setP_id(rs.getInt("p_id"));
+//				productVO.setP_m_id(rs.getInt("p_m_id"));
+//				productVO.setP_name(rs.getString("p_name"));
+//				productVO.setP_price(rs.getInt("p_price"));
+//				productVO.setP_stock(rs.getInt("p_stock"));
+//				productVO.setP_count(rs.getInt("p_count"));
+//				productVO.setP_type(rs.getInt("p_type"));
+//				productVO.setP_class(rs.getInt("p_class"));
+//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
+//				productVO.setP_des(rs.getString("p_des"));
+//				productVO.setP_status(rs.getInt("p_status"));
+//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
+//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
+//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
+//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
+//				productVO.setP_1(rs.getString("p_1"));
+//				productVO.setP_2(rs.getString("p_2"));
+//				productVO.setP_3(rs.getString("p_3"));
 				list.add(productVO);
 			}
 		} catch (SQLException se) {
@@ -199,6 +303,20 @@ public class ProductDAO implements ProductDAO_interface  {
 					rs.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
 				}
 			}
 		}
@@ -374,7 +492,6 @@ public class ProductDAO implements ProductDAO_interface  {
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO productVO = null;
 
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -383,28 +500,50 @@ public class ProductDAO implements ProductDAO_interface  {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt.setInt(1, 1);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO();
-				productVO.setP_id(rs.getInt("p_id"));
-				productVO.setP_m_id(rs.getInt("p_m_id"));
-				productVO.setP_name(rs.getString("p_name"));
-				productVO.setP_price(rs.getInt("p_price"));
-				productVO.setP_stock(rs.getInt("p_stock"));
-				productVO.setP_count(rs.getInt("p_count"));
-				productVO.setP_type(rs.getInt("p_type"));
-				productVO.setP_class(rs.getInt("p_class"));
-				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-				productVO.setP_des(rs.getString("p_des"));
-				productVO.setP_status(rs.getInt("p_status"));
-				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-				productVO.setP_1(rs.getString("p_1"));
-				productVO.setP_2(rs.getString("p_2"));
-				productVO.setP_3(rs.getString("p_3"));
+				productVO = new ProductVO.Builder()
+											.setP_id(rs.getInt("p_id"))
+											.setP_m_id(rs.getInt("p_m_id"))
+											.setP_name(rs.getString("p_name"))
+											.setP_price(rs.getInt("p_price"))
+											.setP_stock(rs.getInt("p_stock"))
+											.setP_count(rs.getInt("p_count"))
+											.setP_type(rs.getInt("p_type"))
+											.setP_class(rs.getInt("p_class"))
+											.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime())
+											.setP_des(rs.getString("p_des"))
+											.setP_status(rs.getInt("p_status"))
+											.setP_pic_one(rs.getBytes("p_pic_one"))
+											.setP_pic_two(rs.getBytes("p_pic_two"))
+											.setP_pic_three(rs.getBytes("p_pic_three"))
+											.setP_pic_four(rs.getBytes("p_pic_four"))
+											.setP_1(rs.getString("p_1"))
+											.setP_2(rs.getString("p_2"))
+											.setP_3(rs.getString("p_3"))
+											.build();
+
+//				productVO = new ProductVO();
+//				productVO.setP_id(rs.getInt("p_id"));
+//				productVO.setP_m_id(rs.getInt("p_m_id"));
+//				productVO.setP_name(rs.getString("p_name"));
+//				productVO.setP_price(rs.getInt("p_price"));
+//				productVO.setP_stock(rs.getInt("p_stock"));
+//				productVO.setP_count(rs.getInt("p_count"));
+//				productVO.setP_type(rs.getInt("p_type"));
+//				productVO.setP_class(rs.getInt("p_class"));
+//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
+//				productVO.setP_des(rs.getString("p_des"));
+//				productVO.setP_status(rs.getInt("p_status"));
+//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
+//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
+//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
+//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
+//				productVO.setP_1(rs.getString("p_1"));
+//				productVO.setP_2(rs.getString("p_2"));
+//				productVO.setP_3(rs.getString("p_3"));
 				list.add(productVO);
 			}
 		} catch (SQLException se) {
@@ -454,25 +593,46 @@ public class ProductDAO implements ProductDAO_interface  {
 			while (rs.next()) {
 
 				// 這裡是查到的值，須將所有欄位值放進去
-				productVO = new ProductVO();
-				productVO.setP_id(rs.getInt("p_id"));
-				productVO.setP_m_id(rs.getInt("p_m_id"));
-				productVO.setP_name(rs.getString("p_name"));
-				productVO.setP_price(rs.getInt("p_price"));
-				productVO.setP_stock(rs.getInt("p_stock"));
-				productVO.setP_count(rs.getInt("p_count"));
-				productVO.setP_type(rs.getInt("p_type"));
-				productVO.setP_class(rs.getInt("p_class"));
-				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-				productVO.setP_des(rs.getString("p_des"));
-				productVO.setP_status(rs.getInt("p_status"));
-				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-				productVO.setP_1(rs.getString("p_1"));
-				productVO.setP_2(rs.getString("p_2"));
-				productVO.setP_3(rs.getString("p_3"));
+				productVO = new ProductVO.Builder()
+											.setP_id(rs.getInt("p_id"))
+											.setP_m_id(rs.getInt("p_m_id"))
+											.setP_name(rs.getString("p_name"))
+											.setP_price(rs.getInt("p_price"))
+											.setP_stock(rs.getInt("p_stock"))
+											.setP_count(rs.getInt("p_count"))
+											.setP_type(rs.getInt("p_type"))
+											.setP_class(rs.getInt("p_class"))
+											.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime())
+											.setP_des(rs.getString("p_des"))
+											.setP_status(rs.getInt("p_status"))
+											.setP_pic_one(rs.getBytes("p_pic_one"))
+											.setP_pic_two(rs.getBytes("p_pic_two"))
+											.setP_pic_three(rs.getBytes("p_pic_three"))
+											.setP_pic_four(rs.getBytes("p_pic_four"))
+											.setP_1(rs.getString("p_1"))
+											.setP_2(rs.getString("p_2"))
+											.setP_3(rs.getString("p_3"))
+											.build();
+
+//				productVO = new ProductVO();
+//				productVO.setP_id(rs.getInt("p_id"));
+//				productVO.setP_m_id(rs.getInt("p_m_id"));
+//				productVO.setP_name(rs.getString("p_name"));
+//				productVO.setP_price(rs.getInt("p_price"));
+//				productVO.setP_stock(rs.getInt("p_stock"));
+//				productVO.setP_count(rs.getInt("p_count"));
+//				productVO.setP_type(rs.getInt("p_type"));
+//				productVO.setP_class(rs.getInt("p_class"));
+//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
+//				productVO.setP_des(rs.getString("p_des"));
+//				productVO.setP_status(rs.getInt("p_status"));
+//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
+//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
+//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
+//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
+//				productVO.setP_1(rs.getString("p_1"));
+//				productVO.setP_2(rs.getString("p_2"));
+//				productVO.setP_3(rs.getString("p_3"));
 
 			}
 		} catch (SQLException se) {
@@ -545,44 +705,8 @@ public class ProductDAO implements ProductDAO_interface  {
 				}
 			}
 
-//			List<Integer> searchValue = new LinkedList<Integer>();
-//			
-//			if(p_id>0 && p_status==0 && p_class==0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_id = ?";
-//				searchValue.add(p_id);
-//			} else if(p_id==0 && p_status>0 && p_class==0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_status = ?";
-//				searchValue.add(p_status);
-//			} else if(p_id==0 && p_status==0 && p_class>0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_class = ?";
-//				searchValue.add(p_class);
-//			} else if(p_id>0 && p_status>0 && p_class==0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_id = ? and p_status = ?";
-//				searchValue.add(p_id);
-//				searchValue.add(p_status);
-//			} else if(p_id>0 && p_status==0 && p_class>0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_id = ? and p_class = ?";
-//				searchValue.add(p_id);
-//				searchValue.add(p_class);
-//			} else if(p_id==0 && p_status>0 && p_class>0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_status = ? and p_class = ?";
-//				searchValue.add(p_status);
-//				searchValue.add(p_class);
-//			} else if(p_id>0 && p_status>0 && p_class>0) {
-//				GET_ONE_STMT2 = GET_ONE_STMT2+" where p_id = ? and p_status = ? and p_class = ?";
-//				searchValue.add(p_id);
-//				searchValue.add(p_status);
-//				searchValue.add(p_class);
-//			}
-
 			pstmt = con.prepareStatement(GET_ONE_STMT2);
 
-//			Integer[] intArr = (Integer[])searchValue.toArray(new Integer[0]);
-//			for(int i = 0; i<intArr.length; i++){
-//				pstmt.setInt(i+1, intArr[i]);
-//			}
-			
-			
 			for(int i = 0;i<imgArr.size();i++) {
 				if(imgArr.get(i).equals("id")) {
 					pstmt.setInt(i+1, p_id);
@@ -597,30 +721,46 @@ public class ProductDAO implements ProductDAO_interface  {
 
 			while (rs.next()) {
 				// 這裡是查到的值，須將所有欄位值放進去
-				productVO = new ProductVO();
-				
-				
-				
-				
-				
-				productVO.setP_id(rs.getInt("p_id"));
-				productVO.setP_m_id(rs.getInt("p_m_id"));
-				productVO.setP_name(rs.getString("p_name"));
-				productVO.setP_price(rs.getInt("p_price"));
-				productVO.setP_stock(rs.getInt("p_stock"));
-				productVO.setP_count(rs.getInt("p_count"));
-				productVO.setP_type(rs.getInt("p_type"));
-				productVO.setP_class(rs.getInt("p_class"));
-				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
-				productVO.setP_des(rs.getString("p_des"));
-				productVO.setP_status(rs.getInt("p_status"));
-				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
-				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
-				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
-				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-				productVO.setP_1(rs.getString("p_1"));
-				productVO.setP_2(rs.getString("p_2"));
-				productVO.setP_3(rs.getString("p_3"));
+				productVO = new ProductVO.Builder()
+										.setP_id(rs.getInt("p_id"))
+										.setP_m_id(rs.getInt("p_m_id"))
+										.setP_name(rs.getString("p_name"))
+										.setP_price(rs.getInt("p_price"))
+										.setP_stock(rs.getInt("p_stock"))
+										.setP_count(rs.getInt("p_count"))
+										.setP_type(rs.getInt("p_type"))
+										.setP_class(rs.getInt("p_class"))
+										.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime())
+										.setP_des(rs.getString("p_des"))
+										.setP_status(rs.getInt("p_status"))
+										.setP_pic_one(rs.getBytes("p_pic_one"))
+										.setP_pic_two(rs.getBytes("p_pic_two"))
+										.setP_pic_three(rs.getBytes("p_pic_three"))
+										.setP_pic_four(rs.getBytes("p_pic_four"))
+										.setP_1(rs.getString("p_1"))
+										.setP_2(rs.getString("p_2"))
+										.setP_3(rs.getString("p_3"))
+										.build();
+
+//				productVO = new ProductVO();
+//				productVO.setP_id(rs.getInt("p_id"));
+//				productVO.setP_m_id(rs.getInt("p_m_id"));
+//				productVO.setP_name(rs.getString("p_name"));
+//				productVO.setP_price(rs.getInt("p_price"));
+//				productVO.setP_stock(rs.getInt("p_stock"));
+//				productVO.setP_count(rs.getInt("p_count"));
+//				productVO.setP_type(rs.getInt("p_type"));
+//				productVO.setP_class(rs.getInt("p_class"));
+//				productVO.setP_upload_time(rs.getTimestamp("p_upload_time").toLocalDateTime());
+//				productVO.setP_des(rs.getString("p_des"));
+//				productVO.setP_status(rs.getInt("p_status"));
+//				productVO.setP_pic_one(rs.getBytes("p_pic_one"));
+//				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
+//				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
+//				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
+//				productVO.setP_1(rs.getString("p_1"));
+//				productVO.setP_2(rs.getString("p_2"));
+//				productVO.setP_3(rs.getString("p_3"));
 				list.add(productVO);
 			}
 		} catch (SQLException se) {
