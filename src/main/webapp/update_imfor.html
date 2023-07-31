@@ -214,7 +214,7 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="login.html">登出</a>
+                                                    <a href="login.html" id="logout">登出</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -455,7 +455,7 @@
     <script src="assets/js/script.js"></script>
     <script>
         $(function () {
-            
+
 
             let user_account_el = $("h5.user_account");
             let email_el = $("input#email");
@@ -587,6 +587,21 @@
                 const formattedDateForInput = formattedDate.replace(/\//g, '-');
                 return formattedDateForInput;
             }
+
+            //  ============登出====================//
+
+            $("a#logout").on("click", function () {
+                fetch("/TirTirCat/logout", {
+                    method: "GET",
+                    dataType: "json"
+                })
+                    .then(responce => responce.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            location.href = "login.html";
+                        }
+                    })
+            })
         });
 
 

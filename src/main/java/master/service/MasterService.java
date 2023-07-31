@@ -16,25 +16,29 @@ public class MasterService {
 	}
 
 	public Master insert(Master master) {
-		Master result = dao.insert(master);
-		if(master.getMEmail().equals(result.getMEmail())) {
-			errMsgs.add("重複帳號");
-		}
-		if (master.getMGui().equals(result.getMGui())) {
-			errMsgs.add("統編重複");
-		}
-		if(master.getMBankId().equals(result.getMBankId())) {
-			errMsgs.add("銀行帳號重複");
-		}
-		if(master.getMManId().equals(result.getMManId())) {
-			errMsgs.add("身份證字號重複");
-		}
+		Master result = dao.selectByMgui(master.getMGui());
 		
-//		System.out.println(errMsgs.isEmpty());
+			if (master.getMEmail().equals(result.getMEmail())) {
+				errMsgs.add("重複帳號");
+			}
+			if (master.getMGui().equals(result.getMGui())) {
+				errMsgs.add("統編重複");
+			}
+			if (master.getMBankId().equals(result.getMBankId())) {
+				errMsgs.add("銀行帳號重複");
+			}
+			if (master.getMManId().equals(result.getMManId())) {
+				errMsgs.add("身份證字號重複");
+			}
 		
-		if(!errMsgs.isEmpty()) {
+		if (errMsgs.isEmpty()) {
 			return result;
 		}
 		return null;
+
+	}
+
+	public List<String> getErrorMsgs() {
+		return errMsgs;
 	}
 }

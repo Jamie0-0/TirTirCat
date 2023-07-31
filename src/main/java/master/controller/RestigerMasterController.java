@@ -1,6 +1,7 @@
 package master.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import master.vo.Master;
 @WebServlet("/restigermastercontroller")
 public class RestigerMasterController extends HttpServlet{
 	
+	private static final long serialVersionUID = 8489823284156283021L;
 	private MasterService service;
 	
 	@Override
@@ -28,15 +30,18 @@ public class RestigerMasterController extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json;charset=utf-8");
 		Gson gson = new Gson();
-		
+		String message = gson.toJson("");
 		Master master = gson.fromJson(req.getReader(), Master.class);
 		
-		
+	
 		if(service.insert(master) != null) {
-			resp.getWriter().write("success");
+			message="{\"status\": \"success\"}";
+			resp.getWriter().write(message);
 		}
 		else {
-			resp.getWriter().write("false");
+			List<String> errorMsg = service.getErrorMsgs();
+			message="{\"status\": \"error\",\"errorMsgs\": " + gson.toJson(errorMsg) + "}";
+			resp.getWriter().write(message);
 		}
 	}
 }

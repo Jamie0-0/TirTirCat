@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pet.dao.PetDao;
-import pet.dao.PetDaoImpl;
 import pet.service.PetService;
+import pet.service.PetServiceImpl;
 
 
 @MultipartConfig
 @WebServlet("/petcontroller")
 public class InsertPetController extends HttpServlet {
 
+	private static final long serialVersionUID = 122L;
 	private PetService service;
-	private PetDao dao;
 
 	@Override
 	public void init() throws ServletException {
-		dao = new PetDaoImpl();
-		service = new PetService();
+		service = new PetServiceImpl();
 	}
 
 	@Override

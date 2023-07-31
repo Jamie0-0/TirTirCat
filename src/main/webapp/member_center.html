@@ -530,15 +530,17 @@
                     console.log("請求錯誤");
                 });
 
+            //  ============登出====================//
 
             $("a#logout").on("click", function () {
-                fetch("/TirTirCat/logout", {
+                fetch("logout", {
                     method: "GET",
                     dataType: "json"
                 })
                     .then(responce => responce.json())
                     .then(data => {
                         if (data.status === 'success') {
+                            sessionStorage.clear();
                             location.href = "login.html";
                         }
                     })

@@ -18,6 +18,8 @@ import member.vo.Member;
 
 @WebServlet("/loginController")
 public class LoginController extends HttpServlet {
+
+	private static final long serialVersionUID = -7574856544005767869L;
 	private MemberService service;
 
 	@Override

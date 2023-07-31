@@ -562,7 +562,7 @@
     <script>
         $(function () {
             //  =================   清空錯誤訊息    ======================
-            $("#nav-profile-tab").on("click", function(){
+            $("#nav-profile-tab").on("click", function () {
                 $("div#error-messages").text("");
             })
 
@@ -631,10 +631,20 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        if (data === "success") {
+                        if (data.status === "success") {
                             alert("新增成功");
                         }
-                        else{
+                        else if(data.status === 'error'){
+                            var errorMsgs = data.errorMsgs;
+                            var errorContainer = $("#error-messages");
+
+                            // 先清空錯誤容器
+                            errorContainer.empty();
+                            $.each(errorMsgs, function (index, errorMsg) {
+
+                                var errorItem = $("<p>").text(errorMsg).css("color", "red");
+                                errorContainer.append(errorItem);
+                            });
                             alert("新增失敗");
                         }
                     })
@@ -690,7 +700,7 @@
                         if (data.status == "success") {
                             alert("註冊成功，按下確認後，跳到登入畫面");
                             // setTimeout("location.href='http://localhost:8081/TirTirCat/login.html'",3000); // 3秒後跳轉頁面
-                            // location.href = "/TirTirCat/login.html";
+                            location.href = "/TirTirCat/login.html";
                         }
                         else if (data.status == "error") {
                             var errorMsgs = data.errorMsgs;
@@ -705,19 +715,12 @@
                             }
                             // 遍歷錯誤訊息，動態添加到錯誤容器中
                             $.each(errorMsgs, function (index, errorMsg) {
-
                                 var errorItem = $("<p>").text(errorMsg).css("color", "red");
                                 errorContainer.append(errorItem);
                             });
                         };
                     });
             });
-
-
-
-
-
-
         });
 
 

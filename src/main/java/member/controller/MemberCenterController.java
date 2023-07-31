@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.Base64;
 
 import javax.servlet.ServletException;
@@ -15,19 +14,18 @@ import com.google.gson.Gson;
 
 import member.dao.MemberDao;
 import member.dao.MemberDaoImpl;
-import member.service.MemberService;
-import member.service.MemberServiceImpl;
+
 import member.vo.Member;
 
 @WebServlet("/memberCenterController")
 public class MemberCenterController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private MemberService service;
+	
+	private static final long serialVersionUID = 1761290708602692518L;
+
 	private MemberDao memberDao;
 
 	@Override
 	public void init() throws ServletException {
-		service = new MemberServiceImpl();
 		memberDao = new MemberDaoImpl();
 	}
 
