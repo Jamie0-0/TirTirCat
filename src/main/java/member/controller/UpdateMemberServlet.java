@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +15,8 @@ import member.service.MemberServiceImpl;
 
 @WebServlet("/updatemember")
 public class UpdateMemberServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 3851100788769669310L;
 	private MemberService service;
 
 	@Override

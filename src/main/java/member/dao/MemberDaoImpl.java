@@ -3,8 +3,6 @@ package member.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -24,7 +22,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public boolean insert(Member member) {
+	public int insert(Member member) {
 		final String register = "insert into USER(u_email, u_name, u_pwd, u_phone, u_address, u_birth, u_gender, u_about) values(?, ?, ?, ?, ?, ?, ?,?)";
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstm = connection.prepareStatement(register);) {
@@ -37,11 +35,11 @@ public class MemberDaoImpl implements MemberDao {
 			pstm.setString(7, member.getGender());
 			pstm.setString(8, member.getAbout());
 
-			int rowInsert = pstm.executeUpdate();
-			return true;
+			
+			return pstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
 	}
 

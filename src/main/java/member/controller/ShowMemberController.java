@@ -15,18 +15,17 @@ import com.google.gson.Gson;
 
 import member.dao.MemberDao;
 import member.dao.MemberDaoImpl;
-import member.service.MemberService;
-import member.service.MemberServiceImpl;
 import member.vo.Member;
 
 @WebServlet("/showmember")
 public class ShowMemberController extends HttpServlet {
-	private MemberService service;
+
+	private static final long serialVersionUID = -8884507506571309300L;
+
 	private MemberDao memberDao;
 
 	@Override
 	public void init() throws ServletException {
-		service = new MemberServiceImpl();
 		memberDao = new MemberDaoImpl();
 	}
 

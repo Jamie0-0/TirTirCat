@@ -23,6 +23,7 @@ import pet.vo.Pet;
 @WebServlet("/findpetcontroller")
 public class FindPetController extends HttpServlet {
 
+	private static final long serialVersionUID = 123L;
 	private PetDao dao;
 
 	@Override

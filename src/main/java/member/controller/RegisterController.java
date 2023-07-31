@@ -18,6 +18,8 @@ import member.vo.Member;
 
 @WebServlet("/registerController")
 public class RegisterController extends HttpServlet {
+
+	private static final long serialVersionUID = 8284333216595103470L;
 	private MemberService service;
 
 	public void init() throws ServletException {

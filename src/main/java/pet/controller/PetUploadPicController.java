@@ -21,6 +21,8 @@ import pet.vo.Pet;
 @MultipartConfig
 @WebServlet("/petuploadpic")
 public class PetUploadPicController extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 	private PetDao dao;
 
 	@Override
