@@ -1,10 +1,10 @@
 package articles.dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import articles.vo.ArticlesLike;
 
 public interface ArticlesDao {
 
@@ -28,9 +28,9 @@ public interface ArticlesDao {
 
 	int selectPageSearchCount(String searchText);
 
-	List<Article> selectHotRedis(String page);
-
 	void saveHotArticlesToRedis(List<Article> hotArticles);
+	
+	void saveNewArticlesToRedis(List<Article> newArticles);
 
 	List<Article> selectAllHot();
 
@@ -42,15 +42,38 @@ public interface ArticlesDao {
 
 	void saveAvatarToRedis(String uid, ArticlePic AvatarPic);
 
-	String insertArticle(String art_user_id, String art_title, String art_content, Connection conn);
+	int insertArticle(String art_user_id, String art_title, String art_content);
 
-	String insertArticlePic(String pic_art_id, List<byte[]> imageList, Connection conn);
+	int insertArticlePic(int pic_art_id, List<byte[]> imageList);
 
-	String deleteArticlePics(String pic_art_id);
-
-	void jedisRefresh();
+	int deleteArticlePics(String pic_art_id);
 
 	void setArticlesTag(String tag);
 
 	void jedisPicRefresh(String pic_art_id);
+
+	int updateArticle(Article newArt);
+
+	Integer selectComCount(int com_art_id);
+
+	int likeArticle(int art_id);
+	
+	void insertArticleLike(int like_articles_id, int like_user_id);
+
+	ArticlesLike selectLike(int artId, int userId);
+
+	int unLikeArticle(ArticlesLike articlesLike);
+
+	List<Article> selectAllNew();
+
+	List<Article> selectRedis(String page, String key);
+
+	void reportArt(Integer id, int userId, String repReason);
+
+	void reportCrep(Integer id, int userId, String repReason);
+
+	void reportRrep(Integer id, int userId, String repReason);
+
+	void jedisRefresh();
+
 }

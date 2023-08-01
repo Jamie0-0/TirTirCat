@@ -78,7 +78,7 @@
 													<li class="product-box-contain">
 														<div class="drop-cart">
 															<a href="product-left-thumbnail.html" class="drop-image">
-																<img src="../assets/images/vegetable/product/1.png"
+																<img src="assets/images/vegetable/product/1.png"
 																	class="blur-up lazyload" alt="">
 															</a>
 
@@ -99,7 +99,7 @@
 													<li class="product-box-contain">
 														<div class="drop-cart">
 															<a href="product-left-thumbnail.html" class="drop-image">
-																<img src="../assets/images/vegetable/product/2.png"
+																<img src="assets/images/vegetable/product/2.png"
 																	class="blur-up lazyload" alt="">
 															</a>
 
@@ -243,7 +243,7 @@
 							<h3>登入</h3>
 
 						</div>
-
+						<div id="error-messages"></div>
 						<div class="input-box">
 							<form class="row g-4" method="post">
 								<div class="col-12">
@@ -383,46 +383,65 @@
 	<!-- script js -->
 	<script src="assets/js/script.js"></script>
 	<script>
+		$(function(){
+
 		document.querySelector('#loginBtn').addEventListener("click", function () {
 			let email_el = $("#email").val();
 			let pwd_el = $("#password").val();
 
-			$.ajax({
-				url: "/TirTirCat/member/controller/MemberController", // 登入請求的網址
-				type: "POST",
-				data: {
+			fetch("loginController", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
 					email: email_el,
-					password: pwd_el
-				},
-				dataType: "json",
-				success: function (data) {
+					password: pwd_el,
+				}),
+			})
+				.then((response) => response.json())
+				.then((data) => {
 					// 登入請求成功後的處理
-					if (data === true) {
-						window.location.href = "http://localhost:8081/TirTirCat/member_center.html";
-						$.ajax({
-							url: "/TirTirCat/member/controller/memberCenterController", 
-							type: "POST",
-							data: {
+					if (data.status === "true") {
+						sessionStorage.setItem('uid', data.uid);
+						console.log(sessionStorage.getItem('uid'));
+						fetch("memberCenterController", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
 								email: email_el,
-								password: pwd_el
-							}, 
-							dataType: "json",
-							success: function (data) {
-								console.log("歡迎登入");
-							}
+								password: pwd_el,
+							}),
 						})
-					} else if(data === false){
+							.then((response) => response.json())
+							.then((data) => {
+								// 在此處處理 memberCenterController 回傳的資料
+							});
+						location.href = "http://localhost:8081/TirTirCat/member_center.html";
+					} else if (data.status === "error") {
 						// 登入失敗的處理
-						window.location.href = "index.html";
+						var errorMsgs = data.errorMsgs;
+						var errorContainer = $("#error-messages");
+
+						// 先清空錯誤容器
+						errorContainer.empty();
+
+						// // 遍歷錯誤訊息，動態添加到錯誤容器中
+						$.each(errorMsgs, function (index, errorMsg) {
+							var errorItem = $("<p>").text(errorMsg).css("color", "red");
+							errorContainer.append(errorItem);
+						});
 					}
-				},
-				error: function (xhr) {
+				})
+				.catch((error) => {
 					// 請求發生錯誤的處理
 					console.log("請求錯誤");
-				}
-			});
-		});
+				});
 
+		});
+	});
 	</script>
 
 </body>

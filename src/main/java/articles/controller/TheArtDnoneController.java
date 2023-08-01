@@ -14,7 +14,8 @@ import articles.service.ArticlesServiceImpl;
 
 @WebServlet("/artDnone")
 public class TheArtDnoneController extends HttpServlet {
-	
+
+	private static final long serialVersionUID = 1L;
 	private ArticlesService service;
 
 	@Override
@@ -27,12 +28,7 @@ public class TheArtDnoneController extends HttpServlet {
 		String art_id = (String) session.getAttribute("art_id");
 		String count = service.selectCountById("dnone",art_id);
 		
-		//將select方法拿到的List轉成json
-//		String json = ArticlesUtils.TurnIntoJson(count);
-        // 告訴前端response為json格式
-        response.setContentType("text/plain");
-        // 設定編碼
-        response.setCharacterEncoding("UTF-8");
+		response.setContentType("plain/text; charset=UTF-8");
         // 寫出
         response.getWriter().write(count);
 	}

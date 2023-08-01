@@ -260,29 +260,24 @@
 							data-bs-ride="carousel">
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img src="/TirTirCat/carousel?picOrder=0"
-										class="img-thumbnail card-img-top article d-block w-100"
-										alt="/TirTirCat/images/notFound.png" id="carouPic1">
+									<img class="img-thumbnail card-img-top article d-block w-100"
+										alt="images/notFound.png" id="carouPic1">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=1"
-										class="img-thumbnail card-img-top article d-block w-100"
-										alt="/TirTirCat/images/notFound.png" id="carouPic2">
+									<img class="img-thumbnail card-img-top article d-block w-100"
+										alt="images/notFound.png" id="carouPic2">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=2"
-										class="img-thumbnail card-img-top article d-block w-100"
-										alt="/TirTirCat/images/notFound.png" id="carouPic3">
+									<img class="img-thumbnail card-img-top article d-block w-100"
+										alt="images/notFound.png" id="carouPic3">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=3"
-										class="img-thumbnail card-img-top article d-block w-100"
-										alt="/TirTirCat/images/notFound.png" id="carouPic4">
+									<img class="img-thumbnail card-img-top article d-block w-100"
+										alt="images/notFound.png" id="carouPic4">
 								</div>
 								<div class="carousel-item">
-									<img src="/TirTirCat/carousel?picOrder=4"
-										class="img-thumbnail card-img-top article d-block w-100"
-										alt="/TirTirCat/images/notFound.png" id="carouPic5">
+									<img class="img-thumbnail card-img-top article d-block w-100"
+										alt="images/notFound.png" id="carouPic5">
 								</div>
 								<button class="carousel-control-prev" type="button"
 									data-bs-target="#article-carousel" data-bs-slide="prev">
@@ -298,38 +293,42 @@
 						</div>
 						<h5 class="card-title" id="article-title"
 							style="font-weight: bold;"></h5>
-						<p class="card-text" id="article-content"></p>
-						<div class="btn-group d-flex position-relative" role="group" aria-label="Basic example">
-							<i class="fa-solid fa-heart me-1" id="article-like"></i> <i
-								class="fa-solid fa-bookmark me-1" id="article-bookmark">收藏</i> <i
-								id="share-tooltip" class="fa-solid fa-share me-1"
+						<div class="card-text" id="article-content"></div>
+						<div class="btn-group d-flex position-relative" role="group" aria-label="Basic example" id="btn-group">
+							<i class="fa-solid fa-heart me-1 from-rule" id="article-like"></i> <i
+								class="fa-solid fa-bookmark me-1 from-rule" id="article-bookmark">收藏</i> <i
+								id="share-tooltip" class="fa-solid fa-share me-1 from-rule"
 								data-bs-toggle="myTooltip" data-bs-placement="bottom"
-								data-bs-title="點我複製連結網址!"
-								data-url="http://127.0.0.1:5500/TeamProject/article.html">分享</i> <i
-								class="fa-solid fa-flag visible" id="article-report"
+								data-bs-title="點我複製連結網址!">分享</i>
+							<i class="fa-solid fa-flag visible from-rule" id="article-report"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">檢舉</i>
-						
-								<i class="fa-solid fa-pen-to-square position-absolute end-0" id="article-edit">編輯</i>
+							<div>
+								<label id="upload_img_label" class="btn d-none">
+									<input id="upload_img" class="d-none" type="file" name="image" accept="image/*" multiple />
+										<i class="note-icon-picture">上傳封面輪播照片</i>
+								</label>
+								<input class="d-none" name="pic_art_id" value="">
+								<input class= "d-none" name="art_user_id" value="">
+							</div>
+							<i class="fa-solid fa-pen-to-square position-absolute end-0 from-rule" id="article-edit">編輯</i>
 						</div>
 						<div id="com_wrapper">
 							</div>
 						</div>
 						<div class="card w-100 border border-black">
-							<div class="card-body">
-								<h5 class="card-title">
-									<ul class="list-group list-group-horizontal" style="vertical-align: center;">
-										<li class="list-group-item border-0">
-											<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
-										</li>
-										<li class="list-group-item border-0 author"></li>
-									</ul>
-								</h5>
+							<div class="card-body from-rule forSummer2">
+								<ul class="list-group list-group-horizontal" style="vertical-align: center;">
+									<li class="list-group-item border-0">
+										<img alt="Avatar" class="avatar rounded-circle img-fluid col" id="ownerAvatar">
+									</li>
+									<li class="list-group-item border-0 author"></li>
+								</ul>
 								<form action="#" method="post">
 									<textarea class="card-text w-100" placeholder="留言"
-										id="summernote"></textarea>
+										id="summernote2"></textarea>
 									<div class="post-button-list2">
-										<button class="card-link btn btn-primary post-button"
-											type="submit">送出</button>
+										<button class="card-link btn btn-primary post-button" id="summer2"
+											type="button">送出</button>
 									</div>
 								</form>
 							</div>
@@ -340,7 +339,7 @@
 			<!-- main edit-->
 			<!-- main edit-->
 			<!-- report modal -->
-			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+			<div class="modal fade from-rule" id="staticBackdrop" data-bs-backdrop="static"
 				data-bs-keyboard="false" tabindex="-1"
 				aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable">
@@ -350,47 +349,47 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
-						<div class="modal-body">
-							<ul class="list-group"
-								style="background-color: #F6F0ED !important">
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="firstRadio" checked>
-									<label class="form-check-label" for="firstRadio">不喜歡這篇文章/留言</label>
-								</li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="secondRadio"> <label
-									class="form-check-label" for="secondRadio">重傷、挑釁、歧視或謾罵他人</label>
-								</li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="thirdRadio"> <label
-									class="form-check-label" for="thirdRadio">包含18禁內容</label></li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="fourthRadio"> <label
-									class="form-check-label" for="fourthRadio">文章內容無意義或內容空泛</label>
-								</li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="fifthRadio"> <label
-									class="form-check-label" for="fifthRadio">虐待寵物</label></li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="sixthRadio"> <label
-									class="form-check-label" for="sixthRadio">違反隱私</label></li>
-								<li class="list-group-item"><input
-									class="form-check-input me-1" type="radio"
-									name="listGroupRadio" value="" id="seventhRadio"> <label
-									class="form-check-label" for="seventhRadio">內容有釣魚連結</label></li>
-							</ul>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"
-								data-bs-dismiss="modal">取消</button>
-							<button type="submit" class="btn btn-primary">送出</button>
-						</div>
+						<div class="modal-body">					
+								<ul class="list-group"
+									style="background-color: #F6F0ED !important">
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="1" id="firstRadio" checked>
+										<label class="form-check-label" for="firstRadio">不喜歡這篇文章/留言</label>
+									</li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="2" id="secondRadio"> <label
+										class="form-check-label" for="secondRadio">重傷、挑釁、歧視或謾罵他人</label>
+									</li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="3" id="thirdRadio"> <label
+										class="form-check-label" for="thirdRadio">包含18禁內容</label></li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="4" id="fourthRadio"> <label
+										class="form-check-label" for="fourthRadio">文章內容無意義或內容空泛</label>
+									</li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="5" id="fifthRadio"> <label
+										class="form-check-label" for="fifthRadio">虐待寵物</label></li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="6" id="sixthRadio"> <label
+										class="form-check-label" for="sixthRadio">違反隱私</label></li>
+									<li class="list-group-item"><input
+										class="form-check-input me-1" type="radio"
+										name="listGroupRadio" value="7" id="seventhRadio"> <label
+										class="form-check-label" for="seventhRadio">內容有釣魚連結</label></li>
+								</ul>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="cancel-report"
+									data-bs-dismiss="modal">取消</button>
+								<button type="button" class="btn btn-primary" id="report-submit">送出</button>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -510,13 +509,23 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			$('#summernote').summernote({
-				height : 150, // 設定編輯器的高度
-				placeholder : '在此輸入內容', // 設定預設提示文字
-				toolbar : [ ]// 設定工具列的按鈕選項
-			});
-		});
+ 		$(document).ready(function() {
+ 			$('#summernote2').summernote({
+ 		        placeholder: '請輸入留言內容',
+ 		        tabsize: 2,
+ 		        height: 120,
+ 		        toolbar: [
+ 		          ['style', ['style']],
+ 		          ['font', ['bold', 'underline', 'clear']],
+ 		          ['color', ['color']],
+ 		          ['para', ['ul', 'ol', 'paragraph']],
+ 		          ['table', ['table']],
+ 		          ['insert', ['link', 'picture', 'video']],
+ 		          ['view', ['fullscreen', 'codeview', 'help']]
+ 		        ]
+ 		      });
+ 		});
+
 	</script>
 	<!-- my own js -->
 	<script src="https://kit.fontawesome.com/bee31715f0.js"

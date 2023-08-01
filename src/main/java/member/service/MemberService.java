@@ -1,5 +1,6 @@
 package member.service;
 
+import java.io.BufferedReader;
 import java.sql.Date;
 import java.util.List;
 
@@ -7,11 +8,14 @@ import member.vo.Member;
 
 public interface MemberService {
 	
-	public String login(String email, String password);
+	Member login(Member member);
 	
-	public Member register(String email, String username, String password, String phone, String address, Date birth, String gender);
+	Member register(String email, String username, String password, String phone, String address, Date birth, String gender, String aboutme);
 	
-	public boolean validate(String email, String password, String name, String phone, String gender, Date birth,
+	boolean validate(String email, String password, String name, String phone, String gender, Date birth,
 			String addr);
-	public List<String> getErrorMsgs();
+	List<String> getErrorMsgs();
+	
+	boolean edit(BufferedReader reader);
+	
 }

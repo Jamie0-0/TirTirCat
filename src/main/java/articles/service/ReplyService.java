@@ -1,7 +1,9 @@
 package articles.service;
 
-public interface ReplyService {
+import core.CoreService;
 
-	String insertReply(String reply_com_id, String reply_user_id, String reply_content);
+public interface ReplyService extends CoreService{
+
+	int insertReply(String reply_com_id, String reply_user_id, String reply_content);
 
 }

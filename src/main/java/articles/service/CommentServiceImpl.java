@@ -49,8 +49,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public String insertComment(String com_art_id, String com_user_id, String com_content) {
-		String status = "";
+	public int insertComment(String com_art_id, String com_user_id, String com_content) {
+		int status = 0;
 		try {
 			beginTransaction();
 			status = dao.insertComment(com_art_id, com_user_id, com_content);
@@ -59,26 +59,11 @@ public class CommentServiceImpl implements CommentService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
-			status = "新增留言失敗";
+			System.out.println("新增留言失敗");
 		}
 		return status;
 	}
-	@Override
-	public String updateComment(Comment newComment) {
-		String status ="";
-		try {
-		beginTransaction();
-		status = dao.updateComment(newComment);
-	    commit();
-	    System.out.println("修改留言成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rollback();
-			System.out.println(status);
-		}
-		
-		return status;
- 	}
+
 	
 	@Override
 	public boolean deleteComment(String com_id) {
@@ -96,5 +81,25 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return status;
  	}
+
+	@Override
+	public String updateComment(String com_id, String com_content) {
+		String status ="";
+		try {
+		beginTransaction();
+		Comment newComment = new Comment();
+		newComment.setCom_id(Integer.parseInt(com_id));
+		newComment.setCom_content(com_content);
+		status = dao.updateComment(newComment);
+	    commit();
+	    System.out.println(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = "修改留言失敗";
+			System.out.println(status);
+		}
+		
+		return status;
+	}
 
 }

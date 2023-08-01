@@ -4,8 +4,9 @@ import java.util.List;
 
 import articles.vo.Article;
 import articles.vo.ArticlePic;
+import core.CoreService;
 
-public interface ArticlesService {
+public interface ArticlesService extends CoreService{
 
 	// select
 	List<Article> selectHot(String page);
@@ -31,13 +32,26 @@ public interface ArticlesService {
 	int selectPageCount(String type);
 
 	// insert
-	String insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList);
+	int insertArticle(String art_user_id, String art_title, String art_content, List<byte[]> imageList);
 	
 	// delete
-	String deleteArtclePics(String pic_art_id);
+	int deleteArtclePics(String pic_art_id);
 
 	void jedisRefresh(); // 清掉redis
 
 	void setArticlesTag(String tag);
+
+	// update
+	int updateArticle(String art_id, String art_title, String art_content, List<byte[]> imageList);
+
+	Integer selectComCount(int com_art_id);
+
+	int likeArticle(String art_id, String uid);
+
+	int artReport(String rep_art_id, String crep_com_id, String rrep_reply_id, String uid, String rep_reason);
+
+	void saveAllHotArticles();
+
+	void saveAllNewArticles();
 
 }

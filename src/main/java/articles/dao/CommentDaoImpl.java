@@ -1,8 +1,6 @@
 package articles.dao;
 
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,7 +24,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectComById(String com_art_id) {
-		String hql = "SELECT c FROM Comment c WHERE c.com_art_id = :com_art_Id";
+		String hql = "FROM Comment c WHERE c.com_art_id = :com_art_Id";
 		Integer int_com_art_id = Integer.parseInt(com_art_id);
 		Session session = getSession();
 
@@ -54,7 +52,7 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public List<Reply> selectReply(String reply_com_id) {
 		
-		String hql = "SELECT r FROM Reply r WHERE r.reply_com_id = :reply_com_id";
+		String hql = "FROM Reply r WHERE r.reply_com_id = :reply_com_id";
 		Integer int_reply_com_id = Integer.parseInt(reply_com_id);
 		Session session = getSession();
 
@@ -75,11 +73,11 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public String insertComment(String com_art_id, String com_user_id, String com_content) {
+	public int insertComment(String com_art_id, String com_user_id, String com_content) {
 
-		String status = "新增comment失敗";
+		int status = 0;
 
-		Comment comment =  getSession().load(Comment.class, com_user_id);
+		Comment comment =  new Comment();
 		
         comment.setCom_art_id(Integer.parseInt(com_art_id)); // 設置相應的屬性值
         comment.setCom_user_id(Integer.parseInt(com_user_id));
@@ -87,8 +85,7 @@ public class CommentDaoImpl implements CommentDao {
         
         getSession().persist(comment);
        
-        status = "新增comment成功";
-        System.out.println(status);
+        status = 1;
 
 		return status;
 	}
@@ -96,13 +93,11 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public String updateComment(Comment newComment) {
 
-		String status = "更新comment失敗"; 
+		String status = ""; 
 		Comment comment = getSession().load(Comment.class, newComment.getCom_id());
-        comment.setCom_user_id(newComment.getCom_user_id());
         comment.setCom_content(newComment.getCom_content());
         getSession().persist(comment);
-        status = "更新comment成功";
-        System.out.println(status);
+        status ="修改留言成功";
 		return status;
 	}
 
