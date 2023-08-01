@@ -13,7 +13,7 @@ function fetchComment() {
 				let dataId = data[i].com_id;
 				comTotal = data.length;
 				const responseItem = `
-				<div class="com_wrapper_inner">
+			<div class="com_wrapper_inner">
 				<div class="card w-100">
 					<div class="comment-report position-absolute top-0 end-0 me-1">
 						<i type="button" class="fa-solid fa-flag com-report" com_id="${data[i].com_id}"
@@ -31,14 +31,14 @@ function fetchComment() {
 									<li class="list-group-item border-0 com_username">
 										${data[i].user.u_name}
 									</li>
-									<li class="list-group-item com_time border-0">
+									<li class="list-group-item com_time border-0 d-none d-md-block">
 										${data[i].com_date_time}
+									</li>
+									<li class="list-group-item border-0 card-text fw-bold fs-5 my-2">
+										${data[i].com_content}
 									</li>
 								</ul>
 							</div>
-						</div>
-						<div class="card-text fw-bold fs-5 my-2">
-							${data[i].com_content}
 						</div>
 						<div>
 							<i type="button"
@@ -65,7 +65,7 @@ function fetchComment() {
 
 					//  添加reply的留言區塊
 					const replybutt = `
-							<form action="#" method="post">
+								<form action="#" method="post">
 									<textarea class="card-text w-100" placeholder="留言"
 										></textarea>
 									<div class="post-button-list2">
@@ -90,33 +90,33 @@ function fetchComment() {
 						.then(data => {
 							for (let k = 0; k < data.length; k++) {
 								const replyItem = `
-								<div class="col-11 offset-1">
-								<div class="card">
-									<div class="post-reply w-100 position-relative">
-										<i type="button"
-											class="fa-solid fa-flag reply-report position-absolute end-0 top-0"
-											data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-											reply_id="${data[k].reply_id}"></i>
-										<div class="border-0 row">
-											<div class="border-0 col-2">
-												<img alt="Avatar"
-													class="avatar rounded-circle img-fluid"
-													alt="./images/Avatar.png"
-													src="avatar?uid=${data[k].reply_user_id}">
-											</div>
-											<div class="reply_username border-0 col-2">
-												${data[k].user.u_name}
-											</div>
-											<p class="reply_time border-0 col-2">
-												${data[k].reply_date_time}
-											</p>
-											<div class="reply border-0 col">${data[k].reply_content}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
+<div class="col-11 offset-1">
+    <div class="card">
+        <div class="post-reply w-100 position-relative">
+            <div class="border-0 row">
+                <div class="border-0 col-2 col-sm-2">
+                    <img alt="Avatar"
+                        class="avatar rounded-circle img-fluid"
+                        alt="./images/Avatar.png"
+                        src="avatar?uid=${data[k].reply_user_id}">
+                </div>
+                <div class="reply_username border-0 col-2 col-sm-2">
+                    ${data[k].user.u_name}
+                </div>
+                <p class="reply_time d-none d-sm-block border-0 col-1 col-sm-2">
+                    ${data[k].reply_date_time}
+                </p>
+                <div class="reply border-0 col col-sm">
+                    ${data[k].reply_content}
+                </div>
+            </div>
+            <i type="button"
+                class="fa-solid fa-flag reply-report position-absolute end-0 top-0 d-none d-md-block"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                reply_id="${data[k].reply_id}"></i>
+        </div>
+    </div>
+</div>
   `;
 								comReplyWrapper.append(replyItem);
 
