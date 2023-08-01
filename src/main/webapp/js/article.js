@@ -13,41 +13,49 @@ function fetchComment() {
 				let dataId = data[i].com_id;
 				comTotal = data.length;
 				const responseItem = `
-					<div class="card w-100">
-								<div class="card-body mw-100">
-									<div class="card-title d-flex">
-										<ul class="list-group list-group-horizontal d-flex justify-content-start">
-											<li class="list-group-item border-0">
-												<img alt="Avatar" class="avatar rounded-circle img-fluid col" src="avatar?uid=${data[i].com_user_id}">
-											</li>
-											<li class="list-group-item border-0 com_username">
-													${data[i].user.u_name}
-											</li>
-											<li class="list-group-item com_time border-0">
-													${data[i].com_date_time}
-											</li>
-											<li class="list-group-item border-0">
-													${data[i].com_content}
-											</li>
-										</ul>
-									</div>
-									<div class="comment-report position-absolute top-0 end-0 me-1">
-										<i type="button" class="fa-solid fa-flag com-report" com_id="${data[i].com_id}"
-											data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
-									</div>
-									<div>
-										<i type="button" class="fa-solid fa-reply com-reply-btn${dataId} fa-rotate-180 ms-1"></i>
-									</div>
-									<div class="com-reply-wrapper${dataId} d-none d-flex justify-content-end">
+			<div class="com_wrapper_inner">
+				<div class="card w-100">
+					<div class="comment-report position-absolute top-0 end-0 me-1">
+						<i type="button" class="fa-solid fa-flag com-report" com_id="${data[i].com_id}"
+							data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+					</div>
+					<div class="card-body">
+						<div class="row message_author">
+							<div class="col-12">
+								<ul
+									class="list-group list-group-horizontal d-flex justify-content-start">
+									<li class="list-group-item border-0">
+										<img alt="Avatar" class="avatar rounded-circle img-fluid"
+											src="avatar?uid=${data[i].com_user_id}">
+									</li>
+									<li class="list-group-item border-0 com_username">
+										${data[i].user.u_name}
+									</li>
+									<li class="list-group-item com_time border-0 d-none d-md-block">
+										${data[i].com_date_time}
+									</li>
+									<li class="list-group-item border-0 card-text fw-bold fs-5 my-2">
+										${data[i].com_content}
+									</li>
+								</ul>
 							</div>
+						</div>
+						<div>
+							<i type="button"
+								class="fa-solid fa-reply com-reply-btn${dataId} fa-rotate-180 ms-1"></i>
+						</div>
+						<div class="com-reply-wrapper${dataId} row d-none">
+						</div>
+					</div>
+				</div>
+			</div>
     `;
-
 				$("#com_wrapper").append(responseItem);
 
 				// 擴充: 回覆的回覆
-				$(`.com-reply-btn${dataId}`).on("click", function() {
+				$(`.com-reply-btn${dataId}`).on("click", function () {
 
-					$(`div.com-reply-wrapper${dataId}`).toggleClass("d-none");
+					$(`div.com-reply-wrapper${dataId}`).toggleClass(" d-none");
 					// 要發送的 reply_com_id
 					let reply_com_id = dataId;
 					let url = "reply?reply_com_id=" + reply_com_id;
@@ -57,7 +65,7 @@ function fetchComment() {
 
 					//  添加reply的留言區塊
 					const replybutt = `
-							<form action="#" method="post">
+								<form action="#" method="post">
 									<textarea class="card-text w-100" placeholder="留言"
 										></textarea>
 									<div class="post-button-list2">
@@ -81,22 +89,34 @@ function fetchComment() {
 						.then(response => response.json())
 						.then(data => {
 							for (let k = 0; k < data.length; k++) {
-
 								const replyItem = `
-<div class="row card" style="width:90%;">
-    <div class="post-reply container w-100 d-flex position-relative">
-        <i type="button" class="fa-solid fa-flag reply-report position-absolute end-0 top-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop" reply_id="${data[k].reply_id}"></i>
-        <div class="border-0">
-            <div class="border-0">
-                <img alt="Avatar" class="avatar rounded-circle img-fluid" alt="./images/Avatar.png" src="avatar?uid=${data[k].reply_user_id}">
+<div class="col-11 offset-1">
+    <div class="card">
+        <div class="post-reply w-100 position-relative">
+            <div class="border-0 row">
+                <div class="border-0 col-2 col-sm-2">
+                    <img alt="Avatar"
+                        class="avatar rounded-circle img-fluid"
+                        alt="./images/Avatar.png"
+                        src="avatar?uid=${data[k].reply_user_id}">
+                </div>
+                <div class="reply_username border-0 col-2 col-sm-2">
+                    ${data[k].user.u_name}
+                </div>
+                <p class="reply_time d-none d-sm-block border-0 col-1 col-sm-2">
+                    ${data[k].reply_date_time}
+                </p>
+                <div class="reply border-0 col col-sm">
+                    ${data[k].reply_content}
+                </div>
             </div>
-            <div class="reply_username border-0">${data[k].user.u_name}</div>
-            <p class="reply_time border-0">${data[k].reply_date_time}</p>
-            <div class="reply border-0">${data[k].reply_content}</div>  
-        </div> 
+            <i type="button"
+                class="fa-solid fa-flag reply-report position-absolute end-0 top-0 d-none d-md-block"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                reply_id="${data[k].reply_id}"></i>
+        </div>
     </div>
 </div>
-
   `;
 								comReplyWrapper.append(replyItem);
 
@@ -104,7 +124,7 @@ function fetchComment() {
 						});
 
 					// reply report button
-					$(`.com-reply-wrapper${dataId}`).on("click", "i.reply-report", function(e) {
+					$(`.com-reply-wrapper${dataId}`).on("click", "i.reply-report", function (e) {
 						e.stopPropagation();
 						let reply_id = $(this).attr("reply_id");
 						$("#report-submit").attr("reply_id", reply_id);
@@ -117,7 +137,7 @@ function fetchComment() {
 
 			// 避免YT影響RWD
 			$("iframe").removeAttr("width").removeAttr("height");
-			$("iframe").addClass("mw-100").css("aspect-ratio","16/9");
+			$("iframe").addClass("mw-100").css("aspect-ratio", "16/9");
 		});  // fetch end
 
 }
@@ -125,7 +145,7 @@ function fetchComment() {
 function addUpload() {
 	$("#upload_img_label").removeClass(" d-none");
 
-	$('#upload_img').on('change', function() {
+	$('#upload_img').on('change', function () {
 		imgFiles = $(this)[0].files;
 
 		imgFilesLength = imgFiles.length
@@ -153,7 +173,7 @@ function buildArticle() {
 		.then(data => {
 			if (data === null) {
 				alert("這篇文章不存在，即將送您回交流天地");
-				setTimeout(function() {
+				setTimeout(function () {
 					$(window).attr('location', 'forum.html');
 				}, 2000);
 
@@ -171,7 +191,7 @@ function buildArticle() {
 				urlArt_id = data[0].art_id;
 
 				// Like
-				$("#article-like").on("click", function(e) {
+				$("#article-like").on("click", function (e) {
 					// 避免重複點擊
 					e.stopPropagation();
 					$(this).css("pointer-events", "none");
@@ -220,11 +240,8 @@ function buildArticle() {
 		});
 }
 
-// init
-
-$(function() {
-
-	$("#summer2").on("click", function() {
+$(document).ready(function () {
+	$("#summer2").on("click", function () {
 		var markupStr = $('#summernote2').val();
 		$.ajax({
 			url: "commentInsert",
@@ -235,7 +252,7 @@ $(function() {
 				, com_content: markupStr
 			},
 			dataType: "json",
-			success: function(data) {
+			success: function (data) {
 				if (data === 1) {
 					$("#com_wrapper").empty();
 					$('.note-editable').empty();
@@ -273,7 +290,7 @@ $(function() {
 		});
 
 
-		$("#post-new").on("click", function() {
+		$("#post-new").on("click", function () {
 
 			content_value = $('#summernote1').val();
 			title_value = $(".title_post").val();
@@ -292,7 +309,7 @@ $(function() {
 				data: formData,
 				processData: false,
 				contentType: false,
-				success: function(data) {
+				success: function (data) {
 
 					if (data === 1) {
 						alert("發文成功")
@@ -321,7 +338,7 @@ $(function() {
 		// 編輯文章
 		let content_value = "";
 		let title_value = "";
-		$("#article-edit").on("click", function() {
+		$("#article-edit").on("click", function () {
 
 			let article_content = $("#article-content").find("*");
 			let article_title = $("#article-title").text();
@@ -377,7 +394,7 @@ $(function() {
 						processData: false,
 						contentType: false,
 						dataType: "json",
-						success: function(data) {
+						success: function (data) {
 							if (data === 1) {
 
 								alert("更新成功")
@@ -403,17 +420,18 @@ $(function() {
 				}
 			}
 		});
-	} // if 
-}); // init end
+	}
+});
+
 
 
 // article comment button
-$("#article-comment").on("click", function() {
+$("#article-comment").on("click", function () {
 	console.log("跳到留言");
 });
 
 // comment report button 事件委派到父元素
-$("#com_wrapper").on("click", "i.com-report", function(e) {
+$("#com_wrapper").on("click", "i.com-report", function (e) {
 	e.stopPropagation();
 	let com_id = $(this).attr("com_id");
 	$("#report-submit").attr("com_id", com_id);
@@ -423,7 +441,7 @@ $("#com_wrapper").on("click", "i.com-report", function(e) {
 });
 
 // article report button
-$("#article-report").on("click", function() {
+$("#article-report").on("click", function () {
 	let art_id = $(this).attr("art_id");
 	$("#report-submit").attr("art_id", art_id);
 	$("#report-submit").attr("com_id", 0);
@@ -433,7 +451,7 @@ $("#article-report").on("click", function() {
 })
 
 
-$("#report-submit").on("click", function() {
+$("#report-submit").on("click", function () {
 
 	let artId = $("#report-submit").attr("art_id");
 	let comId = $("#report-submit").attr("com_id");
@@ -451,10 +469,10 @@ $("#report-submit").on("click", function() {
 			uid: "1"   // 暫定1 應為登入者id
 		},
 		dataType: "json",
-		beforesend: function() {
+		beforesend: function () {
 			$("#report-submit").addClass(" disabled");
 		},
-		success: function() {
+		success: function () {
 			$("#report-submit").removeClass(" disabled");
 			$(window).attr('location', 'article.html');
 		}
