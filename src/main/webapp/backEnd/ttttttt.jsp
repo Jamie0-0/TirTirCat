@@ -7,10 +7,10 @@
 
 <%
 ProductDAO dao2 = new ProductDAO();
-List<ProductVO> list1 = dao2.indexNatrix1(1);
-for (ProductVO productVO : list1) {
-	System.out.println("in view list1 check===Product Name: " + productVO.getP_name());
-}
+// List<ProductVO> list1 = dao2.indexNatrix1(1);
+// for (ProductVO productVO : list1) {
+// 	System.out.println("in view list1 check===Product Name: " + productVO.getP_name());
+// }
 %>
 
 
@@ -45,13 +45,13 @@ for (ProductVO productVO : list1) {
 								</c:if>
 
 
-								<c:forEach var="xxx" items="<%=list1%>">
-									<p>產品名稱：${xxx.getP_name()}</p>
-								</c:forEach>
+<%-- 								<c:forEach var="xxx" items="<%=list1%>"> --%>
+<%-- 									<p>產品名稱：${xxx.getP_name()}</p> --%>
+<%-- 								</c:forEach> --%>
 
 
-								<p><%=list1.size()%></p>
-								<p>34343434334</p>
+<%-- 								<p><%=list1.size()%></p> --%>
+<!-- 								<p>34343434334</p> -->
 							</div>
 						</div>
 					</div>

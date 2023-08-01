@@ -540,15 +540,11 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 				});
 	</script>
 	<script>
-		// 在按鈕被點擊時觸發 submitForm 函數
 		document.getElementById("sendInfo").addEventListener("click",
 				submitForm);
 
 		function submitForm() {
-			// 取得 form 表單元素
 			const form = document.querySelector("form[name='form1']");
-
-			// 執行 form 表單的提交動作
 			form.submit();
 		}
 	</script>
