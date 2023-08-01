@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="./assets/images/favicon/1.png" type="image/x-icon">
+    <title>商品詳細頁面</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="./assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="./assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="./assets/css/styleGuide.css">
+
+
+    <style>
+        /* 自己加的 */
+        .modal {
+            display: none;
+            /* 預設隱藏燈箱 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* 使用半透明背景 */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+        }
+
+
+
+        div.product-name>h2.name>span.heart.-on {
+            color: black
+        }
+
+
+        .heart,
+        .chat {
+            display: inline-block;
+            margin: 0 3px;
+            /* 潔牙骨文字和心型圖案左右間隔 3px */
+            vertical-align: middle;
+            /* 垂直對齊方式：置中 */
+            cursor: pointer;
+        }
+
+        .heart i, .chat i{
+            font-size: 1.5rem;
+            /* 調整心型圖案大小為潔牙骨文字相同大小 */
+            color: #ffcb76;
+            /* 設定心型圖案顏色 */
+        }
+
+        /* 自己加的 */
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="./assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="./assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="./assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登入</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html">註冊</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html">忘記密碼</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <div class="mobile-menu d-md-none d-block mobile-cart">
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconly-Home icli"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li class="mobile-category">
+                <a href="javascript:void(0)">
+                    <i class="iconly-Category icli js-link"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="search.html" class="search-box">
+                    <i class="iconly-Search icli"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="wishlist.html" class="notifi-wishlist">
+                    <i class="iconly-Heart icli"></i>
+                    <span>My Wish</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    <i class="iconly-Bag-2 icli fly-cate"></i>
+                    <span>Cart</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2 id="breadScrumb_p_name1">潔牙骨</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+
+                                <li class="breadcrumb-item active" id="breadScrumb_p_name2">潔牙骨</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Left Sidebar Start -->
+    <section class="product-section">
+        <div class="container-fluid-lg">
+            <div class="row g-4">
+                <div class="col-xl-6">
+                    <div class="product-left-box">
+                        <div class="row g-sm-4 g-2">
+                            <div class="col-6 col-grid-box wow fadeInUp">
+                                <div class="slider-image">
+                                    <img src="./assets/images/product/category/1.jpg" id="img-1"
+                                        data-zoom-image="./assets/images/product/category/1.jpg" class="
+                                                        img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-grid-box wow fadeInUp" data-wow-delay="0.05s">
+                                <div class="slider-image">
+                                    <img src="./assets/images/product/category/2.jpg" id="img-2"
+                                        data-zoom-image="./assets/images/product/category/2.jpg" class="
+                                                        img-fluid image_zoom_cls-1 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-grid-box wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="slider-image">
+                                    <img src="./assets/images/product/category/3.jpg" id="img-3"
+                                        data-zoom-image="./assets/images/product/category/3.jpg" class="
+                                                        img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-grid-box wow fadeInUp mb-5" data-wow-delay="0.15s">
+                                <div class="slider-image">
+                                    <img src="./assets/images/product/category/4.jpg" id="img-4"
+                                        data-zoom-image="./assets/images/product/category/4.jpg" class="
+                                                        img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-6 col-grid-box wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="slider-image">
+                                    <img src="../assets/images/product/category/5.jpg" id="img-5"
+                                        data-zoom-image="../assets/images/product/category/5.jpg" class="
+                                                        img-fluid image_zoom_cls-4 blur-up lazyload" alt="">
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 ">
+
+                    <div class="d-flex justify-content-between align-items-center p-sticky wow fadeInUp">
+                        <div class="master-name">
+                            <h4 class="product-title" id="m_name">XXX寵物用品公司</h4>
+                        </div>
+                        <div class="chat">
+                            <a href="#" class="chat-link p-2">
+                                <i class="fab fa-rocketchat fas-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    <!-- <div class="right-box-contain p-sticky wow fadeInUp">
+                        <h4 class="product-title" id="m_name">XXX寵物用品公司
+                            <a href="#" class="chat-link p-2">
+                                <i class="fab fa-rocketchat fas-icon"></i>
+                            </a>
+                        </h4>
+                    </div> -->
+
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="product-name d-inline">
+                            <h2 id="p_name" class="m-0" style="line-height: 1.5;">潔牙骨</h2>
+                        </div>
+                        <div class="heart -on">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+
+
+                    <div class="price-rating mt-3 mb-3">
+                        <h3 class="text-content" style="line-height:1.5" id="p_price">$200
+                        </h3>
+                    </div>
+
+                    <div class="procuct-contain">
+                        <p style="line-height:1.5" id="p_des">
+                            我是商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述商品敘述
+                        </p>
+                        <p>商品數量 : <span id="p_stock">30</span></p>
+                    </div>
+
+
+                    <div class="note-box product-packege mt-4">
+                        <div class="cart_qty qty-box product-qty">
+                            <div class="input-group">
+                                <button type="button" class="qty-right-plus" onclick="increaseQty()" data-type="plus"
+                                    data-field="">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                                <input class="form-control input-number qty-input" type="number" name="quantity"
+                                    value="1" id="qtyInput">
+                                <button type="button" class="qty-left-minus" onclick="decreaseQty()" data-type="minus"
+                                    data-field="">
+                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- <button onclick="location.href = 'cart.html';"
+                        class="btn btn-md bg-dark cart-button text-white w-50 mt-4">加入購物車</button> -->
+
+
+
+                    <!--原本的 <button id="add-cart-btn" onclick="openModal()"
+                        class="btn btn-md bg-warning cart-button text-white w-50 mt-5">加入購物車
+                        <i class="fa-solid fa-cart-plus" style="margin-left:10px; color: #ffffff;"></i></button>
+                    <div id="myModal" class="modal">
+                        <div class="modal-content w-25">
+                            <h2 id="msgs" style="text-align:center">我是訊息</h2>
+                            <button class="btn theme-bg-color text-white btn-md w-50 mt-4 fw-bold mx-auto"
+                                onclick="closeModal()">確認</button>
+                        </div>
+                    </div> -->
+
+                    <button id="add-cart-btn" class="btn btn-md bg-warning cart-button text-white w-50 mt-5">加入購物車
+                        <i class="fa-solid fa-cart-plus" style="margin-left:10px; color: #ffffff;"></i>
+                    </button>
+                    <div id="myModal" class="modal">
+                        <div class="modal-content w-25">
+                            <h2 id="msgs" style="text-align:center">我是訊息</h2>
+                            <button class="btn theme-bg-color text-white btn-md w-50 mt-4 fw-bold mx-auto"
+                                onclick="closeModal()">確認</button>
+                        </div>
+                    </div>
+
+
+
+                    <script>
+                        // 在DOM加載完成後執行
+                        document.addEventListener('DOMContentLoaded', function () {
+
+
+                            // ---------------獲取商品詳細資料--------------- //
+                            // 取得 URL 上的參數
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const p_id = urlParams.get('p_id');
+
+
+                            // 使用 fetch 向後端傳送商品的 p_id 以獲取商品詳細資料
+                            fetch(`http://localhost:8081/TirTirCat/shop/productDetail?p_id=${p_id}`, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    // 將後端傳來的資料塞進前端的商品資訊區塊
+                                    document.getElementById("m_name").textContent = data.viewProductDetail.m_name;
+                                    document.getElementById("p_name").innerText = data.viewProductDetail.p_name;
+                                    document.getElementById("p_price").textContent = `$${data.viewProductDetail.p_price}`;
+                                    document.getElementById("p_des").textContent = data.viewProductDetail.p_des;
+                                    document.getElementById("p_stock").textContent = data.viewProductDetail.p_stock;
+
+                                    document.getElementById("breadScrumb_p_name1").textContent = data.viewProductDetail.p_name;
+                                    document.getElementById("breadScrumb_p_name2").textContent = data.viewProductDetail.p_name;
+                                })
+                                .catch(error => {
+                                    // 錯誤處理
+                                    console.error("請求錯誤:", error);
+                                });
+
+
+
+
+                        });
+
+
+
+                        // 選數量
+                        function increaseQty() {
+                            var qtyInput = document.getElementById("qtyInput");
+                            var currentQty = parseInt(qtyInput.value);
+                            qtyInput.value = currentQty + 1;
+                        }
+
+                        function decreaseQty() {
+                            var qtyInput = document.getElementById("qtyInput");
+                            var currentQty = parseInt(qtyInput.value);
+                            if (currentQty > 0) {
+                                qtyInput.value = currentQty - 1;
+                            }
+                        }
+
+
+                        // // --------------- 加入購物車, 開啟燈箱, 接收後端回傳訊息 --------------- //
+                        // 加入購物車按鈕點擊事件處理
+                        document.getElementById("add-cart-btn").addEventListener("click", function () {
+                            // 取得 URL 上的參數
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const p_id = urlParams.get('p_id');
+                            // 獲取商品數量
+                            const quantity = document.getElementById("qtyInput").value;
+
+                            // 使用 fetch 向後端傳送商品的 id 和數量
+                            fetch(`http://localhost:8081/TirTirCat/addToCart?p_id=${p_id}&quantity=${quantity}`, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log("p_id = " + p_id + ", quantity =" + quantity);
+                                    console.log(data);
+
+                                    // 取得訊息元素
+                                    const msgsElement = document.getElementById("msgs");
+
+                                    // 將燈箱內文字改為後端回傳的msg
+                                    msgsElement.textContent = data;
+
+                                    // 開啟燈箱
+                                    const modal = document.getElementById("myModal");
+                                    modal.style.display = "block";
+                                })
+                                .catch(error => {
+                                    // 錯誤處理
+                                    console.error("請求錯誤:", error);
+                                });
+                        });
+
+                        // 關閉燈箱按鈕點擊事件處理
+                        function closeModal() {
+                            const modal = document.getElementById("myModal");
+                            modal.style.display = "none";
+                        }
+
+
+
+
+
+
+                        // // 原本的--------------- 加入購物車 --------------- //
+                        // // 點擊加入購物車按鈕時觸發的事件
+                        // document.getElementById("add-cart-btn").addEventListener("click", function () {
+
+                        //     // 取得 URL 上的參數
+                        //     const urlParams = new URLSearchParams(window.location.search);
+                        //     const p_id = urlParams.get('p_id');
+                        //     // 獲取商品數量
+
+                        //     const quantity = document.getElementById("qtyInput").value;
+                        //     // const msgs = document.getElementById("msgs").innerText;
+
+                        //     // 使用 fetch 向後端傳送商品的 id 和數量
+                        //     fetch(`http://localhost:8081/TirTirCat/addToCart?p_id=${p_id}&quantity=${quantity}`, {
+                        //         method: 'GET',
+                        //         headers: {
+                        //             'Content-Type': 'application/json'
+                        //         }
+                        //     })
+                        //         .then(response => response.json())
+                        //         .then(data => {
+                        //             console.log("p_id = " + p_id + ", quantity =" + quantity);
+                        //             console.log(data);
+
+                        //             // 取得訊息元素
+                        //             const msgsElement = document.getElementById("msgs");
+
+                        //             // 清空元素內容
+                        //             msgsElement.textContent = "";
+
+                        //             msgsElement.textContent = data;
+
+                        //             // 在這裡處理從後端回傳的購物車資料，例如顯示在模態視窗中
+
+                        //         })
+                        //         .catch(error => {
+                        //             // 錯誤處理
+                        //             console.error("請求錯誤:", error);
+                        //         });
+                        // });
+
+
+
+
+
+
+
+                    </script>
+
+
+                    <script>
+                        // // 加入購物車燈箱
+                        // function openModal() {
+                        //     var modal = document.getElementById("myModal");
+                        //     modal.style.display = "block";
+                        // }
+
+                        // function closeModal() {
+                        //     var modal = document.getElementById("myModal");
+                        //     modal.style.display = "none";
+                        // }
+
+                        // // 獲取心型圖標元素
+                        // var heartIcon = document.querySelector('.heart i');
+
+                        // // 添加點擊事件監聽器
+                        // heartIcon.addEventListener('click', function () {
+                        //     // 切換心型圖標的樣式
+                        //     heartIcon.classList.toggle('fa-regular');
+                        //     heartIcon.classList.toggle('fa-solid');
+                        // });
+                    </script>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Releted Product Section End -->
+
+        <!-- Footer Section Start -->
+        <footer class="section-t-space">
+            <div class="container-fluid-lg">
+                <div class="main-footer section-b-space section-t-space">
+                    <div class="row g-md-4 g-3">
+                        <div class="col-xl-4 col-lg-3 col-sm-6">
+                            <div class="footer-title">
+                                <h4>聯絡我們</h4>
+                            </div>
+
+                            <div class="footer-contact">
+                                <ul class="address">
+                                    <li>
+                                        <i data-feather="home"></i>
+                                        <a
+                                            href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                    </li>
+                                    <li>
+                                        <i data-feather="mail"></i>
+                                        <a href="javascript:void(0)">support@gmail.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-sm-6">
+                            <div class="footer-logo">
+                                <div class="theme-logo">
+                                    <a href="index.html">
+                                        <img src="./assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="footer-logo-contain">
+                                    <p>
+                                        我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="footer-title">
+                                <h4>免責聲明</h4>
+                            </div>
+
+                            <div class="footer-contain">
+                                <ul>
+                                    <li>
+                                        <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Section End -->
+
+
+        <!-- Add to cart Modal Start -->
+        <div class="add-cart-box">
+            <div class="add-iamge">
+                <img src="./assets/images/cake/pro/1.jpg" class="img-fluid blur-up lazyload" alt="">
+            </div>
+
+            <div class="add-contain">
+                <h6>Added to Cart</h6>
+            </div>
+        </div>
+        <!-- Add to cart Modal End -->
+
+        <!-- Tap to top start -->
+        <div class="theme-option">
+            <div class="back-to-top">
+                <a id="back-to-top" href="#">
+                    <i class="fas fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Tap to top end -->
+
+
+        <!-- Bg overlay Start -->
+        <div class="bg-overlay"></div>
+        <!-- Bg overlay End -->
+
+        <!-- latest jquery-->
+        <script src="./assets/js/jquery-3.6.0.min.js"></script>
+
+        <!-- jquery ui-->
+        <script src="./assets/js/jquery-ui.min.js"></script>
+
+        <!-- Bootstrap js-->
+        <script src="./assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/bootstrap/bootstrap-notify.min.js"></script>
+        <script src="./assets/js/bootstrap/popper.min.js"></script>
+
+        <!-- feather icon js-->
+        <script src="./assets/js/feather/feather.min.js"></script>
+        <script src="./assets/js/feather/feather-icon.js"></script>
+
+        <!-- Lazyload Js -->
+        <script src="./assets/js/lazysizes.min.js"></script>
+
+        <!-- Slick js-->
+        <script src="./assets/js/slick/slick.js"></script>
+        <script src="./assets/js/slick/slick-animation.min.js"></script>
+        <script src="./assets/js/custom-slick-animated.js"></script>
+        <script src="./assets/js/slick/custom_slick.js"></script>
+
+        <!-- Price Range Js -->
+        <script src="./assets/js/ion.rangeSlider.min.js"></script>
+
+        <!-- sidebar open js -->
+        <script src="./assets/js/filter-sidebar.js"></script>
+
+        <!-- Quantity js -->
+        <script src="./assets/js/quantity-2.js"></script>
+
+        <!-- Zoom Js -->
+        <script src="./assets/js/jquery.elevatezoom.js"></script>
+        <script src="./assets/js/zoom-filter.js"></script>
+
+        <!-- Timer Js -->
+        <!-- <script src="./assets/js/timer1.js"></script> -->
+
+        <!-- Sticky-bar js -->
+        <script src="./assets/js/sticky-cart-bottom.js"></script>
+
+        <!-- WOW js -->
+        <script src="./assets/js/wow.min.js"></script>
+        <script src="./assets/js/custom-wow.js"></script>
+
+        <!-- script js -->
+        <script src="./assets/js/script.js"></script>
+
+
+
+</body>
+
+</html>

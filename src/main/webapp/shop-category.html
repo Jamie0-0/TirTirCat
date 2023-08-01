@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="./assets/images/favicon/1.png" type="image/x-icon">
+    <title>商城首頁</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="./assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="./assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="./assets/css/styleGuide.css">
+
+    <style>
+        .btn_switch {
+            border: 1.5px solid #ffcb76;
+            display: inline-block;
+            padding: 10px;
+            position: relative;
+            text-align: center;
+            transition: background 600ms ease, color 600ms ease;
+        }
+
+        input[type="radio"].toggle {
+            display: none;
+
+            &+label {
+                cursor: pointer;
+                min-width: 60px;
+
+                &:hover {
+                    background: none;
+                    color: #ffcb76;
+                }
+
+                &:after {
+                    background: #ffcb76;
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1);
+                    width: 100%;
+                    z-index: -1;
+                }
+            }
+
+            &.toggle-left+label {
+                border-right: 0;
+                color: #ffcb76;
+
+                &:after {
+                    left: 100%
+                }
+            }
+
+            &.toggle-right+label {
+                margin-left: -5px;
+                color: #ffcb76;
+
+                &:after {
+                    left: -100%;
+                }
+            }
+
+            &:checked+label {
+                cursor: default;
+                color: #fff;
+                transition: color 200ms;
+
+                &:after {
+                    left: 0;
+                }
+            }
+        }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- 載入jQuery函式庫 -->
+
+
+
+
+
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="./assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="./assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="./assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登入</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html">註冊</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html">忘記密碼</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <div class="mobile-menu d-md-none d-block mobile-cart">
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconly-Home icli"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li class="mobile-category">
+                <a href="javascript:void(0)">
+                    <i class="iconly-Category icli js-link"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="search.html" class="search-box">
+                    <i class="iconly-Search icli"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="wishlist.html" class="notifi-wishlist">
+                    <i class="iconly-Heart icli"></i>
+                    <span>My Wish</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    <i class="iconly-Bag-2 icli fly-cate"></i>
+                    <span>Cart</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>商城</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">商城</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shop Section Start -->
+    <section class="section-b-space shop-section">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-custome-3">
+                    <div class="left-box wow fadeInUp">
+                        <div class="shop-left-sidebar">
+
+                            <ul class="nav nav-pills mb-3 custom-nav-tab" id="pclass-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pclass_food" data-bs-toggle="pill"
+                                        data-bs-target="#pclass_food" type="button" role="tab" aria-selected="false">食物
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pclass_supplies" data-bs-toggle="pill"
+                                        data-bs-target="#pclass_supplies" type="button" role="tab"
+                                        aria-controls="pclass_supplies" aria-selected="false">用品</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pclass_toy" data-bs-toggle="pill"
+                                        data-bs-target="#pclass_toy" type="button" role="tab" aria-controls="pill"
+                                        aria-selected="false">玩具 </button>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <script>
+                    //------------------------------------- 篩選商品class -------------------------------------//
+                    // 獲取按鈕元素
+                    const foodButton = document.getElementById("pclass_food");
+                    const suppliesButton = document.getElementById("pclass_supplies");
+                    const toyButton = document.getElementById("pclass_toy");
+
+                    function handleButtonClick(how, keywords) {
+                        // 使用 URLSearchParams 來組成 URL 參數
+                        const params = new URLSearchParams();
+                        params.append("how", how);
+                        params.append("keywords", keywords);
+
+                        // 使用 fetch 請求資料庫資料筆數
+                        fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log("商品清單:", data);
+                                // 取得資料庫的筆數
+                                const numberOfProducts = data.selectByKeyWords.length;
+
+                                // 產生動態的 findAllForShopList 內容
+                                const dynamicselectByKeyWords = [];
+                                for (let i = 0; i < numberOfProducts; i++) {
+                                    const product = data.selectByKeyWords[i];
+
+                                    dynamicselectByKeyWords.push({
+                                        p_id: product.p_id,
+                                        p_name: product.p_name,
+                                        p_price: product.p_price,
+                                        p_type: product.p_type,
+                                        p_class: product.p_class
+                                    });
+                                }
+
+                                // 使用 fetch 請求資料
+                                fetch(`http://localhost:8081/TirTirCat/shop/categories?how=${how}&&keywords=${keywords}`, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // 在這裡處理從後端獲取的資料
+                                        console.log("商品清單:", data);
+                                        if (data.selectByKeyWords.length == 0) {
+                                            // data.selectByKeyWords 為 null，表示查無商品
+                                            const productListContainer = document.getElementById("product-list");
+                                            productListContainer.innerHTML = "<p>查無商品</p>"; // 顯示查無商品
+                                        } else if (data.status === "true") {
+                                            // 將資料顯示到前端頁面上
+                                            const productListContainer = document.getElementById("product-list");
+                                            productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                                            for (const product of data.selectByKeyWords) {
+                                                const productBox = document.createElement("div");
+                                                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                                productBox.setAttribute("p_id", product.p_id);
+                                                productBox.innerHTML = `
+                                                    <div class="product-header">
+                                                    <div class="product-image">
+                                                        <a href="#">
+                                                        <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="product_pic img-fluid blur-up lazyload" alt="">
+                                                        </a>
+                                                    </div>
+                                                    </div>
+                                                    <div class="product-footer">
+                                                    <div class="product-detail">
+                                                        <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                                                        <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                                                        <a href="#">
+                                                        <h5 class="name">${product.p_name}</h5>
+                                                        </a>
+                                                        <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                                                    </div>
+                                                    </div>
+                                                `;
+                                                productListContainer.appendChild(productBox);
+
+                                                // 立刻回傳商品的p_id給Servlet，以獲取商品照片
+                                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                    method: 'GET',
+                                                })
+                                                    .then(photoData => {
+                                                        console.log(product.p_id);
+                                                        console.log(photoData);
+
+                                                        // 使用jQuery設置圖片來源
+                                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                        console.log($(`#pic_content_${product.p_id}`));
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('錯誤:', error);
+                                                    });
+                                            }
+                                        }
+                                    })
+                                    .catch(error => {
+                                        // 錯誤處理
+                                        console.error("請求錯誤:", error);
+                                    });
+                            })
+                            .catch(error => {
+                                // 錯誤處理
+                                console.error("請求錯誤:", error);
+                            });
+                    }
+
+
+                    // 綁定點擊事件
+                    foodButton.addEventListener("click", function () {
+                        handleButtonClick("byClass", "1"); // 點擊食物按鈕，送出 p_class="1"
+                    });
+
+                    suppliesButton.addEventListener("click", function () {
+                        handleButtonClick("byClass", "2"); // 點擊用品按鈕，送出 p_class="2"
+                    });
+
+                    toyButton.addEventListener("click", function () {
+                        handleButtonClick("byClass", "3"); // 點擊玩具按鈕，送出 p_class="3"
+                    });
+                </script>
+
+
+
+
+
+                <div class="col-custome-9">
+                    <div class="show-button">
+                        <div class="filter-button d-inline-block d-lg-none">
+                            <a><i class="fa-solid fa-filter"></i> Filter Menu</a>
+                        </div>
+                        <!-- 狗貓按鈕 -->
+                        <div class="mb-5" style="display: flex; justify-content: end; height: 45px">
+                            <div class="productKind">
+                                <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false"
+                                    type="radio" checked>
+                                <label for="toggle-on" class="btn_switch">狗</label>
+                                <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true"
+                                    type="radio">
+                                <label for="toggle-off" class="btn_switch">貓</label>
+                            </div>
+                            <!-- 搜尋框 -->
+                            <div class="search-box mb-5" style="width: 40%; margin-left: auto; ">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="找商品"
+                                        aria-label="Example text with button addon">
+                                    <button class="btn theme-bg-color text-white m-0" type="button"
+                                        id="button-addon1"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <script>
+                            //------------------------------------- 篩選商品Type -------------------------------------//
+                            // 獲取狗貓按鈕元素
+                            const dogButton = document.getElementById("toggle-on");
+                            const catButton = document.getElementById("toggle-off");
+
+                            function fetchProductsByType(how, keywords) {
+                                // 使用 URLSearchParams 來組成 URL 參數
+                                const params = new URLSearchParams();
+                                params.append("how", how);
+                                params.append("keywords", keywords);
+
+                                // 使用 fetch 請求資料庫資料
+                                fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // 在這裡處理從後端獲取的資料
+                                        console.log("商品清單:", data);
+                                        if (data.selectByKeyWords.length == 0) {
+                                            // data.selectByKeyWords 為 null，表示查無商品
+                                            const productListContainer = document.getElementById("product-list");
+                                            productListContainer.innerHTML = "<p>查無商品</p>"; // 顯示查無商品
+                                        } else if (data.status === "true") {
+                                            // 將資料顯示到前端頁面上
+                                            const productListContainer = document.getElementById("product-list");
+                                            productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                                            for (const product of data.selectByKeyWords) {
+                                                const productBox = document.createElement("div");
+                                                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                                productBox.setAttribute("p_id", product.p_id);
+                                                productBox.innerHTML = `
+                                        <div class="product-header">
+                                          <div class="product-image">
+                                            <a href="#">
+                                              <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="product_pic img-fluid blur-up lazyload" alt="">
+                                            </a>
+                                          </div>
+                                        </div>
+                                        <div class="product-footer">
+                                          <div class="product-detail">
+                                            <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                                            <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                                            <a href="#">
+                                              <h5 class="name">${product.p_name}</h5>
+                                            </a>
+                                            <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                                          </div>
+                                        </div>
+                                      `;
+                                                productListContainer.appendChild(productBox);
+
+                                                // 立刻回傳商品的p_id給Servlet，以獲取商品照片
+                                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                    method: 'GET',
+                                                })
+                                                    .then(photoData => {
+                                                        console.log(product.p_id);
+                                                        console.log(photoData);
+
+                                                        // 使用jQuery設置圖片來源
+                                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                        console.log($(`#pic_content_${product.p_id}`));
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('錯誤:', error);
+                                                    });
+                                            }
+                                        }
+                                    })
+                                    .catch(error => {
+                                        // 錯誤處理
+                                        console.error("請求錯誤:", error);
+                                    });
+                            }
+
+                            // 綁定點擊事件
+
+                            dogButton.addEventListener("click", function () {
+                                fetchProductsByType("byType", "1"); // 點擊狗按鈕，送出 p_type="1"
+                            });
+
+                            catButton.addEventListener("click", function () {
+                                fetchProductsByType("byType", "2"); // 點擊貓按鈕，送出 p_type="2"
+                            });
+                        </script>
+
+
+
+
+
+
+
+                        <script>
+                            //------------------------------------- 商品名關鍵字搜尋框 -------------------------------------//
+                            function fetchProductsByInput(how, keywords) {
+                                // 使用 URLSearchParams 來組成 URL 參數
+                                const params = new URLSearchParams();
+                                params.append("how", how);
+                                params.append("keywords", keywords);
+
+                                // 使用 fetch 請求資料庫資料
+                                fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // 在這裡處理從後端獲取的資料
+                                        console.log("商品清單:", data);
+                                        if (data.selectByKeyWords.length == 0) {
+                                            // data.selectByKeyWords 為 null，表示查無商品
+                                            const productListContainer = document.getElementById("product-list");
+                                            productListContainer.innerHTML = "<p>查無商品</p>"; // 顯示查無商品
+                                        } else if (data.status === "true") {
+                                            // 將資料顯示到前端頁面上
+                                            const productListContainer = document.getElementById("product-list");
+                                            productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                                            for (const product of data.selectByKeyWords) {
+                                                const productBox = document.createElement("div");
+                                                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                                productBox.setAttribute("p_id", product.p_id);
+                                                productBox.innerHTML = `
+                                                    <div class="product-header">
+                                                    <div class="product-image">
+                                                        <a href="#">
+                                                        <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="product_pic img-fluid blur-up lazyload" alt="">
+                                                        </a>
+                                                    </div>
+                                                    </div>
+                                                    <div class="product-footer">
+                                                    <div class="product-detail">
+                                                        <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                                                        <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                                                        <a href="#">
+                                                        <h5 class="name">${product.p_name}</h5>
+                                                        </a>
+                                                        <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                                                    </div>
+                                                    </div>
+                                                `;
+                                                productListContainer.appendChild(productBox);
+
+                                                // 立刻回傳目前商品的p_id給Servlet，以獲取該項商品照片
+                                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                    method: 'GET',
+                                                })
+                                                    .then(photoData => {
+                                                        console.log(product.p_id);
+                                                        console.log(photoData);
+
+                                                        // 使用jQuery設置圖片來源
+                                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                        console.log($(`#pic_content_${product.p_id}`));
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('錯誤:', error);
+                                                    });
+                                            }
+                                        }
+                                        $("form-control").val("");
+                                    })
+                                    .catch(error => {
+                                        // 錯誤處理
+                                        console.error("請求錯誤:", error);
+                                    });
+
+                            }
+
+                            // 綁定點擊事件
+                            const inputButton = document.getElementById("button-addon1");
+                            const input = document.querySelector(".form-control");
+
+                            inputButton.addEventListener("click", function () {
+                                const inputText = input.value;
+                                fetchProductsByInput("byText", inputText); // 點擊 button-addon1，將 input 中輸入的值作為參數送出
+                            });
+                        </script>
+
+
+
+
+
+
+                        <!-- 在這裡指定一個空的 div，用來放商品資訊 -->
+                        <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section"
+                            id="product-list">
+                        </div>
+
+                        <script>
+                            // // ------------------------ 載入頁面抓全部商品列表 ------------------------- //
+                            $(document).ready(function () {
+                                // 使用 fetch 請求資料庫資料筆數
+                                fetch('http://localhost:8081/TirTirCat/shop', {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // 取得資料庫的筆數
+                                        const numberOfProducts = data.findAllForShopList.length;
+
+                                        // 產生動態的 findAllForShopList 內容
+                                        const dynamicFindAllForShopList = [];
+                                        for (let i = 0; i < numberOfProducts; i++) {
+                                            const product = data.findAllForShopList[i];
+
+                                            dynamicFindAllForShopList.push({
+                                                p_id: product.p_id,
+                                                p_name: product.p_name,
+                                                p_price: product.p_price,
+                                                p_type: product.p_type,
+                                                p_class: product.p_class
+                                            });
+                                        }
+
+                                        // 使用 fetch 請求資料
+                                        fetch('http://localhost:8081/TirTirCat/shop', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                findAllForShopList: dynamicFindAllForShopList
+                                            })
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                // 在這裡處理從後端獲取的資料
+                                                console.log("商品清單:", data);
+
+                                                if (data.status === "true") {
+                                                    // 將資料顯示到前端頁面上
+                                                    const productListContainer = document.getElementById("product-list");
+                                                    productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                                                    for (const product of data.findAllForShopList) {
+                                                        const productBox = document.createElement("div");
+                                                        productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                                        productBox.setAttribute("p_id", product.p_id);
+                                                        productBox.innerHTML = `
+                                                            <div class="product-header">
+                                                            <div class="product-image">
+                                                                <a href="#">
+                                                                <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="product_pic img-fluid blur-up lazyload" alt="">
+                                                                </a>
+                                                            </div>
+                                                            </div>
+                                                            <div class="product-footer">
+                                                            <div class="product-detail">
+                                                                <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                                                                <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                                                                <a href="#">
+                                                                <h5 class="name">${product.p_name}</h5>
+                                                                </a>
+                                                                <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                                                            </div>
+                                                            </div>
+                                                        `;
+                                                        productListContainer.appendChild(productBox);
+
+                                                        // 立刻回傳商品的p_id給Servlet，以獲取商品照片
+                                                        fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                            method: 'GET',
+                                                        })
+                                                            .then(photoData => {
+                                                                console.log(product.p_id);
+                                                                console.log(photoData);
+
+                                                                // 使用jQuery設置圖片來源
+                                                                $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                                console.log($(`#pic_content_${product.p_id}`));
+                                                            })
+                                                            .catch(error => {
+                                                                console.error('錯誤:', error);
+                                                            });
+                                                    }
+                                                }
+                                            })
+                                            .catch(error => {
+                                                // 錯誤處理
+                                                console.error("請求錯誤:", error);
+                                            });
+                                    })
+                                    .catch(error => {
+                                        // 錯誤處理
+                                        console.error("請求錯誤:", error);
+                                    });
+                            });
+                        </script>
+
+
+                 
+
+                        <script>                            
+                            // ------------------------ 點擊獲取商品p_id傳到後端 ------------------------- //
+                            $(function () {
+                                // 綁定點擊事件
+                                const productListContainer = document.getElementById("product-list");
+                                productListContainer.addEventListener("click", function (event) {
+                                    const clickedProductBox = event.target.closest(".product-box-3");
+                                    if (clickedProductBox) {
+                                        // 使用 getAttribute 取得 p_id 屬性的值 (即商品的 p_id)
+                                        const p_id = clickedProductBox.getAttribute("p_id");
+                                        console.log("p_id = " + p_id);
+
+                                        // 使用 fetch 向後端傳送商品的 p_id 以獲取商品詳細資料
+                                        fetch(`http://localhost:8081/TirTirCat/shop/productDetail?p_id=${p_id}`, {
+                                            method: 'GET',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            }
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                console.log("商品詳細資料:", data.viewProductDetail);
+                                                // 重新導向到 product-4-image.html 頁面，並將 p_id 作為查詢參數傳遞
+                                                location.href = `http://localhost:8081/TirTirCat/product-4-image.html?p_id=${p_id}`;
+                                            })
+
+                                            .catch(error => {
+                                                // 錯誤處理
+                                                console.error("請求錯誤:", error);
+                                            });
+                                    }
+                                });
+                            });
+                        </script>
+
+
+
+                        <script>
+                        //    // ---------------成功版--------------- //
+                        //     $(function () {
+                        //         // 取得每個 span.price 的價格值並發送 fetch 請求
+                        //         for (let i = 1; i <= 3; i++) {
+                        //             var product_name_el = $("h5#product_name" + i).text();
+                        //             // console.log(price_el);
+                        //         }
+
+                        //         // 使用 fetch 請求資料
+                        //         fetch('http://localhost:8081/TirTirCat/shop', {
+                        //             method: 'POST',
+                        //             headers: {
+                        //                 'Content-Type': 'application/json'
+                        //             },
+                        //             body: JSON.stringify({
+                        //                 findAllForShopList: product_name_el
+                        //             })
+                        //         }) // 記得更改後端URL
+                        //             .then(response => response.json())
+                        //             .then(data => {
+                        //                 console.log(data);
+                        //                 console.log(data.findAllForShopList[0].p_name);
+
+                        //                 if (data.status === "true") {
+                        //                     for (let i = 1; i <= data.findAllForShopList.length; i++) {
+                        //                     // location.href = "https://www.google.com"
+                        //                     let name = data.findAllForShopList[i-1].p_name;
+
+                        //                     // 假設 price_el 是一個儲存價格的 <span> 標籤的元素
+                        //                     // 將價格更新到對應的 <span> 標籤中
+                        //                     $("h5#product_name" + i).text(name);
+                        //                 }
+                        //             }
+                        //                 // // 將從後端獲取的資料更新到倒數計時器容器中
+                        //                 // Object.keys(data).forEach(key => {
+                        //                 //     const endDate = new Date(data[key].gb_time_end);
+                        //                 //     updateCountdown(key, endDate);
+                        //                 // });
+                        //             })
+                        //             .catch(error => {
+                        //                 console.error('Error:', error)
+                        //             });
+                        //     }
+                        //     );
+                        </script>
+
+
+
+                        <!--分頁 <nav class="custome-pagination">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
+                                        <i class="fa-solid fa-angles-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="javascript:void(0)">1</a>
+                                </li>
+                                <li class="page-item" aria-current="page">
+                                    <a class="page-link" href="javascript:void(0)">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)">
+                                        <i class="fa-solid fa-angles-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav> -->
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Shop Section End -->
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="./assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+
+
+
+    <!-- Add to cart Modal Start -->
+    <div class="add-cart-box">
+        <div class="add-iamge">
+            <img src="./assets/images/cake/pro/1.jpg" class="img-fluid blur-up lazyload" alt="">
+        </div>
+
+        <div class="add-contain">
+            <h6>Added to Cart</h6>
+        </div>
+    </div>
+    <!-- Add to cart Modal End -->
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="./assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="./assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="./assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="./assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="./assets/js/feather/feather.min.js"></script>
+    <script src="./assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="./assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="./assets/js/slick/slick.js"></script>
+    <script src="./assets/js/slick/slick-animation.min.js"></script>
+    <script src="./assets/js/slick/custom_slick.js"></script>
+
+    <!-- Price Range Js -->
+    <script src="./assets/js/ion.rangeSlider.min.js"></script>
+
+    <!-- Quantity js -->
+    <script src="./assets/js/quantity-2.js"></script>
+
+    <!-- sidebar open js -->
+    <script src="./assets/js/filter-sidebar.js"></script>
+
+    <!-- WOW js -->
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="./assets/js/script.js"></script>
+
+    <!-- 載入 Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+
+</body>
+
+</html>
