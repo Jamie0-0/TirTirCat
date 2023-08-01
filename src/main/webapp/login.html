@@ -389,19 +389,12 @@
 			let email_el = $("#email").val();
 			let pwd_el = $("#password").val();
 
-<<<<<<< HEAD
-			$.ajax({
-				url: "/TirTirCat/master/controller/MasterServlet", // 登入請求的網址
-				type: "POST",
-				data: {
-=======
 			fetch("loginController", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
->>>>>>> main
 					email: email_el,
 					password: pwd_el,
 				}),
