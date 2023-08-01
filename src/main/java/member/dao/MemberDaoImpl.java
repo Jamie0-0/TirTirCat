@@ -35,7 +35,6 @@ public class MemberDaoImpl implements MemberDao {
 			pstm.setString(7, member.getGender());
 			pstm.setString(8, member.getAbout());
 
-			
 			return pstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,6 +137,26 @@ public class MemberDaoImpl implements MemberDao {
 				member.setGmID(rs.getInt("gm_id"));
 				member.setGmDate(rs.getTimestamp("gm_date"));
 				member.setAbout(rs.getString("u_about"));
+				return member;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Member selectByUserNameForCart(String name) {
+		final String sql = "select * from USER where u_name = ?";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql);) {
+			pstm.setString(1, name);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				Member member = new Member();
+				member.setUid(rs.getInt("uid"));
+				member.setName(rs.getString("u_name"));
+				member.setPhone(rs.getString("u_phone"));
+				member.setAddr(rs.getString("u_address"));
 				return member;
 			}
 		} catch (Exception e) {
