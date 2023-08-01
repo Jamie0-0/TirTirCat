@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="./assets/images/favicon/1.png" type="image/x-icon">
+    <title>結帳</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="./assets/css/vendors/bootstrap.css">
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="./assets/css/styleGuide.css">
+
+
+    <style>
+        /* 自己加的 */
+        .modal {
+            display: none;
+            /* 預設隱藏燈箱 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* 使用半透明背景 */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+        }
+
+
+        /* 自己加的 */
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="./assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="./assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="./assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登入</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html">註冊</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html">忘記密碼</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <div class="mobile-menu d-md-none d-block mobile-cart">
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconly-Home icli"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li class="mobile-category">
+                <a href="javascript:void(0)">
+                    <i class="iconly-Category icli js-link"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="search.html" class="search-box">
+                    <i class="iconly-Search icli"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="wishlist.html" class="notifi-wishlist">
+                    <i class="iconly-Heart icli"></i>
+                    <span>My Wish</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    <i class="iconly-Bag-2 icli fly-cate"></i>
+                    <span>Cart</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>結帳</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">結帳</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout section Start -->
+    <section class="checkout-section-2 section-b-space">
+        <div class="container-fluid-lg">
+            <div class="row g-sm-4 g-3">
+                <div class="col-lg-8">
+                    <div class="left-sidebar-checkout">
+                        <div class="checkout-detail-box">
+                            <ul>
+                                <li>
+                                    <div class="checkout-icon">
+                                        <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json"
+                                            trigger="loop-on-hover"
+                                            colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
+                                            class="lord-icon">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="checkout-box">
+                                        <div class="checkout-title">
+                                            <h4>宅配資訊</h4>
+                                        </div>
+
+                                        <div class="checkout-detail">
+                                            <div class="row g-4">
+                                                <div class="col-xxl-6 col-lg-12 col-md-6">
+
+
+
+                                                    <div class="delivery-address-box">
+                                                        <form id="r_info">
+
+                                                            <div class="form-group mb-2">
+                                                                <label for="r_name">收件人姓名</label>
+                                                                <input class="form-control" id="r_name" value="內湖薩摩耶">
+                                                            </div>
+                                                            <div class="form-group mb-2">
+                                                                <label for="r_phone">連絡電話</label>
+                                                                <input class="form-control" id="r_phone"
+                                                                    value="09xxxxxxxx">
+                                                            </div>
+                                                            <div class="form-group mb-2">
+                                                                <label for="r_address">收件地址</label>
+                                                                <input class="form-control" id="r_address"
+                                                                    value="台北市內湖區薩摩耶路5號">
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="right-side-summery-box">
+                        <div class="summery-box-2">
+                            <div class="summery-header">
+                                <h3>商品明細</h3>
+                            </div>
+
+                            <div class="cart">
+                                <ul class="summery-contain" id="cartlist">
+                                    <li>
+                                        <img src="./assets/images/vegetable/product/1.png"
+                                            class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                        <h4>潔牙骨 <span>X 1</span></h4>
+                                        <h4 class="price">$200</h4>
+                                    </li>
+                                </ul>
+
+                                <ul class="summery-total">
+                                    <li>
+                                        <h4>商品總額</h4>
+                                        <h4 id="subTotal" class="price">$750</h4>
+                                    </li>
+
+                                    <li>
+                                        <h4 class="mb-2">運費</h4>
+                                        <h4 id="d_fee" class="price">$120</h4>
+                                    </li>
+
+                                    <!-- <li>
+                                    <h4>Tax</h4>
+                                    <h4 class="price">$29.498</h4>
+                                </li>
+
+                                <li>
+                                    <h4>Coupon/Code</h4>
+                                    <h4 class="price">$-23.10</h4>
+                                </li> -->
+
+                                    <li class="list-total mt-4">
+                                        <h4>結帳金額</h4>
+                                        <h4 id="total" class="price">$870</h4>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <button id="checkout_btn" onclick="openModal()"
+                                class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">結帳</button>
+                            <div id="myModal" class="modal">
+                                <div class="modal-content w-25">
+                                    <h2 style="text-align:center">下單成功</h2>
+                                    <!-- <p>成團與否請待簡訊通知</p> -->
+                                    <button class="btn theme-bg-color text-white btn-md w-50 mt-4 fw-bold mx-auto"
+                                        onclick="closeModal()">確認</button>
+                                </div>
+                            </div>
+
+
+
+
+                            <script>
+                                // 當網頁載入完成後，向後端獲取購物車內容
+                                window.addEventListener('DOMContentLoaded', () => {
+                                    fetch('http://localhost:8081/TirTirCat/cartController', {
+                                        method: 'GET',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // 獲取後端回傳的購物車內容陣列
+                                            const cartContent = data.cartList;
+                                            // 獲取總額和總額
+                                            const subTotal = data.subtotal;
+                                            const total = data.total;
+                                            // 將購物車內容顯示在前端
+                                            displayCartItems(cartContent);
+                                            // 獲取用戶(收件者)資料
+                                            const user_info = data.user;
+
+
+                                            // 更新小計顯示
+                                            const subTotalElement = document.getElementById('subTotal');
+                                            subTotalElement.textContent = '$' + subTotal;
+
+                                            // 更新總額顯示
+                                            const totalElement = document.getElementById('total');
+                                            totalElement.textContent = '$' + total;
+
+                                            // 更新用戶資料顯示
+                                            const rNameElement = document.getElementById('r_name');
+                                            rNameElement.value = user_info.name;
+                                            const rPhoneElement = document.getElementById('r_phone');
+                                            rPhoneElement.value = user_info.phone;
+                                            const rAddressElement = document.getElementById('r_address');
+                                            rAddressElement.value = user_info.addr;
+
+                                            const rInfoElement = document.getElementById('r_info');
+                                            rInfoElement.setAttribute("r_uid", user_info.uid);
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                        });
+
+
+                                    // 顯示購物車內容
+                                    function displayCartItems(cartContent) {
+                                        const cartlist_body = document.getElementById("cartlist");
+                                        let cartHTML = '';
+
+                                        cartContent.forEach(item => {
+                                            cartHTML += `                                                  
+                                            <ul class="summery-contain" id="cartlist">
+                                                <li p_id=${item.p_id} p_m_id=${item.p_m_id}>
+                                                    <img id="pic_content_${item.p_id}" src="./assets/images/vegetable/product/1.png"
+                                                        class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                                        <h4 class="mr-3">${item.p_name}</h4>
+                                                        <span class="ml-4">X${item.quantity}</span>
+                                                        <h4 class="price">$${item.p_price * item.quantity}</h4>
+                                                </li>
+                                            </ul>
+                                            `;
+
+                                            // 立刻回傳商品的p_id給Servlet，以獲取商品照片
+                                            fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${item.p_id}`, {
+                                                method: 'GET',
+                                            })
+                                                .then(photoData => {
+                                                    // 設置圖片來源
+                                                    $(`#pic_content_${item.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${item.p_id}`);
+                                                })
+                                                .catch(error => {
+                                                    console.error('錯誤:', error);
+                                                });
+                                        });
+                                        cartlist_body.innerHTML = cartHTML;
+                                    }
+
+                                });
+
+
+
+
+                                $(document).ready(function () {
+                                    //-------------------按下結帳按鈕，傳送訂單及收件人資訊給後端-------------------//
+                                    // 監聽結帳按鈕的點擊事件
+                                    $('#checkout_btn').on('click', function () {
+                                        // 獲取收件人id、姓名、連絡電話、收件地址
+                                        const r_id = $('#r_info').attr("r_uid");
+                                        const r_name = $('#r_name').val();
+                                        const r_phone = $('#r_phone').val();
+                                        const r_address = $('#r_address').val();
+
+                                        // 獲取商品明細列表的資訊
+                                        const cartList = [];
+                                        $('.summery-contain li').each(function () {
+                                            const p_id = $(this).attr('p_id');
+                                            const p_m_id = $(this).attr('p_m_id');
+                                            const quantity = parseInt($(this).find('span').text().trim().replace('X', ''));
+                                            const price = parseFloat($(this).find('.price').text().replace('$', ''));
+
+                                            cartList.push({
+                                                p_id: p_id,
+                                                p_m_id: p_m_id,
+                                                quantity: quantity,
+                                                p_price: price
+                                            });
+                                        });
+
+                                        // 獲取商品總額、運費、結帳金額
+                                        const shippingFee = parseFloat($('.summery-total li:nth-child(2) .price').text().replace('$', ''));
+                                        const total = parseFloat($('#total').text().replace('$', ''));
+
+                                        // 構建要傳送的資料
+                                        const dataToSend = {
+                                            productOrder: {
+                                                order_uid: r_id,
+                                                order_r_name: r_name,
+                                                order_r_phone: r_phone,
+                                                order_r_addr: r_address,
+                                                order_dfee: shippingFee,
+                                                order_t: total
+                                            },
+                                            cartlist: cartList
+                                        };
+
+                                        // 發送 AJAX 請求
+                                        $.ajax({
+                                            url: 'http://localhost:8081/TirTirCat/checkoutCart',
+                                            method: 'POST',
+                                            dataType: 'json',
+                                            data: JSON.stringify(dataToSend),
+                                            contentType: 'application/json',
+                                            success: function (response) {
+                                                // 在此處理後端回傳的成功回應
+                                                console.log(dataToSend);
+                                                console.log('訂單提交成功：', response);
+                                                // 在這裡可以做其他處理，例如顯示訂單成功的提示、清空購物車等等
+                                                // ...
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                // 在此處理 AJAX 請求失敗的情況
+                                                console.error('錯誤：', errorThrown);
+                                                // 在這裡可以做錯誤處理，例如顯示錯誤訊息等等
+                                                // ...
+                                            }
+                                        });
+                                    });
+                                });
+
+                            </script>
+
+
+
+
+                            <script>
+                                function openModal() {
+                                    var modal = document.getElementById("myModal");
+                                    modal.style.display = "block";
+                                }
+
+                                function closeModal() {
+                                    var modal = document.getElementById("myModal");
+                                    modal.style.display = "none";
+                                }
+                            </script>
+
+
+
+                            <!-- <button class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Place Order</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Checkout section End -->
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="./assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="./assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="./assets/js/jquery-ui.min.js"></script>
+
+    <!-- Lordicon Js -->
+    <script src="./assets/js/lusqsztk.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="./assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/bootstrap/popper.min.js"></script>
+    <script src="./assets/js/bootstrap/bootstrap-notify.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="./assets/js/feather/feather.min.js"></script>
+    <script src="./assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="./assets/js/lazysizes.min.js"></script>
+
+    <!-- Delivery Option js -->
+    <script src="./assets/js/delivery-option.js"></script>
+
+    <!-- Slick js-->
+    <script src="./assets/js/slick/slick.js"></script>
+    <script src="./assets/js/slick/custom_slick.js"></script>
+
+    <!-- Quantity js -->
+    <script src="./assets/js/quantity.js"></script>
+
+    <!-- script js -->
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
