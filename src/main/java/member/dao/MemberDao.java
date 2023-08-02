@@ -12,5 +12,7 @@ public interface MemberDao {
 	int update(Member member);
 	
 	Member selectByEmail(String email);
+	
+	Member selectByUserNameForCart(String name);
 
 }
