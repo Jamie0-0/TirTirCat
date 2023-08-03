@@ -194,13 +194,7 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 											href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a>
 										</li>
 										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a>
-										</li>
-										<li><a
 											href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a>
-										</li>
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a>
 										</li>
 									</ul></li>
 
@@ -214,12 +208,6 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 											href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
 												個人設定</a></li>
 									</ul></li>
-
-								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/chat.jsp"> <i
-										class="fas fa-comments"></i> <span>聊天室</span>
-								</a></li>
 							</ul>
 						</div>
 
