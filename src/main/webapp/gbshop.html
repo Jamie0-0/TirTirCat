@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="assets/images/favicon/1.png" type="image/x-icon">
+    <title>Shop Category</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="assets/css/styleGuide.css">
+
+    <style>
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 220px;
+            background-color: #ffcb76;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .counter>div {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .counter h5 {
+            margin: 0;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #a0a0a0;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .notification-title {
+            text-align: center;
+            font-size: 14px;
+            color: #a0a0a0;
+        }
+
+        .notification-message {
+            text-align: center;
+            font-size: 12px;
+            color: #a0a0a0;
+        }
+
+        .notification-divider {
+            width: 100%;
+            height: 1px;
+            margin: 5px 0;
+            background-color: #a0a0a0;
+        }
+
+        .show-all-button {
+            font-size: 12px;
+            text-decoration: none;
+            color: #a0a0a0;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .custom-show-all-button {
+            font-size: 12px;
+            text-decoration: none;
+            color: #a0a0a0;
+            background-color: #ffcb76;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .custom-delete-btn {
+            background-color: #ffcb76;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <!-- <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button> -->
+                                            <a href="#" class="bell">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </a>
+                                            <div class="onhover-div">
+                                                <span class="notification-title">通知中心</span>
+                                                <hr class="notification-divider">
+                                                <ul class="notification-list">
+                                                    <li class="notification-item">
+                                                        <span class="notification-message">陳XX已向您發送好友邀請</span>
+                                                    </li>
+                                                    <li class="notification-item">
+                                                        <span
+                                                            class="notification-message">XX罐頭揪團活動已成團，請於6/10前完成付款</span>
+                                                    </li>
+                                                </ul>
+                                                <hr class="notification-divider">
+                                                <div class="text-center mt-4">
+                                                    <a href="notification-center.html" target="_blank"
+                                                        class="btn btn-link custom-show-all-button">顯示全部</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登入</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html">註冊</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html">忘記密碼</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>團購</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shop Section Start -->
+    <section class="section-b-space shop-section">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-custome-3">
+                    <div class="left-box wow fadeInUp">
+                        <div class="shop-left-sidebar">
+                            <ul class="nav nav-pills mb-3 custom-nav-tab" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pclass_food" data-bs-toggle="pill"
+                                        data-bs-target="#pills-vegetable" type="button" role="tab"
+                                        aria-selected="true">食物 </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pclass_supplies" data-bs-toggle="pill"
+                                        data-bs-target="#pills-beverages" type="button" role="tab"
+                                        aria-controls="pills-beverages" aria-selected="false">用品 </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pclass_toy" data-bs-toggle="pill"
+                                        data-bs-target="#pills-meat" type="button" role="tab" aria-controls="pills-meat"
+                                        aria-selected="false">玩具 </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="p_type_dog" data-bs-toggle="pill"
+                                        data-bs-target="#pills-dairy" type="button" role="tab"
+                                        aria-controls="pills-dairy" aria-selected="true">狗</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="p_type_cat" data-bs-toggle="pill"
+                                        data-bs-target="#pills-frozen" type="button" role="tab"
+                                        aria-controls="pills-frozen" aria-selected="false">貓</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-custome-9">
+                    <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section"
+                        id="product-list">
+                        <div>
+                            <div class="product-box-3 h-100 wow fadeInUp">
+                                <div class="product-header">
+                                    <div class="product-image" id="p_pic_one">
+                                        <a href="gbproduct.html">
+                                            <!-- <img src="assets/images/cake/product/2.png"
+                                                class="img-fluid blur-up lazyload w-100" alt=""> -->
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span id="p_type">狗?</span>
+                                        <span id="p_class">食物?</span>
+                                        <a href="gbproduct.html">
+                                            <h5 id="p_name">狗狗主食罐-火雞肉</h5>
+                                        </a>
+                                        <h5 class="price"><span id="price1" class="theme-color">$08.02</span>
+                                            <span id="p_price"><del>$15.15</del></span>
+                                        </h5>
+                                        <div class="countdown-container" id="countdown">
+                                            <div class="counter">
+                                                <div class="days">
+                                                    <h5>0</h5>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="hours">
+                                                    <h5>0</h5>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="minutes">
+                                                    <h5>0</h5>
+                                                    <span>Mins</span>
+                                                </div>
+                                                <div class="seconds">
+                                                    <h5>0</h5>
+                                                    <span>Secs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="product-box-3 h-100 wow fadeInUp" data-wow-delay="0.05s">
+                                <div class="product-header">
+                                    <div class="product-image" id="p_pic_one">
+                                        <a href="gbproduct.html">
+                                            <!-- <img src="assets/images/cake/product/3.png"
+                                                class="img-fluid blur-up lazyload" alt=""> -->
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span id="p_type">狗?</span>
+                                        <span id="p_class">用品?</span>
+                                        <a href="gbproduct.html">
+                                            <h5 id="p_name">梳毛手套</h5>
+                                        </a>
+                                        <h5 class="price"><span id="price" class="theme-color">$04.33</span>
+                                            <span id="p_price"><del>$15.15</del></span>
+                                        </h5>
+                                        <div class="countdown-container" id="countdown">
+                                            <div class="counter">
+                                                <div class="days">
+                                                    <h5>0</h5>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="hours">
+                                                    <h5>0</h5>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="minutes">
+                                                    <h5>0</h5>
+                                                    <span>Mins</span>
+                                                </div>
+                                                <div class="seconds">
+                                                    <h5>0</h5>
+                                                    <span>Secs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="product-box-3 h-100 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="product-header">
+                                    <div class="product-image" id="p_pic_one">
+                                        <a href="gbproduct.html">
+                                            <!-- <img src="assets/images/cake/product/4.png"
+                                                class="img-fluid blur-up lazyload" alt=""> -->
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span id="p_type">狗?</span>
+                                        <span id="p_class">玩具?</span>
+                                        <a href="gbproduct.html">
+                                            <h5 id="p_name3">犬用潔牙拉索玩具</h5>
+                                        </a>
+                                        <h5 class="price"><span id="price" class="theme-color">$12.52</span>
+                                            <span id="p_price"><del>$15.15</del></span>
+                                        </h5>
+                                        <div class="countdown-container" id="countdown">
+                                            <div class="counter">
+                                                <div class="days">
+                                                    <h5>0</h5>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="hours">
+                                                    <h5>0</h5>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="minutes">
+                                                    <h5>0</h5>
+                                                    <span>Mins</span>
+                                                </div>
+                                                <div class="seconds">
+                                                    <h5>0</h5>
+                                                    <span>Secs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="product-box-3 h-100 wow fadeInUp" data-wow-delay="0.15s">
+                                <div class="product-header">
+                                    <div class="product-image" id="p_pic_one">
+                                        <a href="gbproduct.html">
+                                            <!-- <img src="assets/images/cake/product/5.png"
+                                                class="img-fluid blur-up lazyload" alt=""> -->
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span id="p_type">貓?</span>
+                                        <span id="p_class">食物?</span>
+                                        <a href="gbproduct.html">
+                                            <h5 id="p_name4">貓咪肉泥</h5>
+                                        </a>
+                                        <h5 class="price"><span id="price" class="theme-color">$10.25</span>
+                                            <span id="p_price4"><del>$15.15</del></span>
+                                        </h5>
+                                        <div class="countdown-container" id="countdown">
+                                            <div class="counter">
+                                                <div class="days">
+                                                    <h5>0</h5>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="hours">
+                                                    <h5>0</h5>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="minutes">
+                                                    <h5>0</h5>
+                                                    <span>Mins</span>
+                                                </div>
+                                                <div class="seconds">
+                                                    <h5>0</h5>
+                                                    <span>Secs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="product-box-3 h-100 wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="product-header">
+                                    <div class="product-image" id="p_pic_one">
+                                        <a href="gbproduct.html">
+                                            <!-- <img src="assets/images/cake/product/6.png"
+                                                class="img-fluid blur-up lazyload" alt=""> -->
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span id="p_type">貓?</span>
+                                        <span id="p_class">用品?</span>
+                                        <a href="gbproduct.html">
+                                            <h5 id="p_name5">貓貓梳子</h5>
+                                        </a>
+                                        <h5 class="price"><span id="price" class="theme-color">$14.25</span>
+                                            <span id="p_price"><del>$15.15</del></span>
+                                        </h5>
+                                        <div class="countdown-container" id="countdown">
+                                            <div class="counter">
+                                                <div class="days">
+                                                    <h5>0</h5>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="hours">
+                                                    <h5>0</h5>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="minutes">
+                                                    <h5>0</h5>
+                                                    <span>Mins</span>
+                                                </div>
+                                                <div class="seconds">
+                                                    <h5>0</h5>
+                                                    <span>Secs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="product-box-3 h-100 wow fadeInUp" data-wow-delay="0.25s">
+                                <div class="product-header">
+                                    <div class="product-image" id="p_pic_one">
+                                        <a href="gbproduct.html">
+                                            <!-- <img src="assets/images/cake/product/7.png"
+                                                class="img-fluid blur-up lazyload" alt=""> -->
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span id="p_type">貓?</span>
+                                        <span id="p_class">玩具?</span>
+                                        <a href="gbproduct.html">
+                                            <h5 id="p_name">逗貓棒</h5>
+                                        </a>
+                                        <h5 class="price"><span id="price" class="theme-color">$12.68</span>
+                                            <span id="p_price"><del>$15.15</del></span>
+                                        </h5>
+                                        <div class="countdown-container" id="countdown">
+                                            <div class="counter">
+                                                <div class="days">
+                                                    <h5>0</h5>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="hours">
+                                                    <h5>0</h5>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="minutes">
+                                                    <h5>0</h5>
+                                                    <span>Mins</span>
+                                                </div>
+                                                <div class="seconds">
+                                                    <h5>0</h5>
+                                                    <span>Secs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Shop Section End -->
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="assets/js/feather/feather.min.js"></script>
+    <script src="assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="assets/js/slick/slick.js"></script>
+    <script src="assets/js/slick/slick-animation.min.js"></script>
+    <script src="assets/js/slick/custom_slick.js"></script>
+
+    <!-- Price Range Js -->
+    <script src="assets/js/ion.rangeSlider.min.js"></script>
+
+    <!-- Quantity js -->
+    <script src="assets/js/quantity-2.js"></script>
+
+    <!-- sidebar open js -->
+    <script src="assets/js/filter-sidebar.js"></script>
+
+    <!-- WOW js -->
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <script>
+        $("a.bell").on("click", function (e) {
+            e.preventDefault();
+        });
+    </script>
+
+    <script>
+        // 處理商品資料的函式
+        function updateProducts(products) {
+            const productListContainer = document.getElementById("product-list");
+            productListContainer.innerHTML = ""; // 清空容器內的內容避免重複加入
+
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                const productBox = document.createElement("div");
+                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                const pType = product.p_type === 1 ? "狗" : "貓";
+                const pClass = product.p_class === 1 ? "食物" : product.p_class === 2 ? "用品" : "玩具";
+
+                productBox.innerHTML = `
+                    <div class="product-header">
+                        <div class="product-image">
+                            <a href="#">
+                                <img src="data:image/jpeg;base64,${product.p_pic_one}" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-detail">
+                            <span class="span-name">${pType}</span>
+                            <span class="span-name">${pClass}</span>
+                            <a href="#">
+                                <h5 class="name">${product.p_name}</h5>
+                            </a>
+                            <h5 class="price">
+                                <span class="theme-color" id="price${i}">$${product.p_price.toFixed(2)}</span>
+                                <span class="p-price"><del>$${product.p_price}</del></span>
+                            </h5>
+
+                            <div class="countdown-container" id="countdown-${i}">
+                                <div class="counter">
+                                    <div class="days">
+                                        <h5>0</h5>
+                                        <span>Days</span>
+                                    </div>
+                                    <div class="hours">
+                                        <h5>0</h5>
+                                        <span>Hours</span>
+                                    </div>
+                                    <div class="minutes">
+                                        <h5>0</h5>
+                                        <span>Mins</span>
+                                    </div>
+                                    <div class="seconds">
+                                        <h5>0</h5>
+                                        <span>Secs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                productListContainer.appendChild(productBox);
+            }
+        }
+
+        // 處理商品倒計時的函式
+        function updateCountdown(containerId, endTime) {
+            const container = document.getElementById(containerId);
+            const daysElement = container.querySelector('.days h5');
+            const hoursElement = container.querySelector('.hours h5');
+            const minutesElement = container.querySelector('.minutes h5');
+            const secondsElement = container.querySelector('.seconds h5');
+
+            const currentTime = new Date().getTime();
+            const timeLeft = endTime - currentTime;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            daysElement.textContent = days;
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes;
+            secondsElement.textContent = seconds;
+        }
+
+        fetch('GbServlet', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "true") {
+
+                    updateProducts(data.productData);
+                    updateAllCountdowns(data.productData, data.price);
+
+                    // 使用 setInterval 每隔 1 秒更新商品倒計時
+                    setInterval(() => {
+                        updateAllCountdowns(data.productData, data.price);
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        function updateAllCountdowns(products, prices) {
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                const price = prices[i];
+                const countdownId = `countdown-${i}`;
+
+                // 解析日期數值並轉換為 JavaScript 的日期對象???????????????????????????
+                // const startTime = price.gb_time_start;
+                // const endTime = price.gb_time_end;
+                const startTime = new Date(price.gb_time_start).getTime();
+                const endTime = new Date(price.gb_time_end).getTime();
+                // console.log(endTime);
+
+                // updateCountdown(countdownId, endTime);
+                updateCountdown(countdownId, price.gb_time_start ,price.gb_time_end);
+
+                const priceElement = document.getElementById(`price${i}`);
+                priceElement.textContent = `$${price.gb_s_price}`;
+            }
+        }
+    </script>
+    <!-- --------------------------------------------------------------------------------------------------- -->
+
+    <!-- 改 -->
+    <script>
+        // 監聽按鈕點擊事件
+        document.getElementById("pclass_food").addEventListener("click", function () {
+            console.log("1");
+            handleButtonClick("p_class", "1");
+        });
+
+        document.getElementById("pclass_supplies").addEventListener("click", function () {
+            console.log("2");
+            handleButtonClick("p_class", "2");
+        });
+
+        document.getElementById("pclass_toy").addEventListener("click", function () {
+            handleButtonClick("p_class", "3");
+        });
+
+        document.getElementById("p_type_dog").addEventListener("click", function () {
+            handleButtonClick("p_type", "1");
+        });
+
+        document.getElementById("p_type_cat").addEventListener("click", function () {
+            handleButtonClick("p_type", "2");
+        });
+
+        // 處理按鈕點擊事件的函式
+        function handleButtonClick(how, keywords) {
+            const productListContainer = document.getElementById("product-list");
+            fetch(`choise?how=${how}&keywords=${keywords}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 在這裡處理從後端獲取的資料
+                    // console.log("商品清單:", data);
+                    if (data.status === "true") {
+
+                        if (data.selectByKeyWords.length === 0) {
+
+                            productListContainer.innerHTML = "<p>查無商品</p>";
+                        } else {
+                            // console.log("123");
+                            // 將資料顯示到前端頁面上
+                            productListContainer.innerHTML = ""; // 清空容器內的內容避免重複加入
+
+                            for (const product of data.selectByKeyWords) {
+
+                                const base64 = arrayBufferToBase64(product.productVO.p_pic_one);
+                                // console.log(base64);
+
+                                // 建立商品元素並填充商品資料
+                                const productBox = document.createElement("div");
+                                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                productBox.setAttribute("p_id", product.productVO.p_id);
+
+                                // 解析日期字符串並轉換成 JavaScript 的日期對象
+                                const startTime = new Date(product.gbVO.gb_time_start).getTime();
+                                const endTime = new Date(product.gbVO.gb_time_end).getTime();
+
+                                productBox.innerHTML = `
+                                    <div class="product-header">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img id="pic_content_${product.productVO.p_id}" src="data:image/png;base64,${base64}" class="img-fluid blur-up lazyload" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-footer">
+                                        <div class="product-detail">
+                                            <span class="span-name">${product.productVO.p_type === 1 ? "狗" : "貓"}</span>
+                                            <span class="span-name">${product.productVO.p_class === 1 ? "食物" : product.productVO.p_class === 2 ? "用品" : "玩具"}</span>
+                                            <a href="#">
+                                                <h5 class="name">${product.productVO.p_name}</h5>
+                                            </a>
+                                            <h5 class="price">
+                                                <span class="theme-color">$${product.gbVO.gb_s_price.toFixed(2)}</span>
+                <span class="p-price"><del>$${product.productVO.p_price}</del></span>
+            </h5>
+            <div class="countdown-container" id="countdown-${product.productVO.p_id}">
+                <div class="counter">
+                    <div class="days">
+                        <h5>0</h5>
+                        <span>Days</span>
+                    </div>
+                    <div class="hours">
+                        <h5>0</h5>
+                        <span>Hours</span>
+                    </div>
+                    <div class="minutes">
+                        <h5>0</h5>
+                        <span>Mins</span>
+                    </div>
+                    <div class="seconds">
+                        <h5>0</h5>
+                        <span>Secs</span>
+                    </div>
+                </div>
+            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                productListContainer.appendChild(productBox);
+
+                                // 呼叫更新倒數計時的函式，使用 startTime 和 endTime
+                                updateCountdown(`countdown-${product.productVO.p_id}`, startTime, endTime);
+                            }
+
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('請求錯誤:', error);
+                });
+        }
+
+        // 更新倒數計時
+        function updateCountdown(elementId, startTime, endTime) {
+            const countdownElement = document.getElementById(elementId);
+
+            function updateCounter() {
+                const now = new Date().getTime();
+                const timeRemaining = endTime - now;
+
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                const daysElement = countdownElement.querySelector(".days h5");
+                const hoursElement = countdownElement.querySelector(".hours h5");
+                const minutesElement = countdownElement.querySelector(".minutes h5");
+                const secondsElement = countdownElement.querySelector(".seconds h5");
+
+                daysElement.innerText = days;
+                hoursElement.innerText = hours;
+                minutesElement.innerText = minutes;
+                secondsElement.innerText = seconds;
+
+                if (timeRemaining < 0) {
+                    clearInterval(interval);
+                    daysElement.innerText = "0";
+                    hoursElement.innerText = "0";
+                    minutesElement.innerText = "0";
+                    secondsElement.innerText = "0";
+                }
+            }
+
+            updateCounter();
+            const interval = setInterval(updateCounter, 1000);
+        }
+
+        function arrayBufferToBase64(buffer) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+        // 更新倒計時器和商品名稱
+        function updateCountdownAndProductNames(gbList, productData) {
+            updateAllCountdowns(gbList); // 更新倒計時器
+            updateProductNames(productData); // 更新商品名稱和價格
+        }
+    </script>
+    <!-- =========================================================================================== -->
+    <!-- 原本的 -->
+    <!-- <script>
+        // 監聽按鈕點擊事件
+        document.getElementById("pclass_food").addEventListener("click", function () {
+            console.log("1");
+            handleButtonClick("p_class", "1");
+        });
+
+        document.getElementById("pclass_supplies").addEventListener("click", function () {
+            console.log("2");
+            handleButtonClick("p_class", "2");
+        });
+
+        document.getElementById("pclass_toy").addEventListener("click", function () {
+            handleButtonClick("p_class", "3");
+        });
+
+        document.getElementById("p_type_dog").addEventListener("click", function () {
+            handleButtonClick("p_type", "1");
+        });
+
+        document.getElementById("p_type_cat").addEventListener("click", function () {
+            handleButtonClick("p_type", "2");
+        });
+
+        // 處理按鈕點擊事件的函式
+        function handleButtonClick(how, keywords) {
+            const productListContainer = document.getElementById("product-list");
+            fetch(`choise?how=${how}&keywords=${keywords}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 在這裡處理從後端獲取的資料
+                    // console.log("商品清單:", data);
+                    if (data.status === "true") {
+
+                        if (data.selectByKeyWords.length === 0) {
+
+                            // data.selectByKeyWords 為空，表示查無商品
+
+                            productListContainer.innerHTML = "<p>查無商品</p>";
+                        } else {
+                            // console.log("123");
+                            // 將資料顯示到前端頁面上
+                            // const productListContainer = document.getElementById("product-list");
+                            productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                            // updateCountdownAndProductNames(data.price, data.selectByKeyWords);
+
+                            for (const product of data.selectByKeyWords) {
+
+                                const base64 = arrayBufferToBase64(product.productVO.p_pic_one);
+                                // console.log(base64);
+
+                                // 建立商品元素並填充商品資料
+                                const productBox = document.createElement("div");
+                                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                productBox.setAttribute("p_id", product.productVO.p_id);
+
+                                productBox.innerHTML = `
+                                    <div class="product-header">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img id="pic_content_${product.productVO.p_id}" src="data:image/png;base64,${base64}" class="img-fluid blur-up lazyload" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-footer">
+                                        <div class="product-detail">
+                                            <span class="span-name">${product.productVO.p_type === 1 ? "狗" : "貓"}</span>
+                                            <span class="span-name">${product.productVO.p_class === 1 ? "食物" : product.productVO.p_class === 2 ? "用品" : "玩具"}</span>
+                                            <a href="#">
+                                                <h5 class="name">${product.productVO.p_name}</h5>
+                                            </a>
+                                            <h5 class="price">
+                                                <span class="theme-color">$${product.gbVO.gb_s_price.toFixed(2)}</span>
+                <span class="p-price"><del>${product.productVO.p_price}</del></span>
+            </h5>
+            <div class="countdown-container" id="">
+                <div class="counter">
+                    <div class="days">
+                        <h5>0</h5>
+                        <span>Days</span>
+                    </div>
+                    <div class="hours">
+                        <h5>0</h5>
+                        <span>Hours</span>
+                    </div>
+                    <div class="minutes">
+                        <h5>0</h5>
+                        <span>Mins</span>
+                    </div>
+                    <div class="seconds">
+                        <h5>0</h5>
+                        <span>Secs</span>
+                    </div>
+                </div>
+            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                productListContainer.appendChild(productBox);
+
+                                
+                            }
+
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('請求錯誤:', error);
+                });
+        }
+
+        function arrayBufferToBase64(buffer) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+        // 更新倒計時器和商品名稱
+        function updateCountdownAndProductNames(gbList, productData) {
+            updateAllCountdowns(gbList); // 更新倒計時器
+            updateProductNames(productData); // 更新商品名稱和價格
+        }
+    </script> -->
+
+
+</body>
+
+</html>
+
+
+
+<!-- search-box Start-->
+<!-- <div class="search-box">
+        <div class="input-group">
+            <input type="search" name="empno" class="form-control" placeholder="搜尋 ">
+            <input type="hidden" name="action" value="getOne_For_Display">
+
+            <button class="btn" type="button" id="button-addon2">
+            </button>
+        </div>
+    </div> -->
+<!-- search-box End -->
+
+<!-- <script>
+    function updateProductNames(data) {
+        data.forEach((item, index) => {
+            const pnameElement = document.getElementById("p_name" + (index + 1));
+            const ppriceElement = document.getElementById("p_price" + (index + 1));
+            const ptypeElement = document.getElementById("p_type" + (index + 1));
+            const pclassElement = document.getElementById("p_class" + (index + 1));
+
+            // console.log(ppriceElement);
+
+            const pname = item.p_name;
+            const pprice = item.p_price;
+            const ptype = item.p_type;
+            const pclass = item.p_class;
+
+
+            pnameElement.textContent = pname;
+            ppriceElement.innerHTML = "<del>$" + pprice + "</del>";  //.toFixed(2) 四捨五入至小點以下第二位
+            if (ptype === 1) {
+                ptypeElement.textContent = "狗";
+            } else if (ptype === 2) {
+                ptypeElement.textContent = "貓";
+            }
+
+            if (pclass === 1) {
+                pclassElement.textContent = "食物";
+            } else if (pclass === 2) {
+                pclassElement.textContent = "用品";
+            } else if (pclass === 3) {
+                pclassElement.textContent = "玩具";
+            }
+        });
+    }
+
+    fetch('GbServlet', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "true") {
+                let productData = data.productData;
+                updateProductNames(productData);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+</script> -->
+<!-- <script>   //商品圖片fetch
+        fetch('GbServlet', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const productData = data.productData;
+                const productImageContainers = $("div.product-image").find("a");
+
+
+                // 逐一將商品圖片填充到對應的標籤中
+                for (let i = 0; i < productData.length; i++) {
+                    const productImageContainer = productImageContainers[i];
+                    const productImage = productData[i].p_pic_one;
+
+                    const imgElement = document.createElement('img');
+                    imgElement.src = "data:image/jpeg;base64," + productImage;
+                    imgElement.classList.add('img-fluid', 'blur-up', 'lazyload');
+                    imgElement.alt = "Product Image";
+
+                    productImageContainer.appendChild(imgElement);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+    <script>
+        // 處理商品資料的函式
+        function updateProducts(products) {
+            const productListContainer = document.getElementById("product-list");
+            productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+            for (const product of products) {
+                const productBox = document.createElement("div");
+                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                const pType = product.p_type === 1 ? "狗" : "貓";
+                const pClass = product.p_class === 1 ? "食物" : product.p_class === 2 ? "用品" : "玩具";
+
+                productBox.innerHTML = `
+                <div class="product-header">
+                    <div class="product-image">
+                        <a href="#">
+                            <img src="data:image/jpeg;base64,${product.p_pic_one}" class="img-fluid blur-up lazyload" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="product-footer">
+                    <div class="product-detail">
+                        <span class="span-name">${pType}</span>
+                        <span class="span-name">${pClass}</span>
+                        <a href="#">
+                            <h5 class="name">${product.p_name}</h5>
+                        </a>
+                        <h5 class="price"><span class="theme-color">$${product.p_price.toFixed(2)}</span></h5>
+                    </div>
+                </div>
+            `;
+
+                productListContainer.appendChild(productBox);
+            }
+        }
+
+        // 處理商品倒計時的函式
+        function updateCountdowns(countdownData) {
+            countdownData.forEach((item, index) => {
+                const containerId = "countdown" + (index + 1);
+                const endTime = new Date(item.gb_time_end).getTime();
+                updateCountdown(containerId, endTime);
+            });
+        }
+
+        // 使用 fetch 取得商品資料
+        fetch('GbServlet', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "true") {
+                    // 更新商品資料
+                    updateProducts(data.productData);
+                    // 更新商品倒計時
+                    updateCountdowns(data.price);
+
+                    // 使用 setInterval 每隔 1 秒更新商品倒計時
+                    setInterval(() => {
+                        updateCountdowns(data.price);
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+
+    <script>
+        function updateCountdown(containerId, endTime) {
+            const container = document.getElementById(containerId);
+            const daysElement = container.querySelector('.days h5');
+            const hoursElement = container.querySelector('.hours h5');
+            const minutesElement = container.querySelector('.minutes h5');
+            const secondsElement = container.querySelector('.seconds h5');
+
+            const currentTime = new Date().getTime();
+            const timeLeft = endTime - currentTime;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            daysElement.textContent = days;
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes;
+            secondsElement.textContent = seconds;
+        }
+
+        function updateAllCountdowns(data) {
+            data.forEach((item, index) => {
+                const containerId = "countdown" + (index + 1);
+                const priceElement = document.getElementById("price" + (index + 1));
+
+                const endTime = item.gb_time_end;
+                const gbSPrice = item.gb_s_price;
+
+                updateCountdown(containerId, endTime);  // 更新到計時器
+                priceElement.textContent = "$" + gbSPrice; 
+            });
+        }
+
+        $(function () {
+            fetch('GbServlet', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "true") {
+                        let gbList = data.price;
+                        updateAllCountdowns(gbList);
+
+                        //  JS的setInterval函式:每隔1000毫秒，執行一次 () => {updateAllCountdowns(gbList);}
+                        setInterval(() => {
+                            updateAllCountdowns(gbList);
+                        }, 1000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+<!-- 水豚先生 price start -->
+<!-- <script>
+    $(function () {
+        // 取得每個 span.price 的價格值並發送 fetch 請求
+        for (let i = 1; i <= 6; i++) {
+            var price_el = $("span#price" + i).text();
+            // console.log(price_el);
+        }
+
+        // 使用 fetch 請求資料
+        fetch('http://localhost:8081/TirTirCat/GbServlet', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                price: price_el
+            })
+        }) // 記得更改後端URL
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "true") {
+                    for (let i = 1; i <= 6; i++) {
+                        // location.href = "https://www.google.com"
+                        let price = data.price[i].gb_s_price;
+
+                        // 假設 price_el 是一個儲存價格的 <span> 標籤的元素
+                        // 將價格更新到對應的 <span> 標籤中
+                        $("span#price" + i).text("$" + price);
+                    }
+                }
+
+            })
+            .catch(error => {
+                console.error('Error:', error)
+            });
+    }
+    );
+
+</script> -->
+<!-- 水豚先生 price end -->
+
+
+<!-- countdown timer start -->
+<!-- <script>
+        // Array of end times for each countdown timer
+        const endTimes = [
+            new Date('2023-09-01 00:00:00').getTime(),
+            new Date('2023-09-02 00:00:00').getTime(),
+            new Date('2023-09-03 00:00:00').getTime(),
+            new Date('2023-09-04 00:00:00').getTime(),
+            new Date('2023-09-05 00:00:00').getTime(),
+            new Date('2023-09-06 00:00:00').getTime()
+            // Add the remaining end times for the other countdown timers
+        ];
+
+        // Update countdown timer based on the given container index
+        function updateCountdown(containerIndex) {
+            const container = document.querySelectorAll('.countdown-container')[containerIndex];
+            const daysElement = container.querySelector('.days h5');
+            const hoursElement = container.querySelector('.hours h5');
+            const minutesElement = container.querySelector('.minutes h5');
+            const secondsElement = container.querySelector('.seconds h5');
+
+            const currentTime = new Date().getTime();
+            const timeLeft = endTimes[containerIndex] - currentTime;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            daysElement.textContent = days;
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes;
+            secondsElement.textContent = seconds;
+        }
+
+        // Update all countdown timers
+        function updateAllCountdowns() {
+            const containers = document.querySelectorAll('.countdown-container');
+            containers.forEach((container, index) => {
+                updateCountdown(index);
+            });
+        }
+
+        // Initial update of countdown timers
+        updateAllCountdowns();
+
+        // Update countdown timers every second
+        setInterval(updateAllCountdowns, 1000);
+    </script> -->
+<!-- countdown timer end -->
+
+
+
+
+<!-- 
+<script>
+    //------------------------------------- 商品名關鍵字搜尋框 -------------------------------------//
+    function fetchProductsByInput(how, keywords) {
+        // 使用 URLSearchParams 來組成 URL 參數
+        const params = new URLSearchParams();
+        params.append("how", how);
+        params.append("keywords", keywords);
+
+        // 使用 fetch 請求資料庫資料
+        fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // 在這裡處理從後端獲取的資料
+                console.log("商品清單:", data);
+                if (data.selectByKeyWords.length == 0) {
+                    // data.selectByKeyWords 為 null，表示查無商品
+                    const productListContainer = document.getElementById("product-list");
+                    productListContainer.innerHTML = "<p>查無商品</p>"; // 顯示查無商品
+                } else if (data.status === "true") {
+                    // 將資料顯示到前端頁面上
+                    const productListContainer = document.getElementById("product-list");
+                    productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                    for (const product of data.selectByKeyWords) {
+                        const productBox = document.createElement("div");
+                        productBox.className = "product-box-3 h-100 wow fadeInUp";
+                        productBox.setAttribute("p_id", product.p_id);
+                        productBox.innerHTML = `
+                            <div class="product-header">
+                            <div class="product-image">
+                                <a href="#">
+                                <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="img-fluid blur-up lazyload" alt="">
+                                </a>
+                            </div>
+                            </div>
+                            <div class="product-footer">
+                            <div class="product-detail">
+                                <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                                <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                                <a href="#">
+                                <h5 class="name">${product.p_name}</h5>
+                                </a>
+                                <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                            </div>
+                            </div>
+                        `;
+                         productListContainer.appendChild(productBox);
+
+                        // 立刻回傳目前商品的p_id給Servlet，以獲取該項商品照片
+                        fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                            method: 'GET',
+                        })
+                            .then(photoData => {
+                                console.log(product.p_id);
+                                console.log(photoData);
+
+                                // 使用jQuery設置圖片來源
+                                $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                console.log($(`#pic_content_${product.p_id}`));
+                            })
+                            .catch(error => {
+                                console.error('錯誤:', error);
+                            });
+                    }
+                }
+                $("form-control").val("");
+            })
+            .catch(error => {
+                // 錯誤處理
+                console.error("請求錯誤:", error);
+            });
+
+    }
+
+    // 綁定點擊事件
+    const inputButton = document.getElementById("button-addon1");
+    const input = document.querySelector(".form-control");
+
+    inputButton.addEventListener("click", function () {
+        const inputText = input.value;
+        fetchProductsByInput("byText", inputText); // 點擊 button-addon1，將 input 中輸入的值作為參數送出
+    });
+</script> -->
+
+
+
+<!-- <script>
+    //------------------------------------- 篩選商品Type -------------------------------------//
+    // 獲取狗貓按鈕元素
+    const dogButton = document.getElementById("toggle-on");
+    const catButton = document.getElementById("toggle-off");
+
+    function fetchProductsByType(how, keywords) {
+        // 使用 URLSearchParams 來組成 URL 參數
+        const params = new URLSearchParams();
+        params.append("how", how);
+        params.append("keywords", keywords);
+
+        // 使用 fetch 請求資料庫資料
+        fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // 在這裡處理從後端獲取的資料
+                console.log("商品清單:", data);
+                if (data.selectByKeyWords.length == 0) {
+                    // data.selectByKeyWords 為 null，表示查無商品
+                    const productListContainer = document.getElementById("product-list");
+                    productListContainer.innerHTML = "<p>查無商品</p>"; // 顯示查無商品
+                } else if (data.status === "true") {
+                    // 將資料顯示到前端頁面上
+                    const productListContainer = document.getElementById("product-list");
+                    productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                    for (const product of data.selectByKeyWords) {
+                        const productBox = document.createElement("div");
+                        productBox.className = "product-box-3 h-100 wow fadeInUp";
+                        productBox.setAttribute("p_id", product.p_id);
+                        productBox.innerHTML = `
+                <div class="product-header">
+                  <div class="product-image">
+                    <a href="#">
+                      <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="img-fluid blur-up lazyload" alt="">
+                    </a>
+                  </div>
+                </div>
+                <div class="product-footer">
+                  <div class="product-detail">
+                    <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                    <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                    <a href="#">
+                      <h5 class="name">${product.p_name}</h5>
+                    </a>
+                    <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                  </div>
+                </div>
+              `;
+                        productListContainer.appendChild(productBox);
+
+                        // 立刻回傳商品的p_id給Servlet，以獲取商品照片
+                        fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                            method: 'GET',
+                        })
+                            .then(photoData => {
+                                console.log(product.p_id);
+                                console.log(photoData);
+
+                                // 使用jQuery設置圖片來源
+                                $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                console.log($(`#pic_content_${product.p_id}`));
+                            })
+                            .catch(error => {
+                                console.error('錯誤:', error);
+                            });
+                    }
+                }
+            })
+            .catch(error => {
+                // 錯誤處理
+                console.error("請求錯誤:", error);
+            });
+    }
+
+    // 綁定點擊事件
+
+    dogButton.addEventListener("click", function () {
+        fetchProductsByType("byType", "1"); // 點擊狗按鈕，送出 p_type="1"
+    });
+
+    catButton.addEventListener("click", function () {
+        fetchProductsByType("byType", "2"); // 點擊貓按鈕，送出 p_type="2"
+    });
+</script>
+
+
+<script>
+    //------------------------------------- 篩選商品class -------------------------------------//
+    // 獲取按鈕元素
+    const foodButton = document.getElementById("pclass_food");
+    const suppliesButton = document.getElementById("pclass_supplies");
+    const toyButton = document.getElementById("pclass_toy");
+
+    function handleButtonClick(how, keywords) {
+        // 使用 URLSearchParams 來組成 URL 參數
+        const params = new URLSearchParams();
+        console.log(params);
+        params.append("how", how);
+        params.append("keywords", keywords);
+
+        // 使用 fetch 請求資料庫資料筆數
+        fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("商品清單:", data);
+                // 取得資料庫的筆數
+                const numberOfProducts = data.selectByKeyWords.length;
+
+                // 產生動態的 findAllForShopList 內容
+                const dynamicselectByKeyWords = [];
+                for (let i = 0; i < numberOfProducts; i++) {
+                    const product = data.selectByKeyWords[i];
+
+                    dynamicselectByKeyWords.push({
+                        p_id: product.p_id,
+                        p_name: product.p_name,
+                        p_price: product.p_price,
+                        p_type: product.p_type,
+                        p_class: product.p_class
+                    });
+                }
+
+                // 使用 fetch 請求資料
+                fetch(`http://localhost:8081/TirTirCat/shop/categories?how=${how}&&keywords=${keywords}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 在這裡處理從後端獲取的資料
+                        console.log("商品清單:", data);
+                        if (data.selectByKeyWords.length == 0) {
+                            // data.selectByKeyWords 為 null，表示查無商品
+                            const productListContainer = document.getElementById("product-list");
+                            productListContainer.innerHTML = "<p>查無商品</p>"; // 顯示查無商品
+                        } else if (data.status === "true") {
+                            // 將資料顯示到前端頁面上
+                            const productListContainer = document.getElementById("product-list");
+                            productListContainer.innerHTML = ""; // 清空容器內的內容，避免重複加入
+
+                            for (const product of data.selectByKeyWords) {
+
+                                const productBox = document.createElement("div");
+                                productBox.className = "product-box-3 h-100 wow fadeInUp";
+                                productBox.setAttribute("p_id", product.p_id);
+                                productBox.innerHTML = `
+                                    <div class="product-header">
+                                    <div class="product-image">
+                                        <a href="#">
+                                        <img id="pic_content_${product.p_id}" src="./assets/images/cake/product/2.png" class="img-fluid blur-up lazyload" alt="">
+                                        </a>
+                                    </div>
+                                    </div>
+                                    <div class="product-footer">
+                                    <div class="product-detail">
+                                        <span class="span-name">${product.p_type === "1" ? "狗" : "貓"}</span>
+                                        <span class="span-name">${product.p_class === "1" ? "食物" : product.p_class === "2" ? "用品" : "玩具"}</span>
+                                        <a href="#">
+                                        <h5 class="name">${product.p_name}</h5>
+                                        </a>
+                                        <h5 class="price"><span class="theme-color">$${product.p_price}</span></h5>
+                                    </div>
+                                    </div>
+                                `;
+                                productListContainer.appendChild(productBox);
+
+                                // 立刻回傳商品的p_id給Servlet，以獲取商品照片
+                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                    method: 'GET',
+                                })
+                                    .then(photoData => {
+                                        console.log(product.p_id);
+                                        console.log(photoData);
+
+                                        // 使用jQuery設置圖片來源
+                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                        console.log($(`#pic_content_${product.p_id}`));
+                                    })
+                                    .catch(error => {
+                                        console.error('錯誤:', error);
+                                    });
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        // 錯誤處理
+                        console.error("請求錯誤:", error);
+                    });
+            })
+            .catch(error => {
+                // 錯誤處理
+                console.error("請求錯誤:", error);
+            });
+    } -->
