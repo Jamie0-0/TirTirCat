@@ -148,20 +148,17 @@ function fctSearch(data) {
 // init
 function init() {
 	
-	
-	
 	$.ajax({
-		url: "forum",           // 資料請求的網址
-		type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-		data: { order: "hot", page: "1" },             // 將物件資料(不用雙引號) 傳送到指定的 url
-		dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
-		success: function(data) {      // request 成功取得回應後執行
+		url: "forum",
+		type: "GET",
+		data: { order: "hot", page: "1" },
+		dataType: "json",
+		success: function(data) {
+			// 存全部文章去Redis
+			fetch("saveAllArt");
 			addArt(data);
 		}
 	});
-	
-	// 存全部文章去Redis
-	fetch("saveAllArt");
 
 	// 添加分頁
 	$.ajax({

@@ -12,8 +12,10 @@ public class ArticlesUtils {
 	    try {
 	       ServletOutputStream outputStream = response.getOutputStream();
 	        response.setContentType("image/jpeg, image/jpg, image/png, image/gif"); 
-	        outputStream.write(pic_content);  // 走IO直接輸出照片的byte[]到前端
-	        outputStream.flush();
+	        if(pic_content != null) {
+		        outputStream.write(pic_content);  // 走IO直接輸出照片的byte[]到前端
+		        outputStream.flush();
+	        }
 	        outputStream.close();
 	    } catch (IOException e) {
 	        e.printStackTrace();

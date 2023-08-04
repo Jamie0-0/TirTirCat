@@ -33,14 +33,20 @@ public class ReplyInsertController extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		
+//		登入資訊		
+//		HttpSession session = request.getSession();
+//		String reply_user_uid = (String) session.getAttribute("uid");
 
 		String reply_com_id = request.getParameter("reply_com_id");
 		String reply_user_id = request.getParameter("reply_user_id");
 		String reply_content = request.getParameter("reply_content");
-
-		System.out.println("reply_com_id=" + reply_com_id);
-		System.out.println("reply_user_id=" + reply_user_id);
-		System.out.println("reply_content=" + reply_content);
+		
+		System.out.println("------------------------------------------");
+		System.out.println(reply_com_id);
+		System.out.println(reply_user_id);
+		System.out.println(reply_content);
+		System.out.println("------------------------------------------");
 
 		int status =  service.insertReply(reply_com_id, reply_user_id, reply_content);
 
