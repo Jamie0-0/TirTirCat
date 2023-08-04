@@ -65,13 +65,14 @@ function fetchComment() {
 
 					//  添加reply的留言區塊
 					const replybutt = `
-								<form action="#" method="post">
-									<textarea class="card-text w-100" placeholder="留言"
-										></textarea>
+								<form action="replyInsert" method="post">
+									<input name="reply_content" type="text" class="card-text w-100" placeholder="留言">
 									<div class="post-button-list2">
-										<button class="card-link btn btn-primary post-button"
-											type="submit">送出</button>
+										<button class="card-link btn btn-secondary post-button"
+											type="submit" style="float:right;">回覆</button>
 									</div>
+									<input name="reply_com_id" type="hidden" value="${reply_com_id}">
+									<input name="reply_user_id" type="hidden" value="1">
 								</form>
 								`;
 
@@ -83,6 +84,7 @@ function fetchComment() {
 					} else {
 						$(this).closest("div.card-body").find("form").remove();
 					}
+					
 					//  添加reply的留言區塊 end
 
 					fetch(url)

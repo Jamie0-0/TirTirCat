@@ -56,7 +56,9 @@ public class ArticlesController extends HttpServlet {
 				break;
 			case "getPic":
 				ArticlePic articlePic = service.selectPic(art_id);
-				ArticlesUtils.sendPicToClient(articlePic.getPic_content(), response);
+				if(articlePic != null) {
+					ArticlesUtils.sendPicToClient(articlePic.getPic_content(), response);
+				}
 				return;
 			case "article":
 				System.out.println("收到art_id並forward:" + art_id);

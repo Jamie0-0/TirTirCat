@@ -23,6 +23,8 @@ public class ReplyDaoImpl implements ReplyDao {
 		reply.setReply_content(reply_content);
 
 		getSession().persist(reply);
+		
+		HibernateUtil.shutdown();
 
 		status = 1;
 

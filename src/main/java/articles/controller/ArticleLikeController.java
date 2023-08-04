@@ -26,6 +26,9 @@ public class ArticleLikeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+//		登入資訊		
+//		HttpSession session = request.getSession();
+//		String uid = (String) session.getAttribute("uid");
 		
 		String art_id = request.getParameter("art_id");
 		String uid = request.getParameter("uid");

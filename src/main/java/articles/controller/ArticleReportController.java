@@ -25,6 +25,9 @@ public class ArticleReportController extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+//		登入資訊		
+//		HttpSession session = request.getSession();
+//		String uid = (String) session.getAttribute("uid");
 
 		String rep_art_id = request.getParameter("rep_art_id");
 		String crep_com_id = request.getParameter("crep_com_id");
