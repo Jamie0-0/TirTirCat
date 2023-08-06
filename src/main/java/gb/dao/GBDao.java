@@ -32,4 +32,5 @@ public interface GBDao {
 	//gb join gborder
 	List<GbOrderVO> getAllGbOrdersWithGbDetails();
 
+	boolean insertGbOrder(GbOrderVO gbOrder);
 }

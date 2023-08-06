@@ -1,10 +1,17 @@
 package gb.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 
 import gb.dao.GBDao;
 import gb.dao.GbDAOImpl;
+import gb.utils.GBDatabaseUtil;
 import gb.vo.GbAndProductVO;
 import gb.vo.GbOrderVO;
 import gb.vo.GbVO;
@@ -58,7 +65,7 @@ public class GbServiceImpl implements GBService {
 	    for (GbAndProductVO gbAndProductVO : gbAndProductList) {
 	        ProductVO productVO = gbAndProductVO.getProductVO();
 	        if (productVO != null) {
-	            // 轉換圖片資料為Base64字串
+	            //轉換圖片資料為Base64字串
 	            String base64PicOne = convertImageToBase64(productVO.getP_pic_one());
 	            String base64PicTwo = convertImageToBase64(productVO.getP_pic_two());
 	            String base64PicThree = convertImageToBase64(productVO.getP_pic_three());
@@ -82,6 +89,11 @@ public class GbServiceImpl implements GBService {
     public List<GbOrderVO> getAllGbOrdersWithGbDetails() {
         return dao.getAllGbOrdersWithGbDetails();
     }
-
     
+    @Override
+    public boolean insertGbOrder(GbOrderVO gbOrder) {
+    	return dao.insertGbOrder(gbOrder);
+    	
+    }
+ 
 }

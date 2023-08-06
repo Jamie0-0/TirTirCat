@@ -4,30 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 import javax.naming.InitialContext;
-import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
 import gb.utils.GBDatabaseUtil;
 import gb.vo.GbAndProductVO;
 import gb.vo.GbOrderVO;
 import gb.vo.GbVO;
-import gb.vo.ProductVO;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-
 import gb.vo.ProductAndMasterVO;
+import gb.vo.ProductVO;
 
 public class GbDAOImpl implements GBDao {
 	private static final String INSERT_GB_SQL = "INSERT INTO GB (gb_p_id, gb_s_price, gb_c_max, gb_time_start, gb_time_end, gb_status) VALUES (?, ?, ?, ?, ?, ?)";
@@ -43,6 +34,7 @@ public class GbDAOImpl implements GBDao {
 	private static final String INSERT_PRODUCT_SQL = "INSERT INTO product (p_m_id, p_name, p_price, p_stock, p_count, p_type, p_class, p_upload_time, p_des, p_status, p_pic_one, p_pic_two, p_pic_three, p_pic_four, p_1, p_2, p_3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private DataSource ds;
+
 	public GbDAOImpl() {
 		try {
 			ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/FurrEver");
@@ -209,7 +201,7 @@ public class GbDAOImpl implements GBDao {
 		return result;
 	}
 
-	//以下圖片
+	// 以下圖片
 	@Override
 	public void insertProductWithImages(ProductVO product) {
 		Connection conn = null;
@@ -222,27 +214,24 @@ public class GbDAOImpl implements GBDao {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			GBDatabaseUtil.closeResources(conn, pstmt);
 		}
 	}
+
 	private byte[] convertImageToBase64(String base64Data) {
 		return Base64.getDecoder().decode(base64Data);
 	}
 
 	@Override
-	public List<GbAndProductVO> selectByKeyWords(String how,String keywords) {
+	public List<GbAndProductVO> selectByKeyWords(String how, String keywords) {
 		String columnName = how;
 		String query = "SELECT gb.gb_id, gb.gb_p_id, gb.gb_s_price, gb.gb_c_max, gb.gb_time_start, gb.gb_time_end, gb.gb_satus, "
-		        + "p.p_id, p.p_m_id, p.p_name, p.p_price, p.p_stock, p.p_count, p.p_type, p.p_class, p.p_upload_time, "
-		        + "p.p_des, p.p_status, p.p_pic_one, p.p_pic_two, p.p_pic_three, p.p_pic_four, p.p_1, p.p_2, p.p_3 "
-		        + "FROM gb gb JOIN product p ON gb.gb_p_id = p.p_id "
-		        + "WHERE " + columnName + " = ?";
+				+ "p.p_id, p.p_m_id, p.p_name, p.p_price, p.p_stock, p.p_count, p.p_type, p.p_class, p.p_upload_time, "
+				+ "p.p_des, p.p_status, p.p_pic_one, p.p_pic_two, p.p_pic_three, p.p_pic_four, p.p_1, p.p_2, p.p_3 "
+				+ "FROM gb gb JOIN product p ON gb.gb_p_id = p.p_id " + "WHERE " + columnName + " = ?";
 		List<GbAndProductVO> result = new ArrayList<>();
-		try (Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(query);
-				) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(query);) {
 			stmt.setString(1, keywords);
 			ResultSet rs = stmt.executeQuery();
 			System.out.println(rs);
@@ -272,62 +261,93 @@ public class GbDAOImpl implements GBDao {
 				productVO.setP_pic_two(rs.getBytes("p_pic_two"));
 				productVO.setP_pic_three(rs.getBytes("p_pic_three"));
 				productVO.setP_pic_four(rs.getBytes("p_pic_four"));
-				
+
 				GbAndProductVO gbAndProductVO = new GbAndProductVO();
 				gbAndProductVO.setGbVO(gbVO);
 				gbAndProductVO.setProductVO(productVO);
 				result.add(gbAndProductVO);
 			}
-			return result; 
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	//以上圖片
-	
+	// 以上圖片
+
 	@Override
-    public List<ProductAndMasterVO> getProductsAndMasters() {
-        List<ProductAndMasterVO> products = new ArrayList<>();
-        try (Connection conn = ds.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT p.*, m.* FROM product p " +
-                     "INNER JOIN master m ON p.p_m_id = m.m_id")) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                ProductAndMasterVO productAndMaster = new ProductAndMasterVO();
-                ProductVO productVO = new ProductVO();
-                productAndMaster.setProductVO(productVO);
-                productAndMaster.setMId(rs.getInt("m_id"));
-                productAndMaster.setMName(rs.getString("m_name"));
-                products.add(productAndMaster);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return products;
-    }
-	
+	public List<ProductAndMasterVO> getProductsAndMasters() {
+		List<ProductAndMasterVO> products = new ArrayList<>();
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(
+						"SELECT p.*, m.* FROM product p " + "INNER JOIN master m ON p.p_m_id = m.m_id")) {
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				ProductAndMasterVO productAndMaster = new ProductAndMasterVO();
+				ProductVO productVO = new ProductVO();
+				productAndMaster.setProductVO(productVO);
+				productAndMaster.setMId(rs.getInt("m_id"));
+				productAndMaster.setMName(rs.getString("m_name"));
+				products.add(productAndMaster);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
+
 	@Override
-    public List<GbOrderVO> getAllGbOrdersWithGbDetails() {
-        List<GbOrderVO> gbOrders = new ArrayList<>();
-        try (Connection conn = ds.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT o.*, g.* FROM gb_order o " +
-                     "INNER JOIN gb g ON o.gb_id = g.gb_id")) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                GbOrderVO gbOrder = new GbOrderVO();
-                GbVO gb = new GbVO();
-                gb.setGb_id(rs.getInt("gb_id"));
-                gbOrder.setGbVO(gb);
-                gbOrders.add(gbOrder);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return gbOrders;
-    }
-	
-	
+	public List<GbOrderVO> getAllGbOrdersWithGbDetails() {
+		List<GbOrderVO> gbOrders = new ArrayList<>();
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(
+						"SELECT o.*, g.* FROM gb_order o " + "INNER JOIN gb g ON o.gb_id = g.gb_id")) {
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				GbOrderVO gbOrder = new GbOrderVO();
+				GbVO gb = new GbVO();
+				gb.setGb_id(rs.getInt("gb_id"));
+				gbOrder.setGbVO(gb);
+				gbOrders.add(gbOrder);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gbOrders;
+	}
+
+	public boolean insertGbOrder(GbOrderVO gbOrder) {
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(
+						"INSERT INTO gb_order (uid, gb_order_id, gb_date, gb_t, gb_s, gb_pay, gb_p_num, gb_p_dfee) "
+								+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+						Statement.RETURN_GENERATED_KEYS)) {
+			System.out.println("123");
+			pstmt.setInt(1, gbOrder.getUid()); // 會員編號
+			pstmt.setInt(2, gbOrder.getGb_order_id()); // 團購編號
+			System.out.println(gbOrder.getGb_order_id());
+			java.util.Date gbDate = gbOrder.getGb_date();
+			pstmt.setDate(3, new java.sql.Date(gbDate.getTime())); // 訂單日期
+			pstmt.setInt(4, gbOrder.getGb_t()); // 訂單總金額
+			pstmt.setString(5, "1"); // (0.已出貨、1.未出貨) 訂單狀態
+			pstmt.setString(6, "1"); // (0.已付款、1.未付款) 付款狀態
+			pstmt.setInt(7, gbOrder.getGb_p_num()); // 商品數量
+			pstmt.setInt(8, 0); // 運費金額
+
+			int rowsInserted = pstmt.executeUpdate();
+			if (rowsInserted > 0) {
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					int generatedId = generatedKeys.getInt(1);
+					gbOrder.setGb_id(generatedId);
+					return true;
+				}
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

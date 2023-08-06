@@ -3,7 +3,7 @@ package gb.vo;
 import java.io.Serializable;
 
 public class ProductAndMasterVO implements Serializable {
-    private ProductVO productVO; // 导入 ProductVO
+    private ProductVO productVO;
 
     private Integer mId; // 廠商編號
     private String mName; // 廠商名稱

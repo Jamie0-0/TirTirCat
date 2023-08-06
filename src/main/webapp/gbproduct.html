@@ -42,7 +42,7 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <!-- 自己的css -->
+    <!-- 補上css -->
     <link rel="stylesheet" href="assets/css/styleGuide.css">
 
     <style>
@@ -142,7 +142,6 @@
 
         .bg-ffcb76 {
             background-color: #ffcb76;
-            /* Define the custom background color */
         }
     </style>
 </head>
@@ -457,7 +456,7 @@
                                     data-field="">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
-                                <input class="form-control input-number qty-input" type="text" name="quantity" value="0"
+                                <input class="form-control input-number qty-input" type="text" name="quantity" value="1"
                                     id="qtyInput">
                                 <button type="button" class="qty-left-minus" onclick="decreaseQty()" data-type="minus"
                                     data-field="">
@@ -598,6 +597,7 @@
 
     <!-- 加入幾個團購商品 -->
     <script src="assets/js/script.js"></script>
+
     <script>
         $("a.bell").on("click", function (e) {
             e.preventDefault();
@@ -608,25 +608,40 @@
         function increaseQty() {
             var qtyInput = document.getElementById("qtyInput");
             var currentQty = parseInt(qtyInput.value);
-            qtyInput.value = currentQty + 1;
+            // qtyInput.value = currentQty + 1;
+            qtyInput.value = Math.max(currentQty + 1, 1);
         }
         function decreaseQty() {
             var qtyInput = document.getElementById("qtyInput");
             var currentQty = parseInt(qtyInput.value);
-            if (currentQty > 0) {
-                qtyInput.value = currentQty - 1;
-            }
+            // if (currentQty > 0) {
+                // qtyInput.value = currentQty - 1;
+                qtyInput.value = Math.max(currentQty - 1, 1);
+            // }
         }
     </script>
 
     <!-- 加入團購談窗 start -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <h2>加入團購成功!</h2>
-            <p>成團與否請待簡訊通知</p>
-            <button onclick="closeModal()">確認</button>
+    <div id="login-successfully">
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h2>成功加入團購!</h2>
+                <p>成團與否請待簡訊通知</p>
+                <button onclick="closeModal()">確認</button>
+            </div>
         </div>
     </div>
+
+    <div id="login-failed">
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h2>未登入會員</h2>
+                <p>請於登入後，加入團購，謝謝。</p>
+                <button onclick="closeModal()">確認</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openModal() {
             var modal = document.getElementById("myModal");
@@ -641,10 +656,9 @@
 
 
     <script>
-        // 获取存储在 sessionStorage 中的商品 ID
+        //獲存在sessionStorage的商品id
         const selectedProductId = sessionStorage.getItem('selectedProductId');
 
-        // 获取商品数据和价格信息
         fetch('GbServlet', {
             method: 'GET',
             headers: {
@@ -659,7 +673,6 @@
                     const priceData = data.price;
                     const master = data.productData1;
 
-                    // 在数组中查找对应商品的详细信息
                     const productDetails = productsData.find(product => product.p_id === parseInt(selectedProductId));
                     const productPrice = priceData.find(price => price.gb_p_id === parseInt(selectedProductId));
                     const masterData = master.find(productData1 => productData1.MId === productDetails.p_m_id);
@@ -668,7 +681,6 @@
                     // console.log(productPrice);
                     // console.log(productDetails);
 
-                    // 动态生成商品图片
                     const productImageContainer = document.getElementById('product-image-container');
 
                     const imageBox = document.createElement('div');
@@ -708,15 +720,15 @@
                             
                             `;
 
-                    // 动态生成商品详情
+
                     const productDetailsContainer = document.getElementById('product-details-container');
                     productDetailsContainer.innerHTML = '';
                     const productBox = document.createElement('div');
                     productBox.className = 'right-box-contain p-sticky wow fadeInUp';
                     productBox.id = 'product-info-container';
-
                     productBox.innerHTML = `
                         <h6 class="offer-top">${productPrice.gb_c_max}件成團</h6>
+                        <input type="hidden" id="productGbId" value="${productPrice.gb_id}">
                         <div class="companyname">
                             <p> 
                                 <a href="#" class="chat-link">
@@ -727,14 +739,14 @@
                         </div>
                         <h2 class="name" id="product-name">${productDetails.p_name}</h2>
                         <div class="price-rating">
-                            <h3 class="theme-color price" id="product-price">$${productPrice.gb_s_price.toFixed(2)} <del class="text-content">$${productDetails.p_price.toFixed(2)}</del> </h3>
+                            <h3 class="theme-color price" id="product-price">$${productPrice.gb_s_price} <del class="text-content">$${productDetails.p_price.toFixed(2)}</del> </h3>
                         </div>
                         <div class="procuct-contain">
                             <p>${productDetails.p_des}</p>
                         </div>
                         <div class="time deal-timer product-deal-timer mx-md-0 mx-auto" id="clockdiv-1" data-hours="1" data-minutes="2" data-seconds="3">
                             <div class="product-title">
-                                <h4>當前人數  人</h4>
+                                <h4>當前人數：  人</h4>
                             </div>
                             <div class="countdown-container" id="countdown">
                                 <div class="counter">
@@ -764,10 +776,8 @@
                                     <button type="button" class="qty-right-plus" onclick="increaseQty()" data-type="plus" data-field="">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
-                                    <input class="form-control input-number qty-input" type="text" name="quantity" value="0"
-                                        id="qtyInput">
-                                    <button type="button" class="qty-left-minus" onclick="decreaseQty()" data-type="minus"
-                                        data-field="">
+                                    <input class="form-control input-number qty-input" type="text" name="quantity" value="1"  id="qtyInput" min="1">
+                                    <button type="button" class="qty-left-minus" onclick="decreaseQty()" data-type="minus" data-field="">
                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -784,14 +794,14 @@
 
                     productDetailsContainer.appendChild(productBox);
 
-                    // 根据商品详情中的起始和结束时间更新倒计时
+                    //更新倒數計時器
                     const countdownContainer = document.getElementById('countdown');
                     const startTime = productPrice.gb_time_start;
                     const endTime = productPrice.gb_time_end;
 
                     updateCountdown(countdownContainer.id, startTime, endTime);
 
-                    // 使用 setInterval 每隔 1 秒更新倒计时
+                    //setInterval每隔1秒更新
                     setInterval(() => {
                         updateCountdown(countdownContainer.id, startTime, endTime);
                     }, 1000);
@@ -821,16 +831,74 @@
             minutesElement.textContent = minutes;
             secondsElement.textContent = seconds;
         }
+
+        function addToGbOrder() {
+            const uid = sessionStorage.getItem('uid'); //sessionStorage會員編號
+            const productGbId = document.getElementById('productGbId').value; //團購編號
+            const gbDate = new Date(); //訂單日期
+            const quantity = parseInt(document.getElementById('qtyInput').value); //商品數量
+            const productPriceText = $('#product-price').contents().filter(function () {
+                return this.nodeType === 3; //文本nodeType為3
+            }).text().trim();   //商品單價
+            const productPriceValue = parseInt(productPriceText.substring(1)); //轉成福點數
+            const orderTotal = (productPriceValue * quantity); //訂單總金額
+
+            if (!uid || uid === '0' || uid === '' || parseInt(uid) < 0) {
+                //未登入
+                document.getElementById('login-failed').style.display = 'block';
+                return;
+            }
+
+            const requestData = {
+                uid: uid, //會員編號
+                gb_date: gbDate.toISOString(), //訂單日期
+                gb_p_num: quantity, //商品數量
+                gb_t: orderTotal, //訂單總金額
+                order_id: productGbId //團購編號
+            };
+
+            fetch('JoinGbServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.status === 'true') {
+                        //已登入
+                        document.getElementById('login-successfully').style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    // console.error('Error:', error);
+                });
+        }
+
+        function openLoginFailedModal() {
+            const modal = document.getElementById('login-failed');
+            modal.style.display = 'block';
+        }
+        function openLoginSuccessfullyModal() {
+            const modal = document.getElementById('login-successfully');
+            modal.style.display = 'block';
+        }
+        function closeModal() {
+            addToGbOrder();
+            // console.log("123");
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
     </script>
-</body>
-
-</html>
-
-
-
 
 
 
 </body>
-
 </html>
+
+
+

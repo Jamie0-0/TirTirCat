@@ -30,4 +30,6 @@ public interface GBService {
 	
 	//gb join gborder
 	List<GbOrderVO> getAllGbOrdersWithGbDetails();
+
+	boolean insertGbOrder(GbOrderVO gbOrder); 
 }

@@ -74,6 +74,7 @@ public class GbServlet extends HttpServlet {
 			gbObject.addProperty("gb_time_end", gb.getGb_time_end().getTime());
 			gbObject.addProperty("gb_c_max", gb.getGb_c_max());
 			gbObject.addProperty("gb_p_id", gb.getGb_p_id());
+			gbObject.addProperty("gb_id", gb.getGb_id());
 			priceArray.add(gbObject);
 		}
 		jsonObject.add("price", priceArray);
@@ -89,7 +90,8 @@ public class GbServlet extends HttpServlet {
 			productObject.addProperty("p_m_id", product.getP_m_id());
 			productObject.addProperty("p_des", product.getP_des());
 			productObject.addProperty("p_id", product.getP_id());
-			//以下圖片 // 將圖片轉換為 Base64 編碼
+			productObject.addProperty("p_stock", product.getP_stock());
+			//以下圖片 //將圖片轉換為Base64編碼
 	        if (product.getP_pic_one() != null) {
 	            String base64PicOne = convertImageToBase64(product.getP_pic_one(), context);
 	            productObject.addProperty("p_pic_one", base64PicOne);
@@ -137,7 +139,7 @@ public class GbServlet extends HttpServlet {
 		String message = gson.toJson(jsonObject);
 		response.getWriter().write(message);
 	}
-	//以下圖片 // 將byte[]型別的圖片資料轉換為Base64字串
+	//以下圖片 //將byte[]型別的圖片資料轉換為Base64字串
 	private String convertImageToBase64(byte[] imageBytes, ServletContext context) {
 	    return Base64.getEncoder().encodeToString(imageBytes);
 	}

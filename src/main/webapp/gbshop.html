@@ -42,7 +42,7 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <!-- 自己的css -->
+    <!-- 補上css -->
     <link rel="stylesheet" href="assets/css/styleGuide.css">
 
     <style>
@@ -404,8 +404,8 @@
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span id="p_type">狗?</span>
-                                        <span id="p_class">食物?</span>
+                                        <span id="p_type">狗</span>
+                                        <span id="p_class">食物</span>
                                         <a href="gbproduct.html">
                                             <h5 id="p_name">狗狗主食罐-火雞肉</h5>
                                         </a>
@@ -450,8 +450,8 @@
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span id="p_type">狗?</span>
-                                        <span id="p_class">用品?</span>
+                                        <span id="p_type">狗</span>
+                                        <span id="p_class">用品</span>
                                         <a href="gbproduct.html">
                                             <h5 id="p_name">梳毛手套</h5>
                                         </a>
@@ -495,8 +495,8 @@
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span id="p_type">狗?</span>
-                                        <span id="p_class">玩具?</span>
+                                        <span id="p_type">狗</span>
+                                        <span id="p_class">玩具</span>
                                         <a href="gbproduct.html">
                                             <h5 id="p_name3">犬用潔牙拉索玩具</h5>
                                         </a>
@@ -541,8 +541,8 @@
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span id="p_type">貓?</span>
-                                        <span id="p_class">食物?</span>
+                                        <span id="p_type">貓</span>
+                                        <span id="p_class">食物</span>
                                         <a href="gbproduct.html">
                                             <h5 id="p_name4">貓咪肉泥</h5>
                                         </a>
@@ -587,8 +587,8 @@
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span id="p_type">貓?</span>
-                                        <span id="p_class">用品?</span>
+                                        <span id="p_type">貓</span>
+                                        <span id="p_class">用品</span>
                                         <a href="gbproduct.html">
                                             <h5 id="p_name5">貓貓梳子</h5>
                                         </a>
@@ -634,8 +634,8 @@
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span id="p_type">貓?</span>
-                                        <span id="p_class">玩具?</span>
+                                        <span id="p_type">貓</span>
+                                        <span id="p_class">玩具</span>
                                         <a href="gbproduct.html">
                                             <h5 id="p_name">逗貓棒</h5>
                                         </a>
@@ -787,7 +787,7 @@
     <script src="assets/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
     <script>
         $("a.bell").on("click", function (e) {
             e.preventDefault();
@@ -795,10 +795,9 @@
     </script>
 
     <script>
-        // 處理商品資料的函式
         function updateProducts(products) {
             const productListContainer = document.getElementById("product-list");
-            productListContainer.innerHTML = ""; // 清空容器內的內容避免重複加入
+            productListContainer.innerHTML = ""; //清空
 
             for (let i = 0; i < products.length; i++) {
                 const product = products[i];
@@ -854,7 +853,6 @@
             }
         }
 
-        // 處理商品倒計時的函式
         function updateCountdown(containerId, endTime) {
             const container = document.getElementById(containerId);
             const daysElement = container.querySelector('.days h5');
@@ -885,11 +883,10 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === "true") {
-
                     updateProducts(data.productData);
                     updateAllCountdowns(data.productData, data.price);
 
-                    // 使用 setInterval 每隔 1 秒更新商品倒計時
+                    //setInterval:每隔1秒更新商品倒計時
                     setInterval(() => {
                         updateAllCountdowns(data.productData, data.price);
                     }, 1000);
@@ -905,7 +902,7 @@
                 const price = prices[i];
                 const countdownId = `countdown-${i}`;
 
-                // 解析日期數值並轉換為 JavaScript 的日期對象???????????????????????????
+                //解析日期數值 轉換為JS日期對象??????
                 const startTime = new Date(price.gb_time_start).getTime();
                 const endTime = new Date(price.gb_time_end).getTime();
                 // console.log(endTime);
@@ -920,15 +917,12 @@
                 sessionStorage.setItem('selectedProductId', productId);
                 window.location.href = 'gbproduct.html';
             }
-
-
         }
     </script>
 
     <!-- --------------------------------------------------------------------------------------------------- -->
 
     <script>
-        // 監聽按鈕點擊事件
         document.getElementById("pclass_food").addEventListener("click", function () {
             console.log("1");
             handleButtonClick("p_class", "1");
@@ -951,7 +945,6 @@
             handleButtonClick("p_type", "2");
         });
 
-        // 處理按鈕點擊事件的函式
         function handleButtonClick(how, keywords) {
             const productListContainer = document.getElementById("product-list");
             fetch(`choise?how=${how}&keywords=${keywords}`, {
@@ -962,29 +955,25 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // 在這裡處理從後端獲取的資料
                     // console.log("商品清單:", data);
                     if (data.status === "true") {
 
                         if (data.selectByKeyWords.length === 0) {
-
                             productListContainer.innerHTML = "<p>查無商品</p>";
                         } else {
                             // console.log("123");
-                            // 將資料顯示到前端頁面上
-                            productListContainer.innerHTML = ""; // 清空容器內的內容避免重複加入
-
+                            productListContainer.innerHTML = ""; //清空容器
                             for (const product of data.selectByKeyWords) {
 
                                 const base64 = arrayBufferToBase64(product.productVO.p_pic_one);
                                 // console.log(base64);
 
-                                // 建立商品元素並填充商品資料
+                                //建立商品元素 填商品資料
                                 const productBox = document.createElement("div");
                                 productBox.className = "product-box-3 h-100 wow fadeInUp";
                                 productBox.setAttribute("p_id", product.productVO.p_id);
 
-                                // 解析日期字符串並轉換成 JavaScript 的日期對象
+                                //解析日期字符串並轉換成 JavaScript 的日期對象
                                 const startTime = new Date(product.gbVO.gb_time_start).getTime();
                                 const endTime = new Date(product.gbVO.gb_time_end).getTime();
 
@@ -1032,10 +1021,9 @@
                                 `;
                                 productListContainer.appendChild(productBox);
 
-                                // 呼叫更新倒數計時的函式，使用 startTime 和 endTime
+                                //呼叫更新倒數計時函式 用startTime endTime
                                 updateCountdown(`countdown-${product.productVO.p_id}`, startTime, endTime);
                             }
-
                         }
                     }
                 })
@@ -1044,7 +1032,7 @@
                 });
         }
 
-        // 更新倒數計時
+        //更新倒數計時
         function updateCountdown(elementId, startTime, endTime) {
             const countdownElement = document.getElementById(elementId);
 
@@ -1075,7 +1063,6 @@
                     secondsElement.innerText = "0";
                 }
             }
-
             updateCounter();
             const interval = setInterval(updateCounter, 1000);
         }
@@ -1089,13 +1076,13 @@
             }
             return window.btoa(binary);
         }
-        // 更新倒計時器和商品名稱
+        //更新倒計時器、商品名稱
         function updateCountdownAndProductNames(gbList, productData) {
-            updateAllCountdowns(gbList); // 更新倒計時器
-            updateProductNames(productData); // 更新商品名稱和價格
+            updateAllCountdowns(gbList); 
+            updateProductNames(productData); //更新商品名稱、價格
         }
 
-        // 将商品 ID 存储到 sessionStorage
+        //商品ID存到sessionStorage
         function redirectToProductPage(productId) {
                 sessionStorage.setItem('selectedProductId', productId);
                 window.location.href = 'gbproduct.html';
