@@ -232,82 +232,82 @@ public class ProductServiceImpl implements ProductService {
 		return subtotal;
 	}
 
-	@Override
-	public String getCartListAndTotalJSON(Map<Integer, Integer> cartList) {
-
-		msgs.clear();
-
-		Map<Product, Integer> cartListMap = new HashMap<Product, Integer>();
-		int subtotal = 0;
-
-		if (cartList == null || cartList.isEmpty()) {
-			msgs.add("您的購物車是空的");
-			return null;
-		}
-
-		System.out.println("getCartList方法內的購物車cartListmap = " + cartList);
-
-//			若有清單, 取出購物車清單內所有p_id (p_id_in_cart)
-		Set<Integer> cartListkeys = cartList.keySet();
-		System.out.println("getCartList方法內的購物車cartListkeys = " + cartListkeys);
-
-		Iterator it = cartListkeys.iterator();
-		while (it.hasNext()) {
-			// 拿商品id(key)
-			int p_id_in_cart = (int) it.next();
-			System.out.println("getCartList方法內的購物車p_id = " + p_id_in_cart);
-			// 拿購買數量(value)
-			int quantity = cartList.get(p_id_in_cart);
-			System.out.println("getCartList方法內的購物車quantity = " + quantity);
-			Product product = dao.selectByPId(p_id_in_cart);
-			// 商品對應的購買數量放入map
-			cartListMap.put(product, quantity);
-			// 拿商品單價及subtotal
-			int p_price = product.getP_price();
-			subtotal += quantity * p_price;
-		}
-
-		List<CartItem> cartItems = new ArrayList<CartItem>();
-		for (Map.Entry<Product, Integer> entry : cartListMap.entrySet()) {
-			// 一對key-value中, key表購物車中商品, value表購買數量
-			Product product = entry.getKey();
-			int quantity = entry.getValue();
-			CartItem cartItem = new CartItem();
-
-			cartItem.setItem_p_id(product.getP_id());
-			;
-			cartItem.setItem_p_m_id(product.getP_m_id());
-			cartItem.setItem_p_name(product.getP_name());
-			cartItem.setItem_p_price(product.getP_price());
-			cartItem.setItem_quantity(quantity);
-			cartItems.add(cartItem);
-		}
-
-//		// 將購物車內容轉換成 JSON 物件的陣列並回傳給前端
-//		JsonArray cartArray = new JsonArray();
+//	@Override
+//	public String getCartListAndTotalJSON(Map<Integer, Integer> cartList) {
 //
+//		msgs.clear();
+//
+//		Map<Product, Integer> cartListMap = new HashMap<Product, Integer>();
+//		int subtotal = 0;
+//
+//		if (cartList == null || cartList.isEmpty()) {
+//			msgs.add("您的購物車是空的");
+//			return null;
+//		}
+//
+//		System.out.println("getCartList方法內的購物車cartListmap = " + cartList);
+//
+////			若有清單, 取出購物車清單內所有p_id (p_id_in_cart)
+//		Set<Integer> cartListkeys = cartList.keySet();
+//		System.out.println("getCartList方法內的購物車cartListkeys = " + cartListkeys);
+//
+//		Iterator it = cartListkeys.iterator();
+//		while (it.hasNext()) {
+//			// 拿商品id(key)
+//			int p_id_in_cart = (int) it.next();
+//			System.out.println("getCartList方法內的購物車p_id = " + p_id_in_cart);
+//			// 拿購買數量(value)
+//			int quantity = cartList.get(p_id_in_cart);
+//			System.out.println("getCartList方法內的購物車quantity = " + quantity);
+//			Product product = dao.selectByPId(p_id_in_cart);
+//			// 商品對應的購買數量放入map
+//			cartListMap.put(product, quantity);
+//			// 拿商品單價及subtotal
+//			int p_price = product.getP_price();
+//			subtotal += quantity * p_price;
+//		}
+//
+//		List<CartItem> cartItems = new ArrayList<CartItem>();
 //		for (Map.Entry<Product, Integer> entry : cartListMap.entrySet()) {
+//			// 一對key-value中, key表購物車中商品, value表購買數量
 //			Product product = entry.getKey();
 //			int quantity = entry.getValue();
-//			JsonObject cartItem = new JsonObject();
-//			cartItem.addProperty("p_id", product.getP_id());
-//			cartItem.addProperty("p_m_id", product.getP_m_id());
-//			cartItem.addProperty("p_name", product.getP_name());
-//			cartItem.addProperty("p_price", product.getP_price());
-//			cartItem.addProperty("quantity", quantity);
-//			cartArray.add(cartItem);
+//			CartItem cartItem = new CartItem();
+//
+//			cartItem.setItem_p_id(product.getP_id());
+//			;
+//			cartItem.setItem_p_m_id(product.getP_m_id());
+//			cartItem.setItem_p_name(product.getP_name());
+//			cartItem.setItem_p_price(product.getP_price());
+//			cartItem.setItem_quantity(quantity);
+//			cartItems.add(cartItem);
 //		}
-
-		Gson gson = new Gson();
-		String cartListJSON = "";
-		cartListJSON = "{\"cartList\":" + gson.toJson(cartItems) + ",\"subtotal\":" + subtotal + ",\"total\":"
-				+ (subtotal + 120) + "}";
-//		cartListJSON = "{\"cartList\":" + gson.toJson(cartArray) + ",\"subtotal\":" + subtotal + ",\"total\":"
+//
+////		// 將購物車內容轉換成 JSON 物件的陣列並回傳給前端
+////		JsonArray cartArray = new JsonArray();
+////
+////		for (Map.Entry<Product, Integer> entry : cartListMap.entrySet()) {
+////			Product product = entry.getKey();
+////			int quantity = entry.getValue();
+////			JsonObject cartItem = new JsonObject();
+////			cartItem.addProperty("p_id", product.getP_id());
+////			cartItem.addProperty("p_m_id", product.getP_m_id());
+////			cartItem.addProperty("p_name", product.getP_name());
+////			cartItem.addProperty("p_price", product.getP_price());
+////			cartItem.addProperty("quantity", quantity);
+////			cartArray.add(cartItem);
+////		}
+//
+//		Gson gson = new Gson();
+//		String cartListJSON = "";
+//		cartListJSON = "{\"cartList\":" + gson.toJson(cartItems) + ",\"subtotal\":" + subtotal + ",\"total\":"
 //				+ (subtotal + 120) + "}";
-
-		return cartListJSON;
-
-	}
+////		cartListJSON = "{\"cartList\":" + gson.toJson(cartArray) + ",\"subtotal\":" + subtotal + ",\"total\":"
+////				+ (subtotal + 120) + "}";
+//
+//		return cartListJSON;
+//
+//	}
 
 	@Override
 	public JsonArray getCartListJSON(Map<Integer, Integer> cartList) {
