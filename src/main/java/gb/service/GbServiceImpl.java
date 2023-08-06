@@ -6,9 +6,10 @@ import java.util.List;
 import gb.dao.GBDao;
 import gb.dao.GbDAOImpl;
 import gb.vo.GbAndProductVO;
+import gb.vo.GbOrderVO;
 import gb.vo.GbVO;
 import gb.vo.ProductVO;
-
+import gb.vo.ProductAndMasterVO;
 
 
 public class GbServiceImpl implements GBService {
@@ -50,7 +51,7 @@ public class GbServiceImpl implements GBService {
     }
 	
 	
-//以下///////////////////////////////////////////////////////////////////////////////
+	//以下圖片
 	@Override
 	public List<GbAndProductVO> getAllGbJoinProductWithBase64() {
 	    List<GbAndProductVO> gbAndProductList = dao.getGbAndProductJoin();
@@ -69,5 +70,18 @@ public class GbServiceImpl implements GBService {
 	private String convertImageToBase64(byte[] imageBytes) {
 	    return Base64.getEncoder().encodeToString(imageBytes);
 	}
-//以上。/////////////////////////////////////////////////////////////////////////////////////
+	//以上圖片
+	
+    @Override
+    public List<ProductAndMasterVO> getProductsAndMasters() {
+        return dao.getProductsAndMasters();
+    }
+    
+    
+    @Override
+    public List<GbOrderVO> getAllGbOrdersWithGbDetails() {
+        return dao.getAllGbOrdersWithGbDetails();
+    }
+
+    
 }

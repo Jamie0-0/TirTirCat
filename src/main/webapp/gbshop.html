@@ -810,7 +810,8 @@
                 productBox.innerHTML = `
                     <div class="product-header">
                         <div class="product-image">
-                            <a href="#">
+                            <a href="gbproduct.html" onclick="redirectToProductPage('${product.p_id}')">
+
                                 <img src="data:image/jpeg;base64,${product.p_pic_one}" class="img-fluid blur-up lazyload" alt="">
                             </a>
                         </div>
@@ -819,7 +820,7 @@
                         <div class="product-detail">
                             <span class="span-name">${pType}</span>
                             <span class="span-name">${pClass}</span>
-                            <a href="#">
+                            <a href="gbproduct.html"> 
                                 <h5 class="name">${product.p_name}</h5>
                             </a>
                             <h5 class="price">
@@ -905,23 +906,27 @@
                 const countdownId = `countdown-${i}`;
 
                 // 解析日期數值並轉換為 JavaScript 的日期對象???????????????????????????
-                // const startTime = price.gb_time_start;
-                // const endTime = price.gb_time_end;
                 const startTime = new Date(price.gb_time_start).getTime();
                 const endTime = new Date(price.gb_time_end).getTime();
                 // console.log(endTime);
 
-                // updateCountdown(countdownId, endTime);
-                updateCountdown(countdownId, price.gb_time_start ,price.gb_time_end);
+                updateCountdown(countdownId, price.gb_time_start, price.gb_time_end);
 
                 const priceElement = document.getElementById(`price${i}`);
                 priceElement.textContent = `$${price.gb_s_price}`;
             }
+
+            function redirectToProductPage(productId) {
+                sessionStorage.setItem('selectedProductId', productId);
+                window.location.href = 'gbproduct.html';
+            }
+
+
         }
     </script>
+
     <!-- --------------------------------------------------------------------------------------------------- -->
 
-    <!-- 改 -->
     <script>
         // 監聽按鈕點擊事件
         document.getElementById("pclass_food").addEventListener("click", function () {
@@ -986,7 +991,7 @@
                                 productBox.innerHTML = `
                                     <div class="product-header">
                                         <div class="product-image">
-                                            <a href="#">
+                                            <a href="gbproduct.html" onclick="redirectToProductPage('${product.productVO.p_id}')">
                                                 <img id="pic_content_${product.productVO.p_id}" src="data:image/png;base64,${base64}" class="img-fluid blur-up lazyload" alt="">
                                             </a>
                                         </div>
@@ -995,33 +1000,33 @@
                                         <div class="product-detail">
                                             <span class="span-name">${product.productVO.p_type === 1 ? "狗" : "貓"}</span>
                                             <span class="span-name">${product.productVO.p_class === 1 ? "食物" : product.productVO.p_class === 2 ? "用品" : "玩具"}</span>
-                                            <a href="#">
+                                            <a href="gbproduct.html">
                                                 <h5 class="name">${product.productVO.p_name}</h5>
                                             </a>
                                             <h5 class="price">
                                                 <span class="theme-color">$${product.gbVO.gb_s_price.toFixed(2)}</span>
-                <span class="p-price"><del>$${product.productVO.p_price}</del></span>
-            </h5>
-            <div class="countdown-container" id="countdown-${product.productVO.p_id}">
-                <div class="counter">
-                    <div class="days">
-                        <h5>0</h5>
-                        <span>Days</span>
-                    </div>
-                    <div class="hours">
-                        <h5>0</h5>
-                        <span>Hours</span>
-                    </div>
-                    <div class="minutes">
-                        <h5>0</h5>
-                        <span>Mins</span>
-                    </div>
-                    <div class="seconds">
-                        <h5>0</h5>
-                        <span>Secs</span>
-                    </div>
-                </div>
-            </div>
+                                                <span class="p-price"><del>$${product.productVO.p_price}</del></span>
+                                            </h5>
+                                            <div class="countdown-container" id="countdown-${product.productVO.p_id}">
+                                                <div class="counter">
+                                                    <div class="days">
+                                                        <h5>0</h5>
+                                                        <span>Days</span>
+                                                    </div>
+                                                    <div class="hours">
+                                                        <h5>0</h5>
+                                                        <span>Hours</span>
+                                                    </div>
+                                                    <div class="minutes">
+                                                        <h5>0</h5>
+                                                        <span>Mins</span>
+                                                    </div>
+                                                    <div class="seconds">
+                                                        <h5>0</h5>
+                                                        <span>Secs</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 `;
@@ -1089,10 +1094,23 @@
             updateAllCountdowns(gbList); // 更新倒計時器
             updateProductNames(productData); // 更新商品名稱和價格
         }
+
+        // 将商品 ID 存储到 sessionStorage
+        function redirectToProductPage(productId) {
+                sessionStorage.setItem('selectedProductId', productId);
+                window.location.href = 'gbproduct.html';
+            }
+
+
     </script>
-    <!-- =========================================================================================== -->
-    <!-- 原本的 -->
-    <!-- <script>
+
+</body>
+
+</html>
+
+<!-- =========================================================================================== -->
+<!-- 原本的 -->
+<!-- <script>
         // 監聽按鈕點擊事件
         document.getElementById("pclass_food").addEventListener("click", function () {
             console.log("1");
@@ -1224,12 +1242,6 @@
             updateProductNames(productData); // 更新商品名稱和價格
         }
     </script> -->
-
-
-</body>
-
-</html>
-
 
 
 <!-- search-box Start-->

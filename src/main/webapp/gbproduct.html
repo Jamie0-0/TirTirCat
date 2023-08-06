@@ -360,8 +360,9 @@
             <div class="row g-4">
                 <div class="col-xl-6">
                     <div class="product-left-box">
-                        <div class="row g-sm-4 g-2">
-                            <div class="col-6 col-grid-box wow fadeInUp">
+                        <div class="row g-sm-4 g-2" id="product-image-container">
+
+                            <!-- <div class="col-6 col-grid-box wow fadeInUp">
                                 <div class="slider-image">
                                     <img src="assets/images/product/category/1.jpg" id="img-1"
                                         data-zoom-image="assets/images/product/category/1.jpg" class="
@@ -391,24 +392,27 @@
                                         data-zoom-image="assets/images/product/category/4.jpg" class="
                                                         img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6">
-                    <div class="right-box-contain p-sticky wow fadeInUp">
+
+                <div class="col-xl-6" id="product-details-container">
+                    <!-- <div class="right-box-contain p-sticky wow fadeInUp" id="product-info-container">
                         <h6 class="offer-top">10件成團</h6>
                         <div class="companyname">
                             <p>XXX寵物食品公司
+
                                 <a href="#" class="chat-link">
                                     <i class="fab fa-rocketchat fas-icon"></i>
                                 </a>
+
                             </p>
-                        </div> <!--自己加的-->
-                        <h2 class="name">我是商品名稱</h2>
+                        </div>
+                        <h2 class="name" id="product-name">我是商品名稱</h2>
                         <div class="price-rating">
-                            <h3 class="theme-color price">$49.50 <del class="text-content">$58.46</del> <span
-                                    class="offer theme-color"></span></h3>
+                            <h3 class="theme-color price" id="product-price">$49.50 <del
+                                    class="text-content">$58.46</del> <span class="offer theme-color"></span></h3>
                         </div>
 
                         <div class="procuct-contain">
@@ -443,38 +447,36 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <!-- 商品數量欄位 start -->
-                        <div class="note-box product-packege">
-                            <div class="cart_qty qty-box product-qty">
-                                <div class="input-group">
-                                    <button type="button" class="qty-right-plus" onclick="increaseQty()"
-                                        data-type="plus" data-field="">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                    <input class="form-control input-number qty-input" type="text" name="quantity"
-                                        value="0" id="qtyInput">
-                                    <button type="button" class="qty-left-minus" onclick="decreaseQty()"
-                                        data-type="minus" data-field="">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
+                    -->
+                    <!-- 商品數量欄位 start -->
+                    <!-- <div class="note-box product-packege">
+                        <div class="cart_qty qty-box product-qty">
+                            <div class="input-group">
+                                <button type="button" class="qty-right-plus" onclick="increaseQty()" data-type="plus"
+                                    data-field="">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                                <input class="form-control input-number qty-input" type="text" name="quantity" value="0"
+                                    id="qtyInput">
+                                <button type="button" class="qty-left-minus" onclick="decreaseQty()" data-type="minus"
+                                    data-field="">
+                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
-                        <!-- 商品數量欄位 end -->
-
-                    </div>
+                    </div> -->
+                    <!-- 商品數量欄位 end -->
                 </div>
             </div>
+        </div>
 
-            &nbsp;
-            <div class="container">
-                <button onclick="openModal()"
-                    class="btn btn-md bg-ffcb76 cart-button text-white w-100 rounded-pill">加入團購</button>
-            </div>
-            &nbsp;
+        <!-- &nbsp;
+        <div class="container">
+            <button onclick="openModal()"
+                class="btn btn-md bg-ffcb76 cart-button text-white w-100 rounded-pill">加入團購</button>
+        </div>
+        &nbsp; -->
 
     </section>
     <!-- Product Left Sidebar End -->
@@ -594,7 +596,7 @@
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/custom-wow.js"></script>
 
-    <!-- script js -->
+    <!-- 加入幾個團購商品 -->
     <script src="assets/js/script.js"></script>
     <script>
         $("a.bell").on("click", function (e) {
@@ -636,6 +638,198 @@
         }
     </script>
     <!-- 加入團購談窗 end -->
+
+
+    <script>
+        // 获取存储在 sessionStorage 中的商品 ID
+        const selectedProductId = sessionStorage.getItem('selectedProductId');
+
+        // 获取商品数据和价格信息
+        fetch('GbServlet', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "true") {
+                    const productsData = data.productData;
+                    const priceData = data.price;
+                    const master = data.productData1;
+
+                    // 在数组中查找对应商品的详细信息
+                    const productDetails = productsData.find(product => product.p_id === parseInt(selectedProductId));
+                    const productPrice = priceData.find(price => price.gb_p_id === parseInt(selectedProductId));
+                    const masterData = master.find(productData1 => productData1.MId === productDetails.p_m_id);
+                    // console.log("123");
+                    // console.log(masterData);
+                    // console.log(productPrice);
+                    // console.log(productDetails);
+
+                    // 动态生成商品图片
+                    const productImageContainer = document.getElementById('product-image-container');
+
+                    const imageBox = document.createElement('div');
+                    imageBox.className = 'col-6 col-grid-box wow fadeInUp';
+                    productImageContainer.innerHTML = `
+                        <div class="col-6 col-grid-box wow fadeInUp">
+                                <div class="slider-image">
+                                    <img src="data:image/jpeg;base64,${productDetails.p_pic_one}" id="img-1"
+                                        data-zoom-image="assets/images/product/category/1.jpg" class="
+                                                        img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-grid-box wow fadeInUp" data-wow-delay="0.05s">
+                                <div class="slider-image">
+                                    <img src="data:image/jpeg;base64,${productDetails.p_pic_two}" id="img-2"
+                                        data-zoom-image="assets/images/product/category/2.jpg" class="
+                                                        img-fluid image_zoom_cls-1 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-grid-box wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="slider-image">
+                                    <img src="data:image/jpeg;base64,${productDetails.p_pic_three}" id="img-3"
+                                        data-zoom-image="assets/images/product/category/3.jpg" class="
+                                                        img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-grid-box wow fadeInUp" data-wow-delay="0.15s">
+                                <div class="slider-image">
+                                    <img src="data:image/jpeg;base64,${productDetails.p_pic_four}" id="img-4"
+                                        data-zoom-image="assets/images/product/category/4.jpg" class="
+                                                        img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
+                                </div>
+                            </div>
+                            
+                            `;
+
+                    // 动态生成商品详情
+                    const productDetailsContainer = document.getElementById('product-details-container');
+                    productDetailsContainer.innerHTML = '';
+                    const productBox = document.createElement('div');
+                    productBox.className = 'right-box-contain p-sticky wow fadeInUp';
+                    productBox.id = 'product-info-container';
+
+                    productBox.innerHTML = `
+                        <h6 class="offer-top">${productPrice.gb_c_max}件成團</h6>
+                        <div class="companyname">
+                            <p> 
+                                <a href="#" class="chat-link">
+                                    <span>${masterData.MName}</span>
+                                    <i class="fab fa-rocketchat fas-icon"></i>
+                                </a>
+                            </p>
+                        </div>
+                        <h2 class="name" id="product-name">${productDetails.p_name}</h2>
+                        <div class="price-rating">
+                            <h3 class="theme-color price" id="product-price">$${productPrice.gb_s_price.toFixed(2)} <del class="text-content">$${productDetails.p_price.toFixed(2)}</del> </h3>
+                        </div>
+                        <div class="procuct-contain">
+                            <p>${productDetails.p_des}</p>
+                        </div>
+                        <div class="time deal-timer product-deal-timer mx-md-0 mx-auto" id="clockdiv-1" data-hours="1" data-minutes="2" data-seconds="3">
+                            <div class="product-title">
+                                <h4>當前人數  人</h4>
+                            </div>
+                            <div class="countdown-container" id="countdown">
+                                <div class="counter">
+                                    <div class="days">
+                                        <h5>0</h5>
+                                        <span>Days</span>
+                                    </div>
+                                    <div class="hours">
+                                        <h5>0</h5>
+                                        <span>Hours</span>
+                                    </div>
+                                    <div class="minutes">
+                                        <h5>0</h5>
+                                        <span>Mins</span>
+                                    </div>
+                                    <div class="seconds">
+                                        <h5>0</h5>
+                                        <span>Secs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 商品數量欄位 start -->
+                        <div class="note-box product-packege">
+                            <div class="cart_qty qty-box product-qty">
+                                <div class="input-group">
+                                    <button type="button" class="qty-right-plus" onclick="increaseQty()" data-type="plus" data-field="">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <input class="form-control input-number qty-input" type="text" name="quantity" value="0"
+                                        id="qtyInput">
+                                    <button type="button" class="qty-left-minus" onclick="decreaseQty()" data-type="minus"
+                                        data-field="">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 商品數量欄位 end -->
+                        &nbsp;
+                        <div class="container">
+                            <button onclick="openModal()"
+                                class="btn btn-md bg-ffcb76 cart-button text-white w-100 rounded-pill">加入團購</button>
+                        </div>
+                        &nbsp;
+                        `;
+
+                    productDetailsContainer.appendChild(productBox);
+
+                    // 根据商品详情中的起始和结束时间更新倒计时
+                    const countdownContainer = document.getElementById('countdown');
+                    const startTime = productPrice.gb_time_start;
+                    const endTime = productPrice.gb_time_end;
+
+                    updateCountdown(countdownContainer.id, startTime, endTime);
+
+                    // 使用 setInterval 每隔 1 秒更新倒计时
+                    setInterval(() => {
+                        updateCountdown(countdownContainer.id, startTime, endTime);
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        function updateCountdown(containerId, startTime, endTime) {
+            const container = document.getElementById(containerId);
+            const daysElement = container.querySelector('.days h5');
+            const hoursElement = container.querySelector('.hours h5');
+            const minutesElement = container.querySelector('.minutes h5');
+            const secondsElement = container.querySelector('.seconds h5');
+
+            const currentTime = new Date().getTime();
+            const timeLeft = endTime - currentTime;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            daysElement.textContent = days;
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes;
+            secondsElement.textContent = seconds;
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+
+
 
 </body>
 
