@@ -74,49 +74,6 @@ public class CartController extends HttpServlet {
 //		System.out.println("cartListJSON =" + cartListJSON);  // cartListJSON ={"2":5}
 //		System.out.println("getCartListAndTotalJSON =" + message); // {"cartList":[{"p_id":2,"p_name":"商品2潔牙骨","p_price":150,"quantity":5}],"subtotal":750,"total":870}
 
-		
-		
-		
-//		resp.setContentType("application/json");
-//		resp.setCharacterEncoding("UTF-8");
-//
-//		HttpSession session = req.getSession();
-//		Gson gson = new Gson();
-//		String cartListJSON = "";
-//
-//		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
-//
-//		Map<Product, Integer> cartListMap = service.getCartList(cartList);
-//		int subtotal = service.getCartSubTotal(cartList);
-//
-//		// 若購物車是空的, 傳給前端訊息並結束
-//		List<String> msgs = service.getMsgs();
-//		if (!msgs.isEmpty()) {
-//			resp.getWriter().write(gson.toJson(msgs));
-//			System.out.println(msgs);
-//			System.out.println(gson.toJson(msgs));
-//			return;
-//		}
-//
-//		// 將購物車內容轉換成 JSON 物件的陣列並回傳給前端
-//		JsonArray cartArray = new JsonArray();
-//
-//		for (Map.Entry<Product, Integer> entry : cartListMap.entrySet()) {
-//			Product product = entry.getKey();
-//			int quantity = entry.getValue();
-//			JsonObject cartItem = new JsonObject();
-//			cartItem.addProperty("p_id", product.getP_id());
-//			cartItem.addProperty("p_name", product.getP_name());
-//			cartItem.addProperty("p_price", product.getP_price());
-//			cartItem.addProperty("quantity", quantity);
-//			cartArray.add(cartItem);
-//		}
-//
-//		cartListJSON = "{\"cartList\":" + gson.toJson(cartArray) + ",\"subtotal\":" + subtotal + ",\"total\":"
-//				+ (subtotal + 120) + "}";
-//		resp.getWriter().write(cartListJSON);
-//
-//		System.out.println(cartListJSON);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,13 +1,18 @@
 package order.vo;
 
-import com.google.gson.JsonArray;
+import java.util.List;
 
 public class Orders {
-
+	private List<CartItem> cartlist;
 	private ProductOrder productOrder;
-	private SubOrder subOrder;
-	private SubProduct subProduct;
-	private JsonArray cartlist;
+
+	public List<CartItem> getCartlist() {
+		return cartlist;
+	}
+
+	public void setCartlist(List<CartItem> cartlist) {
+		this.cartlist = cartlist;
+	}
 
 	public ProductOrder getProductOrder() {
 		return productOrder;
@@ -16,31 +21,5 @@ public class Orders {
 	public void setProductOrder(ProductOrder productOrder) {
 		this.productOrder = productOrder;
 	}
-
-	public SubOrder getSubOrder() {
-		return subOrder;
-	}
-
-	public void setSubOrder(SubOrder subOrder) {
-		this.subOrder = subOrder;
-	}
-
-	public SubProduct getSubProduct() {
-		return subProduct;
-	}
-
-	public void setSubProduct(SubProduct subProduct) {
-		this.subProduct = subProduct;
-	}
-
-	public JsonArray getCartlist() {
-		return cartlist;
-	}
-
-	public void setCartlist(JsonArray cartlist) {
-		this.cartlist = cartlist;
-	}
-
-
 
 }

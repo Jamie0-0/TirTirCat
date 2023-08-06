@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+
+import core.util.HibernateUtil;
 import product_fe.vo.Product;
 
 public class ProductDaoImpl implements ProductDao {
@@ -24,6 +26,12 @@ public class ProductDaoImpl implements ProductDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	private Session getSession() {
+		return HibernateUtil.getSessionFactory().getCurrentSession();
+	}
+	
 
 	@Override
 	public List<Product> selectAll() {
@@ -65,7 +73,7 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	public List<Product> selectForShop(){
-		String selectAllSql = "SELECT p_id, p_name, p_price, p_type, p_class FROM product WHERE p_status = 0;";
+		String selectAllSql = "SELECT p_id, p_name, p_price, p_type, p_class FROM product WHERE p_status = 1;";
 		var list = new ArrayList<Product>();
 
 		try (Connection conn = ds.getConnection(); 
@@ -91,7 +99,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> selectByPType(String p_type) {
-		String selectByPTypeSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product WHERE p_status = 0 and p_type = ?;";
+		String selectByPTypeSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product WHERE p_status = 1 and p_type = ?;";
 		var list = new ArrayList<Product>();
 		
 		try (Connection conn = ds.getConnection();
@@ -117,7 +125,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> selectByPClass(String p_class) {
-		String selectByPClassSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product where p_status = 0 and p_class = ?;";
+		String selectByPClassSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product where p_status = 1 and p_class = ?;";
 		var list = new ArrayList<Product>();
 		
 		try (Connection conn = ds.getConnection();
@@ -143,7 +151,7 @@ public class ProductDaoImpl implements ProductDao {
 
 //	@Override
 //	public List<Product> selectByPTypeAndPClass(String p_type, String p_class) {
-//		String selectByPTypeAndPClassSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product where p_status = 0 and p_class = ? and p_type = ?;";
+//		String selectByPTypeAndPClassSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product where p_status = 1 and p_class = ? and p_type = ?;";
 //		var list = new ArrayList<Product>();
 //		
 //		try (Connection conn = ds.getConnection();
@@ -235,7 +243,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Product selectByPId(Integer p_id) {
 //		String selectByPIdSql = "SELECT * FROM product where p_id = ?;";
-		String selectByPIdSql = "SELECT p_id, p_name, p_price, p_stock, p_type, p_class, p_des, m_name\r\n"
+		String selectByPIdSql = "SELECT p_id, p_m_id, p_name, p_price, p_stock, p_type, p_class, p_des, m_name\r\n"
 				+ "FROM PRODUCT p join MASTER m \r\n"
 				+ "ON p.p_m_id = m.m_id\r\n"
 				+ "WHERE p_id = ?;";
@@ -248,7 +256,7 @@ public class ProductDaoImpl implements ProductDao {
 			
 			while(rs.next()) {
 				product.setP_id(rs.getInt("p_id"));
-//				product.setP_m_id(rs.getInt("p_m_id"));
+				product.setP_m_id(rs.getInt("p_m_id"));
 				product.setP_name(rs.getString("p_name"));
 				product.setP_price(rs.getInt("p_price"));
 				product.setP_stock(rs.getInt("p_stock"));
@@ -277,7 +285,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> search(String inputText) {
-		String searchSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product where p_status = 0 and p_name like ?;";
+		String searchSql = "SELECT p_id, p_name, p_price, p_type, p_class, p_pic_one FROM product where p_status = 1 and p_name like ?;";
 		var list = new ArrayList<Product>();
 
 		try (Connection conn = ds.getConnection(); 
@@ -321,21 +329,28 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int updatePCountByPid(Integer p_id, Integer quantity) {
-		String updatePCountByPidSql = "UPDATE product SET p_stock = p_stock - ? WHERE p_id = ?;";
-		int rowCount = 0;
+	public int updatePStockByPid(Integer p_id, Integer quantity) {
+		Session session = getSession();
+		final Product product = session.load(Product.class, p_id);
+		product.setP_stock(product.getP_stock() - quantity);
 		
-		try (Connection conn = ds.getConnection();
-				PreparedStatement ps = conn.prepareStatement(updatePCountByPidSql)) {
-			ps.setInt(1, p_id);
-			ps.setInt(2, quantity);
-			rowCount = ps.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		return 1;
 		
-		return rowCount;
+		
+//		String updatePCountByPidSql = "UPDATE product SET p_stock = p_stock - ? WHERE p_id = ?;";
+//		int rowCount = 0;
+//		
+//		try (Connection conn = ds.getConnection();
+//				PreparedStatement ps = conn.prepareStatement(updatePCountByPidSql)) {
+//			ps.setInt(1, p_id);
+//			ps.setInt(2, quantity);
+//			rowCount = ps.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return rowCount;
 	}
 
 //	@Override

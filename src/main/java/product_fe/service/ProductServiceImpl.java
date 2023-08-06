@@ -1,5 +1,6 @@
 package product_fe.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import order.vo.CartItem;
 import product_fe.dao.ProductDao;
 import product_fe.dao.ProductDaoImpl;
 import product_fe.vo.Product;
@@ -34,17 +36,28 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> selectByKeyWords(String how, String keywords) {
-
 		if (keywords.trim() != null) {
-			if (how.equals("byClass")) {
+			switch (how) {
+			case "byClass":
 				return dao.selectByPClass(keywords);
-			} else if (how.equals("byType")) {
+			case "byType":
 				return dao.selectByPType(keywords);
-			} else if (how.equals("byText")) {
+			case "byText":
 				return dao.search(keywords.trim());
 			}
 		}
 		return null;
+
+//		if (keywords.trim() != null) {
+//			if (how.equals("byClass")) {
+//				return dao.selectByPClass(keywords);
+//			} else if (how.equals("byType")) {
+//				return dao.selectByPType(keywords);
+//			} else if (how.equals("byText")) {
+//				return dao.search(keywords.trim());
+//			}
+//		}
+//		return null;
 	}
 
 	@Override
@@ -58,12 +71,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void addToCart(HttpServletRequest req, String p_id_string, String quantity_string, Map<Integer, Integer> cartList) {
+	public void addToCart(HttpServletRequest req, String p_id_string, String quantity_string,
+			Map<Integer, Integer> cartList) {
 		msgs.clear();
 
 		int p_id = 0;
 		int quantity = 0;
-		
+
 		try {
 			p_id = Integer.parseInt(p_id_string);
 			quantity = Integer.parseInt(quantity_string);
@@ -71,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
 			msgs.add("購買數量只可為數字");
 			return;
 		}
-					
+
 		if (quantity == 0) {
 			msgs.add("購買數量不可為0");
 			return;
@@ -140,7 +154,7 @@ public class ProductServiceImpl implements ProductService {
 
 		Map<Product, Integer> cartListMap = new HashMap<Product, Integer>();
 
-		if (cartList == null | cartList.isEmpty()) {
+		if (cartList == null || cartList.isEmpty()) {
 			msgs.add("您的購物車是空的");
 			return null;
 		}
@@ -226,7 +240,7 @@ public class ProductServiceImpl implements ProductService {
 		Map<Product, Integer> cartListMap = new HashMap<Product, Integer>();
 		int subtotal = 0;
 
-		if (cartList == null | cartList.isEmpty()) {
+		if (cartList == null || cartList.isEmpty()) {
 			msgs.add("您的購物車是空的");
 			return null;
 		}
@@ -253,25 +267,43 @@ public class ProductServiceImpl implements ProductService {
 			subtotal += quantity * p_price;
 		}
 
-		// 將購物車內容轉換成 JSON 物件的陣列並回傳給前端
-		JsonArray cartArray = new JsonArray();
-
+		List<CartItem> cartItems = new ArrayList<CartItem>();
 		for (Map.Entry<Product, Integer> entry : cartListMap.entrySet()) {
+			// 一對key-value中, key表購物車中商品, value表購買數量
 			Product product = entry.getKey();
 			int quantity = entry.getValue();
-			JsonObject cartItem = new JsonObject();
-			cartItem.addProperty("p_id", product.getP_id());
-			cartItem.addProperty("p_m_id", product.getP_m_id());
-			cartItem.addProperty("p_name", product.getP_name());
-			cartItem.addProperty("p_price", product.getP_price());
-			cartItem.addProperty("quantity", quantity);
-			cartArray.add(cartItem);
+			CartItem cartItem = new CartItem();
+
+			cartItem.setItem_p_id(product.getP_id());
+			;
+			cartItem.setItem_p_m_id(product.getP_m_id());
+			cartItem.setItem_p_name(product.getP_name());
+			cartItem.setItem_p_price(product.getP_price());
+			cartItem.setItem_quantity(quantity);
+			cartItems.add(cartItem);
 		}
+
+//		// 將購物車內容轉換成 JSON 物件的陣列並回傳給前端
+//		JsonArray cartArray = new JsonArray();
+//
+//		for (Map.Entry<Product, Integer> entry : cartListMap.entrySet()) {
+//			Product product = entry.getKey();
+//			int quantity = entry.getValue();
+//			JsonObject cartItem = new JsonObject();
+//			cartItem.addProperty("p_id", product.getP_id());
+//			cartItem.addProperty("p_m_id", product.getP_m_id());
+//			cartItem.addProperty("p_name", product.getP_name());
+//			cartItem.addProperty("p_price", product.getP_price());
+//			cartItem.addProperty("quantity", quantity);
+//			cartArray.add(cartItem);
+//		}
 
 		Gson gson = new Gson();
 		String cartListJSON = "";
-		cartListJSON = "{\"cartList\":" + gson.toJson(cartArray) + ",\"subtotal\":" + subtotal + ",\"total\":"
+		cartListJSON = "{\"cartList\":" + gson.toJson(cartItems) + ",\"subtotal\":" + subtotal + ",\"total\":"
 				+ (subtotal + 120) + "}";
+//		cartListJSON = "{\"cartList\":" + gson.toJson(cartArray) + ",\"subtotal\":" + subtotal + ",\"total\":"
+//				+ (subtotal + 120) + "}";
 
 		return cartListJSON;
 
@@ -283,7 +315,7 @@ public class ProductServiceImpl implements ProductService {
 
 		Map<Product, Integer> cartListMap = new HashMap<Product, Integer>();
 
-		if (cartList == null | cartList.isEmpty()) {
+		if (cartList == null || cartList.isEmpty()) {
 			msgs.add("您的購物車是空的");
 			return null;
 		}
