@@ -104,7 +104,6 @@
             transition: background-color 0.3s ease-in-out;
         }
 
-        /* 點擊時改變背景色 */
         .product-search:focus {
             background-color: lightyellow;
         }
@@ -388,6 +387,215 @@
     <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="assets/js/icons/feather-icon/feather.min.js"></script>
     <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+    <script >
+	    function init() {
+	    	var urlParams = new URLSearchParams(window.location.search);
+
+	    	var order_id = urlParams.get('order_id');
+	    	var order_uid = urlParams.get('order_uid');
+
+	    	if (order_id && order_uid) {
+	    	  console.log('order_id:', order_id);
+	    	  console.log('order_uid:', order_uid);
+	    	} else {
+	    	  console.log('資料不存在');
+	    	}
+
+	    	
+	    	console.log("order_id========"+order_id);
+	    	console.log("data.order_uid========"+order_uid);
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	var path = window.location.pathname;
+			var webCtx = path.substring(0, path.indexOf('/', 1));
+
+// 			$.ajax({
+// 				url : "http://" + window.location.host + webCtx
+// 						+ "/backEnd/order-listValue",
+// 				type : "POST",
+// 				data : {
+// 					"order_id" : 1
+// 				},
+// 				dataType : "json",
+
+// 				success : function(data) {
+// 					var table = document.getElementById("orderTable");
+
+// 					for (let i = 0; i < data.length; i++) {
+// 						let row = table.querySelector("tbody").insertRow();
+
+// 						let order_id = data[i].order_id;
+// 						let order_uid = data[i].order_uid;
+// 						let order_r_name = data[i].order_r_name;
+// 						let order_t = data[i].order_t;
+// 						let order_s = data[i].order_s;
+// 						let order_pay = data[i].order_pay;
+
+// 						row.insertCell().textContent = order_id;
+// 						row.insertCell().textContent = order_uid;
+// 						row.insertCell().textContent = order_r_name;
+// 						row.insertCell().textContent = order_t;
+
+// 						if (order_s == 0) {
+// 							row.insertCell().textContent = "已出貨";
+// 						} else {
+// 							row.insertCell().textContent = "未出貨";
+// 						}
+
+// 						if (order_pay == 0) {
+// 							row.insertCell().textContent = "已付款";
+// 						} else {
+// 							row.insertCell().textContent = "未付款";
+// 						}
+// 						let emptyCell = row.insertCell();
+
+// 						let form = document.createElement("form");
+// 						form.method = "post";
+// 						form.action = "/xxx.html";
+// 						form.style.marginBottom = "0px";
+
+// 						let inputOrderUid = document.createElement("input");
+// 						inputOrderUid.type = "hidden";
+// 						inputOrderUid.name = "order_uid";
+// 						inputOrderUid.value = order_uid;
+
+// 						let inputOrderId = document.createElement("input");
+// 						inputOrderId.type = "hidden";
+// 						inputOrderId.name = "order_id";
+// 						inputOrderId.value = order_id;
+
+// 						let button = document.createElement("button");
+// 						button.type = "submit";
+// 						button.className = "btn btntrans";
+
+// 						let icon = document.createElement("i");
+// 						icon.className = "fas fa-pen";
+
+// 						button.appendChild(icon);
+
+// 						form.appendChild(inputOrderUid);
+// 						form.appendChild(inputOrderId);
+// 						form.appendChild(button);
+
+// 						emptyCell.appendChild(form);
+// 					}
+// 				},
+// 				error : function(xhr) {
+// 					console.log(xhr);
+// 				},
+// 				complete : function(xhr) {
+// 					console.log(xhr);
+// 				}
+// 			});
+		}
+		window.onload = function() {
+			init();
+		};
+
+// 		function performSearch() {
+// 			var order_id = document.getElementById("order_id").value;
+// 			var order_s = document.getElementById("order_s").value;
+// 			var table = document.getElementById("orderTable");
+// 			var tbody = table.querySelector("tbody");
+// 			tbody.innerHTML = "";
+
+// 			var path = window.location.pathname;
+// 			var webCtx = path.substring(0, path.indexOf('/', 1));
+			
+// 			$.ajax({
+// 				url : "http://" + window.location.host + webCtx
+// 						+ "/backEnd/order-Search",
+// 				type : "POST",
+// 				data : {
+// 					"so_m_id"  :1,
+// 					"order_id" : order_id,
+// 					"order_s" : order_s
+// 				},
+// 				dataType : "json",
+
+// 				success : function(data) {
+// 					var table = document.getElementById("orderTable");
+// 					console.log("開始判斷");
+// 						console.log("有資料");
+// 						for (let i = 0; i < data.length; i++) {
+// 							let row = table.querySelector("tbody")
+// 									.insertRow();
+
+// 							let order_id = data[i].order_id;
+// 							let order_uid = data[i].order_uid;
+// 							let order_r_name = data[i].order_r_name;
+// 							let order_t = data[i].order_t;
+// 							let order_s = data[i].order_s;
+// 							let order_pay = data[i].order_pay;
+
+// 							row.insertCell().textContent = order_id;
+// 							row.insertCell().textContent = order_uid;
+// 							row.insertCell().textContent = order_r_name;
+// 							row.insertCell().textContent = order_t;
+
+// 							if (order_s == 0) {
+// 								row.insertCell().textContent = "已出貨";
+// 							} else {
+// 								row.insertCell().textContent = "未出貨";
+// 							}
+
+// 							if (order_pay == 0) {
+// 								row.insertCell().textContent = "已付款";
+// 							} else {
+// 								row.insertCell().textContent = "未付款";
+// 							}
+// 							let emptyCell = row.insertCell();
+
+// 							let form = document.createElement("form");
+// 							form.method = "post";
+// 							form.action = "/xxx.html";
+// 							form.style.marginBottom = "0px";
+
+// 							let inputOrderUid = document
+// 									.createElement("input");
+// 							inputOrderUid.type = "hidden";
+// 							inputOrderUid.name = "order_uid";
+// 							inputOrderUid.value = order_uid;
+
+// 							let inputOrderId = document
+// 									.createElement("input");
+// 							inputOrderId.type = "hidden";
+// 							inputOrderId.name = "order_id";
+// 							inputOrderId.value = order_id;
+
+// 							let button = document
+// 									.createElement("button");
+// 							button.type = "submit";
+// 							button.className = "btn btntrans";
+
+// 							let icon = document.createElement("i");
+// 							icon.className = "fas fa-pen";
+
+// 							button.appendChild(icon);
+
+// 							form.appendChild(inputOrderUid);
+// 							form.appendChild(inputOrderId);
+// 							form.appendChild(button);
+
+// 							emptyCell.appendChild(form);
+// 						}
+// 				},
+// 				error : function(xhr) {
+// 					console.log("查無資料");
+// 					alert("查無資料");
+// 					console.log(xhr);
+// 				},
+// 				complete : function(xhr) {
+// 					console.log(xhr);
+// 				}
+// 			});
+
+// 		}
+    </script>
+    
 </body>
 
 </html>

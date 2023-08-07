@@ -171,7 +171,6 @@ tr:hover {
 	border-radius: 5px;
 	padding: 5px;
 	font-size: 16px;
-	/* 添加其他樣式規則，例如文字顏色、背景色等 */
 }
 
 #searchBtn {
@@ -188,11 +187,11 @@ tr:hover {
 }
 
 select {
-	border: none; /* 移除邊框 */
-	background-color: transparent; /* 背景透明，不顯示白色背景 */
-	appearance: none; /* 移除系統默認樣式，例如下拉箭頭 */
-	-webkit-appearance: none; /* 適用於某些瀏覽器的前綴 */
-	-moz-appearance: none; /* 適用於某些瀏覽器的前綴 */
+	border: none;
+	background-color: transparent;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
 
 #p_status {
@@ -202,7 +201,6 @@ select {
 	border-radius: 5px;
 	padding: 5px;
 	font-size: 16px;
-	/* 添加其他樣式規則，例如文字顏色、背景色等 */
 }
 </style>
 </head>

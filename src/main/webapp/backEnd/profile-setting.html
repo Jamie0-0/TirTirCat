@@ -37,6 +37,14 @@
 <link rel="stylesheet" type="text/css"
 	href="assets/css/vendors/bootstrap-tagsinput.css">
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+<style>
+body {
+  font-family: "Arial", "Microsoft JhengHei", sans-serif;
+}
+</style>
+
+
 </head>
 
 <body>
@@ -73,16 +81,6 @@
 						</span></li>
 
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
-							<div class="media profile-media">
-								<img class="user-profile rounded-circle"
-									src="assets/images/users/4.jpg" alt="">
-								<div class="user-name-hide media-body">
-									<span>埃梅·沃爾特</span>
-									<p class="mb-0 font-roboto">
-										行政<i class="middle ri-arrow-down-s-line"></i>
-									</p>
-								</div>
-							</div>
 							<ul class="profile-dropdown onhover-show-div">
 								<li><a href="order-list.html"> <i
 										data-feather="archive"></i> <span>訂單</span>
@@ -327,10 +325,12 @@
 
 					var parsedData = JSON.parse(data);
 					let m_id = parsedData.m_id;
-					let m_name = parsedData.m_name;
+					let m_name = decodeURIComponent(parsedData.m_name);
+// 					let m_name = parsedData.m_name;
 					let m_gui = parsedData.m_gui;
 					let m_bank_id = parsedData.m_bank_id;
-					let m_address = parsedData.m_address;
+					let m_address = decodeURIComponent(parsedData.m_address);
+// 					let m_address = parsedData.m_address;
 					let m_man_id = parsedData.m_man_id;
 					let m_man_name = parsedData.m_man_name;
 					let m_email = parsedData.m_email;

@@ -99,17 +99,6 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 
 						
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
-							<div class="media profile-media">
-								<img class="user-profile rounded-circle"
-									src="<%=request.getContextPath()%>/backEnd/assets/images/users/4.jpg"
-									alt="">
-								<div class="user-name-hide media-body">
-									<span>埃梅·沃爾特</span>
-									<p class="mb-0 font-roboto">
-										行政<i class="middle ri-arrow-down-s-line"></i>
-									</p>
-								</div>
-							</div>
 							<ul class="profile-dropdown onhover-show-div">
 								<li><a
 									href="<%=request.getContextPath()%>/backEnd/order-list.html">
@@ -425,7 +414,7 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
   																	<jsp:useBean id="payStatusSvc" scope="page"
   																	class="payStatus.model.PayStatusService" />
  																	<c:forEach var="payStatusVO" items="${payStatusSvc.getAll()}">
- 																		<h5>${productVO2.order_pay==payStatusVO.pa_id ? payStatusVO.pa_name : ''}</h5>
+ 																		<h5>${productVO2.order_pay.equals(payStatusVO.pa_id) ? payStatusVO.pa_name : ''}</h5>
  																	</c:forEach>
 																</div> 
 															</td>
@@ -510,13 +499,6 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 		src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather-icon.js"></script>
-
-
-
-
-
-
-
 </body>
 
 </html>

@@ -421,14 +421,12 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 
 	<script>
 		function handleButtonClick() {
-			const editorElement = document
-					.querySelector(".ck-editor__editable");
+			const editorElement = document.querySelector(".ck-editor__editable");
 			const pContent = editorElement.querySelector("p").innerText;
 			const hiddenInput = document.getElementById("p_des_hidden");
 			hiddenInput.value = pContent;
 
 			const selectedValue = document.getElementById("p_class").value;
-			console.log(selectedValue);
 		}
 
 		document.getElementById("p_pic_one").addEventListener(
@@ -504,22 +502,13 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 				});
 	</script>
 	<script>
-		// 在按鈕被點擊時觸發 submitForm 函數
-		document.getElementById("sendInfo").addEventListener("click",
-				submitForm);
+		document.getElementById("sendInfo").addEventListener("click",submitForm);
 
 		function submitForm() {
-			// 取得 form 表單元素
 			const form = document.querySelector("form[name='form1']");
-
-			// 執行 form 表單的提交動作
 			form.submit();
 		}
 	</script>
-
-
-
-
 </body>
 
 </html>
