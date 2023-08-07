@@ -41,7 +41,7 @@ public class CheckoutCartController extends HttpServlet {
 		// 2. ok 生成母訂單, 子訂單, 訂單明細 (訂單狀態: 預設未出貨?)
 		// 3. ok 商品數量跟著購買數量減少
 		// 4. ok 燈箱出現下單成功之後要跳轉去商城首頁
-		// 5. 宅配資訊格式錯誤訊息?
+		// 5. 宅配資訊格式錯誤訊息? -> 每一欄不可空白, 電話只能數字
 
 		Orders orders = gson.fromJson(req.getReader(), Orders.class);
 		boolean orderIsEstabished = service.createOrders(orders);

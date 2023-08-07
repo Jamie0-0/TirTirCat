@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.JsonArray;
 
@@ -31,5 +32,7 @@ public interface ProductService {
 	
 	JsonArray getCartListJSON(Map<Integer, Integer> cartList); //cartcontroller用這個?
 	
-	String getCartListAndTotalJSON(Map<Integer, Integer> cartList); //cartcontroller用這個?
+	void saveCartToReddis(HttpSession session, int uid);
+	
+//	String getCartListAndTotalJSON(Map<Integer, Integer> cartList); //cartcontroller用這個?
 }
