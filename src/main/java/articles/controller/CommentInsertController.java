@@ -33,6 +33,10 @@ public class CommentInsertController extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		
+//		登入資訊		
+//		HttpSession session = request.getSession();
+//		String com_user_id = (String) session.getAttribute("uid");
 
 		String com_art_id = request.getParameter("com_art_id");
 		String com_user_id = request.getParameter("com_user_id");

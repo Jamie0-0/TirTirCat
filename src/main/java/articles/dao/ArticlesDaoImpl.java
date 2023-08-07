@@ -26,7 +26,7 @@ import redis.clients.jedis.JedisPool;
 
 public class ArticlesDaoImpl implements ArticlesDao {
 	private DataSource ds;
-	
+
 	private Session getSession() {
 		return HibernateUtil.getSessionFactory().getCurrentSession();
 	}
@@ -68,33 +68,32 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return list;
 	}
-	
-	
+
 	@Override
 	public Integer selectComCount(int com_art_id) {
-	    String sql1 = "SELECT COUNT(*) AS com_count FROM FurrEver.COMMENT WHERE com_art_id = ?";
-	    String sql2 = "SELECT COUNT(*) AS com_count FROM FurrEver.COMMENT c JOIN FurrEver.COM_REPLY cr ON c.com_id = cr.reply_com_id where com_art_id = ?";
-	    Integer count1 = 0;
-	    Integer count2 = 0;
-	    try (Connection conn = ds.getConnection(); PreparedStatement pstmt1 = conn.prepareStatement(sql1);PreparedStatement pstmt2= conn.prepareStatement(sql2);) {
-	        pstmt1.setInt(1, com_art_id);
-	        pstmt2.setInt(1, com_art_id);
-	        ResultSet rs1 = pstmt1.executeQuery();
-	        if (rs1.next()) {
-	            count1 = rs1.getInt("com_count");
-	        }
-	        ResultSet rs2 = pstmt2.executeQuery();
-	        if (rs2.next()) {
-	            count2 = rs2.getInt("com_count");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return count1+count2;
+		String sql1 = "SELECT COUNT(*) AS com_count FROM FurrEver.COMMENT WHERE com_art_id = ?";
+		String sql2 = "SELECT COUNT(*) AS com_count FROM FurrEver.COMMENT c JOIN FurrEver.COM_REPLY cr ON c.com_id = cr.reply_com_id where com_art_id = ?";
+		Integer count1 = 0;
+		Integer count2 = 0;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);) {
+			pstmt1.setInt(1, com_art_id);
+			pstmt2.setInt(1, com_art_id);
+			ResultSet rs1 = pstmt1.executeQuery();
+			if (rs1.next()) {
+				count1 = rs1.getInt("com_count");
+			}
+			ResultSet rs2 = pstmt2.executeQuery();
+			if (rs2.next()) {
+				count2 = rs2.getInt("com_count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count1 + count2;
 	}
 
-	
-	
 	@Override
 	public List<Article> selectNew(String page) {
 		String selectNew = "SELECT a.art_id, u.uid,  u.u_name, art_title, art_content, art_po_time, art_like\r\n"
@@ -174,7 +173,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(selectCarouselPic);) {
 			pstmt.setString(1, art_id);
-			pstmt.setInt(2, Integer.parseInt(picOrder)-1); // OFFSET 需要的是整數值...否則會報錯
+			pstmt.setInt(2, Integer.parseInt(picOrder) - 1); // OFFSET 需要的是整數值...否則會報錯
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -306,8 +305,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return count;
 	}
-	
-	
+
 	@Override
 	public List<Article> selectRedis(String page, String key) {
 
@@ -316,10 +314,11 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		try {
-
+			System.out.println("執行slectRedis");
 			int pageOrder = Integer.parseInt(page);
-			for (int i = 3 * (pageOrder - 1); i <= 3 * pageOrder - 1; i++) {
+			for (int i = 3 * (pageOrder - 1); i <= (3 * pageOrder) - 1; i++) {
 				String jsonString = jedis.lindex(key, i);
+				System.out.println("jsonString"+jsonString);
 				if (jsonString == null) {
 					return articles;
 				}
@@ -328,6 +327,8 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				Article article = gson.fromJson(jsonString, Article.class);
 				articles.add(article);
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			jedis.close();
 		}
@@ -372,7 +373,9 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				String jsonList = gson.toJson(article);
 				// 將JSON字符串存儲到Redis的List中
 				jedis.rpush("hot", jsonList);
+
 			}
+			System.out.println("存hot進redis");
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -380,12 +383,12 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 		jedis.close();
 	}
-	
+
 	@Override
 	public List<Article> selectAllNew() {
-		String sql = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n"
-				+ "FROM\r\n" + "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n"
-				+ "WHERE\r\n" + "    art_status = '1'\r\n" +  "ORDER BY\r\n" + "art_po_time DESC\r\n";
+		String sql = "SELECT a.art_id, u.uid, u.u_name, art_title, art_content, art_po_time, art_like\r\n" + "FROM\r\n"
+				+ "    FurrEver.articles a\r\n" + "    JOIN FurrEver.USER u ON a.art_user_id = u.uid\r\n" + "WHERE\r\n"
+				+ "    art_status = '1'\r\n" + "ORDER BY\r\n" + "art_po_time DESC\r\n";
 
 		var list = new ArrayList<Article>();
 
@@ -401,7 +404,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public void saveNewArticlesToRedis(List<Article> newArticles) {
 		JedisPool pool = JedisPoolUtil.getJedisPool();
@@ -419,7 +422,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				// 將JSON字符串存儲到Redis的List中
 				jedis.rpush("new", jsonList);
 			}
-
+			System.out.println("存new進redis");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -446,8 +449,11 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		byte[] articlePicData = articlePic.getPic_content();
-		jedis.set(key.getBytes(), articlePicData);
-
+		if (articlePicData != null) {
+			jedis.set(key.getBytes(), articlePicData);
+		} else {
+			System.out.println("圖片為null無法存進redis");
+		}
 		jedis.close();
 	}
 
@@ -476,22 +482,21 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		jedis.close();
 
 	}
-	
 
 	@Override
 	public ArticlesLike selectLike(int artId, int userId) {
-		
+
 		ArticlesLikeId id = new ArticlesLikeId(artId, userId);
-		
+
 		ArticlesLike articlesLike = getSession().get(ArticlesLike.class, id);
-		
+
 		if (articlesLike != null) {
-			System.out.println("用戶"+articlesLike.getLike_user_id()+"號喜歡"+articlesLike.getLike_articles_id()+"號文章");
+			System.out.println(
+					"用戶" + articlesLike.getLike_user_id() + "號喜歡" + articlesLike.getLike_articles_id() + "號文章");
 		}
-		
 		return articlesLike;
 	}
-	
+
 	// select end
 
 	// insert
@@ -501,12 +506,12 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		String insertArticle = "INSERT INTO FurrEver.articles (art_user_id, art_title, art_content, art_po_time, art_like, art_rep_count, art_status)\r\n"
 				+ "VALUES (?, ?, ?, NOW(), 0, 0, '1');";
 		int generatedKey = 0;
-		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(insertArticle, Statement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, art_user_id);
 			pstmt.setString(2, art_title);
 			pstmt.setString(3, art_content);
 
-			
 			int rowCount = pstmt.executeUpdate();
 
 			System.out.println(rowCount + "筆新增成功");
@@ -515,7 +520,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 				if (gKeys.next()) {
 					generatedKey = gKeys.getInt(1);
 					System.out.println("Generated primary key: " + generatedKey);
-				} 
+				}
 			}
 
 		} catch (SQLException e) {
@@ -529,7 +534,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 	public int insertArticlePic(int pic_art_id, List<byte[]> imageList) {
 		int status = 0;
 		String insertArticlePic = "INSERT INTO FurrEver.articles_pics (pic_content, pic_art_id) VALUES (?, ?);";
-		
+
 		try (Connection conn = ds.getConnection(); PreparedStatement pstmt = conn.prepareStatement(insertArticlePic);) {
 
 			for (int i = 0; i < imageList.size(); i++) {
@@ -548,27 +553,24 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return status;
 	}
-	
+
 	@Override
 	public void insertArticleLike(int like_articles_id, int like_user_id) {
 		ArticlesLike articlesLike = new ArticlesLike();
 		articlesLike.setLike_articles_id(like_articles_id);
 		articlesLike.setLike_user_id(like_user_id);
 		getSession().persist(articlesLike);
-		
 	}
-	
+
 	@Override
 	public int likeArticle(int art_id) {
-		
+
 		Article article = getSession().get(Article.class, art_id);
-		article.setArt_like(article.getArt_like()+1);
+		article.setArt_like(article.getArt_like() + 1);
 		getSession().update(article);
-		
 		return article.getArt_like();
 	}
-	
-	
+
 	// insert end
 	// delete
 	@Override
@@ -590,17 +592,14 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		}
 		return status;
 	}
-	
-
 
 	@Override
 	public int unLikeArticle(ArticlesLike articlesLike) {
-		
+
 		getSession().delete(articlesLike);
 		Article article = getSession().get(Article.class, articlesLike.getLike_articles_id());
-		article.setArt_like(article.getArt_like()-1);
+		article.setArt_like(article.getArt_like() - 1);
 		getSession().update(article);
-		
 		return article.getArt_like();
 
 	}
@@ -628,7 +627,7 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	@Override
 	public void jedisPicRefresh(String pic_art_id) {
-		String key = "pic_art_id:"+pic_art_id;
+		String key = "pic_art_id:" + pic_art_id;
 		JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		jedis.expire(key.getBytes(), 0);
@@ -646,8 +645,8 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	@Override
 	public int updateArticle(Article newArt) {
-		
-		Article article = getSession().load(Article.class, newArt.getArt_id());
+
+		Article article = getSession().get(Article.class, newArt.getArt_id());
 		article.setArt_title(newArt.getArt_title());
 		article.setArt_content(newArt.getArt_content());
 		getSession().persist(article);
@@ -656,52 +655,68 @@ public class ArticlesDaoImpl implements ArticlesDao {
 
 	@Override
 	public void reportArt(Integer rep_art_id, int userId, String repReason) {
-			
+
 		Article article = getSession().get(Article.class, rep_art_id);
-		article.setArt_rep_count(article.getArt_rep_count()+1);
+		article.setArt_rep_count(article.getArt_rep_count() + 1);
 		getSession().persist(article);
-	    ArticlesReport articlesReport = ArticlesReport.builder()
-	            .rep_art_id(rep_art_id)
-	            .rep_user_id(userId)
-	            .rep_reason(repReason)
-	            .build();
+		ArticlesReport articlesReport = ArticlesReport.builder().rep_art_id(rep_art_id).rep_user_id(userId)
+				.rep_reason(repReason).build();
 		getSession().persist(articlesReport);
-						
+
 	}
 
 	@Override
 	public void reportCrep(Integer crep_com_id, int userId, String repReason) {
 		Comment comment = getSession().get(Comment.class, crep_com_id);
-		comment.setCom_rep_count(comment.getCom_rep_count()+1);
+		comment.setCom_rep_count(comment.getCom_rep_count() + 1);
 		getSession().persist(comment);
-	    ComReport comReport = ComReport.builder()
-	            .crep_com_id(crep_com_id)
-	            .crep_user_id(userId)
-	            .crep_reason(repReason)
-	            .build();
+		ComReport comReport = ComReport.builder().crep_com_id(crep_com_id).crep_user_id(userId).crep_reason(repReason)
+				.build();
 		getSession().persist(comReport);
-		
 	}
 
 	@Override
 	public void reportRrep(Integer rrep_reply_id, int userId, String repReason) {
 		Reply reply = getSession().get(Reply.class, rrep_reply_id);
-		reply.setReply_rep_count(reply.getReply_rep_count()+1);
+		reply.setReply_rep_count(reply.getReply_rep_count() + 1);
 		getSession().persist(reply);
-		ReplyReport replyReport = ReplyReport.builder()
-	            .rrep_reply_id(rrep_reply_id)
-	            .rrep_user_id(userId)
-	            .rrep_reason(repReason)
-	            .build();
+		ReplyReport replyReport = ReplyReport.builder().rrep_reply_id(rrep_reply_id).rrep_user_id(userId)
+				.rrep_reason(repReason).build();
 		getSession().persist(replyReport);
+	}
+
+	@Override
+	public void refreshNew() {
+		JedisPool pool = JedisPoolUtil.getJedisPool();
+		Jedis jedis = null;
+		try {
+			jedis = pool.getResource();
+			jedis.expire("new", 0);
+			System.out.println("jedis refresh New成功");
+		} catch (Exception e) {
+			System.out.println("jedis refresh New失敗");
+			e.printStackTrace();
+		} finally {
+			jedis.close();
+		}
 		
 	}
 
-
-
-	
-
-
-
+	@Override
+	public void refreshHot() {
+		JedisPool pool = JedisPoolUtil.getJedisPool();
+		Jedis jedis = null;
+		try {
+			jedis = pool.getResource();
+			jedis.expire("hot", 0);
+			System.out.println("jedis refresh Hot成功");
+		} catch (Exception e) {
+			System.out.println("jedis refresh Hot失敗");
+			e.printStackTrace();
+		} finally {
+			jedis.close();
+		}
+		
+	}
 
 }

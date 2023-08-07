@@ -1,30 +1,77 @@
 package product_fe.vo;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import master.vo.Master;
+import order.vo.SubProduct;
+@Entity
+@Table(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
 	private Integer p_id;
+    @Column
 	private Integer p_m_id;
+    @Column
 	private String p_name;
+    @Column
 	private Integer p_price;
+    @Column
 	private Integer p_stock;
+    @Column
 	private Integer p_count;
+    @Column
 	private String p_type;
+    @Column
 	private String p_class;
-//	private LocalDateTime p_upload_time;
+    @Column
 	private Timestamp p_upload_time;
+    @Column
 	private String p_des;
+    @Column
 	private String p_status;
+    @Column
 	private byte[]  p_pic_one;
+    @Column
 	private byte[]  p_pic_two;
+    @Column
 	private byte[]  p_pic_three;
+    @Column
 	private byte[]  p_pic_four;
+    @Column
 	private String p_1;
+    @Column
 	private String p_2;
+    @Column
 	private String p_3;
+@Transient
 private String m_name;
+// 定義商品與子訂單之間的關係
+@OneToMany(mappedBy = "product")
+private List<SubProduct> subProducts;
+
+//// 定義商品與商品收藏清單之間的關係
+//@OneToMany(mappedBy = "product")
+//private List<ProductLike> productLikes;
+
+//// 定義商品與廠商之間的關係
+//@ManyToOne
+//@JoinColumn(name = "p_m_id", referencedColumnName = "m_id", insertable = false, updatable = false)
+//private Master master;
 	
 	public Integer getP_id() {
 		return p_id;

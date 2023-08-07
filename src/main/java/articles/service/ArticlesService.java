@@ -37,7 +37,7 @@ public interface ArticlesService extends CoreService{
 	// delete
 	int deleteArtclePics(String pic_art_id);
 
-	void jedisRefresh(); // 清掉redis
+//	void jedisRefresh(); // 清掉redis
 
 	void setArticlesTag(String tag);
 

@@ -76,4 +76,8 @@ public interface ArticlesDao {
 
 	void jedisRefresh();
 
+	void refreshNew();
+
+	void refreshHot();
+
 }

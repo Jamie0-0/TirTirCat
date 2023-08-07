@@ -8,6 +8,7 @@ import articles.dao.ArticlesDaoImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
 import articles.vo.ArticlesLike;
+import core.util.HibernateUtil;
 import redis.clients.jedis.exceptions.JedisException;
 
 public class ArticlesServiceImpl implements ArticlesService {
@@ -30,6 +31,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 			System.out.println("selectHot錯誤");
 			e.printStackTrace();
 			list = dao.selectHot(page);
+			System.out.println("excepition+list="+list.size());
 		}
 	
 		return list;
@@ -39,7 +41,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public void saveAllHotArticles() {
 		
 		try {
-			
+			dao.refreshHot();
 			dao.saveHotArticlesToRedis(dao.selectAllHot()); // 把熱門全部存進去
 			
 		} catch (Exception e) {
@@ -53,7 +55,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public void saveAllNewArticles() {
 		
 		try {
-			
+			dao.refreshNew();
 			dao.saveNewArticlesToRedis(dao.selectAllNew()); 
 			
 		} catch (Exception e) {
@@ -181,6 +183,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 		int pic_art_id = dao.insertArticle(art_user_id, art_title, art_content);
 		if (pic_art_id != 0) {
 			status = dao.insertArticlePic(pic_art_id, imageList);
+			dao.jedisRefresh();
 		} else {
 			System.out.println("新增文章失敗");
 		}
@@ -267,10 +270,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 	// delete end
 
 	// jedis refresh
-	@Override
-	public void jedisRefresh() {
-		dao.jedisRefresh();
-	}
+//	@Override
+//	public void jedisRefresh() {
+//		dao.jedisRefresh();
+//	}
 
 	// jedis tag
 	@Override
@@ -320,17 +323,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 		int result = -1;
 		
 		try {
-		
 			beginTransaction();
 			
 			// 先查
 			ArticlesLike articlesLike = dao.selectLike(artId, userId);
-			
 			if (articlesLike != null) {
 				result = dao.unLikeArticle(articlesLike);
 				
 				System.out.println("收回讚成功");
-				
 			} else {
 				// table: articles_like
 				dao.insertArticleLike(artId, userId);

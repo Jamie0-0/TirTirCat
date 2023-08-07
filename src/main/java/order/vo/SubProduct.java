@@ -1,9 +1,12 @@
 package order.vo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -11,7 +14,8 @@ import product_fe.vo.Product;
 
 @Entity
 @Table(name = "sub_product")
-public class SubProduct {
+public class SubProduct implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column
 	private int order_id;
@@ -28,7 +32,8 @@ public class SubProduct {
 	private String sub2;
 	@Column
 	private String sub3;
-	// 定義子訂單明細與子訂單之間的關係
+	
+    // 定義SubProduct與SubOrder之間的多對一關聯
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "so_order_id", insertable = false, updatable = false)
     private SubOrder subOrder;
@@ -38,18 +43,23 @@ public class SubProduct {
     @JoinColumn(name = "p_p_id", referencedColumnName = "p_id", insertable = false, updatable = false)
     private Product product;
 
-
 	public SubProduct() {
 	}
+	
+	public SubProduct(int p_p_id, int p_m_stock, int p_m_price) {
+		super();
+		this.p_p_id = p_p_id;
+		this.p_m_stock = p_m_stock;
+		this.p_m_price = p_m_price;
+	}
 
-	public SubProduct(int order_id, int p_p_id, int p_m_stock, int p_m_price, String sub1, String sub2, String sub3) {
+	
+	public SubProduct(int order_id, int p_p_id, int p_m_stock, int p_m_price) {
+		super();
 		this.order_id = order_id;
 		this.p_p_id = p_p_id;
 		this.p_m_stock = p_m_stock;
 		this.p_m_price = p_m_price;
-		this.sub1 = sub1;
-		this.sub2 = sub2;
-		this.sub3 = sub3;
 	}
 
 	public int getOrder_id() {
@@ -107,5 +117,30 @@ public class SubProduct {
 	public void setSub3(String sub3) {
 		this.sub3 = sub3;
 	}
+	
+
+	public SubOrder getSubOrder() {
+		return subOrder;
+	}
+
+	public void setSubOrder(SubOrder subOrder) {
+		this.subOrder = subOrder;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "SubProduct [order_id=" + order_id + ", p_p_id=" + p_p_id + ", p_m_stock=" + p_m_stock + ", p_m_price="
+				+ p_m_price + ", sub1=" + sub1 + ", sub2=" + sub2 + ", sub3=" + sub3 + ", subOrder=" + subOrder
+				+ ", product=" + product + "]";
+	}
+
 
 }

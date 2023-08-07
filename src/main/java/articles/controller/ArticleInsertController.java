@@ -39,13 +39,14 @@ public class ArticleInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+//		登入資訊		
+//		HttpSession session = request.getSession();
+//		String art_user_id = (String) session.getAttribute("uid");
+		
 		String art_user_id = request.getParameter("art_user_id");
 		String art_title = request.getParameter("art_title");
 		String art_content = request.getParameter("art_content");
-		
-		System.out.println("art_user_id="+art_user_id);
-		System.out.println("art_title"+art_title);
-		System.out.println("art_content"+art_content);
+
 		
         List<byte[]> imageList = new ArrayList<>();
 
