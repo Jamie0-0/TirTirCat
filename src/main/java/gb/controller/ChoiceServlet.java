@@ -52,23 +52,4 @@ public class ChoiceServlet extends HttpServlet {
 	}
 }
 
-//篩選器servlet
-//protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//resp.setContentType("application/json");
-//resp.setCharacterEncoding("UTF-8");
-//req.setCharacterEncoding("UTF-8");
-//
-//Gson gson = new Gson();
-//
-//String how = req.getParameter("how");
-//String keywords = req.getParameter("keywords");
-//
-//var list = service.selectByKeyWords(how, keywords);
-//
-//String message = gson.toJson("");
-//
-//message = "{\"status\":\"true\",\"selectByKeyWords\":" + gson.toJson(list) + "}";
-//resp.getWriter().write(message);
-//
-//System.out.println(message);
+

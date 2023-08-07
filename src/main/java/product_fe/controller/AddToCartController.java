@@ -14,18 +14,26 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import member.dao.MemberDao;
+import member.dao.MemberDaoImpl;
+import member.vo.Member;
 import product_fe.service.ProductService;
 import product_fe.service.ProductServiceImpl;
+import product_fe.util.ProductUtil;
 import product_fe.vo.Product;
+import redis.clients.jedis.Jedis;
+import webSocket.jedis.JedisPoolUtil;
 
 @WebServlet("/addToCart")
 public class AddToCartController extends HttpServlet {
 
 	private ProductService service;
+	private MemberDao memberDao;
 
 	@Override
 	public void init() throws ServletException {
 		service = new ProductServiceImpl();
+		memberDao = new MemberDaoImpl();
 	}
 
 	@Override
@@ -40,14 +48,49 @@ public class AddToCartController extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		Gson gson = new Gson();
+		
+		
+		//////
+		String username = (String) session.getAttribute("username");
+		Member member = new Member();
+		int uid = 0;
+		
+		HashMap<Integer, Integer> cartList = null;
+		
+		if (username == null) {
+			cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+			System.out.println("用到1");
+		} else if (username != null) {
+			System.out.println("用到2");
+			System.out.println("username = "+username);
+			member =  memberDao.selectByUserNameForCart(username);
+			uid = member.getUid();
+
+			Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
+			Map<String, String> reddisCartList = jedis.hgetAll("user:" + uid + ":cart.list");
+			
+			if(reddisCartList.isEmpty()) {
+				cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+				System.out.println("用到reddisCartList.isEmpty()");
+			}else if(!reddisCartList.isEmpty()) {
+				cartList = ProductUtil.mapStringCastToInt(reddisCartList);
+				System.out.println("用到!reddisCartList.isEmpty()");
+			}
+			jedis.close();
+		}
+		/////
 
 		String p_id_string = req.getParameter("p_id");
 		String quantity_string = req.getParameter("quantity");
 
-		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+//		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
 
 		System.out.println("add之前的原本的CartList =" + cartList);
 		service.addToCart(req, p_id_string, quantity_string, cartList);
+		
+		if (username != null) {
+			service.saveCartToReddis(session, uid);
+		}
 
 		// 檢查欲增加數量有沒有大於商品庫存數量, 有的話直接回傳錯誤訊息就結束
 		List<String> msgs = service.getMsgs();
