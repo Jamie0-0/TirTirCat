@@ -87,11 +87,17 @@
             cursor: pointer;
         }
 
-        .heart i, .chat i{
+        .heart i,
+        .chat i {
             font-size: 1.5rem;
             /* 調整心型圖案大小為潔牙骨文字相同大小 */
             color: #ffcb76;
             /* 設定心型圖案顏色 */
+        }
+
+
+        span#p_like_msgs {
+            color: #91bbf9;
         }
 
         /* 自己加的 */
@@ -442,10 +448,14 @@
 
                     <div class="d-flex align-items-center mb-3">
                         <div class="product-name d-inline">
+                            <!-- <div id="p_detail"></div> -->
                             <h2 id="p_name" class="m-0" style="line-height: 1.5;">潔牙骨</h2>
                         </div>
-                        <div class="heart -on">
+                        <div class="heart">
                             <i class="fa-regular fa-heart"></i>
+                        </div>
+                        <div>
+                            <span id="p_like_msgs"></span>
                         </div>
                     </div>
 
@@ -520,6 +530,7 @@
                             // 取得 URL 上的參數
                             const urlParams = new URLSearchParams(window.location.search);
                             const p_id = urlParams.get('p_id');
+                            const heartIcon = document.querySelector('.heart i');
 
 
                             // 使用 fetch 向後端傳送商品的 p_id 以獲取商品詳細資料
@@ -540,6 +551,12 @@
 
                                     document.getElementById("breadScrumb_p_name1").textContent = data.viewProductDetail.p_name;
                                     document.getElementById("breadScrumb_p_name2").textContent = data.viewProductDetail.p_name;
+
+                                    console.log(data.productLike);
+                                    if (data.productLike == true) {
+                                        heartIcon.classList.remove('fa-regular');
+                                        heartIcon.classList.add('fa-solid');
+                                    }
                                 })
                                 .catch(error => {
                                     // 錯誤處理
@@ -614,70 +631,48 @@
 
 
 
+                    </script>
 
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var heartIcon = document.querySelector('.heart i');
+                            var pLikeMsgs = document.getElementById('p_like_msgs');
 
+                            // 添加點擊事件監聽器
+                            heartIcon.addEventListener('click', function () {
+                                // 取得 URL 上的參數 p_id
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const p_id = urlParams.get('p_id');
 
-                        // // 原本的--------------- 加入購物車 --------------- //
-                        // // 點擊加入購物車按鈕時觸發的事件
-                        // document.getElementById("add-cart-btn").addEventListener("click", function () {
+                                // 發送 AJAX 請求
+                                $.ajax({
+                                    url: `http://localhost:8081/TirTirCat/shop/productDetail/productLike?pl_p_id=${p_id}`,
+                                    method: 'GET',
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        console.log(response);
 
-                        //     // 取得 URL 上的參數
-                        //     const urlParams = new URLSearchParams(window.location.search);
-                        //     const p_id = urlParams.get('p_id');
-                        //     // 獲取商品數量
+                                        if (response.action === "insert") {
+                                            heartIcon.classList.remove('fa-regular');
+                                            heartIcon.classList.add('fa-solid');
+                                        } else if (response.action === "delete") {
+                                            heartIcon.classList.remove('fa-solid');
+                                            heartIcon.classList.add('fa-regular');
+                                        }
 
-                        //     const quantity = document.getElementById("qtyInput").value;
-                        //     // const msgs = document.getElementById("msgs").innerText;
-
-                        //     // 使用 fetch 向後端傳送商品的 id 和數量
-                        //     fetch(`http://localhost:8081/TirTirCat/addToCart?p_id=${p_id}&quantity=${quantity}`, {
-                        //         method: 'GET',
-                        //         headers: {
-                        //             'Content-Type': 'application/json'
-                        //         }
-                        //     })
-                        //         .then(response => response.json())
-                        //         .then(data => {
-                        //             console.log("p_id = " + p_id + ", quantity =" + quantity);
-                        //             console.log(data);
-
-                        //             // 取得訊息元素
-                        //             const msgsElement = document.getElementById("msgs");
-
-                        //             // 清空元素內容
-                        //             msgsElement.textContent = "";
-
-                        //             msgsElement.textContent = data;
-
-                        //             // 在這裡處理從後端回傳的購物車資料，例如顯示在模態視窗中
-
-                        //         })
-                        //         .catch(error => {
-                        //             // 錯誤處理
-                        //             console.error("請求錯誤:", error);
-                        //         });
-                        // });
-
-
-
-
-
-
-
+                                        pLikeMsgs.innerText = response.msgs;
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        console.error('錯誤：', errorThrown);
+                                    }
+                                });
+                            });
+                        });
                     </script>
 
 
-                    <script>
-                        // // 加入購物車燈箱
-                        // function openModal() {
-                        //     var modal = document.getElementById("myModal");
-                        //     modal.style.display = "block";
-                        // }
 
-                        // function closeModal() {
-                        //     var modal = document.getElementById("myModal");
-                        //     modal.style.display = "none";
-                        // }
+                    <script>
 
                         // // 獲取心型圖標元素
                         // var heartIcon = document.querySelector('.heart i');

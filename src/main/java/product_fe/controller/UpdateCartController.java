@@ -3,6 +3,7 @@ package product_fe.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +14,25 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import member.dao.MemberDao;
+import member.dao.MemberDaoImpl;
+import member.vo.Member;
 import product_fe.service.ProductService;
 import product_fe.service.ProductServiceImpl;
+import product_fe.util.ProductUtil;
+import redis.clients.jedis.Jedis;
+import webSocket.jedis.JedisPoolUtil;
 
 @WebServlet("/updateCart")
 public class UpdateCartController extends HttpServlet {
 
 	private ProductService service;
+	private MemberDao memberDao;
 
 	@Override
 	public void init() throws ServletException {
 		service = new ProductServiceImpl();
+		memberDao = new MemberDaoImpl();
 	}
 
 	@Override
@@ -33,16 +42,52 @@ public class UpdateCartController extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		Gson gson = new Gson();
+		
+		//////
+		String username = (String) session.getAttribute("username");
+		Member member = new Member();
+		int uid = 0;
+		
+		HashMap<Integer, Integer> cartList = null;
+		
+		if (username == null) {
+			cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+			System.out.println("用到1");
+		} else if (username != null) {
+
+			System.out.println("用到2");
+			System.out.println("username = "+username);
+			member =  memberDao.selectByUserNameForCart(username);
+			uid = member.getUid();
+
+			Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
+			Map<String, String> reddisCartList = jedis.hgetAll("user:" + uid + ":cart.list");
+			
+			if(reddisCartList.isEmpty()) {
+				cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+				System.out.println("用到reddisCartList.isEmpty()");
+			}else if(!reddisCartList.isEmpty()) {
+				cartList = ProductUtil.mapStringCastToInt(reddisCartList);
+				System.out.println("用到!reddisCartList.isEmpty()");
+			}
+			jedis.close();
+		}
+		/////
+		
 
 		int p_id = Integer.parseInt(req.getParameter("p_id"));
 		int quantity = Integer.parseInt(req.getParameter("quantity"));
 		System.out.println("update的p_id = " + p_id);
 		System.out.println("update的quantity = " + quantity);
 
-		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+//		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
 
 		System.out.println("update之前的原本的CartList =" + cartList);
 		service.updateCart(req, p_id, quantity, cartList);
+		
+		if (username != null) {
+			service.saveCartToReddis(session, uid);
+		}
 
 				
 
