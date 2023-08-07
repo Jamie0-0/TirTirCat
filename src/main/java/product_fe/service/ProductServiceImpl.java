@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -17,7 +18,11 @@ import com.google.gson.JsonObject;
 import order.vo.CartItem;
 import product_fe.dao.ProductDao;
 import product_fe.dao.ProductDaoImpl;
+import product_fe.util.ProductUtil;
 import product_fe.vo.Product;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import webSocket.jedis.JedisPoolUtil;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -356,6 +361,24 @@ public class ProductServiceImpl implements ProductService {
 
 		return cartArray;
 
+	}
+
+	@Override
+	public void saveCartToReddis(HttpSession session, int uid) {
+		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+		Gson gson = new Gson();
+//		String cartJSON = gson.toJson(cartList);
+
+		Map<String, String> cartListString = ProductUtil.mapIntToString(cartList);
+		System.out.println("uid=" + uid);
+		System.out.println("cartListString=" + cartListString);
+		Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
+		
+		jedis.hmset("user:" + uid + ":cart.list", cartListString);
+//		jedis.mset("user:" + uid + ":cart.list", cartJSON);
+		
+		jedis.close();
+		
 	}
 
 }

@@ -58,6 +58,7 @@ public class ProductDetailController extends HttpServlet {
 		String message = gson.toJson("");
 
 		message = "{\"productLike\":" + productLikeExists + ",\"viewProductDetail\":" + gson.toJson(product) + "}";
+//		message = "{\"status\":\"true\",\"viewProductDetail\":" + gson.toJson(product) + "}";
 		resp.getWriter().write(message);
 
 		System.out.println(message);

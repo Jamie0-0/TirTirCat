@@ -48,6 +48,27 @@ public class ProductLikeServiceImpl implements ProductLikeService {
 			return true;
 		}
 
+//		msgs.clear();
+//		ProductLike productLike = dao.selectByUidAndPId(pl_uid, pl_p_id);
+//		System.out.println(productLike);
+//
+//		if (productLike != null) {
+////			System.out.println(productLike);
+//
+//			dao.delete(pl_uid, pl_p_id);
+//			msgs.add("已取消追蹤商品");
+////			return msgs;
+//
+//		} else if (productLike == null) {
+////			System.out.println(productLike);
+//
+//			dao.insert(pl_uid, pl_p_id);
+//			msgs.add("已追蹤商品");
+////			return msgs;
+//		}
+
+//		return null;
+
 	}
 
 	@Override
