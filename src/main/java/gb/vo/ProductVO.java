@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Base64;
 import java.util.Date;
 
+
 public class ProductVO implements Serializable {
     private Integer p_id; // 商品編號
     private Integer p_m_id; // 廠商編號
@@ -24,7 +25,6 @@ public class ProductVO implements Serializable {
     private String p_2;
     private String p_3;
 
-    // Getters and Setters for the above fields
     public Integer getP_id() {
         return p_id;
     }
@@ -168,4 +168,5 @@ public class ProductVO implements Serializable {
     public void setP_3(String p_3) {
         this.p_3 = p_3;
     }
+
 }

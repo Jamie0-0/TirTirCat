@@ -3,8 +3,10 @@ package gb.dao;
 import java.util.List;
 
 import gb.vo.GbAndProductVO;
+import gb.vo.GbOrderVO;
 import gb.vo.GbVO;
 import gb.vo.ProductVO;
+import gb.vo.ProductAndMasterVO;
 
 public interface GBDao {
 	void insert(GbVO gbVO);
@@ -23,5 +25,12 @@ public interface GBDao {
 	void insertProductWithImages(ProductVO product);
 	
 	List<GbAndProductVO> selectByKeyWords(String how, String keywords);
+	
+	//product join master
+	List<ProductAndMasterVO> getProductsAndMasters();
+	
+	//gb join gborder
+	List<GbOrderVO> getAllGbOrdersWithGbDetails();
 
+	boolean insertGbOrder(GbOrderVO gbOrder);
 }
