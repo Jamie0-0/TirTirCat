@@ -25,6 +25,6 @@ public interface ProductDao {
 
 	byte[] selectPicByPid(Integer p_id);
 
-	int updatePCountByPid(Integer p_id, Integer quantity); // 結帳 -> 扣除商品庫存數量, 需要batch嗎
+	int updatePStockByPid(Integer p_id, Integer quantity); // 結帳 -> 更新廠商商品數量
 
 }

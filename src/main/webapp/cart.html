@@ -434,13 +434,14 @@
                                                         // 購物車是空的情況
                                                         console.log(data);
                                                         const list_tbody_container = document.getElementById("list_tbody");
-                                                        list_tbody_container.innerText = data;
+                                                        list_tbody_container.innerHTML =`<p style="text-align: center;">${data}</p>`;
 
                                                         // Disable the "去結帳" button
                                                         const checkoutBtn = document.getElementById("checkoutBtn");
                                                         checkoutBtn.disabled = true;
 
                                                     } else if (data.cartList.length > 0) {
+                                                        console.log(data);
                                                         // 購物車中有商品的情況
                                                         // 取得購物車內容
                                                         const cartContent = data.cartList;

@@ -494,7 +494,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 			System.out.println(
 					"用戶" + articlesLike.getLike_user_id() + "號喜歡" + articlesLike.getLike_articles_id() + "號文章");
 		}
-		HibernateUtil.shutdown();
 		return articlesLike;
 	}
 
@@ -561,7 +560,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		articlesLike.setLike_articles_id(like_articles_id);
 		articlesLike.setLike_user_id(like_user_id);
 		getSession().persist(articlesLike);
-		HibernateUtil.shutdown();
 	}
 
 	@Override
@@ -570,7 +568,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		Article article = getSession().get(Article.class, art_id);
 		article.setArt_like(article.getArt_like() + 1);
 		getSession().update(article);
-		HibernateUtil.shutdown();
 		return article.getArt_like();
 	}
 
@@ -603,7 +600,6 @@ public class ArticlesDaoImpl implements ArticlesDao {
 		Article article = getSession().get(Article.class, articlesLike.getLike_articles_id());
 		article.setArt_like(article.getArt_like() - 1);
 		getSession().update(article);
-		HibernateUtil.shutdown();
 		return article.getArt_like();
 
 	}

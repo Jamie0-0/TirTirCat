@@ -8,6 +8,7 @@ import articles.dao.ArticlesDaoImpl;
 import articles.vo.Article;
 import articles.vo.ArticlePic;
 import articles.vo.ArticlesLike;
+import core.util.HibernateUtil;
 import redis.clients.jedis.exceptions.JedisException;
 
 public class ArticlesServiceImpl implements ArticlesService {
@@ -322,17 +323,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 		int result = -1;
 		
 		try {
-		
 			beginTransaction();
 			
 			// 先查
 			ArticlesLike articlesLike = dao.selectLike(artId, userId);
-			
 			if (articlesLike != null) {
 				result = dao.unLikeArticle(articlesLike);
 				
 				System.out.println("收回讚成功");
-				
 			} else {
 				// table: articles_like
 				dao.insertArticleLike(artId, userId);

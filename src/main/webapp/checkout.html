@@ -444,18 +444,29 @@
 
                             </div>
 
-                            <button id="checkout_btn" onclick="openModal()"
+                            <button id="checkout_btn"
                                 class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">結帳</button>
                             <div id="myModal" class="modal">
                                 <div class="modal-content w-25">
-                                    <h2 style="text-align:center">下單成功</h2>
-                                    <!-- <p>成團與否請待簡訊通知</p> -->
+                                    <h2 style="text-align:center" id="modal_text">訊息</h2>
                                     <button class="btn theme-bg-color text-white btn-md w-50 mt-4 fw-bold mx-auto"
                                         onclick="closeModal()">確認</button>
                                 </div>
                             </div>
 
+                            <script>
+                                function openModal(message) {
+                                    var modal = document.getElementById("myModal");
+                                    var modalTextElement = document.getElementById("modal_text");
+                                    modalTextElement.innerText = message;
+                                    modal.style.display = "block";
+                                }
 
+                                function closeModal() {
+                                    var modal = document.getElementById("myModal");
+                                    modal.style.display = "none";
+                                }
+                            </script>
 
 
                             <script>
@@ -512,7 +523,7 @@
                                         cartContent.forEach(item => {
                                             cartHTML += `                                                  
                                             <ul class="summery-contain" id="cartlist">
-                                                <li p_id=${item.p_id} p_m_id=${item.p_m_id}>
+                                                <li p_id=${item.p_id} p_m_id=${item.p_m_id} p_price=${item.p_price}>
                                                     <img id="pic_content_${item.p_id}" src="./assets/images/vegetable/product/1.png"
                                                         class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                                         <h4 class="mr-3">${item.p_name}</h4>
@@ -543,6 +554,28 @@
 
 
                                 $(document).ready(function () {
+                                    function checkout() {
+
+                                        $.ajax({
+                                            url: 'http://localhost:8081/TirTirCat/checkoutCart',
+                                            method: 'POST',
+                                            dataType: 'json',
+                                            data: JSON.stringify(dataToSend),
+                                            contentType: 'application/json',
+                                            success: function (response) {
+                                                console.log(dataToSend);
+                                                console.log(response);
+
+                                                openModal(response); // 在這裡打開燈箱並設定文字
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                console.error('錯誤：', errorThrown);
+                                            }
+                                        });
+                                    }
+
+
+
                                     //-------------------按下結帳按鈕，傳送訂單及收件人資訊給後端-------------------//
                                     // 監聽結帳按鈕的點擊事件
                                     $('#checkout_btn').on('click', function () {
@@ -557,14 +590,16 @@
                                         $('.summery-contain li').each(function () {
                                             const p_id = $(this).attr('p_id');
                                             const p_m_id = $(this).attr('p_m_id');
+                                            const p_price = $(this).attr('p_price'); // 商品單價
                                             const quantity = parseInt($(this).find('span').text().trim().replace('X', ''));
-                                            const price = parseFloat($(this).find('.price').text().replace('$', ''));
+                                            const p_total_price = parseFloat($(this).find('.price').text().replace('$', '')); // 商品單價*數量後價格
 
                                             cartList.push({
-                                                p_id: p_id,
-                                                p_m_id: p_m_id,
-                                                quantity: quantity,
-                                                p_price: price
+                                                item_p_id: p_id,
+                                                item_p_m_id: p_m_id,
+                                                item_p_price: p_price,
+                                                item_quantity: quantity,
+                                                p_total_price: p_total_price
                                             });
                                         });
 
@@ -585,27 +620,37 @@
                                             cartlist: cartList
                                         };
 
-                                        // 發送 AJAX 請求
-                                        $.ajax({
-                                            url: 'http://localhost:8081/TirTirCat/checkoutCart',
-                                            method: 'POST',
-                                            dataType: 'json',
-                                            data: JSON.stringify(dataToSend),
-                                            contentType: 'application/json',
-                                            success: function (response) {
-                                                // 在此處理後端回傳的成功回應
-                                                console.log(dataToSend);
-                                                console.log('訂單提交成功：', response);
-                                                // 在這裡可以做其他處理，例如顯示訂單成功的提示、清空購物車等等
-                                                // ...
-                                            },
-                                            error: function (jqXHR, textStatus, errorThrown) {
-                                                // 在此處理 AJAX 請求失敗的情況
-                                                console.error('錯誤：', errorThrown);
-                                                // 在這裡可以做錯誤處理，例如顯示錯誤訊息等等
-                                                // ...
-                                            }
-                                        });
+
+
+                                        // 點擊結帳按鈕後向後端發送訂單資訊
+                                        function checkout() {
+
+                                            $.ajax({
+                                                url: 'http://localhost:8081/TirTirCat/checkoutCart',
+                                                method: 'POST',
+                                                dataType: 'json',
+                                                data: JSON.stringify(dataToSend),
+                                                contentType: 'application/json',
+                                                success: function (response) {
+                                                    console.log(dataToSend);
+                                                    console.log(response);
+
+                                                    // 打開燈箱並顯示後端回傳訊息
+                                                    openModal(response);
+
+                                                    // 等待三秒後跳轉到指定網址
+                                                    setTimeout(function () {
+                                                        window.location.href = 'http://localhost:8081/TirTirCat/shop-category.html';
+                                                    }, 3000); // 3000 毫秒，即 3 秒
+                                                },
+                                                error: function (jqXHR, textStatus, errorThrown) {
+                                                    console.error('錯誤：', errorThrown);
+                                                }
+                                            });
+                                        }
+
+                                        checkout();
+
                                     });
                                 });
 
@@ -614,17 +659,7 @@
 
 
 
-                            <script>
-                                function openModal() {
-                                    var modal = document.getElementById("myModal");
-                                    modal.style.display = "block";
-                                }
 
-                                function closeModal() {
-                                    var modal = document.getElementById("myModal");
-                                    modal.style.display = "none";
-                                }
-                            </script>
 
 
 

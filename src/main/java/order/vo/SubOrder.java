@@ -1,5 +1,8 @@
 package order.vo;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,16 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sub_order")
-public class SubOrder {
+public class SubOrder implements Serializable{
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
 	private int so_order_id;
-    @Column
+    @Column(name = "so_order_num")
 	private int so_order_num;
     @Column
 	private int so_m_id;
@@ -35,6 +40,10 @@ public class SubOrder {
     @ManyToOne
     @JoinColumn(name = "so_order_num", referencedColumnName = "order_id", insertable = false, updatable = false)
     private ProductOrder productOrder;
+    
+    // 定義SubOrder與SubProduct之間的一對多關聯
+    @OneToMany(mappedBy = "subOrder")
+    private List<SubProduct> subProducts;
 
 //    // 定義子訂單與廠商之間的關係
 //    @ManyToOne
@@ -44,15 +53,19 @@ public class SubOrder {
 	public SubOrder() {
 	}
 
-	public SubOrder(int so_order_num, int so_m_id, int order_num, String order_status, String so_1, String so_2,
-			String so_3) {
+	public SubOrder( int so_m_id, int order_num, String order_status) {
+		super();
+		this.so_m_id = so_m_id;
+		this.order_num = order_num;
+		this.order_status = order_status;
+	}
+	
+	public SubOrder(int so_order_num, int so_m_id, int order_num, String order_status) {
+		super();
 		this.so_order_num = so_order_num;
 		this.so_m_id = so_m_id;
 		this.order_num = order_num;
 		this.order_status = order_status;
-		this.so_1 = so_1;
-		this.so_2 = so_2;
-		this.so_3 = so_3;
 	}
 
 	public int getSo_order_id() {
@@ -118,5 +131,22 @@ public class SubOrder {
 	public void setSo_3(String so_3) {
 		this.so_3 = so_3;
 	}
+	
+public List<SubProduct> getSubProducts() {
+	return subProducts;
+}
+
+public void setSubProducts(List<SubProduct> subProducts) {
+	this.subProducts = subProducts;
+}
+
+@Override
+public String toString() {
+	return "SubOrder [so_order_id=" + so_order_id + ", so_order_num=" + so_order_num + ", so_m_id=" + so_m_id
+			+ ", order_num=" + order_num + ", order_status=" + order_status + ", so_1=" + so_1 + ", so_2=" + so_2
+			+ ", so_3=" + so_3 + ", productOrder=" + productOrder + ", subProducts=" + subProducts + "]";
+}
+
+
 
 }

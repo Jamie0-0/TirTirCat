@@ -6,14 +6,10 @@ import order.vo.ProductOrder;
 
 public interface ProductOrderDao {
 
-	boolean insert(ProductOrder productOrder);
+	int insertProductOrder(ProductOrder productOrder);
 	
-	void deleteByOrderId(String order_id);
+	List<ProductOrder> selectAll();
 	
-	boolean update(ProductOrder productOrder);
-		
-//	List<ProductOrder> selectAll();
-	
-//	List<ProductOrder> selectByUid(String order_uid); // 會員查自己所有訂單 -> join子訂單+子訂單明細?
+	ProductOrder selectByUid(int order_uid); // 會員查自己所有訂單 -> join子訂單+子訂單明細?
 
 }
