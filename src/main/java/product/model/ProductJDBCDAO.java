@@ -18,7 +18,7 @@ public class ProductJDBCDAO implements ProductDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/Furrever?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "Aa123456";
+	String passwd = "password";
 
 	private static final String GET_ALL_STMT = "SELECT * FROM product where p_m_id=? order by p_id";
 

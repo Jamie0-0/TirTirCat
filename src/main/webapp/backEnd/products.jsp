@@ -171,7 +171,6 @@ tr:hover {
 	border-radius: 5px;
 	padding: 5px;
 	font-size: 16px;
-	/* 添加其他樣式規則，例如文字顏色、背景色等 */
 }
 
 #searchBtn {
@@ -188,11 +187,11 @@ tr:hover {
 }
 
 select {
-	border: none; /* 移除邊框 */
-	background-color: transparent; /* 背景透明，不顯示白色背景 */
-	appearance: none; /* 移除系統默認樣式，例如下拉箭頭 */
-	-webkit-appearance: none; /* 適用於某些瀏覽器的前綴 */
-	-moz-appearance: none; /* 適用於某些瀏覽器的前綴 */
+	border: none;
+	background-color: transparent;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
 
 #p_status {
@@ -202,7 +201,6 @@ select {
 	border-radius: 5px;
 	padding: 5px;
 	font-size: 16px;
-	/* 添加其他樣式規則，例如文字顏色、背景色等 */
 }
 </style>
 </head>
@@ -243,17 +241,6 @@ select {
 						</span></li>
 						
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
-							<div class="media profile-media">
-								<img class="user-profile rounded-circle"
-									src="<%=request.getContextPath()%>/backEnd/assets/images/users/4.jpg"
-									alt="">
-								<div class="user-name-hide media-body">
-									<span>埃梅·沃爾特</span>
-									<p class="mb-0 font-roboto">
-										行政<i class="middle ri-arrow-down-s-line"></i>
-									</p>
-								</div>
-							</div>
 							<ul class="profile-dropdown onhover-show-div">
 								<li><a
 									href="<%=request.getContextPath()%>/backEnd/order-list.html">
@@ -329,9 +316,6 @@ select {
 											href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a>
 										</li>
 										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a>
-										</li>
-										<li><a
 											href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a>
 										</li>
 									</ul></li>
@@ -347,12 +331,6 @@ select {
 											href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
 												個人設定</a></li>
 									</ul></li>
-
-								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/chat.jsp"> <i
-										class="fas fa-comments"></i> <span>聊天室</span>
-								</a></li>
 							</ul>
 						</div>
 
@@ -546,67 +524,6 @@ select {
 		</div>
 	</div>
 
-	<div class="modal fade theme-modal remove-coupon"
-		id="exampleModalToggle" aria-hidden="true" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header d-block text-center">
-					<h5 class="modal-title w-100" id="exampleModalLabel22">請確認 ?</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close">
-						<i class="fas fa-times"></i>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="remove-box">
-						<p>The permission for the use/group, preview is inherited from
-							the object, object will create a new permission for this object</p>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-animation btn-md fw-bold"
-						data-bs-dismiss="modal"></button>
-					<button type="button" class="btn btn-animation btn-md fw-bold"
-						data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
-						data-bs-dismiss="modal">是</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade theme-modal remove-coupon"
-		id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title text-center" id="exampleModalLabel12">完成!</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close">
-						<i class="fas fa-times"></i>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="remove-box text-center">
-						<div class="wrapper">
-							<svg class="checkmark" xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 52 52">
-                                <circle class="checkmark__circle"
-									cx="26" cy="26" r="25" fill="none" />
-                                <path class="checkmark__check"
-									fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                            </svg>
-						</div>
-						<h4 class="text-content">已移除</h4>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-primary" data-bs-toggle="modal"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<script
 		src="<%=request.getContextPath()%>/backEnd/assets/js/jquery-3.6.0.min.js"></script>
 	<script
@@ -689,11 +606,6 @@ select {
 		src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather-icon.js"></script>
 
 
-	<!-- <script src="assets/js/icons/feather-icon/feather-icon.js"></script> -->
-	<!-- <script src="assets/js/customizer.js"></script> -->
-	<!-- <script src="assets/js/notify/index.js"></script> -->
-	<!-- <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script> -->
-	<!-- <script src="assets/js/icons/feather-icon/feather.min.js"></script> -->
 </body>
 
 </html>

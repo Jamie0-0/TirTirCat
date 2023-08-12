@@ -96,17 +96,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 						</span></li>
 						
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
-							<div class="media profile-media">
-								<img class="user-profile rounded-circle"
-									src="<%=request.getContextPath()%>/backEnd/assets/images/users/4.jpg"
-									alt="">
-								<div class="user-name-hide media-body">
-									<span>埃梅·沃爾特</span>
-									<p class="mb-0 font-roboto">
-										行政<i class="middle ri-arrow-down-s-line"></i>
-									</p>
-								</div>
-							</div>
 							<ul class="profile-dropdown onhover-show-div">
 								<li><a
 									href="<%=request.getContextPath()%>/backEnd/order-list.html">
@@ -187,11 +176,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 										<li><a
 											href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a></li>
 										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a></li>
-										<li><a
 											href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a></li>
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a></li>
 									</ul></li>
 
 								<li class="sidebar-list"><a
@@ -204,12 +189,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 											href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
 												個人設定</a></li>
 									</ul></li>
-
-								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/chat.jsp"> <i
-										class="fas fa-comments"></i> <span>聊天室</span>
-								</a></li>
 							</ul>
 						</div>
 

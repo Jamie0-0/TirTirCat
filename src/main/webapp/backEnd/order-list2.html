@@ -104,7 +104,6 @@
             transition: background-color 0.3s ease-in-out;
         }
 
-        /* 點擊時改變背景色 */
         .product-search:focus {
             background-color: lightyellow;
         }
@@ -149,13 +148,6 @@
                         </li>
                         
                         <li class="profile-nav onhover-dropdown pe-0 me-0">
-                            <div class="media profile-media">
-                                <img class="user-profile rounded-circle" src="assets/images/users/4.jpg" alt="">
-                                <div class="user-name-hide media-body">
-                                    <span>埃梅·沃爾特</span>
-                                    <p class="mb-0 font-roboto">行政<i class="middle ri-arrow-down-s-line"></i></p>
-                                </div>
-                            </div>
                             <ul class="profile-dropdown onhover-show-div">
                                 <li>
                                     <a href="order-list.html">
@@ -238,13 +230,7 @@
                                             <a href="order-list.html">訂單列表</a>
                                         </li>
                                         <li>
-                                            <a href="order-detail.html">訂單明細</a>
-                                        </li>
-                                        <li>
                                             <a href="order-list2.html">團購訂單</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-list3.html">團購訂單明細</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -260,13 +246,6 @@
                                             <a href="profile-setting.html"> 個人設定</a>
                                         </li>
                                     </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="chat.jsp">
-                                        <i class="fas fa-comments"></i>
-                                        <span>聊天室</span>
-                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -395,57 +374,6 @@
         </div>
     </div>
 
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">請確認 ?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>The permission for the use/group, preview is inherited from the object, object will create a
-                            new permission for this object</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">否</button>
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">是</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel12">完成!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box text-center">
-                        <div class="wrapper">
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                            </svg>
-                        </div>
-                        <h4 class="text-content">已移除</h4>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/js/scrollbar/simplebar.js"></script>
     <script src="assets/js/scrollbar/custom.js"></script>
@@ -459,6 +387,215 @@
     <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="assets/js/icons/feather-icon/feather.min.js"></script>
     <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+    <script >
+	    function init() {
+	    	var urlParams = new URLSearchParams(window.location.search);
+
+	    	var order_id = urlParams.get('order_id');
+	    	var order_uid = urlParams.get('order_uid');
+
+	    	if (order_id && order_uid) {
+	    	  console.log('order_id:', order_id);
+	    	  console.log('order_uid:', order_uid);
+	    	} else {
+	    	  console.log('資料不存在');
+	    	}
+
+	    	
+	    	console.log("order_id========"+order_id);
+	    	console.log("data.order_uid========"+order_uid);
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	var path = window.location.pathname;
+			var webCtx = path.substring(0, path.indexOf('/', 1));
+
+// 			$.ajax({
+// 				url : "http://" + window.location.host + webCtx
+// 						+ "/backEnd/order-listValue",
+// 				type : "POST",
+// 				data : {
+// 					"order_id" : 1
+// 				},
+// 				dataType : "json",
+
+// 				success : function(data) {
+// 					var table = document.getElementById("orderTable");
+
+// 					for (let i = 0; i < data.length; i++) {
+// 						let row = table.querySelector("tbody").insertRow();
+
+// 						let order_id = data[i].order_id;
+// 						let order_uid = data[i].order_uid;
+// 						let order_r_name = data[i].order_r_name;
+// 						let order_t = data[i].order_t;
+// 						let order_s = data[i].order_s;
+// 						let order_pay = data[i].order_pay;
+
+// 						row.insertCell().textContent = order_id;
+// 						row.insertCell().textContent = order_uid;
+// 						row.insertCell().textContent = order_r_name;
+// 						row.insertCell().textContent = order_t;
+
+// 						if (order_s == 0) {
+// 							row.insertCell().textContent = "已出貨";
+// 						} else {
+// 							row.insertCell().textContent = "未出貨";
+// 						}
+
+// 						if (order_pay == 0) {
+// 							row.insertCell().textContent = "已付款";
+// 						} else {
+// 							row.insertCell().textContent = "未付款";
+// 						}
+// 						let emptyCell = row.insertCell();
+
+// 						let form = document.createElement("form");
+// 						form.method = "post";
+// 						form.action = "/xxx.html";
+// 						form.style.marginBottom = "0px";
+
+// 						let inputOrderUid = document.createElement("input");
+// 						inputOrderUid.type = "hidden";
+// 						inputOrderUid.name = "order_uid";
+// 						inputOrderUid.value = order_uid;
+
+// 						let inputOrderId = document.createElement("input");
+// 						inputOrderId.type = "hidden";
+// 						inputOrderId.name = "order_id";
+// 						inputOrderId.value = order_id;
+
+// 						let button = document.createElement("button");
+// 						button.type = "submit";
+// 						button.className = "btn btntrans";
+
+// 						let icon = document.createElement("i");
+// 						icon.className = "fas fa-pen";
+
+// 						button.appendChild(icon);
+
+// 						form.appendChild(inputOrderUid);
+// 						form.appendChild(inputOrderId);
+// 						form.appendChild(button);
+
+// 						emptyCell.appendChild(form);
+// 					}
+// 				},
+// 				error : function(xhr) {
+// 					console.log(xhr);
+// 				},
+// 				complete : function(xhr) {
+// 					console.log(xhr);
+// 				}
+// 			});
+		}
+		window.onload = function() {
+			init();
+		};
+
+// 		function performSearch() {
+// 			var order_id = document.getElementById("order_id").value;
+// 			var order_s = document.getElementById("order_s").value;
+// 			var table = document.getElementById("orderTable");
+// 			var tbody = table.querySelector("tbody");
+// 			tbody.innerHTML = "";
+
+// 			var path = window.location.pathname;
+// 			var webCtx = path.substring(0, path.indexOf('/', 1));
+			
+// 			$.ajax({
+// 				url : "http://" + window.location.host + webCtx
+// 						+ "/backEnd/order-Search",
+// 				type : "POST",
+// 				data : {
+// 					"so_m_id"  :1,
+// 					"order_id" : order_id,
+// 					"order_s" : order_s
+// 				},
+// 				dataType : "json",
+
+// 				success : function(data) {
+// 					var table = document.getElementById("orderTable");
+// 					console.log("開始判斷");
+// 						console.log("有資料");
+// 						for (let i = 0; i < data.length; i++) {
+// 							let row = table.querySelector("tbody")
+// 									.insertRow();
+
+// 							let order_id = data[i].order_id;
+// 							let order_uid = data[i].order_uid;
+// 							let order_r_name = data[i].order_r_name;
+// 							let order_t = data[i].order_t;
+// 							let order_s = data[i].order_s;
+// 							let order_pay = data[i].order_pay;
+
+// 							row.insertCell().textContent = order_id;
+// 							row.insertCell().textContent = order_uid;
+// 							row.insertCell().textContent = order_r_name;
+// 							row.insertCell().textContent = order_t;
+
+// 							if (order_s == 0) {
+// 								row.insertCell().textContent = "已出貨";
+// 							} else {
+// 								row.insertCell().textContent = "未出貨";
+// 							}
+
+// 							if (order_pay == 0) {
+// 								row.insertCell().textContent = "已付款";
+// 							} else {
+// 								row.insertCell().textContent = "未付款";
+// 							}
+// 							let emptyCell = row.insertCell();
+
+// 							let form = document.createElement("form");
+// 							form.method = "post";
+// 							form.action = "/xxx.html";
+// 							form.style.marginBottom = "0px";
+
+// 							let inputOrderUid = document
+// 									.createElement("input");
+// 							inputOrderUid.type = "hidden";
+// 							inputOrderUid.name = "order_uid";
+// 							inputOrderUid.value = order_uid;
+
+// 							let inputOrderId = document
+// 									.createElement("input");
+// 							inputOrderId.type = "hidden";
+// 							inputOrderId.name = "order_id";
+// 							inputOrderId.value = order_id;
+
+// 							let button = document
+// 									.createElement("button");
+// 							button.type = "submit";
+// 							button.className = "btn btntrans";
+
+// 							let icon = document.createElement("i");
+// 							icon.className = "fas fa-pen";
+
+// 							button.appendChild(icon);
+
+// 							form.appendChild(inputOrderUid);
+// 							form.appendChild(inputOrderId);
+// 							form.appendChild(button);
+
+// 							emptyCell.appendChild(form);
+// 						}
+// 				},
+// 				error : function(xhr) {
+// 					console.log("查無資料");
+// 					alert("查無資料");
+// 					console.log(xhr);
+// 				},
+// 				complete : function(xhr) {
+// 					console.log(xhr);
+// 				}
+// 			});
+
+// 		}
+    </script>
+    
 </body>
 
 </html>

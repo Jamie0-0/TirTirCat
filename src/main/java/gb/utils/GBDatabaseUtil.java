@@ -25,12 +25,12 @@ public class GBDatabaseUtil {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
 
-    // 取得資料庫連接
+    //取得資料庫連接
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     }
 
-    // 關閉資料庫連接和相關資源
+    //關閉資料庫連接和相關資源
     public static void closeResources(Connection conn, PreparedStatement pstmt) {
         closeResources(conn, pstmt, null);
     }
@@ -51,10 +51,7 @@ public class GBDatabaseUtil {
         }
     }
     
-    
-//以下/////////////////////////////////////////////
-
- // 讀取圖片的二進制數據
+    //以下圖片 //讀取圖片的二進制數據
     public static byte[] readImage(ServletContext context, String imagePath) throws IOException {
         try (InputStream is = context.getResourceAsStream(imagePath);
              ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
@@ -68,6 +65,5 @@ public class GBDatabaseUtil {
             return baos.toByteArray();
         }
     }
-
-//以上。/////////////////////////////////////////////////
+    //以上圖片
 }

@@ -99,17 +99,6 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 
 						
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
-							<div class="media profile-media">
-								<img class="user-profile rounded-circle"
-									src="<%=request.getContextPath()%>/backEnd/assets/images/users/4.jpg"
-									alt="">
-								<div class="user-name-hide media-body">
-									<span>埃梅·沃爾特</span>
-									<p class="mb-0 font-roboto">
-										行政<i class="middle ri-arrow-down-s-line"></i>
-									</p>
-								</div>
-							</div>
 							<ul class="profile-dropdown onhover-show-div">
 								<li><a
 									href="<%=request.getContextPath()%>/backEnd/order-list.html">
@@ -194,13 +183,7 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 											href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a>
 										</li>
 										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a>
-										</li>
-										<li><a
 											href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a>
-										</li>
-										<li><a
-											href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a>
 										</li>
 									</ul></li>
 
@@ -214,12 +197,6 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 											href="<%=request.getContextPath()%>/backEnd/profile-setting.html">
 												個人設定</a></li>
 									</ul></li>
-
-								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav"
-									href="<%=request.getContextPath()%>/backEnd/chat.jsp"> <i
-										class="fas fa-comments"></i> <span>聊天室</span>
-								</a></li>
 							</ul>
 						</div>
 
@@ -437,7 +414,7 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
   																	<jsp:useBean id="payStatusSvc" scope="page"
   																	class="payStatus.model.PayStatusService" />
  																	<c:forEach var="payStatusVO" items="${payStatusSvc.getAll()}">
- 																		<h5>${productVO2.order_pay==payStatusVO.pa_id ? payStatusVO.pa_name : ''}</h5>
+ 																		<h5>${productVO2.order_pay.equals(payStatusVO.pa_id) ? payStatusVO.pa_name : ''}</h5>
  																	</c:forEach>
 																</div> 
 															</td>
@@ -522,13 +499,6 @@ List<MasterPicVO2> list2 = dao2.indexNatrix2();
 		src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/backEnd/assets/js/icons/feather-icon/feather-icon.js"></script>
-
-
-
-
-
-
-
 </body>
 
 </html>

@@ -2,456 +2,532 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Furrever admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
-    <meta name="keywords"
-        content="admin template, Furrever admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="Tha102G3">
-    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-    <title>Furrever - 訂單明細</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="Furrever admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+<meta name="keywords"
+	content="admin template, Furrever admin template, dashboard template, flat admin template, responsive admin template, web app">
+<meta name="author" content="Tha102G3">
+<link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="assets/images/favicon.png"
+	type="image/x-icon">
+<title>Furrever - 訂單明細</title>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
-    <link rel="stylesheet" href="assets/css/linearicon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/themify.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/remixicon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/datatables.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/vendors/font-awesome.css">
+<link rel="stylesheet" href="assets/css/linearicon.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/vendors/themify.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/vendors/feather-icon.css">
+<link rel="stylesheet" type="text/css" href="assets/css/remixicon.css">
+<link rel="stylesheet" type="text/css" href="assets/css/datatables.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/vendors/scrollbar.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/vendors/animate.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/vendors/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+
+
+
+<style>
+#orderTable {
+	width: 100%;
+	height: 80px;
+}
+
+#orderTable th {
+	width: 25%;
+	text-align: center;
+}
+
+#orderTable tbody tr {
+	height: 30px;
+}
+
+.table-container {
+	width: 400px;
+	height: 250px;
+	margin: 0 auto;
+	overflow-x: auto;
+}
+
+table {
+	border-collapse: collapse;
+	width: 1000px;
+	background-color: #f5f5f5;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	font-size: 14px;
+	text-align: center;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+td {
+	background-color: #fff;
+}
+
+tr:hover {
+	background-color: #f9f9f9;
+	transition: background-color 0.3s ease;
+}
+
+.custom-select {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	font-size: 14px;
+}
+
+.header-search {
+	border: 5px solid black;
+}
+
+.product-search {
+	width: 100px;
+}
+
+.search-button {
+	border: none;
+	background-color: lightgreen;
+	border-radius: 50%;
+	padding: 5px;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+}
+
+.search-button:active {
+	background-color: lightyellow;
+}
+
+.product-search {
+	border: none;
+	border-radius: 20px;
+	outline: none;
+	padding: 10px;
+	font-size: 16px;
+	background-color: #f8f8f8;
+	transition: background-color 0.3s ease-in-out;
+}
+
+.product-search:focus {
+	background-color: lightyellow;
+}
+
+.input-width {
+	width: 80px;
+	text-align: center;
+	border: none;
+}
+
+#orderTable th:last-child {
+	width: 70px;
+}
+</style>
 </head>
 
 <body>
-    <div class="tap-top">
-        <span class="lnr lnr-chevron-up"></span>
-    </div>
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
 
-    <div class="page-wrapper compact-wrapper" id="pageWrapper">
-     <div class="page-header">
-            <div class="header-wrapper m-0">
-                <div class="header-logo-wrapper p-0">
-                    <div class="logo-wrapper">
-                        <a href="back_index.jsp">
-                            <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
-                            <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
-                        </a>
-                    </div>
-                    <div class="toggle-sidebar">
-                        <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
-                        <a href="back_index.jsp">
-                            <img src="assets/images/logo/1.png" class="img-fluid" alt="">
-                        </a>
-                    </div>
-                </div>
+	<div class="page-wrapper compact-wrapper" id="pageWrapper">
+		<div class="page-header">
+			<div class="header-wrapper m-0">
+				<div class="header-logo-wrapper p-0">
+					<div class="logo-wrapper">
+						<a href="back_index.jsp"> <img class="img-fluid main-logo"
+							src="assets/images/logo/1.png" alt="logo"> <img
+							class="img-fluid white-logo" src="assets/images/logo/1-white.png"
+							alt="logo">
+						</a>
+					</div>
+					<div class="toggle-sidebar">
+						<i class="status_toggle middle sidebar-toggle"
+							data-feather="align-center"></i> <a href="back_index.jsp"> <img
+							src="assets/images/logo/1.png" class="img-fluid" alt="">
+						</a>
+					</div>
+				</div>
 
-                <div class="nav-right col-6 pull-right right-header p-0">
-                    <ul class="nav-menus">
-                        <li>
-                            <span class="header-search">
-                                <i class="ri-search-line"></i>
-                            </span>
-                        </li>
-                        
-                        <li class="profile-nav onhover-dropdown pe-0 me-0">
-                            <div class="media profile-media">
-                                <img class="user-profile rounded-circle" src="assets/images/users/4.jpg" alt="">
-                                <div class="user-name-hide media-body">
-                                    <span>埃梅·沃爾特</span>
-                                    <p class="mb-0 font-roboto">行政<i class="middle ri-arrow-down-s-line"></i></p>
-                                </div>
-                            </div>
-                            <ul class="profile-dropdown onhover-show-div">
-                                <li>
-                                    <a href="order-list.html">
-                                        <i data-feather="archive"></i>
-                                        <span>訂單</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="profile-setting.html">
-                                        <i data-feather="settings"></i>
-                                        <span>設置</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        href="javascript:void(0)">
-                                        <i data-feather="log-out"></i>
-                                        <span>登出</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+				<div class="nav-right col-6 pull-right right-header p-0">
+					<ul class="nav-menus">
+						<li><span class="header-search"> <i
+								class="ri-search-line"></i>
+						</span></li>
 
-        <div class="page-body-wrapper">
-            <div class="sidebar-wrapper">
-                <div id="sidebarEffect"></div>
-                <div>
-                    <div class="logo-wrapper logo-wrapper-center">
-                        <a href="back_index.jsp" data-bs-original-title="" title="">
-                            <img class="img-fluid for-white" src="assets/images/logo/full-white.png" alt="logo">
-                        </a>
-                        <div class="back-btn">
-                            <i class="fa fa-angle-left"></i>
-                        </div>
-                    </div>
+						<li class="profile-nav onhover-dropdown pe-0 me-0">
+							<ul class="profile-dropdown onhover-show-div">
+								<li><a href="order-list.html"> <i
+										data-feather="archive"></i> <span>訂單</span>
+								</a></li>
+								<li><a href="profile-setting.html"> <i
+										data-feather="settings"></i> <span>設置</span>
+								</a></li>
+								<li><a data-bs-toggle="modal"
+									data-bs-target="#staticBackdrop" href="javascript:void(0)">
+										<i data-feather="log-out"></i> <span>登出</span>
+								</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-                    <nav class="sidebar-main">
-                        <div class="left-arrow" id="left-arrow">
-                            <i data-feather="arrow-left"></i>
-                        </div>
+		<div class="page-body-wrapper">
+			<div class="sidebar-wrapper">
+				<div id="sidebarEffect"></div>
+				<div>
+					<div class="logo-wrapper logo-wrapper-center">
+						<a href="back_index.jsp" data-bs-original-title="" title=""> <img
+							class="img-fluid for-white"
+							src="assets/images/logo/full-white.png" alt="logo">
+						</a>
+						<div class="back-btn">
+							<i class="fa fa-angle-left"></i>
+						</div>
+					</div>
 
-                        <div id="sidebar-menu">
-                            <ul class="sidebar-links" id="simple-bar">
-                                <li class="back-btn"></li>
+					<nav class="sidebar-main">
+						<div class="left-arrow" id="left-arrow">
+							<i data-feather="arrow-left"></i>
+						</div>
 
-                                <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="back_index.jsp">
-                                        <i class="ri-home-line"></i>
-                                        <span>主頁</span>
-                                    </a>
-                                </li>
+						<div id="sidebar-menu">
+							<ul class="sidebar-links" id="simple-bar">
+								<li class="back-btn"></li>
 
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-store-3-line"></i>
-                                        <span>產品</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="products.jsp">所有產品</a>
-                                        </li>
+								<li class="sidebar-list"><a
+									class="sidebar-link sidebar-title link-nav"
+									href="back_index.jsp"> <i class="ri-home-line"></i> <span>主頁</span>
+								</a></li>
 
-                                        <li>
-                                            <a href="add-new-product.jsp">添加產品</a>
-                                        </li>
-                                    </ul>
-                                </li>
+								<li class="sidebar-list"><a
+									class="linear-icon-link sidebar-link sidebar-title"
+									href="javascript:void(0)"> <i class="ri-store-3-line"></i>
+										<span>產品</span>
+								</a>
+									<ul class="sidebar-submenu">
+										<li><a href="products.jsp">所有產品</a></li>
 
-                                <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-archive-line"></i>
-                                        <span>訂單</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="order-list.html">訂單列表</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-detail.html">訂單明細</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-list2.html">團購訂單</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-list3.html">團購訂單明細</a>
-                                        </li>
-                                    </ul>
-                                </li>
+										<li><a href="add-new-product.jsp">添加產品</a></li>
+									</ul></li>
+
+								<li class="sidebar-list"><a
+									class="sidebar-link sidebar-title" href="javascript:void(0)">
+										<i class="ri-archive-line"></i> <span>訂單</span>
+								</a>
+									<ul class="sidebar-submenu">
+										<li><a href="order-list.html">訂單列表</a></li>
+										<li><a href="order-list2.html">團購訂單</a></li>
+									</ul></li>
 
 
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-settings-line"></i>
-                                        <span>編輯</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="profile-setting.html"> 個人設定</a>
-                                        </li>
-                                    </ul>
-                                </li>
+								<li class="sidebar-list"><a
+									class="linear-icon-link sidebar-link sidebar-title"
+									href="javascript:void(0)"> <i class="ri-settings-line"></i>
+										<span>編輯</span>
+								</a>
+									<ul class="sidebar-submenu">
+										<li><a href="profile-setting.html"> 個人設定</a></li>
+									</ul></li>
+							</ul>
+						</div>
 
-                                <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="chat.jsp">
-                                        <i class="fas fa-comments"></i>
-                                        <span>聊天室</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+						<div class="right-arrow" id="right-arrow">
+							<i data-feather="arrow-right"></i>
+						</div>
+					</nav>
+				</div>
+			</div>
 
-                        <div class="right-arrow" id="right-arrow">
-                            <i data-feather="arrow-right"></i>
-                        </div>
-                    </nav>
-                </div>
-            </div>
+			<div class="page-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xl-6 col-md-12">
+							<div class="card o-hidden card-hover">
+								<div
+									class="card-header card-header-top card-header--2 px-0 pt-0">
+									<div class="card-header-title">
+										<h4>訂單明細</h4>
+									</div>
 
-            <div class="page-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-6 col-md-12">
-                            <div class="card o-hidden card-hover">
-                                <div class="card-header card-header-top card-header--2 px-0 pt-0">
-                                    <div class="card-header-title">
-                                        <h4>訂單明細</h4>
-                                    </div>
+									<div class="best-selling-box d-sm-flex d-none">
+										<div class="dropdown">
+											<ul class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton1">
+												<li><a class="dropdown-item" href="#">行動</a></li>
+												<li><a class="dropdown-item" href="#">額外行動</a></li>
+												<li><a class="dropdown-item" href="#">其他</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
 
-                                    <div class="best-selling-box d-sm-flex d-none">
-                                        <div class="dropdown">
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="#">行動</a></li>
-                                                <li><a class="dropdown-item" href="#">額外行動</a></li>
-                                                <li><a class="dropdown-item" href="#">其他</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-body p-0">
-                                    <div>
-                                        <div class="table-responsive">
-                                            <table class="best-selling-table w-image
-                                            w-image
-                                            w-image table border-0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>商品編號</h5>
-                                                                    <h6>A001</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品名稱</h6>
-                                                                <h5>貓貓爪</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品金額</h6>
-                                                                <h5>100</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>數量</h6>
-                                                                <h5>1</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>商品編號</h5>
-                                                                    <h6>A001</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品名稱</h6>
-                                                                <h5>貓貓爪</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品金額</h6>
-                                                                <h5>100</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>數量</h6>
-                                                                <h5>1</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>商品編號</h5>
-                                                                    <h6>A001</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品名稱</h6>
-                                                                <h5>貓貓爪</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>商品金額</h6>
-                                                                <h5>100</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>數量</h6>
-                                                                <h5>1</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+								<div class="card card-table">
+									<div class="card-body">
+										<div>
+											<div class="table-container">
+												<table id="orderTable">
+													<thead>
+														<tr>
+															<th>商品編號</th>
+															<th>商品名稱</th>
+															<th>商品金額</th>
+															<th>數量</th>
+														</tr>
+													</thead>
+													<tbody>
 
 
-                        <div class="col-xl-6">
-                            <div class="card o-hidden card-hover">
-                                <div class="card-header card-header-top card-header--2 px-0 pt-0">
-                                    <div class="card-header-title">
-                                        <h4>買家資訊</h4>
-                                    </div>
-                                </div>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                                <div class="card-body p-0">
-                                    <div>
-                                        <div class="table-responsive">
-                                            <h4>會員名稱:阿貓阿狗</h4>
-                                            <h4>地址:台北市 阿貓區 阿狗街 14巷 1弄 10號</h4>
-                                            <h4>訂購日期:2023-07-07</h4>
-                                            <h4>付款狀態:已結清</h4>
-                                            <h4>總金額:3000</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="container-fluid">
-                    <footer class="footer">
-                        <div class="row">
-                            <div class="col-md-12 footer-copyright text-center">
-                                <p class="mb-0">Copyright 2022 © FURREVER theme by THA102G3</p>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
-            </div>
-        </div> 
-    </div>
+						<div class="col-xl-6">
+							<div class="card o-hidden card-hover">
+								<div
+									class="card-header card-header-top card-header--2 px-0 pt-0">
+									<div class="card-header-title">
+										<h4>買家資訊</h4>
+									</div>
+								</div>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h5 class="modal-title" id="staticBackdropLabel">登出</h5>
-                    <p>是否登出?</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="button-box">
-                        <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
-                        <button type="button" class="btn  btn--yes btn-primary">Yes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								<div class="card-body p-0">
+									<div>
+										<div class="table-responsive" id="orderDetails">
 
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">請確認 ?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>The permission for the use/group, preview is inherited from the object, object will create a
-                            new permission for this object</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">否</button>
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">是</button>
-                </div>
-            </div>
-        </div>
-    </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="button-box">
+									<button type="button" class="btn  btn--yes btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="javascript:void(0)" onclick="updateForm()">出貨</button>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
 
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel12">完成!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box text-center">
-                        <div class="wrapper">
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                            </svg>
-                        </div>
-                        <h4 class="text-content">已移除</h4>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="container-fluid">
+					<footer class="footer">
+						<div class="row">
+							<div class="col-md-12 footer-copyright text-center">
+								<p class="mb-0">Copyright 2022 © FURREVER theme by THA102G3</p>
+							</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/scrollbar/simplebar.js"></script>
-    <script src="assets/js/scrollbar/custom.js"></script>
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/sidebar-menu.js"></script>
-    <script src="assets/js/notify/bootstrap-notify.min.js"></script>
-     <script src="assets/js/jquery.dataTables.js"></script>
-    <script src="assets/js/custom-data-table.js"></script>
-    <script src="assets/js/sidebareffect.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/icons/feather-icon/feather.min.js"></script>
-    <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog  modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h5 class="modal-title" id="staticBackdropLabel">修改完成，請盡快出貨</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+					<div class="button-box">
+					    <button id="yesButton" type="button" class="btn btn--yes btn-primary">Yes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="assets/js/jquery-3.6.0.min.js"></script>
+	<script src="assets/js/scrollbar/simplebar.js"></script>
+	<script src="assets/js/scrollbar/custom.js"></script>
+	<script src="assets/js/config.js"></script>
+	<script src="assets/js/sidebar-menu.js"></script>
+	<script src="assets/js/notify/bootstrap-notify.min.js"></script>
+	<script src="assets/js/jquery.dataTables.js"></script>
+	<script src="assets/js/custom-data-table.js"></script>
+	<script src="assets/js/sidebareffect.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/icons/feather-icon/feather.min.js"></script>
+	<script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+	<script>
+		function init() {
+			var urlParams = new URLSearchParams(window.location.search);
+
+			var order_id = urlParams.get('order_id');
+			var order_s = urlParams.get('order_s');
+			var order_uid = urlParams.get('order_uid');
+
+			var path = window.location.pathname;
+			var webCtx = path.substring(0, path.indexOf('/', 1));
+
+			
+			$.ajax({
+				url : "http://" + window.location.host + webCtx + "/backEnd/personal-Search",
+				type : "POST",
+				data : {
+					"so_m_id" : 1,
+					"order_uid" : order_uid,
+					"order_s" : order_s,
+					"order_id" : order_id
+				},
+				dataType : "json",
+
+				success : function(data) {
+					var orderDetailsDiv = document.getElementById("orderDetails");
+				    var currentDate = new Date();
+				    var formattedDate = currentDate.toISOString().substr(0, 10);
+
+				    for (let i = 0; i < data.length; i++) {
+					    let order_r_name = data[i].order_r_name;
+					    let order_dfee = data[i].order_dfee;
+					    let order_r_addr = data[i].order_r_addr;
+					    let order_r_phone = data[i].order_r_phone;
+					    let order_pay = data[i].order_pay;
+					    let money = data[i].money;
+					    let status = "";
+					    if(order_s == 0){
+					    	status = "已付款";
+					    } else {
+					    	status = "未付款";
+					    }
+
+					    orderDetailsDiv.innerHTML = `
+					        <h4>會員名稱: ${order_r_name}</h4>
+					        <h4>地址: ${order_r_addr}</h4>
+					        <h4>電話號碼: ${order_r_phone}</h4>
+					        <h4>付款狀態: ${status}</h4>
+					        <h4>總運費: ${order_dfee}</h4>
+					        <h4>消費金額: ${money}</h4>
+					        <h4>出貨日期: ${formattedDate}</h4>
+					        <h4></h4>
+					    `;
+					}
+				},
+				error : function(xhr) {
+					console.log(xhr);
+				},
+				complete : function(xhr) {
+					console.log(xhr);
+				}
+			});
+
+			$.ajax({
+				url : "http://" + window.location.host + webCtx + "/backEnd/detial-Search",
+				type : "POST",
+				data : {
+					"so_m_id" : 1,
+					"order_uid" : order_uid,
+					"order_s" : order_s,
+					"order_id" : order_id
+				},
+				dataType : "json",
+
+				success : function(data) {
+					var table = document.getElementById("orderTable");
+
+					for (let i = 0; i < data.length; i++) {
+						let row = table.querySelector("tbody").insertRow();
+
+						let p_id = data[i].p_id;
+						let p_name = data[i].p_name;
+						let p_m_price = data[i].p_m_price;
+						let p_m_stock = data[i].p_m_stock;
+
+						row.insertCell().textContent = p_id;
+						row.insertCell().textContent = p_name;
+						row.insertCell().textContent = p_m_price;
+						row.insertCell().textContent = p_m_stock;
+					}
+
+				},
+				error : function(xhr) {
+					console.log(xhr);
+				},
+				complete : function(xhr) {
+					console.log(xhr);
+				}
+			});
+		}
+		window.onload = function() {
+			init();
+		};
+		
+		
+		 document.getElementById("yesButton").addEventListener("click", function() {
+	        window.location.href = "order-list.html";
+	    });
+		
+		
+		
+		
+		function updateForm() {
+
+//          let m_id = "1";
+//          let m_name = document.getElementById("m_name").value;
+//          let m_gui = document.getElementById("m_gui").value;
+//          let m_bank_id = document.getElementById("m_bank_id").value;
+//          let m_address = document.getElementById("m_address").value;
+//          let m_man_id = document.getElementById("m_man_id").value;
+//          let m_man_name = document.getElementById("m_man_name").value;
+//          console.log(document.getElementById("m_email").value);
+//          let m_email = document.getElementById("m_email").value;
+//          let m_phone = document.getElementById("m_phone").value;
+
+//          $.ajax({
+//              url: "http://localhost:8081/TirTirCat/mas.do",
+//              type: "POST",
+//              data: {
+//                  "action": "update",
+//                  "m_id": m_id,
+//                  "m_name": m_name,
+//                  "m_gui": m_gui,
+//                  "m_bank_id": m_bank_id,
+//                  "m_address": m_address,
+//                  "m_man_id": m_man_id,
+//                  "m_man_name": m_man_name,
+//                  "m_email": m_email,
+//                  "m_phone": m_phone,
+//              },
+//              dataType: "json",
+//              success: function (data) {
+
+//              },
+//              error: function (xhr) {
+//                  console.log(xhr);
+//              },
+//              complete: function (xhr) {
+//                  console.log(xhr);
+//              }
+//          });
+     }
+	</script>
 </body>
 
 </html>

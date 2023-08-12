@@ -99,17 +99,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 						</span></li>
 
 						<li class="profile-nav onhover-dropdown pe-0 me-0">
-							<div class="media profile-media">
-								<img class="user-profile rounded-circle"
-									src="<%=request.getContextPath()%>/backEnd/assets/images/users/4.jpg"
-									alt="">
-								<div class="user-name-hide media-body">
-									<span>埃梅·沃爾特</span>
-									<p class="mb-0 font-roboto">
-										行政<i class="middle ri-arrow-down-s-line"></i>
-									</p>
-								</div>
-							</div>
 							<ul class="profile-dropdown onhover-show-div">
 								<li><a href="<%=request.getContextPath()%>/backEnd/order-list.html"> <i
 										data-feather="archive"></i> <span>訂單</span>
@@ -182,9 +171,7 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 								</a>
 									<ul class="sidebar-submenu">
 										<li><a href="<%=request.getContextPath()%>/backEnd/order-list.html">訂單列表</a></li>
-										<li><a href="<%=request.getContextPath()%>/backEnd/order-detail.html">訂單明細</a></li>
 										<li><a href="<%=request.getContextPath()%>/backEnd/order-list2.html">團購訂單</a></li>
-										<li><a href="<%=request.getContextPath()%>/backEnd/order-list3.html">團購訂單明細</a></li>
 									</ul></li>
 
 								<li class="sidebar-list"><a
@@ -195,11 +182,6 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 									<ul class="sidebar-submenu">
 										<li><a href="<%=request.getContextPath()%>/backEnd/profile-setting.html">個人設定</a></li>
 									</ul></li>
-
-								<li class="sidebar-list"><a
-									class="sidebar-link sidebar-title link-nav" href="<%=request.getContextPath()%>/backEnd/chat.jsp">
-										<i class="fas fa-comments"></i> <span>聊天室</span>
-								</a></li>
 							</ul>
 						</div>
 
@@ -439,14 +421,12 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 
 	<script>
 		function handleButtonClick() {
-			const editorElement = document
-					.querySelector(".ck-editor__editable");
+			const editorElement = document.querySelector(".ck-editor__editable");
 			const pContent = editorElement.querySelector("p").innerText;
 			const hiddenInput = document.getElementById("p_des_hidden");
 			hiddenInput.value = pContent;
 
 			const selectedValue = document.getElementById("p_class").value;
-			console.log(selectedValue);
 		}
 
 		document.getElementById("p_pic_one").addEventListener(
@@ -522,22 +502,13 @@ ProductVO proVO = (ProductVO) request.getAttribute("proVO");
 				});
 	</script>
 	<script>
-		// 在按鈕被點擊時觸發 submitForm 函數
-		document.getElementById("sendInfo").addEventListener("click",
-				submitForm);
+		document.getElementById("sendInfo").addEventListener("click",submitForm);
 
 		function submitForm() {
-			// 取得 form 表單元素
 			const form = document.querySelector("form[name='form1']");
-
-			// 執行 form 表單的提交動作
 			form.submit();
 		}
 	</script>
-
-
-
-
 </body>
 
 </html>
