@@ -534,7 +534,7 @@
 
 
                             // 使用 fetch 向後端傳送商品的 p_id 以獲取商品詳細資料
-                            fetch(`http://localhost:8081/TirTirCat/shop/productDetail?p_id=${p_id}`, {
+                            fetch(`shop/productDetail?p_id=${p_id}`, {
                                 method: 'GET',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -548,6 +548,10 @@
                                     document.getElementById("p_price").textContent = `$${data.viewProductDetail.p_price}`;
                                     document.getElementById("p_des").textContent = data.viewProductDetail.p_des;
                                     document.getElementById("p_stock").textContent = data.viewProductDetail.p_stock;
+                                    document.getElementById("img-1").setAttribute("src", `data:image/jpeg;base64,${data.picOne}`);
+                                    document.getElementById("img-2").setAttribute("src", `data:image/jpeg;base64,${data.picTwo}`);
+                                    document.getElementById("img-3").setAttribute("src", `data:image/jpeg;base64,${data.picThree}`);
+                                    document.getElementById("img-4").setAttribute("src", `data:image/jpeg;base64,${data.picFour}`);
 
                                     document.getElementById("breadScrumb_p_name1").textContent = data.viewProductDetail.p_name;
                                     document.getElementById("breadScrumb_p_name2").textContent = data.viewProductDetail.p_name;
@@ -596,7 +600,7 @@
                             const quantity = document.getElementById("qtyInput").value;
 
                             // 使用 fetch 向後端傳送商品的 id 和數量
-                            fetch(`http://localhost:8081/TirTirCat/addToCart?p_id=${p_id}&quantity=${quantity}`, {
+                            fetch(`addToCart?p_id=${p_id}&quantity=${quantity}`, {
                                 method: 'GET',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -646,7 +650,7 @@
 
                                 // 發送 AJAX 請求
                                 $.ajax({
-                                    url: `http://localhost:8081/TirTirCat/shop/productDetail/productLike?pl_p_id=${p_id}`,
+                                    url: `shop/productDetail/productLike?pl_p_id=${p_id}`,
                                     method: 'GET',
                                     dataType: 'json',
                                     success: function (response) {

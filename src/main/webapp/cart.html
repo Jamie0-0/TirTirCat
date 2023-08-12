@@ -418,7 +418,7 @@
 
                                         // 當網頁載入完成後，向後端獲取購物車內容
                                         window.addEventListener('DOMContentLoaded', () => {
-                                            fetch('http://localhost:8081/TirTirCat/cartController', {
+                                            fetch('cartController', {
                                                 method: 'GET',
                                                 headers: {
                                                     'Content-Type': 'application/json'
@@ -506,7 +506,7 @@
                                                         <tr class="product-box-contain" p_id="${item.p_id}">
                                                             <td class="product-detail">
                                                             <div class="product border-0">
-                                                                <a href="http://localhost:8081/TirTirCat/product-4-image.html?p_id=${item.p_id}" class="product-image">
+                                                                <a href="product-4-image.html?p_id=${item.p_id}" class="product-image">
                                                                 <img id="pic_content_${item.p_id}" src="./assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyload" alt="">
                                                                 </a>
                                                                 <div class="product-detail">
@@ -556,7 +556,7 @@
 
 
                                                     // 立刻回傳商品的p_id給Servlet，以獲取商品照片
-                                                    fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${item.p_id}`, {
+                                                    fetch(`productPic?p_id=${item.p_id}`, {
                                                         method: 'GET',
                                                     })
                                                         .then(photoData => {
@@ -564,7 +564,7 @@
                                                             // console.log(photoData);
 
                                                             // 使用jQuery設置圖片來源
-                                                            $(`#pic_content_${item.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${item.p_id}`);
+                                                            $(`#pic_content_${item.p_id}`).attr('src', `productPic?p_id=${item.p_id}`);
                                                             console.log($(`#pic_content_${item.p_id}`));
                                                         })
                                                         .catch(error => {
@@ -621,7 +621,7 @@
 
 
                                                 $.ajax({
-                                                    url: `http://localhost:8081/TirTirCat/updateCart?p_id=${p_id}&quantity=${newQuantity}`,
+                                                    url: `updateCart?p_id=${p_id}&quantity=${newQuantity}`,
                                                     method: 'GET',
                                                     dataType: 'json', // 指定接收JSON格式的回應
                                                     success: function (data) {
@@ -673,7 +673,7 @@
 
                                             // 在這裡執行從購物車中刪除商品的相關操作（可參考後端的處理方式）
                                             $.ajax({
-                                                url: `http://localhost:8081/TirTirCat/deleteFromCart?p_id=${p_id}`,
+                                                url: `deleteFromCart?p_id=${p_id}`,
                                                 method: 'GET',
                                                 dataType: 'json', // 指定接收JSON格式的回應
                                                 success: function (data) {
@@ -757,7 +757,7 @@
                                         </td>
 
                                         <td class="price">
-                                            <h4 class="table-title text-content">單價</h4>
+                                            <h4 class="table-title text-content">單價</h4>`
                                             <h5>$200</h5>
                                         </td>
 

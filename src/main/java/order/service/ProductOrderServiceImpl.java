@@ -6,11 +6,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import core.util.HibernateUtil;
+import member.dao.MemberDao;
+import member.dao.MemberDaoImpl;
 import order.dao.ProductOrderDao;
 import order.dao.ProductOrderDaoImpl;
 import order.dao.SubOrderDao;
@@ -24,6 +28,12 @@ import order.vo.SubOrder;
 import order.vo.SubProduct;
 import product_fe.dao.ProductDao;
 import product_fe.dao.ProductDaoImpl;
+import product_fe.dao.ProductUserDao;
+import product_fe.dao.ProductUserDaoImpl;
+import product_fe.util.ProductUtil;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
+import product_fe.util.JedisPoolUtil;
 
 public class ProductOrderServiceImpl implements ProductOrderService {
 	private ProductOrderDao productOrderDao;
@@ -31,7 +41,8 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	private SubProductDao subProductDao;
 
 	private ProductDao productDao;
-	
+	private ProductUserDao productUserDao;
+
 	private List<String> msgs;
 
 	public ProductOrderServiceImpl() {
@@ -40,6 +51,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 		subProductDao = new SubProductDaoImpl();
 		productDao = new ProductDaoImpl();
 		msgs = new LinkedList<String>();
+		productUserDao = new ProductUserDaoImpl();
 	}
 
 	private Session getSession() {
@@ -49,12 +61,27 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	@Override
 	public boolean createOrders(Orders order) {
 		msgs.clear();
-		
+
 		ProductOrder productOrder = order.getProductOrder();
 		List<CartItem> cartItems = order.getCartlist();
 		List<SubOrder> subOrders = new ArrayList();
 		boolean orderIsEstabished;
 
+		// 先判斷錯誤處理
+		if (productOrder.getOrder_r_name().isEmpty()) {
+			msgs.add("收件人姓名不可為空");
+		}
+		if (productOrder.getOrder_r_phone().isEmpty()) {
+			msgs.add("連絡電話不可為空");
+		}
+		if (productOrder.getOrder_r_addr().isEmpty()) {
+			msgs.add("收件地址不可為空");
+		}
+		if (!msgs.isEmpty()) {
+			return orderIsEstabished = false;
+		}
+
+		
 		/////// 依照 p_m_id 來分組購物車項目，建立子訂單和子訂單明細
 		// Map<Integer 廠商id, SubOrder 廠商子訂單> -> 先篩選購物車內商品中的廠商id, 並用廠商id分出會有幾個子訂單
 		Map<Integer, SubOrder> mIdAndSubOrderMap = new HashMap<>();
@@ -141,12 +168,34 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 			msgs.add("結帳失敗，請重試或聯繫服務人員。");
 			return orderIsEstabished = false;
 		}
-		
+
 	}
 
 	@Override
 	public List<String> getMsgs() {
 		return msgs;
+	}
+
+	@Override
+	public void deleteCartFromRedis(HttpSession session) {
+
+		try {
+			String username = (String) session.getAttribute("username");
+			int uid = productUserDao.selectByUserNameForCart(username).getUid();
+			String u_id = String.valueOf(uid);
+
+			productOrderDao.deleteKeys(u_id);
+
+			HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+			cartList.clear();
+
+		} catch (JedisConnectionException e) {
+			e.printStackTrace();
+			System.out.println("Redis連線失敗");
+		} catch (Exception e) {
+			System.out.println("非Redis錯誤");
+		}
+
 	}
 
 //	@Override

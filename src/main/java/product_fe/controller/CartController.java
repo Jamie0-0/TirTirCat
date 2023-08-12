@@ -22,7 +22,7 @@ import product_fe.service.ProductService;
 import product_fe.service.ProductServiceImpl;
 import product_fe.util.ProductUtil;
 import redis.clients.jedis.Jedis;
-import webSocket.jedis.JedisPoolUtil;
+import product_fe.util.JedisPoolUtil;
 
 @WebServlet("/cartController")
 public class CartController extends HttpServlet {

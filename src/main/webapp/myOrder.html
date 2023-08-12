@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編輯會員資料</title>
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+
+    <!-- feather icon css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+
+    <!-- slick css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- 自己的css -->
+    <link rel="stylesheet" href="assets/css/styleGuide.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h3 {
+            margin: 5px;
+        }
+
+        .order {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .order-info-container {
+            display: flex;
+        }
+
+        .order-info-content {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .order-item-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .order-item-list li {
+            margin-bottom: 5px;
+        }
+
+        .return-button {
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0">
+        <div class="top-nav top-header sticky-header">
+            <div class="container-fluid-lg">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navbar-top">
+                            <button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
+                                <span class="navbar-toggler-icon">
+                                    <i class="fa-solid fa-bars"></i>
+                                </span>
+                            </button>
+                            <a href="index.html" class="web-logo nav-logo">
+                                <img src="assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="rightside-box">
+                                <ul class="right-side-menu">
+                                    <li class="right-side">
+
+                                    </li>
+                                    <!-- 小鈴鐺 -->
+                                    <li class="right-side">
+                                        <a href="#" class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i class="fas fa-bell fa-2x fas-icon"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- 購物車 -->
+                                    <li class="right-side">
+                                        <div class="onhover-dropdown header-badge">
+                                            <button type="button" class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="shopping-cart"></i>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                            </button>
+
+                                            <div class="onhover-div">
+                                                <ul class="cart-list">
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/1.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $80.58</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="product-box-contain">
+                                                        <div class="drop-cart">
+                                                            <a href="product-left-thumbnail.html" class="drop-image">
+                                                                <img src="assets/images/vegetable/product/2.png"
+                                                                    class="blur-up lazyload" alt="">
+                                                            </a>
+
+                                                            <div class="drop-contain">
+                                                                <a href="product-left-thumbnail.html">
+                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                    </h5>
+                                                                </a>
+                                                                <h6><span>1 x</span> $25.68</h6>
+                                                                <button class="close-button close_button">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="price-box">
+                                                    <h5>Total :</h5>
+                                                    <h4 class="theme-color fw-bold">$106.58</h4>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 聊天室 -->
+                                    <li class="right-side">
+                                        <a href="#" class="btn p-0 position-relative header-wishlist">
+                                            <i class="fab fa-rocketchat fas-icon"></i>
+                                        </a>
+                                    </li>
+                                    <!-- 個人中心 -->
+                                    <li class="right-side onhover-dropdown">
+                                        <div class="delivery-login-box">
+                                            <div class="delivery-icon">
+                                                <i data-feather="user"></i>
+                                            </div>
+                                            <div class="delivery-detail">
+                                                <h6>Hello,</h6>
+                                                <h5>My Account</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="onhover-div onhover-div-login">
+                                            <ul class="user-box-name">
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="login.html">登入</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html">註冊</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html">忘記密碼</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-nav">
+                        <div class="header-nav-middle">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                                <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
+                                    <div class="offcanvas-body">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item dropdown trip">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown">出遊</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">舉辦活動</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">參加活動</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">團購</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">商城</a>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="#">交流天地</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/template/front-end/about.html">關於我們</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container  align-items-center mt-4 member-infor">
+        <div class="row">
+            <div class="col member_infor h5">
+                <a href="update_imfor.html">個人資訊</a>
+            </div>
+            <div class="col pet_infor h5">
+                <a href="pet.html">毛孩資訊</a>
+            </div>
+            <div class="col friend h5">
+                <a href="freind.html">好友列表</a>
+            </div>
+            <div class="col act_list h5">
+                <a href="trip.html">活動清單</a>
+            </div>
+            <div class="col tra_list h5">
+                <a href="collect.html">追蹤清單</a>
+            </div>
+            <div class="col order_list h5">
+                <a href="myOrder.html">訂單</a>
+            </div>
+            <div class="col article h5">
+                <a href="myarticle.html">文章管理</a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <label for="orderType">篩選訂單類型：</label>
+    <select id="orderType">
+        <option value="group">團購</option>
+        <option value="retail">零售</option>
+    </select>
+    <div id="orderList" class="container rounded"></div>
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-title">
+                            <h4>聯絡我們</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a
+                                        href="https://www.google.com/maps/place/TibaMe+%E5%85%A8%E6%96%B9%E4%BD%8D%E6%95%B8%E4%BD%8D%E8%A1%8C%E9%8A%B7%E5%AF%A6%E6%88%B0%E9%A4%8A%E6%88%90%E7%8F%AD(%E5%8F%B0%E5%8C%97)/@25.0521328,121.540678,17z/data=!3m2!4b1!5s0x3442abddfc0bc85f:0x547998e4a2421286!4m6!3m5!1s0x346823c18fcb9855:0x784fb0d91b7fc01f!8m2!3d25.052128!4d121.5432529!16s%2Fg%2F11b_0002l9?authuser=0&entry=ttu">104台北市中山區南京東路三段219號5樓</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/2.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>
+                                    我們為毛孩與主人設計了一個揪團出遊及團購毛孩用品的交流平台，來吸引主人帶著毛小孩彼此見面交流，促進毛小孩社會化之餘，來創造話題並帶動寵物市場之商機。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>免責聲明</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer Section End -->
+    <!-- latest jquery-->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="assets/js/feather/feather.min.js"></script>
+    <script src="assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="assets/js/slick/slick.js"></script>
+    <script src="assets/js/slick/slick-animation.min.js"></script>
+    <script src="assets/js/slick/custom_slick.js"></script>
+
+    <!-- Auto Height Js -->
+    <script src="assets/js/auto-height.js"></script>
+
+    <!-- Timer Js -->
+    <!-- <script src="assets/js/timer1.js"></script> -->
+
+    <!-- Fly Cart Js -->
+    <script src="assets/js/fly-cart.js"></script>
+
+    <!-- Quantity js -->
+    <script src="assets/js/quantity-2.js"></script>
+
+    <!-- WOW js -->
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="assets/js/script.js"></script>
+    
+    <script>
+        // 範例資料，模擬從後端取得的訂單資料
+        const orders = [
+            { orderType: "group", orderId: "G001", orderName: "團購訂單1", item: { itemName: "商品1", quantity: 2, price: 100 }, total: 200, status: "已出貨" },
+            { orderType: "retail", orderId: "R001", orderName: "零售訂單1", items: [{ itemName: "商品3", quantity: 3, price: 80 }, { itemName: "商品4", quantity: 1, price: 30 }], total: 270, status: "未出貨" },
+            // 其他訂單資料...
+        ];
+
+        // 建立訂單列表
+        function createOrderList(orderType) {
+            const orderList = document.getElementById("orderList");
+            orderList.innerHTML = "";
+
+            orders.forEach(order => {
+                if (order.orderType === orderType) {
+                    const orderDiv = document.createElement("div");
+                    orderDiv.classList.add("order");
+
+                    const orderInfoDiv = document.createElement("div");
+                    orderInfoDiv.classList.add("order-info-container");
+
+                    const leftDiv = document.createElement("div");
+                    leftDiv.classList.add("order-info-content");
+
+                    const orderIdH3 = document.createElement("h3");
+                    orderIdH3.textContent = "訂單編號：" + order.orderId;
+                    leftDiv.appendChild(orderIdH3);
+
+                    const itemList = document.createElement("ul");
+                    itemList.classList.add("order-item-list");
+
+                    if (orderType === "group") {
+                        const itemDiv = document.createElement("li");
+                        itemDiv.textContent = `商品名稱：${order.item.itemName}，數量：${order.item.quantity}，單價：${order.item.price}`;
+                        itemList.appendChild(itemDiv);
+                    } else if (orderType === "retail") {
+                        order.items.forEach(item => {
+                            const itemDiv = document.createElement("li");
+                            itemDiv.textContent = `商品名稱：${item.itemName}，數量：${item.quantity}，單價：${item.price}`;
+                            itemList.appendChild(itemDiv);
+                        });
+                    }
+
+                    leftDiv.appendChild(itemList);
+                    orderInfoDiv.appendChild(leftDiv);
+
+                    const rightDiv = document.createElement("div");
+                    rightDiv.classList.add("order-info-content");
+
+                    const statusH3 = document.createElement("h3");
+                    statusH3.textContent = "訂單狀態：" + order.status;
+                    rightDiv.appendChild(statusH3);
+
+                    const totalH3 = document.createElement("h3");
+                    totalH3.textContent = "總金額：" + order.total;
+                    rightDiv.appendChild(totalH3);
+
+                    if (orderType === "group") {
+                        const exitButton = document.createElement("button");
+                        exitButton.classList.add("return-button");
+                        exitButton.textContent = "退出團購";
+                        rightDiv.appendChild(exitButton);
+                    } else if (orderType === "retail") {
+                        const returnButton = document.createElement("button");
+                        returnButton.classList.add("return-button");
+                        returnButton.textContent = "我要退貨";
+                        rightDiv.appendChild(returnButton);
+                    }
+
+                    orderInfoDiv.appendChild(rightDiv);
+                    orderDiv.appendChild(orderInfoDiv);
+                    orderList.appendChild(orderDiv);
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const orderTypeSelect = document.getElementById("orderType");
+            orderTypeSelect.addEventListener("change", function () {
+                const selectedType = orderTypeSelect.value;
+                createOrderList(selectedType);
+            });
+
+            createOrderList("group"); // 預設顯示團購訂單
+        });
+
+    </script>
+</body>
+
+</html>

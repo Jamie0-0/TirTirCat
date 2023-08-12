@@ -18,20 +18,25 @@ import com.google.gson.JsonObject;
 import order.vo.CartItem;
 import product_fe.dao.ProductDao;
 import product_fe.dao.ProductDaoImpl;
+import product_fe.dao.ProductJedisDao;
+import product_fe.dao.ProductJedisDaoImpl;
 import product_fe.util.ProductUtil;
 import product_fe.vo.Product;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 import webSocket.jedis.JedisPoolUtil;
 
 public class ProductServiceImpl implements ProductService {
 
 	private ProductDao dao;
 	List<String> msgs;
+	private ProductJedisDao productJedisDao;
 
 	public ProductServiceImpl() {
 		dao = new ProductDaoImpl();
 		msgs = new LinkedList<String>();
+		productJedisDao = new ProductJedisDaoImpl();
 	}
 
 	@Override
@@ -364,21 +369,33 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void saveCartToReddis(HttpSession session, int uid) {
-		HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
-		Gson gson = new Gson();
-//		String cartJSON = gson.toJson(cartList);
-
-		Map<String, String> cartListString = ProductUtil.mapIntToString(cartList);
-		System.out.println("uid=" + uid);
-		System.out.println("cartListString=" + cartListString);
-		Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
-		
-		jedis.hmset("user:" + uid + ":cart.list", cartListString);
-//		jedis.mset("user:" + uid + ":cart.list", cartJSON);
-		
-		jedis.close();
+	public void saveCartToRedis(HttpSession session, int uid) {
+		try {
+			HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+			Map<String, String> cartListString = ProductUtil.mapIntToString(cartList);
+			productJedisDao.setCartList(cartListString, uid);
+		} catch (JedisConnectionException e) {
+			e.printStackTrace();
+			System.out.println("Redis連線失敗");
+		}
 		
 	}
+
+	@Override
+	public void deleteCartItemFromRedis(HttpSession session, int uid, int p_id) {
+		String pid = String.valueOf(p_id);
+		
+		try {
+			HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+			Map<String, String> cartListString = ProductUtil.mapIntToString(cartList);
+			productJedisDao.deleteCartItem(cartListString, uid, pid);
+		} catch (JedisConnectionException e) {
+			e.printStackTrace();
+			System.out.println("Redis連線失敗");
+		}
+
+		
+	}
+
 
 }

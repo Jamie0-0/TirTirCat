@@ -243,7 +243,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Product selectByPId(Integer p_id) {
 //		String selectByPIdSql = "SELECT * FROM product where p_id = ?;";
-		String selectByPIdSql = "SELECT p_id, p_m_id, p_name, p_price, p_stock, p_type, p_class, p_des, m_name\r\n"
+		String selectByPIdSql = "SELECT p_id, p_m_id, p_name, p_price, p_stock, p_type, p_class, p_des, m_name, p_pic_one, p_pic_two, p_pic_three, p_pic_four\r\n"
 				+ "FROM PRODUCT p join MASTER m \r\n"
 				+ "ON p.p_m_id = m.m_id\r\n"
 				+ "WHERE p_id = ?;";
@@ -267,10 +267,10 @@ public class ProductDaoImpl implements ProductDao {
 				product.setP_des(rs.getString("p_des"));
 //				master.setM_name(rs.getString("m_name"));
 //				product.setP_status(rs.getString("p_status"));
-//				product.setP_pic_one(rs.getBytes("p_pic_one"));
-//				product.setP_pic_two(rs.getBytes("p_pic_two"));
-//				product.setP_pic_three(rs.getBytes("p_pic_three"));
-//				product.setP_pic_four(rs.getBytes("p_pic_four"));
+				product.setP_pic_one(rs.getBytes("p_pic_one"));
+				product.setP_pic_two(rs.getBytes("p_pic_two"));
+				product.setP_pic_three(rs.getBytes("p_pic_three"));
+				product.setP_pic_four(rs.getBytes("p_pic_four"));
 //				product.setP_1(rs.getString("p_1"));
 //				product.setP_2(rs.getString("p_2"));
 //				product.setP_3(rs.getString("p_3"));

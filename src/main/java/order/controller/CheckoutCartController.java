@@ -36,28 +36,33 @@ public class CheckoutCartController extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		Gson gson = new Gson();
-		String message = gson.toJson("");
 		// 1. ok 清空購物車
 		// 2. ok 生成母訂單, 子訂單, 訂單明細 (訂單狀態: 預設未出貨?)
 		// 3. ok 商品數量跟著購買數量減少
 		// 4. ok 燈箱出現下單成功之後要跳轉去商城首頁
 		// 5. 宅配資訊格式錯誤訊息? -> 每一欄不可空白, 電話只能數字
 
+		// redis沒開的話會拋出以下例外, 要接? 僅文字顯示錯誤還是改成session版?
+		// redis.clients.jedis.exceptions.JedisConnectionException:
+		// java.net.SocketException: Connection reset by peer
+
 		Orders orders = gson.fromJson(req.getReader(), Orders.class);
 		boolean orderIsEstabished = service.createOrders(orders);
 
 		if (orderIsEstabished == true) {
-			// session版 購物車清空
-			HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
-			cartList.clear();
+//			////// session版 購物車清空
+//			HashMap<Integer, Integer> cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
+//			cartList.clear();
+//			/////////
 
-//			message = "{\"status\":\"true\",\"msgs\":" + gson.toJson(service.getMsgs()) + "}";
-			resp.getWriter().write(gson.toJson(service.getMsgs()));
-		} else if (orderIsEstabished == false) {
-//			message = "{\"status\":\"false\",\"msgs\":" + gson.toJson(service.getMsgs()) + "}";
-			resp.getWriter().write(gson.toJson(service.getMsgs()));
+			////// redis版 購物車清空
+			service.deleteCartFromRedis(session);	
 		}
 
+		String message = "{\"status\":" + gson.toJson(orderIsEstabished) + ",\"msgs\":" + gson.toJson(service.getMsgs()) + "}";;
+		resp.getWriter().write(message);
+		System.out.println(service.getMsgs());
+		System.out.println(message);
 	}
 
 	@Override

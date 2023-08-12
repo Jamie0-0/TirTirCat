@@ -434,7 +434,7 @@
                         params.append("keywords", keywords);
 
                         // 使用 fetch 請求資料庫資料筆數
-                        fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+                        fetch(`shop/categories?${params.toString()}`, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -461,7 +461,7 @@
                                 }
 
                                 // 使用 fetch 請求資料
-                                fetch(`http://localhost:8081/TirTirCat/shop/categories?how=${how}&&keywords=${keywords}`, {
+                                fetch(`shop/categories?how=${how}&&keywords=${keywords}`, {
                                     method: 'GET',
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -506,7 +506,7 @@
                                                 productListContainer.appendChild(productBox);
 
                                                 // 立刻回傳商品的p_id給Servlet，以獲取商品照片
-                                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                fetch(`productPic?p_id=${product.p_id}`, {
                                                     method: 'GET',
                                                 })
                                                     .then(photoData => {
@@ -514,7 +514,7 @@
                                                         console.log(photoData);
 
                                                         // 使用jQuery設置圖片來源
-                                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                        $(`#pic_content_${product.p_id}`).attr('src', `productPic?p_id=${product.p_id}`);
                                                         console.log($(`#pic_content_${product.p_id}`));
                                                     })
                                                     .catch(error => {
@@ -594,7 +594,7 @@
                                 params.append("keywords", keywords);
 
                                 // 使用 fetch 請求資料庫資料
-                                fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+                                fetch(`shop/categories?${params.toString()}`, {
                                     method: 'GET',
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -639,7 +639,7 @@
                                                 productListContainer.appendChild(productBox);
 
                                                 // 立刻回傳商品的p_id給Servlet，以獲取商品照片
-                                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                fetch(`productPic?p_id=${product.p_id}`, {
                                                     method: 'GET',
                                                 })
                                                     .then(photoData => {
@@ -647,7 +647,7 @@
                                                         console.log(photoData);
 
                                                         // 使用jQuery設置圖片來源
-                                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                        $(`#pic_content_${product.p_id}`).attr('src', `productPic?p_id=${product.p_id}`);
                                                         console.log($(`#pic_content_${product.p_id}`));
                                                     })
                                                     .catch(error => {
@@ -688,7 +688,7 @@
                                 params.append("keywords", keywords);
 
                                 // 使用 fetch 請求資料庫資料
-                                fetch(`http://localhost:8081/TirTirCat/shop/categories?${params.toString()}`, {
+                                fetch(`shop/categories?${params.toString()}`, {
                                     method: 'GET',
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -733,7 +733,7 @@
                                                 productListContainer.appendChild(productBox);
 
                                                 // 立刻回傳目前商品的p_id給Servlet，以獲取該項商品照片
-                                                fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                fetch(`productPic?p_id=${product.p_id}`, {
                                                     method: 'GET',
                                                 })
                                                     .then(photoData => {
@@ -741,7 +741,7 @@
                                                         console.log(photoData);
 
                                                         // 使用jQuery設置圖片來源
-                                                        $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                        $(`#pic_content_${product.p_id}`).attr('src', `productPic?p_id=${product.p_id}`);
                                                         console.log($(`#pic_content_${product.p_id}`));
                                                     })
                                                     .catch(error => {
@@ -782,7 +782,7 @@
                             // // ------------------------ 載入頁面抓全部商品列表 ------------------------- //
                             $(document).ready(function () {
                                 // 使用 fetch 請求資料庫資料筆數
-                                fetch('http://localhost:8081/TirTirCat/shop', {
+                                fetch('shop', {
                                     method: 'GET',
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -808,7 +808,7 @@
                                         }
 
                                         // 使用 fetch 請求資料
-                                        fetch('http://localhost:8081/TirTirCat/shop', {
+                                        fetch('shop', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json'
@@ -853,7 +853,7 @@
                                                         productListContainer.appendChild(productBox);
 
                                                         // 立刻回傳商品的p_id給Servlet，以獲取商品照片
-                                                        fetch(`http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`, {
+                                                        fetch(`productPic?p_id=${product.p_id}`, {
                                                             method: 'GET',
                                                         })
                                                             .then(photoData => {
@@ -861,7 +861,7 @@
                                                                 console.log(photoData);
 
                                                                 // 使用jQuery設置圖片來源
-                                                                $(`#pic_content_${product.p_id}`).attr('src', `http://localhost:8081/TirTirCat/productPic?p_id=${product.p_id}`);
+                                                                $(`#pic_content_${product.p_id}`).attr('src', `productPic?p_id=${product.p_id}`);
                                                                 console.log($(`#pic_content_${product.p_id}`));
                                                             })
                                                             .catch(error => {
@@ -898,7 +898,7 @@
                                         console.log("p_id = " + p_id);
 
                                         // 使用 fetch 向後端傳送商品的 p_id 以獲取商品詳細資料
-                                        fetch(`http://localhost:8081/TirTirCat/shop/productDetail?p_id=${p_id}`, {
+                                        fetch(`shop/productDetail?p_id=${p_id}`, {
                                             method: 'GET',
                                             headers: {
                                                 'Content-Type': 'application/json'
@@ -908,7 +908,7 @@
                                             .then(data => {
                                                 console.log("商品詳細資料:", data.viewProductDetail);
                                                 // 重新導向到 product-4-image.html 頁面，並將 p_id 作為查詢參數傳遞
-                                                location.href = `http://localhost:8081/TirTirCat/product-4-image.html?p_id=${p_id}`;
+                                                location.href = `product-4-image.html?p_id=${p_id}`;
                                             })
 
                                             .catch(error => {

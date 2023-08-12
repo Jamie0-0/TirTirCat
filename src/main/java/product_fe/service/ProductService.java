@@ -32,7 +32,9 @@ public interface ProductService {
 	
 	JsonArray getCartListJSON(Map<Integer, Integer> cartList); //cartcontroller用這個?
 	
-	void saveCartToReddis(HttpSession session, int uid);
+	void saveCartToRedis(HttpSession session, int uid);
+	
+	void deleteCartItemFromRedis(HttpSession session, int uid, int p_id);
 	
 //	String getCartListAndTotalJSON(Map<Integer, Integer> cartList); //cartcontroller用這個?
 }

@@ -1,6 +1,8 @@
 package order.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -9,9 +11,14 @@ import org.hibernate.Transaction;
 
 import core.util.HibernateUtil;
 import order.vo.ProductOrder;
+import product_fe.util.ProductUtil;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import product_fe.util.JedisPoolUtil;
 
 public class ProductOrderDaoImpl implements ProductOrderDao {
 	private DataSource ds;
+	private static JedisPool pool = JedisPoolUtil.getJedisPool();
 	
 	private Session getSession() {
 		return HibernateUtil.getSessionFactory().getCurrentSession();
@@ -78,26 +85,41 @@ public class ProductOrderDaoImpl implements ProductOrderDao {
 		return getSession().createQuery("from ProductOrder", ProductOrder.class).list();
 	}
 
+//	@Override
+//	public ProductOrder selectByUid(int order_uid) {
+//	    Session session = getSession();
+//	    Transaction transaction = null;
+//	    ProductOrder productOrder = null;
+////		return getSession().get(ProductOrder.class, order_uid);
+////		return HibernateUtil.getSessionFactory().openSession().get(ProductOrder.class, order_uid);
+//	    
+//	    try {
+//	        transaction = session.beginTransaction();
+//	        productOrder = session.get(ProductOrder.class, order_uid);
+//	        transaction.commit();
+//	    } catch (Exception e) {
+//	        if (transaction != null) {
+//	            transaction.rollback();
+//	        }
+//	        e.printStackTrace();
+//	    }
+//	    
+//	    return productOrder;
+//	}
+
 	@Override
-	public ProductOrder selectByUid(int order_uid) {
-	    Session session = getSession();
-	    Transaction transaction = null;
-	    ProductOrder productOrder = null;
-//		return getSession().get(ProductOrder.class, order_uid);
-//		return HibernateUtil.getSessionFactory().openSession().get(ProductOrder.class, order_uid);
-	    
-	    try {
-	        transaction = session.beginTransaction();
-	        productOrder = session.get(ProductOrder.class, order_uid);
-	        transaction.commit();
-	    } catch (Exception e) {
-	        if (transaction != null) {
-	            transaction.rollback();
-	        }
-	        e.printStackTrace();
-	    }
-	    
-	    return productOrder;
+	public void deleteKeys(String uid) {
+	
+		Jedis jedis = pool.getResource();
+		jedis.del("user:" + uid + ":cart.list", uid);
+		jedis.close();
+
+	}
+
+	@Override
+	public List<ProductOrder> selectAllProductOrderByUid(int uid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 //	@Override

@@ -21,7 +21,7 @@ import product_fe.service.ProductService;
 import product_fe.service.ProductServiceImpl;
 import product_fe.util.ProductUtil;
 import redis.clients.jedis.Jedis;
-import webSocket.jedis.JedisPoolUtil;
+import product_fe.util.JedisPoolUtil;
 
 @WebServlet("/updateCart")
 public class UpdateCartController extends HttpServlet {
@@ -86,7 +86,7 @@ public class UpdateCartController extends HttpServlet {
 		service.updateCart(req, p_id, quantity, cartList);
 		
 		if (username != null) {
-			service.saveCartToReddis(session, uid);
+			service.saveCartToRedis(session, uid);
 		}
 
 				

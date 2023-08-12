@@ -19,10 +19,10 @@ import member.dao.MemberDaoImpl;
 import member.vo.Member;
 import product_fe.service.ProductService;
 import product_fe.service.ProductServiceImpl;
+import product_fe.util.JedisPoolUtil;
 import product_fe.util.ProductUtil;
 import product_fe.vo.Product;
 import redis.clients.jedis.Jedis;
-import webSocket.jedis.JedisPoolUtil;
 
 @WebServlet("/addToCart")
 public class AddToCartController extends HttpServlet {
@@ -59,7 +59,6 @@ public class AddToCartController extends HttpServlet {
 		
 		if (username == null) {
 			cartList = (HashMap<Integer, Integer>) session.getAttribute("cartList");
-			System.out.println("用到1");
 		} else if (username != null) {
 			System.out.println("用到2");
 			System.out.println("username = "+username);
@@ -89,7 +88,7 @@ public class AddToCartController extends HttpServlet {
 		service.addToCart(req, p_id_string, quantity_string, cartList);
 		
 		if (username != null) {
-			service.saveCartToReddis(session, uid);
+			service.saveCartToRedis(session, uid);
 		}
 
 		// 檢查欲增加數量有沒有大於商品庫存數量, 有的話直接回傳錯誤訊息就結束
